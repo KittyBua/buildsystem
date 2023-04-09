@@ -16,7 +16,7 @@ ENIGMA2_DEPS += $(D)/tuxtxt32bpp
 ENIGMA2_DEPS += $(D)/hotplug_e2_helper
 ENIGMA2_DEPS += $(D)/avahi
 ENIGMA2_DEPS += $(D)/python
-ENIGMA2_DEPS  += $(D)/libsigc
+ENIGMA2_DEPS += $(D)/libsigc
 ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), size))
 ENIGMA2_DEPS += $(D)/ethtool
 ENIGMA2_DEPS += $(D)/alsa_utils
@@ -137,11 +137,11 @@ $(D)/hotplug_e2_helper: $(D)/bootstrap
 #
 # libsigc++_e2
 #
-LIBSIGC_E2_VER_MAJOR = 1
-LIBSIGC_E2_VER_MINOR = 2
-LIBSIGC_E2_VER_MICRO = 7
+LIBSIGC_E2_VER_MAJOR = 3
+LIBSIGC_E2_VER_MINOR = 0
+LIBSIGC_E2_VER_MICRO = 0
 LIBSIGC_E2_VER = $(LIBSIGC_E2_VER_MAJOR).$(LIBSIGC_E2_VER_MINOR).$(LIBSIGC_E2_VER_MICRO)
-LIBSIGC_E2_SOURCE = libsigc++-$(LIBSIGC_E2_VER).tar.gz
+LIBSIGC_E2_SOURCE = libsigc++-$(LIBSIGC_E2_VER).tar.xz
 
 $(ARCHIVE)/$(LIBSIGC_E2_SOURCE):
 	$(WGET) https://ftp.gnome.org/pub/GNOME/sources/libsigc++/$(LIBSIGC_E2_VER_MAJOR).$(LIBSIGC_E2_VER_MINOR)/$(LIBSIGC_E2_SOURCE)
