@@ -1846,24 +1846,54 @@ $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 #
 #MINISATIP_PATCH = minisatip.patch
 
-$(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(D)/dvb-apps $(ARCHIVE)/$(MINISATIP_SOURCE)
+#$(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATIP_SOURCE)
+#	$(START_BUILD)
+#	$(REMOVE)/minisatip
+#	set -e;
+#	 if [ -d $(ARCHIVE)/minisatip.git ]; \
+#		then cd $(ARCHIVE)/minisatip.git; git pull; \
+#		else cd $(ARCHIVE); git clone https://github.com/catalinii/minisatip.git minisatip.git; \
+#		fi
+#	cp -ra $(ARCHIVE)/minisatip.git $(BUILD_TMP)/minisatip
+#	$(CHDIR)/minisatip; \
+#		$(call apply_patches,$(MINISATIP_PATCH)); \
+#		$(BUILDENV) \
+#		export CFLAGS="-pipe -Os -Wall -g0 -I$(TARGET_INCLUDE_DIR)"; \
+#		export CPPFLAGS="-I$(TARGET_INCLUDE_DIR)"; \
+#		export LDFLAGS="-L$(TARGET_LIB_DIR)"; \
+#		./configure \
+#			--host=$(TARGET) \
+#			--build=$(BUILD) \
+#			--enable-enigma \
+#			--enable-static \
+#			--disable-netceiver \
+#		; \
+#		$(MAKE); \
+#	install -m 755 $(BUILD_TMP)/minisatip/minisatip $(TARGET_DIR)/usr/bin
+#	install -d $(TARGET_DIR)/usr/share/minisatip
+#	cp -a $(BUILD_TMP)/minisatip/html $(TARGET_DIR)/usr/share/minisatip
+#	$(REMOVE)/minisatip
+#	$(TOUCH)
+#MINISATIP_PATCH = minisatip.patch
+
+$(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATIP_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/minisatip
-	set -e; if [ -d $(ARCHIVE)/minisatip.git ]; \
-		then cd $(ARCHIVE)/minisatip.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/catalinii/minisatip.git minisatip.git; \
-		fi
-	cp -ra $(ARCHIVE)/minisatip.git $(BUILD_TMP)/minisatip
+	set -e; 
+#	if [ -d $(ARCHIVE)/minisatip.git ]; \
+#		then cd $(ARCHIVE)/minisatip.git; git pull; \
+#		else cd $(ARCHIVE); git clone https://github.com/catalinii/minisatip.git minisatip.git; \
+#		fi
+	cp -ra $(ARCHIVE)/minisatip $(BUILD_TMP)/minisatip
 	$(CHDIR)/minisatip; \
 		$(call apply_patches,$(MINISATIP_PATCH)); \
 		$(BUILDENV) \
-		export CFLAGS="-pipe -Os -Wall -g0 -I$(TARGET_INCLUDE_DIR)"; \
+		export CFLAGS="-pipe -Os -Wall -g0 -ldl -I$(TARGET_INCLUDE_DIR)"; \
 		export CPPFLAGS="-I$(TARGET_INCLUDE_DIR)"; \
 		export LDFLAGS="-L$(TARGET_LIB_DIR)"; \
 		./configure \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
-			--enable-enigma \
 			--enable-static \
 		; \
 		$(MAKE); \

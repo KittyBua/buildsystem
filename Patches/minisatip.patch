@@ -1,22 +1,14 @@
-diff --git a/src/minisatip.c b/src/minisatip.c
-index 626cd27..1eee479 100644
---- a/src/minisatip.c
-+++ b/src/minisatip.c
-@@ -1872,7 +1872,7 @@ int main(int argc, char *argv[]) {
- int readBootID() {
-     int did = 0;
-     opts.bootid = 0;
--    FILE *f = fopen("bootid", "rt");
-+    FILE *f = fopen("/tmp/bootid", "rt");
-     __attribute__((unused)) int rv;
-     if (f) {
-         rv = fscanf(f, "%d %d", &opts.bootid, &did);
-@@ -1883,7 +1883,7 @@ int readBootID() {
-     opts.bootid++;
-     if (opts.device_id < 1)
-         opts.device_id = 1;
--    f = fopen("bootid", "wt");
-+    f = fopen("/tmp/bootid", "wt");
-     if (f) {
-         fprintf(f, "%d %d", opts.bootid, opts.device_id);
-         fclose(f);
+diff --git a/src/dvb.h b/src/dvb.h
+index bc43e32..a152aa7 100644
+--- a/src/dvb.h
++++ b/src/dvb.h
+@@ -23,6 +23,9 @@
+ #include <linux/dvb/version.h>
+ #define DVBAPIVERSION (DVB_API_VERSION << 8 | DVB_API_VERSION_MINOR)
+ #define LOGDVBAPIVERSION DVBAPIVERSION
++#ifndef SYS_DVBC_ANNEX_C
++#define SYS_DVBC_ANNEX_C 18
++#endif
+ #endif
+ 
+ #if DVBAPIVERSION < 0x0500

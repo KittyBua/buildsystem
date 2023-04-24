@@ -240,10 +240,10 @@ release-ENIGMA2: release-NONE $(D)/enigma2
 	cp -aR $(TARGET_DIR)/usr/local/share/enigma2 $(RELEASE_DIR)/usr/local/share
 	cp -aR $(TARGET_DIR)/usr/local/share/keymaps $(RELEASE_DIR)/usr/local/share
 	cp -aR $(TARGET_DIR)/usr/local/share/meta $(RELEASE_DIR)/usr/local/share
-	cp -aR $(TARGET_DIR)/usr/local/share/fonts $(RELEASE_DIR)/usr/share
+	cp -aR $(TARGET_DIR)/usr/local/share/fonts $(RELEASE_DIR)/usr/local/share
 	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
 	cp -Rf $(TARGET_DIR)/usr/local/share/enigma2/po/en $(RELEASE_DIR)/usr/local/share/enigma2/po
 	cp -Rf $(TARGET_DIR)/usr/local/share/enigma2/po/de $(RELEASE_DIR)/usr/local/share/enigma2/po
 	cp -aR $(SKEL_ROOT)/usr/local/share/enigma2/* $(RELEASE_DIR)/usr/local/share/enigma2
-	mkdir -p $(RELEASE_DIR)/etc/enigma2
+	cp -aR $(SKEL_ROOT)/etc/tuxbox/* $(RELEASE_DIR)/etc/tuxbox/
 		
