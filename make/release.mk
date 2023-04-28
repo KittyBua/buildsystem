@@ -475,14 +475,6 @@ endif
 	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 	rm -rf $(RELEASE_DIR)/usr/lib/gcc
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
-#	rm -rf $(RELEASE_DIR)/usr/local/share/enigma2/po/*
-#	rm -f $(RELEASE_DIR)/usr/local/share/meta/*
-#	rm -rf $(RELEASE_DIR)/usr/local/share/fonts
-#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/black.mvi
-#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/hd-testcard.mvi
-#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/otv_*
-#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/keymap.u80
-#	rm -f $(RELEASE_DIR)/usr/local/bin/enigma2.sh
 	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
 	rm -f $(RELEASE_DIR)/usr/share/meta/*
 	rm -rf $(RELEASE_DIR)/usr/share/fonts
