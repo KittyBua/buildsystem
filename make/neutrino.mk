@@ -288,7 +288,7 @@ $(D)/neutrino-plugins.do_prepare:
 	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] && \
 	(cd $(ARCHIVE)/neutrino-plugins.git; git pull;); \
 	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] || \
-	git clone https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git; \
+	git clone https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git $(ARCHIVE)/neutrino-ddt-plugins.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugins.git $(SOURCE_DIR)/neutrino-plugins
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
 	sed -i -e 's#shellexec fx2#shellexec#g' $(SOURCE_DIR)/neutrino-plugins/Makefile.am
@@ -361,7 +361,7 @@ $(D)/neutrino-plugins-scripts-lua: $(D)/bootstrap
 	[ -d "$(ARCHIVE)/neutrino-plugin-scripts-lua.git" ] && \
 	(cd $(ARCHIVE)/neutrino-plugin-scripts-lua.git; git pull;); \
 	[ -d "$(ARCHIVE)/neutrino-plugin-scripts-lua.git" ] || \
-	git clone https://github.com/Duckbox-Developers/neutrino-plugin-scripts-lua.git; \
+	git clone https://github.com/Duckbox-Developers/neutrino-plugin-scripts-lua.git $(ARCHIVE)/neutrino-plugin-scripts-lua.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugin-scripts-lua.git/plugins $(BUILD_TMP)/neutrino-plugin-scripts-lua
 	$(CHDIR)/neutrino-plugin-scripts-lua; \
 		install -d $(TARGET_DIR)/var/tuxbox/plugins
@@ -381,7 +381,7 @@ $(D)/neutrino-plugins-mediathek:
 	[ -d "$(ARCHIVE)/neutrino-plugins-mediathek.git" ] && \
 	(cd $(ARCHIVE)/neutrino-plugins-mediathek.git; git pull;); \
 	[ -d "$(ARCHIVE)/neutrino-plugins-mediathek.git" ] || \
-	git clone https://github.com/Duckbox-Developers/neutrino-plugins-mediathek.git; \
+	git clone https://github.com/Duckbox-Developers/neutrino-plugins-mediathek.git $(ARCHIVE)/neutrino-plugins-mediathek.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugins-mediathek.git $(BUILD_TMP)/neutrino-plugins-mediathek
 	install -d $(TARGET_DIR)/var/tuxbox/plugins
 	$(CHDIR)/neutrino-plugins-mediathek; \

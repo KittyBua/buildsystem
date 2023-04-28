@@ -1808,7 +1808,7 @@ $(D)/ofgwrite: $(D)/bootstrap $(ARCHIVE)/$(OFGWRITE_SOURCE)
 	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] && \
 	(cd $(ARCHIVE)/ofgwrite-ddt.git; git pull;); \
 	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] || \
-	git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git ofgwrite-ddt.git; \
+	git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git ofgwrite-ddt.git $(ARCHIVE)/ofgwrite-ddt.git; \
 	cp -ra $(ARCHIVE)/ofgwrite-ddt.git $(BUILD_TMP)/ofgwrite-ddt
 	$(CHDIR)/ofgwrite-ddt; \
 		$(call apply_patches,$(OFGWRITE_PATCH)); \
@@ -1832,7 +1832,7 @@ $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 	[ -d "$(ARCHIVE)/dvb-apps.git" ] && \
 	(cd $(ARCHIVE)/dvb-apps.git; git pull;); \
 	[ -d "$(ARCHIVE)/dvb-apps.git" ] || \
-	git clone https://github.com/openpli-arm/dvb-apps.git dvb-apps.git; \
+	git clone https://github.com/openpli-arm/dvb-apps.git dvb-apps.git $(ARCHIVE)/dvb-apps.git; \
 	cp -ra $(ARCHIVE)/dvb-apps.git $(BUILD_TMP)/dvb-apps
 	$(CHDIR)/dvb-apps; \
 		$(call apply_patches,$(DVB_APPS_PATCH)); \
