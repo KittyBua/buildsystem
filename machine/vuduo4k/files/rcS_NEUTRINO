@@ -123,7 +123,7 @@ echo "[rcS] starting neutrino ->"
 
 until false
 do
-	/usr/local/bin/neutrino
+	/usr/bin/neutrino
 	rtv=$?
 	echo "neutrino ended <- RTV: " $rtv
 	case "$rtv" in

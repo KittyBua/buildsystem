@@ -74,21 +74,18 @@ BUILD                ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /
 
 ifeq ($(BOXARCH), sh4)
 TARGET               ?= sh4-linux
-BOXARCH              ?= sh4
 TARGET_MARCH_CFLAGS   =
 CORTEX_STRINGS        =
 endif
 
 ifeq ($(BOXARCH), arm)
 TARGET               ?= arm-cortex-linux-gnueabihf
-BOXARCH              ?= arm
 TARGET_MARCH_CFLAGS   = -march=armv7ve -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard
 CORTEX_STRINGS        = -lcortex-strings
 endif
 
 ifeq ($(BOXARCH), mipsel)
 TARGET		     ?= mipsel-unknown-linux-gnu
-BOXARCH		     ?= mipsel
 TARGET_MARCH_CFLAGS   = -march=mips32 -mtune=mips32
 CORTEX_STRINGS        =
 endif
@@ -173,16 +170,14 @@ PKG_NAME_HELPER       = $(shell echo $(PKG_NAME) | sed 's/.*/\U&/')
 PKG_VER_HELPER        = A$($(PKG_NAME_HELPER)_VER)A
 PKG_VER               = $($(PKG_NAME_HELPER)_VER)
 
-START_BUILD           = @echo "=============================================================="; \
-                        echo; \
+START_BUILD           = echo; \
                         if [ $(PKG_VER_HELPER) == "AA" ]; then \
                             echo -e "Start build of $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL)"; \
                         else \
                             echo -e "Start build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL)"; \
                         fi
                         
-END_BUILD             = @echo "=============================================================="; \
-                        echo; \
+END_BUILD             = echo; \
                         if [ $(PKG_VER_HELPER) == "AA" ]; then \
                             echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL) completed"; \
                         else \

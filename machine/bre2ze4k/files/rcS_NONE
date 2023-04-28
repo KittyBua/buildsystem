@@ -22,22 +22,16 @@ mount -t tmpfs mnt /mnt
 #mkdir -p /media/hdd
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
+
+#
 echo /sbin/mdev >/proc/sys/kernel/hotplug
 mdev -s
 
 echo "[rcS] starting mountall"
 /etc/init.d/mountall start
 
-if [ -e /var/backup_flash.tar.gz ]; then
-	tar xvf /var/backup_flash.tar.gz -C /
-	rm -f /var/backup_flash.tar.gz
-fi
-
 echo "[rcS] add mmcblks in /dev/block"
 /etc/init.d/mmcblk-by-name
-
-# load moduls from modules.extra ( kerneloptions )
-[ -f /var/etc/modules.extra ] && eval `awk '{ if ($1) print "insmod /lib/modules/" $1 ".ko " $2,$3,$4,$5,$6,$7,$8,$9 "; "}' < /var/etc/modules.extra`
 
 echo "[rcS] setup network"
 NFS=$(grep -c nfs /proc/cmdline)
@@ -69,17 +63,11 @@ fi
 /etc/init.d/nfs-common start
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
-insmod /lib/modules/bre2ze4k_1.ko
-insmod /lib/modules/bre2ze4k_2.ko
-insmod /lib/modules/bre2ze4k_3.ko
-insmod /lib/modules/bre2ze4k_4.ko
 
-echo "Booting... DDT" > /dev/dbox/oled0
-
-#
-echo "[rcS] starting mdev"
-echo /sbin/mdev >/proc/sys/kernel/hotplug
-mdev -s
+insmod /lib/modules/$(uname -r)/extra/bre2ze4k_1.ko
+insmod /lib/modules/$(uname -r)/extra/bre2ze4k_2.ko
+insmod /lib/modules/$(uname -r)/extra/bre2ze4k_3.ko
+insmod /lib/modules/$(uname -r)/extra/bre2ze4k_4.ko
 
 # set dummy time
 NTPDATE=`date +"%Y%m%d"`

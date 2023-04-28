@@ -121,6 +121,7 @@ NEUTRINO_CONFIG_OPTS += \
 	--with-themesdir_var=/var/tuxbox/themes \
 	--with-webtvdir=/share/tuxbox/neutrino/webtv \
 	--with-webtvdir_var=/var/tuxbox/plugins/webtv \
+	--with-controldir=/var/tuxbox/control \
 	PKG_CONFIG=$(PKG_CONFIG) \
 	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) \
 	CFLAGS="$(NEUTRINO_CFLAGS)" CXXFLAGS="$(NEUTRINO_CFLAGS)" CPPFLAGS="$(NEUTRINO_CPPFLAGS)"
@@ -162,8 +163,9 @@ $(D)/libstb-hal.config.status: | $(NEUTRINO_DEPS)
 		$(SOURCE_DIR)/$(LIBSTB-HAL)/configure --enable-silent-rules \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
-			--prefix= \
+			--prefix=/usr \
 			--with-target=cdk \
+			--with-targetprefix=/usr \
 			$(LH_CONFIG_OPTS) \
 			--with-boxtype=$(MACHINE) \
 			--enable-silent-rules \
@@ -218,6 +220,8 @@ $(D)/neutrino.config.status:
 		$(SOURCE_DIR)/$(NEUTRINO)/configure --enable-silent-rules \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
+			--prefix=/usr \
+			--with-targetprefix=/usr \
 			$(NEUTRINO_CONFIG_OPTS) \
 			--with-stb-hal-includes=$(SOURCE_DIR)/$(LIBSTB-HAL)/include \
 			--with-stb-hal-build=$(LH_OBJDIR)
@@ -280,10 +284,11 @@ endif
 $(D)/neutrino-plugins.do_prepare:
 	$(START_BUILD)
 	rm -rf $(SOURCE_DIR)/neutrino-plugins
-	set -e; if [ -d $(ARCHIVE)/neutrino-plugins.git ]; \
-		then cd $(ARCHIVE)/neutrino-plugins.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git neutrino-plugins.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] && \
+	(cd $(ARCHIVE)/neutrino-plugins.git; git pull;); \
+	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] || \
+	git clone https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugins.git $(SOURCE_DIR)/neutrino-plugins
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
 	sed -i -e 's#shellexec fx2#shellexec#g' $(SOURCE_DIR)/neutrino-plugins/Makefile.am
@@ -352,10 +357,11 @@ $(D)/neutrino-plugins-xupnpd: $(D)/xupnpd $(D)/lua $(D)/neutrino-plugins-scripts
 $(D)/neutrino-plugins-scripts-lua: $(D)/bootstrap
 	$(START_BUILD)
 	$(REMOVE)/neutrino-plugin-scripts-lua
-	set -e; if [ -d $(ARCHIVE)/neutrino-plugin-scripts-lua.git ]; \
-		then cd $(ARCHIVE)/neutrino-plugin-scripts-lua.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/Duckbox-Developers/plugin-scripts-lua.git neutrino-plugin-scripts-lua.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/neutrino-plugin-scripts-lua.git" ] && \
+	(cd $(ARCHIVE)/neutrino-plugin-scripts-lua.git; git pull;); \
+	[ -d "$(ARCHIVE)/neutrino-plugin-scripts-lua.git" ] || \
+	git clone https://github.com/Duckbox-Developers/neutrino-plugin-scripts-lua.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugin-scripts-lua.git/plugins $(BUILD_TMP)/neutrino-plugin-scripts-lua
 	$(CHDIR)/neutrino-plugin-scripts-lua; \
 		install -d $(TARGET_DIR)/var/tuxbox/plugins
@@ -371,10 +377,11 @@ $(D)/neutrino-plugins-scripts-lua: $(D)/bootstrap
 $(D)/neutrino-plugins-mediathek:
 	$(START_BUILD)
 	$(REMOVE)/neutrino-plugins-mediathek
-	set -e; if [ -d $(ARCHIVE)/neutrino-plugins-mediathek.git ]; \
-		then cd $(ARCHIVE)/neutrino-plugins-mediathek.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/Duckbox-Developers/mediathek.git neutrino-plugins-mediathek.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/neutrino-plugins-mediathek.git" ] && \
+	(cd $(ARCHIVE)/neutrino-plugins-mediathek.git; git pull;); \
+	[ -d "$(ARCHIVE)/neutrino-plugins-mediathek.git" ] || \
+	git clone https://github.com/Duckbox-Developers/neutrino-plugins-mediathek.git; \
 	cp -ra $(ARCHIVE)/neutrino-plugins-mediathek.git $(BUILD_TMP)/neutrino-plugins-mediathek
 	install -d $(TARGET_DIR)/var/tuxbox/plugins
 	$(CHDIR)/neutrino-plugins-mediathek; \
@@ -385,32 +392,281 @@ $(D)/neutrino-plugins-mediathek:
 	$(TOUCH)
 	
 #
-# release-NEUTRINO
+# release-neutrino
 #
-release-NEUTRINO: release-NONE $(D)/neutrino $(NEUTRINO_PLUGINS)
+release-neutrino: release-common release-$(BOXTYPE) $(D)/neutrino $(NEUTRINO_PLUGINS)
+	$(START_BUILD)
+	install -d $(RELEASE_DIR)/var/tuxbox
 	install -d $(RELEASE_DIR)/usr/share/iso-codes
 	install -d $(RELEASE_DIR)/usr/share/tuxbox
 	install -d $(RELEASE_DIR)/var/tuxbox
 	install -d $(RELEASE_DIR)/var/tuxbox/config/{webtv,zapit}
 	install -d $(RELEASE_DIR)/var/tuxbox/plugins
 	install -d $(RELEASE_DIR)/var/httpd
-	cp -af $(TARGET_DIR)/usr/local/bin/neutrino $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/backup.sh $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/install.sh $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/luaclient $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/pzapit $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/rcsim $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/restore.sh $(RELEASE_DIR)/usr/local/bin/
-	cp -af $(TARGET_DIR)/usr/local/bin/sectionsdcontrol $(RELEASE_DIR)/usr/local/bin/
+	cp -af $(TARGET_DIR)/usr/bin/neutrino $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/backup.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/install.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/luaclient $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/pzapit $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/rcsim $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/sectionsdcontrol $(RELEASE_DIR)/usr/bin/
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
 #	cp -aR $(TARGET_DIR)/usr/share/tuxbox/sokoban $(RELEASE_DIR)/usr/share/tuxbox
 	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share/
 	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
+	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NEUTRINO $(RELEASE_DIR)/etc/init.d/rcS
+#
+# lib usr/lib
+#
+	cp -R $(TARGET_DIR)/lib/* $(RELEASE_DIR)/lib/
+	rm -f $(RELEASE_DIR)/lib/*.{a,o,la}
+	chmod 755 $(RELEASE_DIR)/lib/*
+	cp -R $(TARGET_DIR)/usr/lib/* $(RELEASE_DIR)/usr/lib/
+	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,sigc++-1.2,sigc++-2.0,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio}
+	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
+	chmod 755 $(RELEASE_DIR)/usr/lib/*
+#
+#gstreamer
+#
+ifeq ($(GSTREAMER), gstreamer)
+	cp -aR $(TARGET_DIR)/usr/lib/gstreamer-1.0 $(RELEASE_DIR)/usr/lib
+	cp -aR $(TARGET_DIR)/usr/lib/gio $(RELEASE_DIR)/usr/lib
+endif
+#
+# lua
+#
+ifeq ($(LUA), lua)
+	cp -R $(TARGET_DIR)/usr/lib/lua $(RELEASE_DIR)/usr/lib/
+	if [ -d $(TARGET_DIR)/usr/share/lua ]; then \
+		cp -aR $(TARGET_DIR)/usr/share/lua/* $(RELEASE_DIR)/usr/share/lua; \
+	fi
+endif
+#
+# python
+#
+ifeq ($(PYTHON), python)
+	install -d $(RELEASE_DIR)/$(PYTHON_DIR)
+	cp -R $(TARGET_DIR)/$(PYTHON_DIR)/* $(RELEASE_DIR)/$(PYTHON_DIR)/
+	install -d $(RELEASE_DIR)/$(PYTHON_INCLUDE_DIR)
+	cp $(TARGET_DIR)/$(PYTHON_INCLUDE_DIR)/pyconfig.h $(RELEASE_DIR)/$(PYTHON_INCLUDE_DIR)
+endif
+#
+# mc
+#
+	if [ -e $(TARGET_DIR)/usr/bin/mc ]; then \
+		cp -aR $(TARGET_DIR)/usr/share/mc $(RELEASE_DIR)/usr/share/; \
+		cp -af $(TARGET_DIR)/usr/libexec $(RELEASE_DIR)/usr/; \
+	fi
+#
+# shairport
+#
+	if [ -e $(TARGET_DIR)/usr/bin/shairport ]; then \
+		cp -f $(TARGET_DIR)/usr/bin/shairport $(RELEASE_DIR)/usr/bin; \
+		cp -f $(TARGET_DIR)/usr/bin/mDNSPublish $(RELEASE_DIR)/usr/bin; \
+		cp -f $(TARGET_DIR)/usr/bin/mDNSResponder $(RELEASE_DIR)/usr/bin; \
+		cp -f $(SKEL_ROOT)/etc/init.d/shairport $(RELEASE_DIR)/etc/init.d/shairport; \
+		chmod 755 $(RELEASE_DIR)/etc/init.d/shairport; \
+		cp -f $(TARGET_DIR)/usr/lib/libhowl.so* $(RELEASE_DIR)/usr/lib; \
+		cp -f $(TARGET_DIR)/usr/lib/libmDNSResponder.so* $(RELEASE_DIR)/usr/lib; \
+	fi	
+#
+# alsa
+#
+	if [ -e $(TARGET_DIR)/usr/share/alsa ]; then \
+		mkdir -p $(RELEASE_DIR)/usr/share/alsa/; \
+		mkdir $(RELEASE_DIR)/usr/share/alsa/cards/; \
+		mkdir $(RELEASE_DIR)/usr/share/alsa/pcm/; \
+		cp -dp $(TARGET_DIR)/usr/share/alsa/alsa.conf $(RELEASE_DIR)/usr/share/alsa/alsa.conf; \
+		cp $(TARGET_DIR)/usr/share/alsa/cards/aliases.conf $(RELEASE_DIR)/usr/share/alsa/cards/; \
+		cp $(TARGET_DIR)/usr/share/alsa/pcm/default.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
+		cp $(TARGET_DIR)/usr/share/alsa/pcm/dmix.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
+#		cp $(TARGET_DIR)/usr/bin/amixer $(RELEASE_DIR)/usr/bin/; \
+	fi
+#
+# nfs-utils
+#
+	if [ -e $(TARGET_DIR)/usr/sbin/rpc.nfsd ]; then \
+		cp -f $(TARGET_DIR)/usr/sbin/exportfs $(RELEASE_DIR)/usr/sbin/; \
+		cp -f $(TARGET_DIR)/usr/sbin/rpc.nfsd $(RELEASE_DIR)/usr/sbin/; \
+		cp -f $(TARGET_DIR)/usr/sbin/rpc.mountd $(RELEASE_DIR)/usr/sbin/; \
+		cp -f $(TARGET_DIR)/usr/sbin/rpc.statd $(RELEASE_DIR)/usr/sbin/; \
+	fi
+#
+# autofs
+#
+ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
+	if [ -d $(RELEASE_DIR)/usr/lib/autofs ]; then \
+		cp -f $(TARGET_DIR)/usr/sbin/automount $(RELEASE_DIR)/usr/sbin/; \
+#		ln -s /usr/sbin/automount $(RELEASE_DIR)/sbin/automount; \
+	fi
+endif
+#
+# graphlcd
+#
+	if [ -e $(RELEASE_DIR)/usr/lib/libglcddrivers.so ]; then \
+		cp -f $(TARGET_DIR)/etc/graphlcd.conf $(RELEASE_DIR)/etc/; \
+		rm -f $(RELEASE_DIR)/usr/lib/libglcdskin.so*; \
+	fi
+#
+# lcd4linux
+#
+	if [ -e $(TARGET_DIR)/usr/bin/lcd4linux ]; then \
+		cp -f $(TARGET_DIR)/usr/bin/lcd4linux $(RELEASE_DIR)/usr/bin/; \
+		cp -f $(TARGET_DIR)/etc/init.d/lcd4linux $(RELEASE_DIR)/etc/init.d/; \
+		cp -a $(TARGET_DIR)/etc/lcd4linux.conf $(RELEASE_DIR)/etc/; \
+	fi
+#
+# minidlna
+#
+	if [ -e $(TARGET_DIR)/usr/sbin/minidlnad ]; then \
+		cp -f $(TARGET_DIR)/usr/sbin/minidlnad $(RELEASE_DIR)/usr/sbin/; \
+	fi
+#
+# openvpn
+#
+	if [ -e $(TARGET_DIR)/usr/sbin/openvpn ]; then \
+		cp -f $(TARGET_DIR)/usr/sbin/openvpn $(RELEASE_DIR)/usr/sbin; \
+		install -d $(RELEASE_DIR)/etc/openvpn; \
+	fi
+#
+# udpxy
+#
+	if [ -e $(TARGET_DIR)/usr/bin/udpxy ]; then \
+		cp -f $(TARGET_DIR)/usr/bin/udpxy $(RELEASE_DIR)/usr/bin; \
+		cp -a $(TARGET_DIR)/usr/bin/udpxrec $(RELEASE_DIR)/usr/bin; \
+	fi
+#
+# xupnpd
+#
+	if [ -e $(TARGET_DIR)/usr/bin/xupnpd ]; then \
+		cp -f $(TARGET_DIR)/usr/bin/xupnpd $(RELEASE_DIR)/usr/bin; \
+		cp -aR $(TARGET_DIR)/usr/share/xupnpd $(RELEASE_DIR)/usr/share; \
+		mkdir -p $(RELEASE_DIR)/usr/share/xupnpd/playlists; \
+	fi
+#
+# delete unnecessary files
+#
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/{bsddb,compiler,curses,lib-old,lib-tk,plat-linux3,test,sqlite3,pydoc_data,multiprocessing,hotshot,distutils,email,unitest,ensurepip,wsgiref,lib2to3,logging,idlelib}
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/pdb.doc
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/ctypes/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/email/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/json/tests
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/idlelib/idle_test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/idlelib/icons
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/lib2to3/tests
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/sqlite3/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/unittest/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/{test,conch,mail,names,news,words,flow,lore,pair,runner}
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/Cheetah/Tests
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/livestreamer_cli
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/lxml
+	rm -f $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/libxml2mod.so
+	rm -f $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/libxsltmod.so
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/OpenSSL/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/setuptools
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/zope/interface/tests
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/application/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/conch/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/internet/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/lore/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/mail/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/manhole/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/names/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/news/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/pair/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/persisted/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/protocols/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/python/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/runner/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/scripts/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/trial/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/web/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/words/test
+	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/*-py$(PYTHON_VER_MAJOR).egg-info
+ifeq ($(PYTHON), python)
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.a' -exec rm -f {} \;
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.c' -exec rm -f {} \;
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.pyx' -exec rm -f {} \;
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.py' -exec rm -f {} \;
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
+	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
+endif
+	rm -f $(RELEASE_DIR)/usr/bin/avahi-*
+	rm -f $(RELEASE_DIR)/usr/bin/easy_install*
+	rm -f $(RELEASE_DIR)/usr/bin/glib-*
+	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,dvdnav-config gio-querymodules gobject-query gtester gtester-report)
+	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole opkg-check-config opkg-cl)
+	rm -rf $(RELEASE_DIR)/lib/autofs
+	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
+	rm -rf $(RELEASE_DIR)/usr/lib/gcc
+	rm -f $(RELEASE_DIR)/usr/lib/libc.so
+	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
+	rm -f $(RELEASE_DIR)/usr/share/meta/*
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/black.mvi
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/hd-testcard.mvi
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/otv_*
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/keymap.u80
+	rm -f $(RELEASE_DIR)/usr/bin/enigma2.sh
+	rm -rf $(RELEASE_DIR)/lib/autofs
+	rm -f $(RELEASE_DIR)/lib/libSegFault*
+	rm -f $(RELEASE_DIR)/lib/libstdc++.*-gdb.py
+	rm -f $(RELEASE_DIR)/lib/libthread_db*
+	rm -f $(RELEASE_DIR)/lib/libanl*
+	rm -rf $(RELEASE_DIR)/usr/lib/alsa
+	rm -rf $(RELEASE_DIR)/usr/lib/glib-2.0
+	rm -rf $(RELEASE_DIR)/usr/lib/cmake
+	rm -f $(RELEASE_DIR)/usr/lib/*.py
+	rm -f $(RELEASE_DIR)/usr/lib/libc.so
+	rm -f $(RELEASE_DIR)/usr/lib/xml2Conf.sh
+	rm -f $(RELEASE_DIR)/usr/lib/libfontconfig*
+	rm -f $(RELEASE_DIR)/usr/lib/libthread_db*
+	rm -f $(RELEASE_DIR)/usr/lib/libanl*
+	rm -f $(RELEASE_DIR)/usr/lib/libopkg*
+	rm -f $(RELEASE_DIR)/sbin/ldconfig
+	rm -f $(RELEASE_DIR)/usr/bin/{gdbus-codegen,glib-*,gtester-report}
+	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/services.xml
+	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/bouquets.xml
+	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/ubouquets.xml
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/DVDBurn
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/TuxboxPlugins
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaScanner
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaPlayer
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/
+ifeq ($(BOXARCH), sh4)
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
+	rm -f $(RELEASE_DIR)/sbin/jfs_fsck
+	rm -f $(RELEASE_DIR)/sbin/fsck.jfs
+	rm -f $(RELEASE_DIR)/sbin/jfs_mkfs
+	rm -f $(RELEASE_DIR)/sbin/mkfs.jfs
+	rm -f $(RELEASE_DIR)/sbin/jfs_tune
+	rm -f $(RELEASE_DIR)/sbin/ffmpeg
+	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
+endif
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+	rm -rf $(RELEASE_DIR)/dev.static
+	rm -rf $(RELEASE_DIR)/ram
+	rm -rf $(RELEASE_DIR)/root
+endif
+	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
+	rm -fr $(RELEASE_DIR)/etc
+	ln -sf /var/etc $(RELEASE_DIR)
+	ln -s /tmp $(RELEASE_DIR)/var/lock
+	ln -s /tmp $(RELEASE_DIR)/var/log
+	ln -s /tmp $(RELEASE_DIR)/var/run
+	ln -s /tmp $(RELEASE_DIR)/var/tmp
+	$(TUXBOX_CUSTOMIZE)
+#
+# strip
+#	
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	$(END_BUILD)
 	
-#
-#
-#
-PHONY += $(TARGET_DIR)/.version	
-

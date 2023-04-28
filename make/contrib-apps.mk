@@ -188,7 +188,6 @@ $(D)/valgrind: $(D)/bootstrap $(ARCHIVE)/$(VALGRIND_SOURCE)
 	$(REMOVE)/valgrind-$(VALGRIND_VER)
 	$(UNTAR)/$(VALGRIND_SOURCE)
 	$(CHDIR)/valgrind-$(VALGRIND_VER); \
-		sed -i -e "s#armv7#arm#g" configure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -1805,10 +1804,11 @@ $(D)/usb_modeswitch: $(D)/bootstrap $(D)/libusb $(D)/usb_modeswitch_data $(ARCHI
 $(D)/ofgwrite: $(D)/bootstrap $(ARCHIVE)/$(OFGWRITE_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/ofgwrite-ddt
-	set -e; if [ -d $(ARCHIVE)/ofgwrite-ddt.git ]; \
-		then cd $(ARCHIVE)/ofgwrite-ddt.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git ofgwrite-ddt.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] && \
+	(cd $(ARCHIVE)/ofgwrite-ddt.git; git pull;); \
+	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] || \
+	git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git ofgwrite-ddt.git; \
 	cp -ra $(ARCHIVE)/ofgwrite-ddt.git $(BUILD_TMP)/ofgwrite-ddt
 	$(CHDIR)/ofgwrite-ddt; \
 		$(call apply_patches,$(OFGWRITE_PATCH)); \
@@ -1828,10 +1828,11 @@ DVB_APPS_PATCH = dvb-apps.patch
 $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/dvb-apps
-	set -e; if [ -d $(ARCHIVE)/dvb-apps.git ]; \
-		then cd $(ARCHIVE)/dvb-apps.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/openpli-arm/dvb-apps.git dvb-apps.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/dvb-apps.git" ] && \
+	(cd $(ARCHIVE)/dvb-apps.git; git pull;); \
+	[ -d "$(ARCHIVE)/dvb-apps.git" ] || \
+	git clone https://github.com/openpli-arm/dvb-apps.git dvb-apps.git; \
 	cp -ra $(ARCHIVE)/dvb-apps.git $(BUILD_TMP)/dvb-apps
 	$(CHDIR)/dvb-apps; \
 		$(call apply_patches,$(DVB_APPS_PATCH)); \
@@ -1840,41 +1841,6 @@ $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(REMOVE)/dvb-apps
 	$(TOUCH)	
-
-#
-# minisatip
-#
-#MINISATIP_PATCH = minisatip.patch
-
-#$(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATIP_SOURCE)
-#	$(START_BUILD)
-#	$(REMOVE)/minisatip
-#	set -e;
-#	 if [ -d $(ARCHIVE)/minisatip.git ]; \
-#		then cd $(ARCHIVE)/minisatip.git; git pull; \
-#		else cd $(ARCHIVE); git clone https://github.com/catalinii/minisatip.git minisatip.git; \
-#		fi
-#	cp -ra $(ARCHIVE)/minisatip.git $(BUILD_TMP)/minisatip
-#	$(CHDIR)/minisatip; \
-#		$(call apply_patches,$(MINISATIP_PATCH)); \
-#		$(BUILDENV) \
-#		export CFLAGS="-pipe -Os -Wall -g0 -I$(TARGET_INCLUDE_DIR)"; \
-#		export CPPFLAGS="-I$(TARGET_INCLUDE_DIR)"; \
-#		export LDFLAGS="-L$(TARGET_LIB_DIR)"; \
-#		./configure \
-#			--host=$(TARGET) \
-#			--build=$(BUILD) \
-#			--enable-enigma \
-#			--enable-static \
-#			--disable-netceiver \
-#		; \
-#		$(MAKE); \
-#	install -m 755 $(BUILD_TMP)/minisatip/minisatip $(TARGET_DIR)/usr/bin
-#	install -d $(TARGET_DIR)/usr/share/minisatip
-#	cp -a $(BUILD_TMP)/minisatip/html $(TARGET_DIR)/usr/share/minisatip
-#	$(REMOVE)/minisatip
-#	$(TOUCH)
-#MINISATIP_PATCH = minisatip.patch
 
 $(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATIP_SOURCE)
 	$(START_BUILD)

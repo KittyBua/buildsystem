@@ -62,7 +62,6 @@ NETBASE_ADAPTED_ETC_FILES = \
 	network/pre-wlan0.sh
 
 INITSCRIPTS_ADAPTED_ETC_FILES = \
-	vdstandby.cfg \
 	init.d/bootclean.sh \
 	init.d/hostname \
 	init.d/mountall \

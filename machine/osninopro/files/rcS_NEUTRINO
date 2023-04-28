@@ -71,7 +71,7 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/linuxdvb.ko
+insmod /lib/modules/$(uname -r)/extra/linuxdvb.ko
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
@@ -106,11 +106,7 @@ echo "[rcS] starting neutrino ->"
 
 until false
 do
-	if [ -e /var/bin/neutrino ];then
-		/var/bin/neutrino
-	else
-		/usr/local/bin/neutrino
-	fi
+	/usr/bin/neutrino
 	rtv=$?
 	echo "neutrino ended <- RTV: " $rtv
 	case "$rtv" in

@@ -52,22 +52,15 @@ mount -t tmpfs mnt /mnt
 #mkdir -p /media/hdd
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
+
+#
 echo /sbin/mdev >/proc/sys/kernel/hotplug
 mdev -s
 
 echo "starting interface"
 /etc/init.d/mountall start
 
-[ -f /var/etc/modules.default ] && eval $(sed -e 's/#.*//' -e '/^\s*$/d' -e 's/^\(.*\)/im \0;/' < /var/etc/modules.default)
-
-[ -f /var/etc/modules.extra ] && eval $(sed -e 's/#.*//' -e '/^\s*$/d' -e 's/^\(.*\)/im \0;/' < /var/etc/modules.extra)
-
-if [ -e /var/backup_flash.tar.gz ]; then
-  oled -tc "Restore Settings..."
-  tar xvf /var/backup_flash.tar.gz -C /
-  rm -f /var/backup_flash.tar.gz
-fi
-
+#
 if [ -e /sys/class/net/lo ]; then
 	/sbin/ifconfig lo up
 fi
@@ -97,20 +90,9 @@ if [ ! -e /dev/brcm0 ]; then
 	/usr/bin/init_client /lib/modules/dvb-bcm.ko /lib/modules/brcmfb.ko &
 fi
 
-if [ -e /var/tuxbox/config/.bootlogo ]; then
-    (
-      while [ ! -c /dev/dvb/adapter0/video0 ]; do
-        usleep 100000
-      done
-      showiframe /usr/share/tuxbox/neutrino/icons/bootlogo.m2v
-    ) &
-fi
-
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
 done
-
-echo 100 > /proc/stb/fp/oled_brightness
 
 echo "setup network"
 read hstname < /etc/hostname
@@ -236,10 +218,6 @@ if [ "$hdd_idle" == "" ]; then
 fi
 /sbin/hd-idle -i $((hdd_idle*5))
 
-if [ -e /var/tuxbox/config/.bootlogo ]; then
-    killall -9 showiframe
-fi
-
 # rcS.local
 if [ -e /var/etc/rcS.local ]; then 
 	/var/etc/rcS.local
@@ -249,7 +227,7 @@ echo "[rcS] starting enigma2 ->"
 
 until false
 do
-	/usr/local/bin/enigma2
+	/usr/bin/enigma2
      	rtv=$?
       	echo "enigma2 ended <- RTV: " $rtv
       	case "$rtv" in

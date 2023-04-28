@@ -14,6 +14,7 @@ kernel-clean:
 	rm -f $(D)/kernel
 	rm -f $(D)/kernel.do_compile
 	rm -f $(TARGET_DIR)/boot/$(KERNELNAME)
+	rm -f $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 
 #
 # Helper

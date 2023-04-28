@@ -53,7 +53,6 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ipbox55 ipbox99 ipbox9900 cuberevo cubere
 RELEASE_DEPS += $(D)/tools-ipbox_eeprom
 endif
 RELEASE_DEPS += $(D)/tools-stfbcontrol
-RELEASE_DEPS += $(D)/tools-streamproxy
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), tf7700))
 RELEASE_DEPS += $(D)/tools-tfd2mtd
 RELEASE_DEPS += $(D)/tools-tffpctl
@@ -133,11 +132,6 @@ release-common: $(RELEASE_DEPS)
 	install -d $(RELEASE_DIR)/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,sys,tmp,usr,var}
 	install -d $(RELEASE_DIR)/etc/{init.d,network,mdev,ssl}
 	install -d $(RELEASE_DIR)/etc/network/if-{post-{up,down},pre-{up,down},up,down}.d
-ifeq ($(GUI), ENIGMA2)
-	install -d $(RELEASE_DIR)/etc/enigma2
-	install -d $(RELEASE_DIR)/etc/tuxbox
-	install -d $(RELEASE_DIR)/usr/local/share/enigma2
-endif
 	install -d $(RELEASE_DIR)/lib/{modules,firmware}
 ifeq ($(BOXARCH), sh4)
 	install -d $(RELEASE_DIR)/lib/udev
@@ -150,12 +144,9 @@ endif
 	install -d $(RELEASE_DIR)/usr/{bin,lib,sbin,share}
 	install -d $(RELEASE_DIR)/usr/lib/locale
 	cp -aR $(SKEL_ROOT)/usr/lib/locale/* $(RELEASE_DIR)/usr/lib/locale
-	install -d $(RELEASE_DIR)/usr/local/{bin,sbin,share}
+#	install -d $(RELEASE_DIR)/usr/local/{bin,sbin,share}
 	install -d $(RELEASE_DIR)/usr/share/{udhcpc,zoneinfo,fonts}
 	install -d $(RELEASE_DIR)/var/{bin,etc,lib,net,keys}
-ifeq ($(GUI), $(filter $(GUI), neutrino2 neutrino))
-	install -d $(RELEASE_DIR)/var/tuxbox
-endif
 	install -d $(RELEASE_DIR)/var/lib/{nfs,modules}
 ifeq ($(LUA), lua)
 	install -d $(RELEASE_DIR)/usr/share/lua/5.2
@@ -279,32 +270,7 @@ ifeq ($(WLAN), wlandriver)
 	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/wireless/rtl8192du/8192du.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/wireless/rtl8192du/8192du.ko $(RELEASE_DIR)/lib/modules/ || true
 endif
 endif
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
-#
-# modules
-#
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/usbserial.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/usbserial.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/ftdi_sio.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/ftdi_sio.ko $(RELEASE_DIR)/lib/modules/ftdi_sio.ko || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/pl2303.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/usb/serial/pl2303.ko $(RELEASE_DIR)/lib/modules/ || true
-#
-# wlan
-#
-ifeq ($(WLAN), wlandriver)
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8188eu/r8188eu.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8188eu/r8188eu.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/wireless/cfg80211.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/wireless/cfg80211.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/rfkill/rfkill.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/rfkill/rfkill.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/mac80211/mac80211.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/net/mac80211/mac80211.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtlwifi.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl_usb.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl_usb.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl8192c/rtl8192c-common.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl8192c/rtl8192c-common.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/rtl8192cu.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtlwifi/rtl8192cu/rtl8192cu.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8712/r8712u.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8712/r8712u.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/mediatek/mt7601u/mt7601u.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/mediatek/mt7601u/mt7601u.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8712/r8712u.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8712/r8712u.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8192u/r8192u_usb.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/staging/rtl8192u/r8192u_usb.ko $(RELEASE_DIR)/lib/modules/ || true
-#	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/kernel/drivers/net/wireless/realtek/rtl8xxxu/rtl8xxxu.ko $(RELEASE_DIR)/lib/modules/ || true
-endif
-endif
+
 #
 # wlan firmware
 #
@@ -316,15 +282,10 @@ ifeq ($(WLAN), wlandriver)
 endif
 	
 #
-# release-NONE
+# release-none
 #
-$(D)/release-NONE: release-common release-$(BOXTYPE)
-	$(TUXBOX_CUSTOMIZE)
-
-#
-# release
-#
-release: release-$(GUI)
+$(D)/release-none: release-common release-$(BOXTYPE)
+	$(START_BUILD)
 #
 # lib usr/lib
 #
@@ -335,12 +296,6 @@ release: release-$(GUI)
 	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,sigc++-1.2,sigc++-2.0,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio}
 	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
 	chmod 755 $(RELEASE_DIR)/usr/lib/*
-#
-# enigma2
-#
-ifeq ($(GUI), ENIGMA2)
-	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
-endif
 #
 #gstreamer
 #
@@ -517,21 +472,31 @@ endif
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole opkg-check-config opkg-cl)
 	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
-#	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 	rm -rf $(RELEASE_DIR)/usr/lib/gcc
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
-	rm -rf $(RELEASE_DIR)/usr/local/share/enigma2/po/*
-	rm -f $(RELEASE_DIR)/usr/local/share/meta/*
-	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/black.mvi
-	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/hd-testcard.mvi
-	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/otv_*
-	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/keymap.u80
-	rm -f $(RELEASE_DIR)/usr/local/bin/enigma2.sh
+#	rm -rf $(RELEASE_DIR)/usr/local/share/enigma2/po/*
+#	rm -f $(RELEASE_DIR)/usr/local/share/meta/*
+#	rm -rf $(RELEASE_DIR)/usr/local/share/fonts
+#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/black.mvi
+#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/hd-testcard.mvi
+#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/otv_*
+#	rm -f $(RELEASE_DIR)/usr/local/share/enigma2/keymap.u80
+#	rm -f $(RELEASE_DIR)/usr/local/bin/enigma2.sh
+	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
+	rm -f $(RELEASE_DIR)/usr/share/meta/*
+	rm -rf $(RELEASE_DIR)/usr/share/fonts
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/black.mvi
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/hd-testcard.mvi
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/otv_*
+	rm -f $(RELEASE_DIR)/usr/share/enigma2/keymap.u80
+	rm -f $(RELEASE_DIR)/usr/bin/enigma2.sh
 	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -f $(RELEASE_DIR)/lib/libSegFault*
 	rm -f $(RELEASE_DIR)/lib/libstdc++.*-gdb.py
 	rm -f $(RELEASE_DIR)/lib/libthread_db*
 	rm -f $(RELEASE_DIR)/lib/libanl*
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 	rm -rf $(RELEASE_DIR)/usr/lib/alsa
 	rm -rf $(RELEASE_DIR)/usr/lib/glib-2.0
 	rm -rf $(RELEASE_DIR)/usr/lib/cmake
@@ -552,25 +517,6 @@ endif
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaScanner
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaPlayer
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/
-ifeq ($(GUI), ENIGMA2)
-	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.pyc' -exec rm -f {} \;
-	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.py' -exec rm -f {} \;
-	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.a' -exec rm -f {} \;
-	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.o' -exec rm -f {} \;
-	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.la' -exec rm -f {} \;
-endif
-ifeq ($(GUI), ENIGMA2)
-ifeq ($(BOXARCH), sh4)
-	rm -rf $(RELEASE_DIR)/usr/lib/lua
-	rm -rf $(RELEASE_DIR)/usr/share/lua
-	rm -rf $(RELEASE_DIR)/usr/share/tuxbox
-endif
-endif
-ifeq ($(GUI), $(filter $(GUI), NEUTRINO2 NEUTRINO TITAN))
-ifeq ($(BOXARCH), sh4)
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2
-endif
-endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
 	rm -f $(RELEASE_DIR)/sbin/jfs_fsck
 	rm -f $(RELEASE_DIR)/sbin/fsck.jfs
@@ -592,17 +538,14 @@ endif
 	ln -s /tmp $(RELEASE_DIR)/var/log
 	ln -s /tmp $(RELEASE_DIR)/var/run
 	ln -s /tmp $(RELEASE_DIR)/var/tmp
+	$(TUXBOX_CUSTOMIZE)
 #
 # strip
 #	
 ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
-	@echo "*****************************************************************"
-	@echo -e "\033[01;32m"
-	@echo " Build of $(GUI) Release for $(BOXTYPE) successfully completed."
-	@echo -e "\033[00m"
-	@echo "*****************************************************************"
+	$(END_BUILD)
 
 #
 # release-clean

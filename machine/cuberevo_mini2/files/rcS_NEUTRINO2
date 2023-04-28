@@ -153,7 +153,7 @@ if [ ! -e /var/etc/.firstboot ]; then
   	if [ -e /var/bin/neutrino2 ];then
 		/var/bin/neutrino2
   	else
-  		/usr/local/bin/neutrino2
+  		/usr/bin/neutrino2
 	fi
      	rtv=$?
       	echo "neutrino2 ended <- RTV: " $rtv

@@ -14,16 +14,23 @@ EOF
   rm /var/etc/.firstboot
 fi
 
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+mount -t tmpfs tmp /tmp
+mount -t tmpfs media /media
+mount -t tmpfs mnt /mnt
+#mkdir -p /media/hdd
 mkdir -p /dev/pts
-
-# mountall (fstab)
-echo "[rcS] starting mountall"
-/etc/init.d/mountall start
+mount -t devpts devpts /dev/pts
 
 # mdev
 echo "[rcS] starting mdev"
 echo /sbin/mdev >/proc/sys/kernel/hotplug
 mdev -s
+
+# mountall (fstab)
+echo "[rcS] starting mountall"
+/etc/init.d/mountall start
 
 # setup network
 if [ -e /sys/class/net/lo ]; then
@@ -72,7 +79,6 @@ fi
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
 insmod /lib/modules/$(uname -r)/extra/dvb.ko
-#modprobe dvb
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
@@ -100,11 +106,7 @@ echo "[rcS] starting neutrino2 ->"
 
 until false
 do
-	if [ -e /var/bin/neutrino2 ];then
-		/var/bin/neutrino2
-	else
-		/usr/local/bin/neutrino2
-	fi
+	/usr/bin/neutrino2
 	rtv=$?
 	echo "neutrino2 ended <- RTV: " $rtv
 	case "$rtv" in

@@ -71,7 +71,7 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/linuxdvb.ko
+insmod /lib/modules/$(uname -r)/extra/linuxdvb.ko
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
@@ -106,7 +106,7 @@ echo "[rcS] starting enigma2 ->"
 
 until false
 do
-	/usr/local/bin/enigma2
+	/usr/bin/enigma2
      	rtv=$?
       	echo "enigma2 ended <- RTV: " $rtv
       	case "$rtv" in

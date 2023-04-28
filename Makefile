@@ -135,23 +135,23 @@ init:
 	esac; \
 	echo ""
 # GUI
-	@echo -e "\nGUI:"
-	@echo "   1) NONE"
-	@echo -e "   \033[01;32m2) NEUTRINO2\033[00m"
-	@echo "   3) NEUTRINO (experimental)"
-	@echo "   4) ENIGMA2 (experimental)"
-	@echo "   5) TITAN (experimental)"
-	@read -p "Select GUI (1-5)?" GUI; \
-	GUI=$${GUI}; \
-	case "$$GUI" in \
-		1) echo "GUI=NONE" >> config;; \
-		2) echo "GUI=NEUTRINO2" >> config;; \
-		3) echo "GUI=NEUTRINO" >> config;; \
-		4) echo "GUI=ENIGMA2" >> config;; \
-		5) echo "GUI=TITAN" >> config;; \
-		*) echo "GUI=NEUTRINO2" >> config;; \
-	esac; \
-	echo ""
+#	@echo -e "\nGUI:"
+#	@echo "   1) NONE"
+#	@echo -e "   \033[01;32m2) NEUTRINO2\033[00m"
+#	@echo "   3) NEUTRINO (experimental)"
+#	@echo "   4) ENIGMA2 (experimental)"
+#	@echo "   5) TITAN (experimental)"
+#	@read -p "Select GUI (1-5)?" GUI; \
+#	GUI=$${GUI}; \
+#	case "$$GUI" in \
+#		1) echo "GUI=NONE" >> config;; \
+#		2) echo "GUI=NEUTRINO2" >> config;; \
+#		3) echo "GUI=NEUTRINO" >> config;; \
+#		4) echo "GUI=ENIGMA2" >> config;; \
+#		5) echo "GUI=TITAN" >> config;; \
+#		*) echo "GUI=NEUTRINO2" >> config;; \
+#	esac; \
+#	echo ""
 # Gstreamer
 	@echo -e "\nGstreamer:"
 	@echo -e "   \033[01;32m1) no\033[00m"
@@ -216,7 +216,7 @@ init:
 	@echo ""
 	@make printenv
 	@echo "Your next step could be:"
-	@echo "  make image"
+	@echo "  make image-neutrino2"
 	@echo ""
 	@echo ""
 	@echo "for more details:"
@@ -262,7 +262,7 @@ printenv:
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
-	@echo "GUI              : $(GUI)"
+#	@echo "GUI              : $(GUI)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
 	@echo "WLAN             : $(WLAN)"
 	@echo "LUA              : $(LUA)"
@@ -289,7 +289,10 @@ endif
 
 help:
 	@echo "main target (image):"
-	@echo " make image			- build image"
+	@echo " make image-neutrino2			- build neutrino2 image"
+	@echo " make image-neutrino			- build neutrino image"
+	@echo " make image-enigma2			- build enigma2 image (exp)"
+	@echo " make image-titan			- build titan image (exp)"
 	@echo ""
 	@echo "show board configuration:"
 	@echo " make printenv			- show board build configuration"

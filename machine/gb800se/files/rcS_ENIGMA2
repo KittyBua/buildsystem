@@ -14,16 +14,25 @@ EOF
   rm /var/etc/.firstboot
 fi
 
+mount -t proc proc /proc
+mount -t sysfs sys /sys
+mount -t tmpfs tmp /tmp
+mount -t tmpfs media /media
+mount -t tmpfs mnt /mnt
+#mkdir -p /media/hdd
 mkdir -p /dev/pts
-
-echo "[rcS] starting mountall"
-/etc/init.d/mountall start
+mount -t devpts devpts /dev/pts
 
 # mdev
 echo "[rcS] starting mdev"
 echo /sbin/mdev >/proc/sys/kernel/hotplug
 mdev -s
 
+# mountall (fstab)
+echo "[rcS] starting mountall"
+/etc/init.d/mountall start
+
+# setup network
 if [ -e /sys/class/net/lo ]; then
 	/sbin/ifconfig lo up
 fi
@@ -55,6 +64,7 @@ else
 		/etc/init.d/networking start
 	fi
 fi
+
 /sbin/ifconfig lo 127.0.0.1 up
 
 # get net-time
@@ -68,7 +78,6 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-#insmod /lib/modules/dvb.ko
 insmod /lib/modules/$(uname -r)/extra/dvb.ko
 
 while [ ! -c /dev/fb0 ]; do
@@ -97,7 +106,7 @@ echo "[rcS] starting enigma2 ->"
 
 until false
 do
-	/usr/local/bin/enigma2
+	/usr/bin/enigma2
      	rtv=$?
       	echo "enigma2 ended <- RTV: " $rtv
       	case "$rtv" in

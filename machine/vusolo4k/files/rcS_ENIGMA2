@@ -21,17 +21,15 @@ mount -t tmpfs media /media
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
 
+#
+echo /sbin/mdev >/proc/sys/kernel/hotplug
+mdev -s
+
+#
 echo "[rcS] starting mountall"
 /etc/init.d/mountall start
 
-if [ -e /var/backup_flash.tar.gz ]; then
-	tar xvf /var/backup_flash.tar.gz -C /
-	rm -f /var/backup_flash.tar.gz
-fi
-
-# load moduls from modules.extra ( kerneloptions )
-[ -f /var/etc/modules.extra ] && eval `awk '{ if ($1) print "insmod /lib/modules/" $1 ".ko " $2,$3,$4,$5,$6,$7,$8,$9 "; "}' < /var/etc/modules.extra`
-
+#
 echo "[rcS] setup network"
 NFS=$(grep -c nfs /proc/cmdline)
 if [ "$NFS" -eq "1" ]; then
@@ -64,23 +62,19 @@ fi
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
 if [ ! -e /dev/brcm0 ]; then
-	insmod /lib/modules/procmk.ko
-	insmod /lib/modules/bcm_event.ko
-	insmod /lib/modules/dvb_base.ko
+	insmod /lib/modules/$(uname -r)/extra/procmk.ko
+	insmod /lib/modules/$(uname -r)/extra/bcm_event.ko
+	insmod /lib/modules/$(uname -r)/extra/dvb_base.ko
 	start-stop-daemon --start --quiet --exec /usr/bin/dvb_server -- &
 	mknod -m a=rw /dev/brcm0 c 30 0
-	start-stop-daemon --start --quiet --exec /usr/bin/init_client /lib/modules/dvb-bcm7376.ko /lib/modules/brcmfb.ko -- &
+	start-stop-daemon --start --quiet --exec /usr/bin/init_client /lib/modules/$(uname -r)/extra/dvb-bcm7376.ko /lib/modules/$(uname -r)/extra/brcmfb.ko -- &
 fi
 
-insmod /lib/modules/fpga_directc.ko
+insmod /lib/modules/$(uname -r)/extra/fpga_directc.ko
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
 done
-
-echo "[rcS] starting mdev"
-echo /sbin/mdev >/proc/sys/kernel/hotplug
-mdev -s
 
 # set dummy time
 NTPDATE=`date +"%Y%m%d"`
@@ -104,7 +98,7 @@ echo "[rcS] starting enigma2 ->"
 
 until false
 do
-	/usr/local/bin/enigma2
+	/usr/bin/enigma2
      	rtv=$?
       	echo "enigma2 ended <- RTV: " $rtv
       	case "$rtv" in
