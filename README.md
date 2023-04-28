@@ -16,9 +16,12 @@ $:~ make init
 or
 $:~ make
 ```
-**build image:**
+**build images:**
 ```bash
-$:~ make image
+$:~ make image-neutrino2
+$:~ make image-neutrino
+$:~ make image-enigma2  (experimental)
+$:~ make image-titan  (experimental)
 ```
 
 **for more details:**
