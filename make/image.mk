@@ -3,8 +3,11 @@
 #
 image-neutrino2: release-neutrino2
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922 hl101))
-	$(MAKE) usb-image-$(BOXTYPE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) flash-image-$(BOXTYPE)
@@ -28,8 +31,11 @@ endif
 #
 image-neutrino: release-neutrino
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922 hl101))
-	$(MAKE) usb-image-$(BOXTYPE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) flash-image-$(BOXTYPE)
@@ -53,8 +59,11 @@ endif
 #
 image-enigma2: release-enigma2
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922 hl101))
-	$(MAKE) usb-image-$(BOXTYPE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) flash-image-$(BOXTYPE)
@@ -78,8 +87,11 @@ endif
 #
 image-titan: release-titan
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922 hl101))
-	$(MAKE) usb-image-$(BOXTYPE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) flash-image-$(BOXTYPE)
@@ -103,8 +115,11 @@ endif
 #
 image-none: release-none
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922 hl101))
-	$(MAKE) usb-image-$(BOXTYPE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) flash-image-$(BOXTYPE)
