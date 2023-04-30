@@ -1167,7 +1167,7 @@ aio-grab-ipk: $(D)/bootstrap $(D)/libpng $(D)/libjpeg
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
-	set -e; cd $(APPS_DIR)/tools/aio-grab-$(BOXARCH); \
+	set -e; cd $(TOOLS_DIR)/aio-grab-$(BOXARCH); \
 		$(CONFIGURE_TOOLS) CPPFLAGS="$(CPPFLAGS) -I$(DRIVER_DIR)/bpamem" \
 			--prefix= \
 		; \
@@ -1190,7 +1190,7 @@ exteplayer3-ipk: $(D)/bootstrap $(D)/ffmpeg $(D)/libass
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
-	set -e; cd $(APPS_DIR)/tools/$(TOOLS_EXTEPLAYER3); \
+	set -e; cd $(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3); \
 		$(CONFIGURE_TOOLS) \
 			--prefix= \
 		; \
@@ -1213,7 +1213,7 @@ showiframe-ipk: $(D)/bootstrap
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
-	set -e; cd $(APPS_DIR)/tools/showiframe-$(BOXARCH); \
+	set -e; cd $(TOOLS_DIR)/showiframe-$(BOXARCH); \
 		$(CONFIGURE_TOOLS) \
 			--prefix= \
 		; \

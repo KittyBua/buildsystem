@@ -28,6 +28,7 @@ distclean:
 	@-rm -rf $(CROSS_DIR)
 	@-rm -rf $(BUILD_TMP)
 	@-rm -rf $(SOURCE_DIR)
+	@-rm -rf $(PKGS_DIR)
 	@-rm -rf $(D)
 	@echo -e "$(TERM_YELLOW)done\n$(TERM_NORMAL)"
 

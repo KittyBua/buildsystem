@@ -1,8 +1,8 @@
 #
-STM_RELOCATE     = /opt/STM/STLinux-2.4
+STM_RELOCATE = /opt/STM/STLinux-2.4
 
 # updates / downloads
-STL_FTP          = $(GITHUB)/Duckbox-Developers/stlinux/raw/master
+STL_FTP = $(GITHUB)/Duckbox-Developers/stlinux/raw/master
 
 ## ordering is important here. The /host/ rule must stay before the less
 ## specific %.sh4/%.i386/%.noarch rule. No idea if this is portable or
