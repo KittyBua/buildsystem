@@ -4,10 +4,3 @@ root/boot/*
 tufsbox/
 config*
 Makefile.local
-*~
-/tools/exteplayer3/eplayer3
-/tools/exteplayer3-sh4/eplayer3
-/tools/exteplayer3-sh4/exteplayer3
-/tools/exteplayer3/exteplayer3
-/tools/eplayer4/eplayer4
-/ltmain.sh
