@@ -217,6 +217,10 @@ init:
 	@make printenv
 	@echo "Your next step could be:"
 	@echo "  make image-neutrino2"
+	@echo "or"
+	@echo "  make image-neutrino"
+	@echo "  make image-enigma2"
+	@echo "  make image-titan"
 	@echo ""
 	@echo ""
 	@echo "for more details:"
