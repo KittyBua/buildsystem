@@ -2,5 +2,4 @@ build_logfile/
 custom/*-local*
 root/boot/*
 tufsbox/
-config*
 Makefile.local
