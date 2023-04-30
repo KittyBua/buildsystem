@@ -3,3 +3,4 @@ custom/*-local*
 root/boot/*
 tufsbox/
 Makefile.local
+config
