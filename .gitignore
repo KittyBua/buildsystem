@@ -4,3 +4,4 @@ root/boot/*
 tufsbox/
 Makefile.local
 config
+/tools/
