@@ -124,92 +124,68 @@ init:
 	@echo;
 # WLAN driver
 	@echo -e "\nDo you want to build WLAN drivers and tools"
-	@echo -e "   \033[01;32m1) no\033[00m"
-	@echo "   2) yes (includes WLAN drivers and tools)"
+	@echo "   1) yes (includes WLAN drivers and tools)"
+	@echo -e "   \033[01;32m2) no\033[00m"
 	@read -p "Select to build (1-2)?" WLAN; \
 	WLAN=$${WLAN}; \
 	case "$$WLAN" in \
-		1) echo "WLAN=" >> config;; \
-		2) echo "WLAN=wlandriver" >> config;; \
-		*) echo "WLAN=" >> config;; \
+		1) echo "WLAN=wlandriver" >> config;; \
+		2|*) echo "WLAN=" >> config;; \
 	esac; \
 	echo ""
-# GUI
-#	@echo -e "\nGUI:"
-#	@echo "   1) NONE"
-#	@echo -e "   \033[01;32m2) NEUTRINO2\033[00m"
-#	@echo "   3) NEUTRINO (experimental)"
-#	@echo "   4) ENIGMA2 (experimental)"
-#	@echo "   5) TITAN (experimental)"
-#	@read -p "Select GUI (1-5)?" GUI; \
-#	GUI=$${GUI}; \
-#	case "$$GUI" in \
-#		1) echo "GUI=NONE" >> config;; \
-#		2) echo "GUI=NEUTRINO2" >> config;; \
-#		3) echo "GUI=NEUTRINO" >> config;; \
-#		4) echo "GUI=ENIGMA2" >> config;; \
-#		5) echo "GUI=TITAN" >> config;; \
-#		*) echo "GUI=NEUTRINO2" >> config;; \
-#	esac; \
-#	echo ""
 # Gstreamer
 	@echo -e "\nGstreamer:"
+	@echo "   1) yes (recommended for mipsel and arm boxes)"
 	@echo -e "   \033[01;32m1) no\033[00m"
-	@echo "   2) yes (recommended for mipsel and arm boxes)"
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
 	GSTREAMER=$${GSTREAMER}; \
 	case "$$GSTREAMER" in \
-		1) echo "GSTREAMER=" >> config;; \
-		2) echo "GSTREAMER=gstreamer" >> config;; \
-		*) echo "GSTREAMER=" >> config;; \
+		1) echo "GSTREAMER=gstreamer" >> config;; \
+		2|*) echo "GSTREAMER=" >> config;; \
 	esac; \
 	echo ""
 # lua
 	@echo -e "\nlua support ?:"
-	@echo -e "   \033[01;32m1)  no\033[00m"
-	@echo "   2)  yes"
+	@echo "   1)  yes"
+	@echo -e "   \033[01;32m2)  no\033[00m"
 	@read -p "Select lua support (1-2)?" LUA; \
 	LUA=$${LUA}; \
 	case "$$LUA" in \
-		1) echo "LUA=" >> config;; \
-		2) echo "LUA=lua" >> config;; \
-		*) echo "LUA=" >> config;; \
+		1) echo "LUA=lua" >> config;; \
+		2|*) echo "LUA=" >> config;; \
 	esac; \
 	echo ""
 # python
 	@echo -e "\npython support ?:"
-	@echo -e "   \033[01;32m1)  no\033[00m"
-	@echo "   2)  yes"
+	@echo "   1)  yes"
+	@echo -e "   \033[01;32m2)  no\033[00m"
 	@read -p "Select python support (1-2)?" PYTHON; \
 	PYTHON=$${PYTHON}; \
 	case "$$PYTHON" in \
-		1) echo "PYTHON=" >> config;; \
-		2) echo "PYTHON=python" >> config;; \
-		*) echo "PYTHON=" >> config;; \
+		1) echo "PYTHON=python" >> config;; \
+		2|*) echo "PYTHON=" >> config;; \
 	esac; \
 	echo ""
 # GraphLCD
 	@echo -e "\nGraphLCD:"
-	@echo -e "   \033[01;32m1) no\033[00m"
-	@echo "   2) yes"
+	@echo "   1)  yes"
+	@echo -e "   \033[01;32m2) no\033[00m"
 	@read -p "Select  GraphLCD (1-2)?" GRAPHLCD; \
 	GRAPHLCD=$${GRAPHLCD}; \
 	case "$$GRAPHLCD" in \
-		1) echo "GRAPHLCD=" >> config;; \
-		2) echo "GRAPHLCD=graphlcd" >> config;; \
-		*) echo "GRAPHLCD=" >> config;; \
+		1) echo "GRAPHLCD=graphlcd" >> config;; \
+		2|*) echo "GRAPHLCD=" >> config;; \
 	esac; \
 	echo ""
 # LCD4Linux
 	@echo -e "\nLCD4linux:"
-	@echo -e "   \033[01;32m1) no\033[00m"
-	@echo "   2) yes"
+	@echo "   1)  yes"
+	@echo -e "   \033[01;32m2) no\033[00m"
 	@read -p "Select  LCD4Linux (1-2)?" LCD4LINUX; \
 	LCD4LINUX=$${LCD4LINUX}; \
 	case "$$LCD4LINUX" in \
-		1) echo "LCD4LINUX=" >> config;; \
-		2) echo "LCD4LINUX=lcd4linux" >> config;; \
-		*) echo "LCD4LINUX=" >> config;; \
+		1) echo "LCD4LINUX=lcd4linux" >> config;; \
+		2|*) echo "LCD4LINUX=" >> config;; \
 	esac; \
 	echo ""	
 #	
@@ -266,7 +242,6 @@ printenv:
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
-#	@echo "GUI              : $(GUI)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
 	@echo "WLAN             : $(WLAN)"
 	@echo "LUA              : $(LUA)"

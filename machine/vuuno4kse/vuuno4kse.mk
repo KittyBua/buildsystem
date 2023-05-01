@@ -59,7 +59,8 @@ KERNEL_PATCHES_ARM = \
 		4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 		4_1_0003-uaccess-dont-mark-register-as-const.patch \
 		bcmgenet-recovery-fix.patch \
-		linux_rpmb_not_alloc.patch
+		linux_rpmb_not_alloc.patch \
+		fix-multiple-defs-yyloc.patch
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
 
