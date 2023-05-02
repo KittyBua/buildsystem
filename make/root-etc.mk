@@ -65,7 +65,6 @@ INITSCRIPTS_ADAPTED_ETC_FILES = \
 	init.d/bootclean.sh \
 	init.d/hostname \
 	init.d/mountall \
-	init.d/network \
 	init.d/networking \
 	init.d/rc \
 	init.d/reboot \

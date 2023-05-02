@@ -24,8 +24,12 @@ mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts
 
 # mdev
-echo "[rcS] starting mdev"
-echo /sbin/mdev >/proc/sys/kernel/hotplug
+echo > /dev/mdev.log
+echo > /dev/mdev.seq
+echo "/sbin/mdev" >/proc/sys/kernel/hotplug
+touch /dev/.udev
+[ -d "/sys/kernel" ] || mount sysfs /sys -t sysfs
+[ -L "/dev/fd" ] || ln -sf /proc/self/fd /dev/fd
 mdev -s
 
 # mountall (fstab)
@@ -78,7 +82,7 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/$(uname -r)/extra/dvb.ko
+modprobe dvb
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
