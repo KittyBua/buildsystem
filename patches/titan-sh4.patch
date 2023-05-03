@@ -1,6 +1,17 @@
---- titan/titan/Makefile.am	2022-06-27 15:18:11.391077685 +0200
-+++ titan/titan/Makefile.am.patched	2022-06-29 17:15:00.368222348 +0200
-@@ -1,18 +1,8 @@
+diff -Nur titan.svn/Makefile.am titan.svn.patched/Makefile.am
+--- titan.svn/Makefile.am	2022-06-27 22:22:53.917965000 +0200
++++ titan.svn.patched/Makefile.am	2023-05-03 01:36:26.391292916 +0200
+@@ -1,3 +1,3 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+-SUBDIRS = titan plugins
+\ No newline at end of file
++SUBDIRS = titan
+Binary files titan.svn/.svn/wc.db and titan.svn.patched/.svn/wc.db differ
+diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
+--- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-03 02:19:06.347286638 +0200
+@@ -1,18 +1,10 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
 -INCLUDES = \
@@ -16,8 +27,9 @@
  
  bin_PROGRAMS = titan
  
--titan_SOURCES =	titan.c
-+titan_SOURCES = titan.c
+ titan_SOURCES =	titan.c
  
  titan_LDADD = -lm -lpthread -ldl -lpng -lfreetype -leplayer3 -ldreamdvd -ljpeg -lz -lmmeimage -lmme_host -lssl -lcrypto
++
  titan_CFLAGS = $(ALL_CFLAGS)
++

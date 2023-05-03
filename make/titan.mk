@@ -80,7 +80,11 @@ endif
 #
 # titan
 #
-TITAN_PATCH = titan.patch titan-Makefile.patch
+ifeq ($(BOXARCH), sh4)
+TITAN_PATCH = titan-sh4.patch
+else
+TITAN_PATCH = titan.patch
+endif
 
 $(D)/titan.do_prepare: $(TITAN_DEPS)
 	$(START_BUILD)
@@ -254,19 +258,19 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/var/etc/titan
 	install -d $(RELEASE_DIR)/var/etc/autostart
-	install -d $(RELEASE_DIR)/var/usr/share/titan/{skin,po,web,plugins}
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/{de,el,en,es,fr,it,lt,nl,pl,ru,vi}
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/de/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/el/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/en/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/es/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/fr/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/it/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/lt/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/nl/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/pl/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/ru/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/titan/po/vi/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/{skin,po,web,plugins}
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/{de,el,en,es,fr,it,lt,nl,pl,ru,vi}
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/de/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/el/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/en/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/es/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/fr/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/it/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/lt/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/nl/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/pl/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/ru/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/vi/LC_MESSAGES
 	install -d $(RELEASE_DIR)/var/usr/share/fonts
 	cp -af $(TARGET_DIR)/usr/bin/titan $(RELEASE_DIR)/usr/bin/
 	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
@@ -275,8 +279,8 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
 	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
 	cp -af $(SKEL_ROOT)/usr/share/fonts $(RELEASE_DIR)/var/usr/share
-	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/share/titan/skin
-	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/share/titan	
+	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
+	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan	
 #
 # po
 #
