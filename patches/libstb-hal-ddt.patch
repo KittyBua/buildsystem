@@ -10,3 +10,177 @@ diff -Nur libstb-hal-ddt.git/acinclude.m4 libstb-hal-ddt.git.patched/acinclude.m
  			BOXTYPE="$withval"
  		;;
  		spark|spark7162)
+diff -Nur libstb-hal-ddt.git/libarmbox/hardware_caps.c libstb-hal-ddt.git.patched/libarmbox/hardware_caps.c
+--- libstb-hal-ddt.git/libarmbox/hardware_caps.c	2022-12-25 09:21:26.785297961 +0100
++++ libstb-hal-ddt.git.patched/libarmbox/hardware_caps.c	2023-05-03 17:45:09.256639182 +0200
+@@ -53,8 +53,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "SOLO4K");
+ 	strcpy(caps.boxarch, "BCM7376");
+-#endif
+-#if BOXMODEL_VUDUO4K
++#elif BOXMODEL_VUDUO4K
+ 	initialized = 1;
+ 	caps.has_CI = 2;
+ 	caps.can_cec = 1;
+@@ -72,8 +71,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "DUO4K");
+ 	strcpy(caps.boxarch, "BCM7278");
+-#endif
+-#if BOXMODEL_VUDUO4KSE
++#elif BOXMODEL_VUDUO4KSE
+ 	initialized = 1;
+ 	caps.has_CI = 2;
+ 	caps.can_cec = 1;
+@@ -91,8 +89,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "DUO4KSE");
+ 	strcpy(caps.boxarch, "BCM7444S");
+-#endif
+-#if BOXMODEL_VUULTIMO4K
++#elif BOXMODEL_VUULTIMO4K
+ 	initialized = 1;
+ 	caps.has_CI = 2;
+ 	caps.can_cec = 1;
+@@ -110,8 +107,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "ULTIMO4K");
+ 	strcpy(caps.boxarch, "BCM7444S");
+-#endif
+-#if BOXMODEL_VUZERO4K
++#elif BOXMODEL_VUZERO4K
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -126,8 +122,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "ZERO4K");
+ 	strcpy(caps.boxarch, "BCM72604");
+-#endif
+-#if BOXMODEL_VUUNO4KSE
++#elif BOXMODEL_VUUNO4KSE
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -145,8 +140,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "UNO4KSE");
+ 	strcpy(caps.boxarch, "BCM7252S");
+-#endif
+-#if BOXMODEL_VUUNO4K
++#elif BOXMODEL_VUUNO4K
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -161,8 +155,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "UNO4K");
+ 	strcpy(caps.boxarch, "BCM7252S");
+-#endif
+-#if BOXMODEL_BRE2ZE4K
++#elif BOXMODEL_BRE2ZE4K
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -178,8 +171,7 @@
+ 	strcpy(caps.boxvendor, "WWIO");
+ 	strcpy(caps.boxname, "BRE2ZE4K");
+ 	strcpy(caps.boxarch, "BCM7251S");
+-#endif
+-#if BOXMODEL_HD51
++#elif BOXMODEL_HD51
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -195,8 +187,7 @@
+ 	strcpy(caps.boxvendor, "AX");
+ 	strcpy(caps.boxname, "HD51");
+ 	strcpy(caps.boxarch, "BCM7251S");
+-#endif
+-#if BOXMODEL_H7
++#elif BOXMODEL_H7
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -212,8 +203,7 @@
+ 	strcpy(caps.boxvendor, "AirDigital");
+ 	strcpy(caps.boxname, "Zgemma H7");
+ 	strcpy(caps.boxarch, "BCM7251S");
+-#endif
+-#if BOXMODEL_E4HDULTRA
++#elif BOXMODEL_E4HDULTRA
+ 	initialized = 1;
+ 	caps.has_CI = 1;
+ 	caps.can_cec = 1;
+@@ -230,6 +220,23 @@
+ 	strcpy(caps.boxvendor, "AXAS");
+ 	strcpy(caps.boxname, "E4HD 4K ULTRA");
+ 	strcpy(caps.boxarch, "BCM7252S");
++#else // generic arm box 
++	initialized = 1;
++	caps.has_CI = 1;
++	caps.can_cec = 1;
++	caps.can_shutdown = 1;
++	//caps.display_xres = 140;		// VFD, 400 - 2nd (color)
++	//caps.display_yres = 32;			// VFD, 240 - 2nd (color)
++	caps.display_type = HW_DISPLAY_LED_NUM;
++	caps.display_can_deepstandby = 1;	// 0 because we use graphlcd/lcd4linux
++	caps.display_can_set_brightness = 1;	// 0 because we use graphlcd/lcd4linux
++	caps.display_has_statusline = 0;	// 0 because we use graphlcd/lcd4linux
++	caps.has_button_timer = 1;
++	caps.has_HDMI = 1;
++	caps.has_SCART = 1;
++	strcpy(caps.boxvendor, "ARMBOX");
++	strcpy(caps.boxname, "generic");
++	strcpy(caps.boxarch, "arm");
+ #endif
+ 	return &caps;
+ }
+diff -Nur libstb-hal-ddt.git/libmipsbox/hardware_caps.c libstb-hal-ddt.git.patched/libmipsbox/hardware_caps.c
+--- libstb-hal-ddt.git/libmipsbox/hardware_caps.c	2023-04-08 22:32:04.883325527 +0200
++++ libstb-hal-ddt.git.patched/libmipsbox/hardware_caps.c	2023-05-03 17:33:55.609875329 +0200
+@@ -52,8 +52,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "DUO");
+ 	strcpy(caps.boxarch, "BCM7335");
+-#endif
+-#if BOXMODEL_VUDUO2
++#elif BOXMODEL_VUDUO2
+ 	initialized = 1;
+ 	caps.has_CI = 2;
+ 	caps.can_cec = 1;
+@@ -70,8 +69,7 @@
+ 	strcpy(caps.boxvendor, "VU+");
+ 	strcpy(caps.boxname, "DUO2");
+ 	strcpy(caps.boxarch, "BCM7424");
+-#endif
+-#if BOXMODEL_DM8000
++#elif BOXMODEL_DM8000
+ 	initialized = 1;
+ 	caps.has_CI = 4;
+ 	caps.can_cec = 0;
+@@ -91,6 +89,23 @@
+ 	strcpy(caps.boxvendor, "DM");
+ 	strcpy(caps.boxname, "8000HD");
+ 	strcpy(caps.boxarch, "BCM7400D2");
++#else // generic mips box 
++	initialized = 1;
++	caps.has_CI = 1;
++	caps.can_cec = 1;
++	caps.can_shutdown = 1;
++	//caps.display_xres = 140;		// VFD, 400 - 2nd (color)
++	//caps.display_yres = 32;			// VFD, 240 - 2nd (color)
++	caps.display_type = HW_DISPLAY_LED_NUM;
++	caps.display_can_deepstandby = 1;	// 0 because we use graphlcd/lcd4linux
++	caps.display_can_set_brightness = 1;	// 0 because we use graphlcd/lcd4linux
++	caps.display_has_statusline = 0;	// 0 because we use graphlcd/lcd4linux
++	caps.has_button_timer = 1;
++	caps.has_HDMI = 1;
++	caps.has_SCART = 1;
++	strcpy(caps.boxvendor, "MIPSBOX");
++	strcpy(caps.boxname, "generic");
++	strcpy(caps.boxarch, "mips32el");
+ #endif
+ 	return &caps;
+ }
