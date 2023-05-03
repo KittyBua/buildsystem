@@ -95,10 +95,10 @@ endif
 
 MACHINE = $(BOXTYPE)
 ifeq ($(BOXARCH), arm)
-MACHINE = hd51
+MACHINE = armbox
 endif
 ifeq ($(BOXARCH), mipsel)
-MACHINE = vuduo
+MACHINE = mipsbox
 endif
 
 NEUTRINO_CONFIG_OPTS += \
@@ -139,7 +139,7 @@ HAL_URL = https://github.com/Duckbox-Developers/libstb-hal-ddt.git
 #
 # libstb-hal
 #
-LIBSTB_HAL_PATCHES =
+LIBSTB_HAL_PATCHES = libstb-hal-ddt.patch
 
 $(D)/libstb-hal.do_prepare:
 	$(START_BUILD)
@@ -273,7 +273,7 @@ NEUTRINO_PLUGINS += $(D)/neutrino-plugins-scripts-lua
 NEUTRINO_PLUGINS += $(D)/neutrino-plugins-mediathek
 #NEUTRINO_PLUGINS += $(D)/neutrino-plugins-xupnpd
 
-NEUTRINO_PLUGINS_PATCHES =
+NEUTRINO_PLUGINS_PATCHES = neutrino-ddt-plugins.patch
 
 NP_OBJDIR = $(BUILD_TMP)/neutrino-plugins
 

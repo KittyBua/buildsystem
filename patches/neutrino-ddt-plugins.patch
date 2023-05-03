@@ -1,0 +1,12 @@
+diff -Nur neutrino-ddt-plugins.git/acinclude.m4 neutrino-ddt-plugins.git.patched/acinclude.m4
+--- neutrino-ddt-plugins.git/acinclude.m4	2022-06-22 10:46:47.763222000 +0200
++++ neutrino-ddt-plugins.git.patched/acinclude.m4	2023-05-03 16:57:07.019764289 +0200
+@@ -152,7 +152,7 @@
+ AC_ARG_WITH(boxtype,
+ 	AS_HELP_STRING([--with-boxtype], [valid values: spark, generic, armbox, duckbox, spark7162, mipsbox]),
+ 	[case "${withval}" in
+-		generic|armbox)
++		generic|armbox|mipsbox)
+ 			BOXTYPE="$withval"
+ 		;;
+ 		spark|spark7162)

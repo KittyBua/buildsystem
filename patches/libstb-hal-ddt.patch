@@ -1,0 +1,12 @@
+diff -Nur libstb-hal-ddt.git/acinclude.m4 libstb-hal-ddt.git.patched/acinclude.m4
+--- libstb-hal-ddt.git/acinclude.m4	2023-04-08 22:32:04.855325550 +0200
++++ libstb-hal-ddt.git.patched/acinclude.m4	2023-05-03 16:55:01.497492631 +0200
+@@ -152,7 +152,7 @@
+ AC_ARG_WITH(boxtype,
+ 	AS_HELP_STRING([--with-boxtype], [valid values: spark, generic, armbox, duckbox, spark7162, mipsbox]),
+ 	[case "${withval}" in
+-		generic|armbox)
++		generic|armbox|mipsbox)
+ 			BOXTYPE="$withval"
+ 		;;
+ 		spark|spark7162)
