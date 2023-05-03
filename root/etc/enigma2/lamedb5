@@ -1,0 +1,576 @@
+eDVB services /5/
+# Transponders: t:dvb_namespace:transport_stream_id:original_network_id,FEPARMS
+#     DVBS  FEPARMS:   s:frequency:symbol_rate:polarisation:fec:orbital_position:inversion:flags
+#     DVBS2 FEPARMS:   s:frequency:symbol_rate:polarisation:fec:orbital_position:inversion:flags:system:modulation:rolloff:pilot[,MIS/PLS:is_id:pls_code:pls_mode][,T2MI:t2mi_plp_id:t2mi_pid]
+#     DVBT  FEPARMS:   t:frequency:bandwidth:code_rate_HP:code_rate_LP:modulation:transmission_mode:guard_interval:hierarchy:inversion:flags:system:plp_id
+#     DVBC  FEPARMS:   c:frequency:symbol_rate:inversion:modulation:fec_inner:flags:system
+#     ATSC  FEPARMS:   a:frequency:inversion:modulation:flags:system
+# Services    : s:service_id:dvb_namespace:transport_stream_id:original_network_id:service_type:service_number:source_id,"service_name"[,p:provider_name][,c:cached_pid]*[,C:cached_capid]*[,f:flags]
+t:ffff0000:0437:0066,c:338000:6900000:2:5:0:0:0
+t:ffff0000:0001:0085,c:386000:6900000:2:5:0:0:0
+t:ffff0000:0003:0085,c:362000:6900000:2:5:0:0:0
+t:ffff0000:0004:0085,c:378000:6900000:2:5:0:0:0
+t:ffff0000:0006:0085,c:354000:6900000:2:5:0:0:0
+t:ffff0000:000c:0085,c:170000:6900000:2:5:0:0:0
+t:ffff0000:000d:0085,c:162000:6900000:2:5:0:0:0
+t:ffff0000:006f:270f,c:122000:6900000:2:5:0:0:0
+t:ffff0000:0079:270f,c:114000:6900000:2:5:9:0:0
+t:ffff0000:0083:270f,c:346000:6900000:2:5:0:0:0
+t:ffff0000:008d:270f,c:274000:6900000:2:5:0:0:0
+t:ffff0000:0097:270f,c:298000:6900000:2:5:0:0:0
+t:ffff0000:00a1:270f,c:394000:6900000:2:5:0:0:0
+t:ffff0000:00ab:270f,c:306000:6900000:2:5:0:0:0
+t:ffff0000:00b5:270f,c:282000:6900000:2:5:0:0:0
+t:ffff0000:00dd:270f,c:290000:6900000:2:5:0:0:0
+t:ffff0000:00e7:270f,c:266000:6900000:2:5:0:0:0
+t:ffff0000:00fb:270f,c:610000:6900000:2:3:0:0:0
+t:ffff0000:0141:270f,c:146000:6900000:2:5:0:0:0
+t:ffff0000:014b:270f,c:154000:6900000:2:5:0:0:0
+t:ffff0000:015f:270f,c:130000:6900000:2:5:0:0:0
+t:ffff0000:0187:270f,c:186000:6900000:2:5:0:0:0
+t:ffff0000:0191:270f,c:194000:6900000:2:5:0:0:0
+t:ffff0000:019b:270f,c:202000:6900000:2:5:0:0:0
+t:ffff0000:01a5:270f,c:210000:6900000:2:5:0:0:0
+t:ffff0000:01af:270f,c:218000:6900000:2:5:0:0:0
+t:ffff0000:01b9:270f,c:226000:6900000:2:5:0:0:0
+t:ffff0000:01c3:270f,c:234000:6900000:2:5:0:0:0
+t:ffff0000:01f5:270f,c:178000:6900000:2:5:0:0:0
+t:ffff0000:0213:270f,c:138000:6900000:2:5:0:0:0
+t:ffff0000:0231:270f,c:242000:6900000:2:5:0:0:0
+t:ffff0000:023b:270f,c:250000:6900000:2:5:0:0:0
+t:ffff0000:0245:270f,c:258000:6900000:2:5:0:0:0
+t:ffff0000:024f:270f,c:370000:6900000:2:5:0:0:0
+t:ffff0000:041b:a401,c:330000:6900000:2:5:0:0:0
+t:ffff0000:0431:a401,c:322000:6900000:2:5:0:0:0
+t:ffff0000:044d:a401,c:314000:6900000:2:5:0:0:0
+s:e300:ffff0000:0245:270f:1:0:0,"1+1 International",p:Unitymedia
+s:e301:ffff0000:0245:270f:1:0:0,"Pro TV International",p:Unitymedia
+s:e302:ffff0000:0245:270f:1:0:0,"Ginx TV",p:Unitymedia
+s:3b04:ffff0000:008d:270f:1:0:0,"Lust Pur",p:Unitymedia
+s:3b06:ffff0000:0097:270f:1:0:0,"Bibel TV",p:Unitymedia
+s:3b07:ffff0000:0097:270f:1:0:0,"Cartoon Network",p:Unitymedia
+s:3b0c:ffff0000:0097:270f:1:0:0,"Sport1+",p:Unitymedia
+s:3b0d:ffff0000:0097:270f:1:0:0,"HopeTV",p:Unitymedia
+s:3b0e:ffff0000:0097:270f:1:0:0,"France 3",p:Unitymedia
+s:620e:ffff0000:00b5:270f:1:0:0,"TV5MONDE Europe",p:Unitymedia
+s:3b0f:ffff0000:0097:270f:1:0:0,"France 5",p:Unitymedia
+s:3b10:ffff0000:0097:270f:1:0:0,"Warner TV Comedy",p:Unitymedia
+s:6210:ffff0000:0083:270f:1:0:0,"Crime + Investigation",p:Unitymedia
+s:3b11:ffff0000:0097:270f:1:0:0,"France24 (fre/eng)",p:Unitymedia
+s:6211:ffff0000:0083:270f:1:0:0,"TOGGO plus",p:Unitymedia
+s:3b12:ffff0000:0097:270f:1:0:0,"France 2",p:Unitymedia
+s:3b13:ffff0000:0097:270f:1:0:0,"Astro TV",p:Unitymedia
+s:6213:ffff0000:00b5:270f:1:0:0,"Show Max",p:Unitymedia
+s:3b14:ffff0000:0097:270f:1:0:0,"Antenna TV",p:Unitymedia
+s:3b15:ffff0000:0097:270f:1:0:0,"NHK WORLD-JAPAN",p:Unitymedia
+s:3b16:ffff0000:0097:270f:1:0:0,"Disney Junior",p:Unitymedia
+s:3717:ffff0000:008d:270f:1:0:0,"CNBC",p:Unitymedia
+s:6217:ffff0000:0083:270f:1:0:0,"SPORTDIGITAL FUSSBALL",p:Unitymedia
+s:3719:ffff0000:008d:270f:1:0:0,"Cartoonito",p:Unitymedia
+s:891d:ffff0000:015f:270f:1:0:0,"WDR Dortmund",p:ARD
+s:371e:ffff0000:008d:270f:1:0:0,"EUROSPORT 2",p:Unitymedia
+s:891e:ffff0000:015f:270f:1:0:0,"WDR Essen",p:ARD
+s:371f:ffff0000:008d:270f:1:0:0,"Warner TV Film",p:Unitymedia
+s:5e25:ffff0000:00b5:270f:1:0:0,"COMEDY CENTRAL",p:Unitymedia
+s:5e27:ffff0000:00ab:270f:1:0:0,"QVC",p:Unitymedia
+s:5e28:ffff0000:00ab:270f:1:0:0,"HSE",p:Unitymedia
+s:5e29:ffff0000:00b5:270f:1:0:0,"Channel21",p:Unitymedia
+s:5e2a:ffff0000:00b5:270f:1:0:0,"1-2-3.tv",p:Unitymedia
+s:372b:ffff0000:008d:270f:1:0:0,"Romance TV",p:Unitymedia
+s:5e2b:ffff0000:015f:270f:1:0:0,"Lokalprogramm",p:Unitymedia
+s:5e2c:ffff0000:00b5:270f:1:0:0,"DMAX",p:Unitymedia
+s:5e2d:ffff0000:00b5:270f:1:0:0,"CNN",p:Unitymedia
+s:6e2d:ffff0000:0431:a401:1:0:0,"rbb Brandenburg",p:ARD
+s:332e:ffff0000:0083:270f:1:0:0,"The HISTORY Channel",p:Unitymedia
+s:6e2e:ffff0000:0431:a401:1:0:0,"rbb Berlin",p:ARD
+s:372f:ffff0000:008d:270f:1:0:0,"13th Street",p:Unitymedia
+s:5e30:ffff0000:00b5:270f:1:0:0,"sonnenklar.TV",p:Unitymedia
+s:3731:ffff0000:008d:270f:1:0:0,"Fix&Foxi",p:Unitymedia
+s:7031:ffff0000:041b:a401:1:0:0,"tagesschau24",p:Unitymedia
+s:3732:ffff0000:008d:270f:1:0:0,"Bloomberg",p:Unitymedia
+s:7032:ffff0000:041b:a401:1:0:0,"ONE",p:Unitymedia
+s:3333:ffff0000:0083:270f:1:0:0,"Kinowelt TV",p:Unitymedia
+s:3733:ffff0000:008d:270f:1:0:0,"Baby TV",p:Unitymedia
+s:3335:ffff0000:0083:270f:1:0:0,"SONY AXN",p:Unitymedia
+s:7035:ffff0000:041b:a401:1:0:0,"phoenix",p:Unitymedia
+s:3338:ffff0000:0083:270f:1:0:0,"kabel eins classics",p:Unitymedia
+s:3339:ffff0000:0083:270f:1:0:0,"SAT.1 emotions",p:Unitymedia
+s:5a3d:ffff0000:00e7:270f:1:0:0,"TV 8",p:Unitymedia
+s:5a3e:ffff0000:00e7:270f:1:0:0,"24Horas",p:Unitymedia
+s:623f:ffff0000:00fb:270f:1:0:0,"Al Arabiya",p:Unitymedia
+s:5a40:ffff0000:00e7:270f:1:0:0,"EURO STAR",p:Unitymedia
+s:6e40:ffff0000:0431:a401:1:0:0,"NDR FS MV",p:ARD
+s:5a41:ffff0000:00e7:270f:1:0:0,"EURO D",p:Unitymedia
+s:6241:ffff0000:00fb:270f:1:0:0,"MBC Maghreb al Arabia",p:Unitymedia
+s:6e41:ffff0000:0431:a401:1:0:0,"NDR FS HH",p:ARD
+s:5a42:ffff0000:00e7:270f:1:0:0,"Nasch Kinomir",p:Unitymedia
+s:6242:ffff0000:00fb:270f:1:0:0,"NTV Mir",p:Unitymedia
+s:6e42:ffff0000:0431:a401:1:0:0,"NDR FS NDS",p:ARD
+s:5a43:ffff0000:00e7:270f:1:0:0,"RTPi",p:Unitymedia
+s:6e43:ffff0000:0431:a401:1:0:0,"NDR FS SH",p:ARD
+s:5a44:ffff0000:00e7:270f:1:0:0,"RTR Planeta",p:Unitymedia
+s:6e44:ffff0000:0431:a401:1:0:0,"MDR Sachsen",p:ARD
+s:2f45:ffff0000:00a1:270f:1:0:0,"RTL",p:Unitymedia
+s:5a45:ffff0000:00e7:270f:1:0:0,"OstWest",p:Unitymedia
+s:6e45:ffff0000:0431:a401:1:0:0,"MDR S-Anhalt",p:ARD
+s:2f46:ffff0000:00a1:270f:1:0:0,"SAT.1",p:Unitymedia
+s:5a46:ffff0000:00e7:270f:1:0:0,"TV Polonia",p:Unitymedia
+s:6e46:ffff0000:0431:a401:1:0:0,"MDR Thüringen",p:ARD
+s:2f47:ffff0000:00a1:270f:1:0:0,"ProSieben",p:Unitymedia,c:0021f,c:01220,c:02224,c:0321f
+s:5a47:ffff0000:00e7:270f:1:0:0,"TVE Internacional",p:Unitymedia
+s:6e47:ffff0000:0431:a401:1:0:0,"SWR Fernsehen RP",p:ARD
+s:2f48:ffff0000:00a1:270f:1:0:0,"VOX",p:Unitymedia
+s:2f49:ffff0000:00a1:270f:1:0:0,"RTLZWEI",p:Unitymedia
+s:2f4a:ffff0000:00a1:270f:1:0:0,"kabel eins",p:Unitymedia
+s:2f4b:ffff0000:00a1:270f:1:0:0,"Super RTL",p:Unitymedia
+s:2f4d:ffff0000:00a1:270f:1:0:0,"ntv",p:Unitymedia
+s:5a4d:ffff0000:00e7:270f:1:0:0,"Deutsches Musik Fernsehen",p:Unitymedia
+s:5a4f:ffff0000:00e7:270f:1:0:0,"N24 Doku",p:Unitymedia
+s:2f51:ffff0000:00a1:270f:1:0:0,"ProSieben MAXX",p:Unitymedia
+s:3352:ffff0000:0083:270f:1:0:0,"CGTN Documentary",p:Unitymedia
+s:5656:ffff0000:00dd:270f:1:0:0,"Telebom / Tele Dom",p:Unitymedia
+s:5657:ffff0000:00dd:270f:1:0:0,"itvn",p:Unitymedia
+s:5658:ffff0000:00dd:270f:1:0:0,"Kanal 7",p:Unitymedia
+s:565a:ffff0000:00dd:270f:1:0:0,"Rai Uno",p:Unitymedia
+s:565b:ffff0000:00dd:270f:1:0:0,"Rai Due",p:Unitymedia
+s:565c:ffff0000:00dd:270f:1:0:0,"Rai Tre",p:Unitymedia
+s:565d:ffff0000:00dd:270f:1:0:0,"SHOW TURK",p:Unitymedia
+s:a85f:ffff0000:01af:270f:1:0:0,"Al Jazeera",p:Unitymedia,C:0
+s:5660:ffff0000:00dd:270f:1:0:0,"Channel One Russia",p:Unitymedia
+s:a860:ffff0000:01af:270f:1:0:0,"EUROSPORT 1",p:Unitymedia
+s:a861:ffff0000:01af:270f:1:0:0,"RTL Living",p:Unitymedia
+s:a862:ffff0000:01af:270f:1:0:0,"SPORT1",p:Unitymedia
+s:a863:ffff0000:01af:270f:1:0:0,"WELT",p:Unitymedia
+s:6264:ffff0000:00fb:270f:1:0:0,"Vodafone TV",p:Unitymedia
+s:a864:ffff0000:01af:270f:1:0:0,"Tele 5",p:Unitymedia
+s:6d66:ffff0000:0437:0066:1:0:0,"ZDF",p:ZDFvision
+s:5667:ffff0000:00dd:270f:1:0:0,"euronews (D)",p:Unitymedia
+s:6d67:ffff0000:0437:0066:1:0:0,"3sat",p:ZDFvision
+s:6d68:ffff0000:0437:0066:1:0:0,"KiKA",p:ZDFvision
+s:6d6b:ffff0000:0437:0066:1:0:0,"ZDFinfo",p:ZDFvision
+s:566e:ffff0000:00dd:270f:1:0:0,"VOXup",p:Unitymedia
+s:6d6e:ffff0000:0437:0066:1:0:0,"zdf_neo",p:ZDFvision
+s:5670:ffff0000:00dd:270f:1:0:0,"SYFY",p:Unitymedia
+s:5671:ffff0000:00dd:270f:1:0:0,"SR Fernsehen",p:Unitymedia
+s:5672:ffff0000:00dd:270f:1:0:0,"Radio Bremen TV",p:Unitymedia
+s:a476:ffff0000:01a5:270f:1:0:0,"Disney SD",p:Unitymedia,c:0023d,c:0123e,c:02242,c:0323d
+s:a477:ffff0000:01a5:270f:1:0:0,"BBC News",p:Unitymedia
+s:cf77:ffff0000:0213:270f:1:0:0,"Nederland 2",p:Unitymedia
+s:a479:ffff0000:01a5:270f:1:0:0,"CGTN",p:Unitymedia
+s:a47a:ffff0000:01a5:270f:1:0:0,"DIE NEUE ZEIT TV",p:Unitymedia
+s:a47b:ffff0000:01a5:270f:1:0:0,"iTVS",p:Unitymedia
+s:cb84:ffff0000:00dd:270f:1:0:0,"Netflix",p:Unitymedia
+s:4e8c:ffff0000:00ab:270f:1:0:0,"Juwelo",p:Unitymedia
+s:4e94:ffff0000:00a1:270f:1:0:0,"SIXX",p:Unitymedia
+s:ac96:ffff0000:01b9:270f:1:0:0,"Nick",p:Unitymedia
+s:ac97:ffff0000:01b9:270f:1:0:0,"TRT Türk",p:Unitymedia
+s:ac98:ffff0000:01b9:270f:1:0:0,"Rai News 24",p:Unitymedia
+s:ac99:ffff0000:01b9:270f:1:0:0,"JSTV",p:Unitymedia
+s:ac9a:ffff0000:01b9:270f:1:0:0,"Record Internacional",p:Unitymedia
+s:ac9b:ffff0000:01b9:270f:1:0:0,"Habertürk",p:Unitymedia
+s:4e9c:ffff0000:00e7:270f:1:0:0,"RTLup",p:Unitymedia
+s:75a0:ffff0000:00ab:270f:1:0:0,"HSE Extra",p:Unitymedia
+s:75a2:ffff0000:00b5:270f:1:0:0,"Nitro",p:Unitymedia
+s:0dad:ffff0000:0003:0085:1:0:0,"GFD Service",p:SKY
+s:0dae:ffff0000:0004:0085:1:0:0,"SDMS Service 1",p:SKY
+s:0daf:ffff0000:0004:0085:1:0:0,"SDMS Service 2",p:SKY
+s:71b6:ffff0000:00b5:270f:1:0:0,"SAT.1 GOLD",p:Unitymedia
+s:c3b6:ffff0000:01f5:270f:1:0:0,"Hayat TV",p:Unitymedia
+s:c3b7:ffff0000:01f5:270f:1:0:0,"Klan Kosova",p:Unitymedia
+s:c3b8:ffff0000:01f5:270f:1:0:0,"Kohavision TV",p:Unitymedia
+s:c3b9:ffff0000:01f5:270f:1:0:0,"Pink Extra",p:Unitymedia
+s:c3ba:ffff0000:01f5:270f:1:0:0,"Pink Film",p:Unitymedia
+s:c3bb:ffff0000:01f5:270f:1:0:0,"Pink FOLK",p:Unitymedia
+s:c3bc:ffff0000:01f5:270f:1:0:0,"Pink Music",p:Unitymedia
+s:c3bd:ffff0000:01f5:270f:1:0:0,"Pink Plus",p:Unitymedia
+s:c3be:ffff0000:01f5:270f:1:0:0,"RTK1",p:Unitymedia
+s:c3bf:ffff0000:01f5:270f:1:0:0,"RTV21",p:Unitymedia
+s:98c0:ffff0000:0187:270f:1:0:0,"Al Jazeera International",p:Unitymedia
+s:c3c0:ffff0000:01f5:270f:1:0:0,"TV Crne Gore Sat",p:Unitymedia
+s:98c2:ffff0000:0187:270f:1:0:0,"Home & Garden TV",p:Unitymedia
+s:98c3:ffff0000:0187:270f:1:0:0,"Warner TV Serie",p:Unitymedia
+s:98c4:ffff0000:0187:270f:1:0:0,"TVN 24",p:Unitymedia
+s:46c5:ffff0000:00b5:270f:1:0:0,"kabel eins Doku",p:Unitymedia
+s:98c5:ffff0000:0187:270f:1:0:0,"TLC",p:Unitymedia
+s:46c6:ffff0000:00b5:270f:1:0:0,"MTV",p:Unitymedia
+s:46c7:ffff0000:00b5:270f:1:0:0,"France24 (eng)",p:Unitymedia
+s:46c8:ffff0000:00b5:270f:1:0:0,"National Geographic",p:Unitymedia
+s:6dca:ffff0000:044d:a401:1:0:0,"Das Erste",p:ARD
+s:6dcb:ffff0000:044d:a401:1:0:0,"BR Fernsehen Süd",p:ARD
+s:6dcc:ffff0000:044d:a401:1:0:0,"hr-fernsehen",p:ARD
+s:6dce:ffff0000:044d:a401:1:0:0,"BR Fernsehen Nord",p:ARD
+s:6dcf:ffff0000:044d:a401:1:0:0,"WDR Köln",p:ARD
+s:6dd1:ffff0000:044d:a401:1:0:0,"SWR Fernsehen BW",p:ARD
+s:42d8:ffff0000:00ab:270f:1:0:0,"ServusTV",p:Unitymedia
+s:42dc:ffff0000:00ab:270f:1:0:0,"HSE Trend",p:Unitymedia
+s:42dd:ffff0000:00ab:270f:1:0:0,"QVC ZWEI",p:Unitymedia
+s:e6dd:ffff0000:024f:270f:1:0:0,"Balkanika Music Television",p:Unitymedia
+s:69de:ffff0000:00ab:270f:1:0:0,"DELUXE MUSIC",p:Unitymedia,c:0021f,c:01220,c:0321f
+s:e6de:ffff0000:024f:270f:1:0:0,"BN TV",p:Unitymedia
+s:42df:ffff0000:00ab:270f:1:0:0,"RiC",p:Unitymedia
+s:e6df:ffff0000:024f:270f:1:0:0,"CMC",p:Unitymedia
+s:42e0:ffff0000:00ab:270f:1:0:0,"BVN",p:Unitymedia,C:0
+s:e6e0:ffff0000:024f:270f:1:0:0,"DM SAT",p:Unitymedia
+s:42e1:ffff0000:00ab:270f:1:0:0,"Handystar",p:Unitymedia
+s:e6e1:ffff0000:024f:270f:1:0:0,"Fashion TV",p:Unitymedia,C:0
+s:42e2:ffff0000:00ab:270f:1:0:0,"SonLife",p:Unitymedia
+s:e6e2:ffff0000:024f:270f:1:0:0,"HRT TV 1",p:Unitymedia
+s:42e3:ffff0000:00ab:270f:1:0:0,"Rai Storia",p:Unitymedia
+s:42e4:ffff0000:00ab:270f:1:0:0,"Mediaset",p:Unitymedia
+s:42e5:ffff0000:00ab:270f:1:0:0,"ERT World",p:Unitymedia
+s:e6e5:ffff0000:024f:270f:1:0:0,"RTS Sat",p:Unitymedia
+s:42e6:ffff0000:00ab:270f:1:0:0,"Shop LC",p:Unitymedia
+s:e6e6:ffff0000:024f:270f:1:0:0,"Curiosity Channel",p:Unitymedia
+s:e6e7:ffff0000:024f:270f:1:0:0,"Nick.Jr.",p:Unitymedia
+s:69eb:ffff0000:0097:270f:1:0:0,"k-tv",p:Unitymedia
+s:e2fd:ffff0000:0245:270f:1:0:0,"Silverline Movie Channel",p:Unitymedia,C:0
+s:e2fe:ffff0000:0245:270f:1:0:0,"ATV Avrupa",p:Unitymedia
+s:e2ff:ffff0000:0245:270f:1:0:0,"France 4",p:Unitymedia
+s:3729:ffff0000:008d:270f:2:0:0,"BBC World Service (E)",p:Unitymedia
+s:372a:ffff0000:008d:270f:2:0:0,"BBC World Service (Arab.)",p:Unitymedia
+s:e737:ffff0000:024f:270f:2:0:0,"RDP Internacional",p:Unitymedia
+s:3341:ffff0000:0083:270f:2:0:0,"Rock Hymnen",p:Unitymedia - STINGRAY MUSIC
+s:3342:ffff0000:0083:270f:2:0:0,"Headbangers",p:Unitymedia - STINGRAY MUSIC
+s:3343:ffff0000:0083:270f:2:0:0,"Alternative Deutschland",p:Unitymedia - STINGRAY MUSIC
+s:6243:ffff0000:00fb:270f:2:0:0,"Klassik",p:Unitymedia - STINGRAY MUSIC
+s:3344:ffff0000:0083:270f:2:0:0,"Dance Party",p:Unitymedia - STINGRAY MUSIC
+s:6244:ffff0000:00fb:270f:2:0:0,"Orchestermusik",p:Unitymedia - STINGRAY MUSIC
+s:3345:ffff0000:0083:270f:2:0:0,"Bass Breaks & Beats",p:Unitymedia - STINGRAY MUSIC
+s:6245:ffff0000:00fb:270f:2:0:0,"2000er Hits",p:Unitymedia - STINGRAY MUSIC
+s:3346:ffff0000:0083:270f:2:0:0,"Chillout",p:Unitymedia - STINGRAY MUSIC
+s:6246:ffff0000:00fb:270f:2:0:0,"Hot Country",p:Unitymedia - STINGRAY MUSIC
+s:3347:ffff0000:0083:270f:2:0:0,"Sommer Hits",p:Unitymedia - STINGRAY MUSIC
+s:6247:ffff0000:00fb:270f:2:0:0,"Kinderhits",p:Unitymedia - STINGRAY MUSIC
+s:3348:ffff0000:0083:270f:2:0:0,"All Day Party",p:Unitymedia - STINGRAY MUSIC
+s:6248:ffff0000:00fb:270f:2:0:0,"Drive",p:Unitymedia - STINGRAY MUSIC
+s:3349:ffff0000:0083:270f:2:0:0,"Kuschelsongs",p:Unitymedia - STINGRAY MUSIC
+s:6249:ffff0000:00fb:270f:2:0:0,"New Age",p:Unitymedia - STINGRAY MUSIC
+s:334a:ffff0000:0083:270f:2:0:0,"Groove (Disco & Funk)",p:Unitymedia - STINGRAY MUSIC
+s:5a4a:ffff0000:00e7:270f:2:0:0,"Metropol FM",p:Unitymedia
+s:624a:ffff0000:00fb:270f:2:0:0,"80er & 90er Hits",p:Unitymedia - STINGRAY MUSIC
+s:334b:ffff0000:0083:270f:2:0:0,"Blues",p:Unitymedia - STINGRAY MUSIC
+s:624b:ffff0000:00fb:270f:2:0:0,"Total Hits Frankreich",p:Unitymedia - STINGRAY MUSIC
+s:334c:ffff0000:0083:270f:2:0:0,"Soul & R'n'B",p:Unitymedia - STINGRAY MUSIC
+s:624c:ffff0000:00fb:270f:2:0:0,"Total Hits Russland",p:Unitymedia - STINGRAY MUSIC
+s:334d:ffff0000:0083:270f:2:0:0,"Hip Hop",p:Unitymedia - STINGRAY MUSIC
+s:624d:ffff0000:00fb:270f:2:0:0,"Hip-Hop Deutschland",p:Unitymedia - STINGRAY MUSIC
+s:334e:ffff0000:0083:270f:2:0:0,"Reggae",p:Unitymedia - STINGRAY MUSIC
+s:624e:ffff0000:00fb:270f:2:0:0,"Schlager",p:Unitymedia - STINGRAY MUSIC
+s:334f:ffff0000:0083:270f:2:0:0,"Independent Classics",p:Unitymedia - STINGRAY MUSIC
+s:624f:ffff0000:00fb:270f:2:0:0,"Total Hits Deutschland",p:Unitymedia - STINGRAY MUSIC
+s:3350:ffff0000:0083:270f:2:0:0,"Specials",p:Unitymedia - STINGRAY MUSIC
+s:6250:ffff0000:00fb:270f:2:0:0,"Total Hits Italien",p:Unitymedia - STINGRAY MUSIC
+s:5a51:ffff0000:00e7:270f:2:0:0,"ROCK ANTENNE",p:Unitymedia
+s:6251:ffff0000:00fb:270f:2:0:0,"Heavy Metal",p:Unitymedia - STINGRAY MUSIC
+s:5a52:ffff0000:00e7:270f:2:0:0,"Beats Radio",p:Unitymedia
+s:6252:ffff0000:00fb:270f:2:0:0,"Bollywood Hits",p:Unitymedia - STINGRAY MUSIC
+s:5a53:ffff0000:00e7:270f:2:0:0,"Schwarzwaldradio",p:Unitymedia
+s:6253:ffff0000:00fb:270f:2:0:0,"JAM FM",p:Unitymedia
+s:6254:ffff0000:00fb:270f:2:0:0,"Radio Paloma",p:Unitymedia
+s:6255:ffff0000:00fb:270f:2:0:0,"Radio ZET",p:Unitymedia
+s:6257:ffff0000:00fb:270f:2:0:0,"Slow Türk",p:Unitymedia
+s:6258:ffff0000:00fb:270f:2:0:0,"Klassik Radio",p:Unitymedia
+s:6259:ffff0000:00fb:270f:2:0:0,"NL-Radio 1",p:Unitymedia
+s:625a:ffff0000:00fb:270f:2:0:0,"NL-Radio 5",p:Unitymedia
+s:625b:ffff0000:00fb:270f:2:0:0,"Radio Exterior",p:Unitymedia
+s:625c:ffff0000:00fb:270f:2:0:0,"UNSERDING",p:Unitymedia
+s:625d:ffff0000:00fb:270f:2:0:0,"Bremen Next",p:Unitymedia
+s:625e:ffff0000:00fb:270f:2:0:0,"80s80s",p:Unitymedia
+s:625f:ffff0000:00fb:270f:2:0:0,"Radio 21",p:Unitymedia
+s:6260:ffff0000:00fb:270f:2:0:0,"AntenneSaar",p:ARD SR
+s:6261:ffff0000:00fb:270f:2:0:0,"WDR 2 Ruhrgebiet",p:ARD WDR
+s:6262:ffff0000:00fb:270f:2:0:0,"WDR 2 Rhein und Ruhr",p:ARD WDR
+s:6263:ffff0000:00fb:270f:2:0:0,"DRadio DokDeb",p:Unitymedia
+s:5669:ffff0000:00dd:270f:2:0:0,"Rai Radio 1",p:Unitymedia
+s:6d6c:ffff0000:0437:0066:2:0:0,"Dlf Kultur",p:ZDFvision
+s:6d6d:ffff0000:0437:0066:2:0:0,"Dlf",p:ZDFvision
+s:6d71:ffff0000:0437:0066:2:0:0,"Dlf Nova",p:ZDFvision
+s:cf79:ffff0000:0213:270f:2:0:0,"RADIO BOB!",p:Unitymedia
+s:2b81:ffff0000:008d:270f:2:0:0,"Turk Muzigi",p:Unitymedia - STINGRAY MUSIC,C:0
+s:2b82:ffff0000:008d:270f:2:0:0,"Latin",p:Unitymedia - STINGRAY MUSIC,C:0
+s:2b83:ffff0000:008d:270f:2:0:0,"Volksmusik",p:Unitymedia - STINGRAY MUSIC
+s:2b84:ffff0000:008d:270f:2:0:0,"Cool Jazz",p:Unitymedia - STINGRAY MUSIC
+s:2b85:ffff0000:008d:270f:2:0:0,"Jazz Classics",p:Unitymedia - STINGRAY MUSIC
+s:2b86:ffff0000:008d:270f:2:0:0,"Cocktail Lounge",p:Unitymedia - STINGRAY MUSIC
+s:2b87:ffff0000:008d:270f:2:0:0,"Easy Listening Deutschland",p:Unitymedia - STINGRAY MUSIC
+s:2b88:ffff0000:008d:270f:2:0:0,"Arabisch",p:Unitymedia - STINGRAY MUSIC
+s:2b89:ffff0000:008d:270f:2:0:0,"60er & 70er Hits",p:Unitymedia - STINGRAY MUSIC
+s:2b8a:ffff0000:008d:270f:2:0:0,"Classic Calm",p:Unitymedia - STINGRAY MUSIC
+s:2b8b:ffff0000:008d:270f:2:0:0,"Rock 'n' Roll Oldies",p:Unitymedia - STINGRAY MUSIC
+s:2b8c:ffff0000:008d:270f:2:0:0,"Total Hits Polen",p:Unitymedia - STINGRAY MUSIC
+s:2b8d:ffff0000:008d:270f:2:0:0,"80er",p:Unitymedia - STINGRAY MUSIC
+s:2b8e:ffff0000:008d:270f:2:0:0,"90er",p:Unitymedia - STINGRAY MUSIC
+s:2b8f:ffff0000:008d:270f:2:0:0,"Chansons",p:Unitymedia - STINGRAY MUSIC
+s:2b90:ffff0000:008d:270f:2:0:0,"Rock of Ages",p:Unitymedia - STINGRAY MUSIC
+s:cf90:ffff0000:0213:270f:2:0:0,"Antenne NRW",p:Unitymedia
+s:cf91:ffff0000:0213:270f:2:0:0,"Kulthit Radio NRW",p:Unitymedia
+s:cf92:ffff0000:0213:270f:2:0:0,"NRW1",p:Unitymedia
+s:cf93:ffff0000:0213:270f:2:0:0,"Schlager Radio",p:Unitymedia
+s:46c0:ffff0000:00b5:270f:2:0:0,"ERF Plus",p:Unitymedia
+s:46c1:ffff0000:00b5:270f:2:0:0,"Radio Horeb",p:Unitymedia
+s:c3c1:ffff0000:01f5:270f:2:0:0,"Pink Radio",p:Unitymedia
+s:46c2:ffff0000:00b5:270f:2:0:0,"Radio Sunshine Live",p:Unitymedia
+s:c3c2:ffff0000:01f5:270f:2:0:0,"Radio 21 Kosovo",p:Unitymedia
+s:e6e8:ffff0000:024f:270f:2:0:0,"HRT HR1",p:Unitymedia
+s:e6e9:ffff0000:024f:270f:2:0:0,"Radio Dukagjini",p:Unitymedia
+s:28a0:ffff0000:044d:a401:10:0:0,"Bayern 1",p:ARD BR
+s:28a1:ffff0000:044d:a401:10:0:0,"Bayern 2",p:ARD BR
+s:28a2:ffff0000:044d:a401:10:0:0,"BAYERN 3",p:ARD BR
+s:28a3:ffff0000:044d:a401:10:0:0,"BR-KLASSIK",p:ARD BR
+s:28a4:ffff0000:044d:a401:10:0:0,"BR24",p:ARD BR
+s:28a5:ffff0000:044d:a401:10:0:0,"BR24live",p:ARD BR
+s:28a6:ffff0000:044d:a401:10:0:0,"BR Schlager",p:ARD BR
+s:28a7:ffff0000:044d:a401:10:0:0,"PULS",p:ARD BR
+s:28a8:ffff0000:044d:a401:10:0:0,"BR-Heimat",p:ARD BR
+s:28ac:ffff0000:0431:a401:10:0:0,"NDR 2 NDS",p:ARD NDR
+s:28ad:ffff0000:0431:a401:10:0:0,"NDR Kultur",p:ARD NDR
+s:28ae:ffff0000:0431:a401:10:0:0,"NDR Info NDS",p:ARD NDR
+s:28af:ffff0000:0431:a401:10:0:0,"N-JOY",p:ARD NDR
+s:28b0:ffff0000:0431:a401:10:0:0,"NDR 90,3",p:ARD NDR
+s:28b1:ffff0000:0431:a401:10:0:0,"NDR1 Welle Nord KI",p:ARD NDR
+s:28b2:ffff0000:0431:a401:10:0:0,"NDR 1 Radio MV SN",p:ARD NDR
+s:28b3:ffff0000:0431:a401:10:0:0,"NDR 1 Nieders. HAN",p:ARD NDR
+s:28b4:ffff0000:0431:a401:10:0:0,"NDR Info Spezial",p:ARD NDR
+s:28b5:ffff0000:0431:a401:10:0:0,"NDR Blue",p:ARD NDR
+s:28b6:ffff0000:0431:a401:10:0:0,"NDR Schlager",p:ARD NDR
+s:28ba:ffff0000:0431:a401:10:0:0,"Bremen Eins",p:ARD RB
+s:28bb:ffff0000:0431:a401:10:0:0,"Bremen Zwei",p:ARD RB
+s:28bc:ffff0000:0431:a401:10:0:0,"Bremen Vier",p:ARD RB
+s:28c0:ffff0000:044d:a401:10:0:0,"SR 1 Europawelle",p:ARD SR
+s:28c1:ffff0000:044d:a401:10:0:0,"SR 2 KulturRadio",p:ARD SR
+s:28c2:ffff0000:044d:a401:10:0:0,"SR 3 Saarlandwelle",p:ARD SR
+s:28c8:ffff0000:0431:a401:10:0:0,"SWR1 BW",p:ARD SWR
+s:28c9:ffff0000:0431:a401:10:0:0,"SWR1 RP",p:ARD SWR
+s:28ca:ffff0000:0431:a401:10:0:0,"SWR2",p:ARD SWR
+s:28cb:ffff0000:0431:a401:10:0:0,"SWR3",p:ARD SWR
+s:28cc:ffff0000:0431:a401:10:0:0,"SWR4 BW",p:ARD SWR
+s:28cd:ffff0000:0431:a401:10:0:0,"SWR4 RP",p:ARD SWR
+s:28ce:ffff0000:0431:a401:10:0:0,"DASDING",p:ARD SWR
+s:28cf:ffff0000:0431:a401:10:0:0,"SWR Aktuell",p:ARD SWR
+s:28d3:ffff0000:044d:a401:10:0:0,"1LIVE",p:ARD WDR
+s:28d4:ffff0000:044d:a401:10:0:0,"WDR 2 Rheinland",p:ARD WDR
+s:28d5:ffff0000:044d:a401:10:0:0,"WDR 3",p:ARD WDR
+s:28d6:ffff0000:044d:a401:10:0:0,"WDR 4",p:ARD WDR
+s:28d7:ffff0000:044d:a401:10:0:0,"WDR 5",p:ARD WDR
+s:28d8:ffff0000:044d:a401:10:0:0,"COSMO",p:ARD WDR
+s:28d9:ffff0000:044d:a401:10:0:0,"1LIVE diGGi",p:ARD WDR
+s:28da:ffff0000:044d:a401:10:0:0,"Die Maus",p:ARD WDR
+s:28db:ffff0000:044d:a401:10:0:0,"WDR Event",p:ARD WDR
+s:28e1:ffff0000:044d:a401:10:0:0,"hr1",p:ARD HR
+s:28e2:ffff0000:044d:a401:10:0:0,"hr2",p:ARD HR
+s:28e3:ffff0000:044d:a401:10:0:0,"hr3",p:ARD HR
+s:28e4:ffff0000:044d:a401:10:0:0,"hr4",p:ARD HR
+s:28e5:ffff0000:044d:a401:10:0:0,"YOU FM",p:ARD HR
+s:28e6:ffff0000:044d:a401:10:0:0,"hr-iNFO",p:ARD HR
+s:28ea:ffff0000:0431:a401:10:0:0,"MDR SACHSEN DD",p:ARD MDR
+s:28eb:ffff0000:0431:a401:10:0:0,"MDR S-ANHALT MD",p:ARD MDR
+s:28ec:ffff0000:0431:a401:10:0:0,"MDR THÜR Mitte-W",p:ARD MDR
+s:28ed:ffff0000:0431:a401:10:0:0,"MDR KULTUR",p:ARD MDR
+s:28ee:ffff0000:0431:a401:10:0:0,"MDR JUMP",p:ARD MDR
+s:28ef:ffff0000:0431:a401:10:0:0,"MDR SPUTNIK",p:ARD MDR
+s:28f0:ffff0000:0431:a401:10:0:0,"MDR AKTUELL",p:ARD MDR
+s:28f1:ffff0000:0431:a401:10:0:0,"MDR KLASSIK",p:ARD MDR
+s:28f4:ffff0000:0431:a401:10:0:0,"rbb24 Inforadio",p:ARD rbb
+s:28f5:ffff0000:0431:a401:10:0:0,"rbbKultur",p:ARD rbb
+s:28f6:ffff0000:0431:a401:10:0:0,"Antenne Brbg.",p:ARD rbb
+s:28f7:ffff0000:0431:a401:10:0:0,"rbb 88.8",p:ARD rbb
+s:28f8:ffff0000:0431:a401:10:0:0,"radioeins",p:ARD rbb
+s:28f9:ffff0000:0431:a401:10:0:0,"Fritz",p:ARD rbb
+s:0f8c:ffff0000:0003:0085:12:0:0,"Humax PR-HD3000C",p:betaresearch
+s:0f9a:ffff0000:0003:0085:12:0:0,"Pace TDC 866 NSDX",p:SKY
+s:0dab:ffff0000:0003:0085:12:0:0,"STB channel config.",p:betaresearch
+s:0201:ffff0000:0001:0085:22:0:0,"Sky Cinema Fun",p:SKY
+s:0203:ffff0000:0003:0085:22:0:0,"Sky Cinema Classics",p:SKY
+s:0016:ffff0000:0003:0085:22:0:0,"Heimatkanal",p:SKY
+s:001c:ffff0000:0004:0085:22:0:0,"Cartoonito",p:SKY
+s:002b:ffff0000:0003:0085:22:0:0,"Sky Cinema Premieren +24",p:SKY
+s:0034:ffff0000:0006:0085:22:0:0,"Spiegel Geschichte",p:SKY,C:0
+s:008a:ffff0000:0003:0085:22:0:0,"Nick.Jr.",p:SKY
+s:0195:ffff0000:0004:0085:22:0:0,"Warner TV Film",p:SKY
+s:0197:ffff0000:0004:0085:22:0:0,"Sky Cinema Family",p:SKY
+s:0101:ffff0000:0001:0085:25:0:0,"Sky Sport Bundesliga 9 HD",p:SKY
+s:0102:ffff0000:0001:0085:25:0:0,"Sky Sport 9 HD",p:SKY
+s:0206:ffff0000:0003:0085:25:0:0,"Romance TV HD",p:SKY
+s:000b:ffff0000:000c:0085:25:0:0,"Sky Cinema Thriller HD",p:SKY,C:0
+s:010b:ffff0000:0006:0085:25:0:0,"Sky Sport Bundesliga 1 HD",p:SKY
+s:010c:ffff0000:0006:0085:25:0:0,"Sky Sport 1 HD",p:SKY
+s:000d:ffff0000:0003:0085:25:0:0,"Sky Crime HD",p:SKY,C:0
+s:010d:ffff0000:0006:0085:25:0:0,"Sky Sport 10 HD",p:SKY
+s:000e:ffff0000:0003:0085:25:0:0,"Sky Comedy HD",p:SKY,C:0
+s:df0e:ffff0000:023b:270f:25:0:0,"QVC Style HD",p:Unitymedia
+s:010f:ffff0000:0006:0085:25:0:0,"Sky Sport Bundesliga 10 HD",p:SKY
+s:df0f:ffff0000:023b:270f:25:0:0,"tagesschau24 HD",p:Unitymedia
+s:df10:ffff0000:023b:270f:25:0:0,"SR Fernsehen HD",p:Unitymedia
+s:0011:ffff0000:0004:0085:25:0:0,"Sky Sport F1 HD",p:SKY
+s:df11:ffff0000:023b:270f:25:0:0,"MDR Thüringen HD",p:Unitymedia
+s:0115:ffff0000:000d:0085:25:0:0,"Sky Sport Bundesliga 2 HD",p:SKY
+s:b415:ffff0000:0187:270f:25:0:0,"RTL Living HD",p:Unitymedia
+s:0116:ffff0000:000d:0085:25:0:0,"Sky Sport 2 HD",p:SKY
+s:0017:ffff0000:0001:0085:25:0:0,"Sky Krimi HD",p:SKY,C:0
+s:b417:ffff0000:01c3:270f:25:0:0,"DELUXE MUSIC HD",p:Unitymedia
+s:b418:ffff0000:01c3:270f:25:0:0,"QVC ZWEI HD",p:Unitymedia
+s:6219:ffff0000:019b:270f:25:0:0,"13th Street HD",p:Unitymedia
+s:621b:ffff0000:01b9:270f:25:0:0,"Spiegel Geschichte HD",p:Unitymedia,C:0
+s:011f:ffff0000:000c:0085:25:0:0,"Sky Sport Bundesliga 3 HD",p:SKY
+s:0120:ffff0000:000c:0085:25:0:0,"Sky Sport 3 HD",p:SKY
+s:db25:ffff0000:0231:270f:25:0:0,"Sonnenklar TV HD",p:Unitymedia
+s:db26:ffff0000:0231:270f:25:0:0,"1-2-3.TV HD",p:Unitymedia
+s:db27:ffff0000:0231:270f:25:0:0,"Crime + Investigation HD",p:Unitymedia,C:0
+s:db28:ffff0000:0231:270f:25:0:0,"Eurosport1 HD",p:Unitymedia,C:0
+s:0129:ffff0000:0001:0085:25:0:0,"Sky Sport Bundesliga 4 HD",p:SKY
+s:db29:ffff0000:0231:270f:25:0:0,"hr-fernsehen HD",p:Unitymedia
+s:012a:ffff0000:0001:0085:25:0:0,"Sky Sport 4 HD",p:SKY
+s:db2a:ffff0000:0231:270f:25:0:0,"SWR BW HD",p:Unitymedia
+s:db2b:ffff0000:0231:270f:25:0:0,"Warner TV Serie HD",p:Unitymedia
+s:b02d:ffff0000:01c3:270f:25:0:0,"COMEDY CENTRAL HD",p:Unitymedia,C:0
+s:b030:ffff0000:01c3:270f:25:0:0,"Eurosport 2 HD",p:Unitymedia,C:0
+s:0133:ffff0000:0004:0085:25:0:0,"Sky Sport Bundesliga 5 HD",p:SKY
+s:0134:ffff0000:0004:0085:25:0:0,"Sky Sport 5 HD",p:SKY
+s:b034:ffff0000:01c3:270f:25:0:0,"DAZN 2",p:Unitymedia,C:0
+s:b035:ffff0000:01c3:270f:25:0:0,"Sky One HD",p:Unitymedia
+s:013d:ffff0000:0003:0085:25:0:0,"Sky Sport Bundesliga 6 HD",p:SKY
+s:013e:ffff0000:0003:0085:25:0:0,"Sky Sport 6 HD",p:SKY
+s:d743:ffff0000:023b:270f:25:0:0,"BR Fernsehen Süd HD",p:Unitymedia
+s:ac45:ffff0000:0191:270f:25:0:0,"QVC HD",p:Unitymedia
+s:ac46:ffff0000:0191:270f:25:0:0,"HSE HD",p:Unitymedia
+s:0147:ffff0000:0003:0085:25:0:0,"Sky Sport Bundesliga 7 HD",p:SKY
+s:0148:ffff0000:0003:0085:25:0:0,"Sky Sport 7 HD",p:SKY
+s:ac4a:ffff0000:01b9:270f:25:0:0,"Nick HD",p:Unitymedia,C:0
+s:ac4d:ffff0000:01b9:270f:25:0:0,"RTLup HD",p:Unitymedia
+s:814e:ffff0000:014b:270f:25:0:0,"RTLZWEI HD",p:Unitymedia,C:0
+s:814f:ffff0000:014b:270f:25:0:0,"VOX HD",p:Unitymedia,C:0
+s:ac4f:ffff0000:01b9:270f:25:0:0,"DAZN 1",p:Unitymedia
+s:8150:ffff0000:014b:270f:25:0:0,"Super RTL HD",p:Unitymedia,C:0
+s:0151:ffff0000:0004:0085:25:0:0,"Sky Sport Bundesliga 8 HD",p:SKY
+s:8151:ffff0000:014b:270f:25:0:0,"Nitro HD",p:Unitymedia,C:0
+s:0152:ffff0000:0004:0085:25:0:0,"Sky Sport 8 HD",p:SKY
+s:2f53:ffff0000:0079:270f:25:0:0,"phoenix HD",p:ARD,c:00229,c:0122a,c:0222e,c:03229,c:051
+s:8153:ffff0000:014b:270f:25:0:0,"eSPORTS1 HD",p:Unitymedia
+s:2f54:ffff0000:0079:270f:25:0:0,"Nick Jr. HD",p:Unitymedia,C:0
+s:8154:ffff0000:014b:270f:25:0:0,"BILD HD",p:Unitymedia
+s:0155:ffff0000:0003:0085:25:0:0,"Prime Video Sportsbar",p:SKY
+s:2b5c:ffff0000:041b:a401:25:0:0,"Das Erste HD",p:ARD
+s:a85d:ffff0000:01af:270f:25:0:0,"CNN International HD",p:Unitymedia,C:0
+s:a85e:ffff0000:01af:270f:25:0:0,"ZDFinfo HD",p:ZDFvision,c:00233,c:01234,c:02238,c:03233,c:051
+s:0065:ffff0000:0001:0085:25:0:0,"Universal TV HD",p:SKY,C:0
+s:2b66:ffff0000:0437:0066:25:0:0,"ZDF HD",p:ZDFvision
+s:7d66:ffff0000:0141:270f:25:0:0,"ProSieben HD",p:Unitymedia,C:0
+s:7d67:ffff0000:0141:270f:25:0:0,"kabel eins HD",p:Unitymedia,C:0
+s:7d68:ffff0000:0141:270f:25:0:0,"sixx HD",p:Unitymedia,C:0
+s:0069:ffff0000:000c:0085:25:0:0,"Sky Sport Bundesliga HD",p:SKY,C:0
+s:7d69:ffff0000:0141:270f:25:0:0,"ProSieben MAXX HD",p:Unitymedia,C:0
+s:7d6a:ffff0000:0141:270f:25:0:0,"SAT.1 GOLD HD",p:Unitymedia,C:0
+s:006b:ffff0000:000d:0085:25:0:0,"Sky Cinema Best Of HD",p:SKY
+s:7d6b:ffff0000:0141:270f:25:0:0,"SAT.1 emotions HD",p:Unitymedia,C:0
+s:006c:ffff0000:000c:0085:25:0:0,"Sky Sport News HD",p:SKY,C:0
+s:7d6c:ffff0000:0141:270f:25:0:0,"NatGeo HD",p:Unitymedia,C:0
+s:006e:ffff0000:000d:0085:25:0:0,"Sky Atlantic HD",p:SKY
+s:cf6e:ffff0000:0213:270f:25:0:0,"RTL HD",p:Unitymedia,C:0
+s:006f:ffff0000:000d:0085:25:0:0,"Sky Cinema Special HD",p:SKY
+s:cf6f:ffff0000:0213:270f:25:0:0,"SAT.1 HD",p:Unitymedia,C:0
+s:0070:ffff0000:000d:0085:25:0:0,"Sky Documentaries HD",p:SKY
+s:0071:ffff0000:0004:0085:25:0:0,"History HD",p:SKY
+s:cf71:ffff0000:0213:270f:25:0:0,"NRWision HD",p:Unitymedia
+s:0072:ffff0000:000d:0085:25:0:0,"Sky Sport Tennis HD",p:SKY
+s:cf73:ffff0000:023b:270f:25:0:0,"NDR Niedersachsen HD",p:Unitymedia
+s:0074:ffff0000:000d:0085:25:0:0,"Sky Cinema Action HD",p:SKY
+s:5274:ffff0000:019b:270f:25:0:0,"Warner TV Film HD",p:Unitymedia,C:0
+s:a475:ffff0000:01a5:270f:25:0:0,"National Geographic Wild HD",p:Unitymedia,C:0
+s:0076:ffff0000:0006:0085:25:0:0,"Sky Nature HD",p:SKY,C:0
+s:b07a:ffff0000:01c3:270f:25:0:0,"DAZN 2 (Sky)",p:SKY
+s:007b:ffff0000:0006:0085:25:0:0,"Warner TV Serie HD",p:SKY,C:0
+s:007c:ffff0000:0001:0085:25:0:0,"Sky Replay HD",p:SKY,C:0
+s:007e:ffff0000:0001:0085:25:0:0,"SYFY HD",p:SKY,C:0
+s:007f:ffff0000:0001:0085:25:0:0,"13th Street HD",p:SKY
+s:797f:ffff0000:01af:270f:25:0:0,"Romance TV HD",p:Unitymedia,C:0
+s:7980:ffff0000:01c3:270f:25:0:0,"DMAX HD",p:Unitymedia,C:0
+s:0081:ffff0000:0006:0085:25:0:0,"Sky Sport Top Event HD",p:SKY,C:0
+s:0082:ffff0000:0006:0085:25:0:0,"Discovery HD",p:SKY,C:0
+s:0083:ffff0000:0006:0085:25:0:0,"Sky Cinema Premieren HD",p:SKY,C:0
+s:0085:ffff0000:0001:0085:25:0:0,"Beate Uhse HD",p:SKY
+s:0088:ffff0000:0004:0085:25:0:0,"Warner TV Comedy HD",p:SKY
+s:008d:ffff0000:0001:0085:25:0:0,"Sky Sport Mix HD",p:SKY
+s:a08d:ffff0000:019b:270f:25:0:0,"3sat HD",p:Unitymedia
+s:008e:ffff0000:0006:0085:25:0:0,"Sky Showcase HD",p:SKY,C:0
+s:a08e:ffff0000:01a5:270f:25:0:0,"ONE HD",p:Unitymedia
+s:a08f:ffff0000:0191:270f:25:0:0,"ZDF_neo HD",p:Unitymedia
+s:0090:ffff0000:0003:0085:25:0:0,"Sky Sport Golf HD",p:SKY
+s:0091:ffff0000:0004:0085:25:0:0,"Sky Premier League HD",p:SKY
+s:2b91:ffff0000:006f:270f:25:0:0,"KiKA HD",p:Unitymedia
+s:a091:ffff0000:019b:270f:25:0:0,"ARD alpha HD",p:Unitymedia
+s:2b92:ffff0000:006f:270f:25:0:0,"UNIVERSAL TV HD",p:Unitymedia
+s:a092:ffff0000:019b:270f:25:0:0,"GEO TV HD",p:Unitymedia
+s:0093:ffff0000:000d:0085:25:0:0,"Sky One HD",p:SKY
+s:2b93:ffff0000:006f:270f:25:0:0,"WDR Köln HD",p:Unitymedia
+s:2b94:ffff0000:006f:270f:25:0:0,"HOME & GARDEN TV HD",p:Unitymedia
+s:ac95:ffff0000:01b9:270f:25:0:0,"DAZN 1 (Sky)",p:SKY
+s:4e96:ffff0000:019b:270f:25:0:0,"Sport1 HD",p:Unitymedia,C:0
+s:c79d:ffff0000:0079:270f:25:0:0,"WELT HD",p:Unitymedia
+s:c79e:ffff0000:0079:270f:25:0:0,"ntv HD",p:Unitymedia
+s:c79f:ffff0000:0079:270f:25:0:0,"Bibel TV HD",p:Unitymedia
+s:75a4:ffff0000:01a5:270f:25:0:0,"Kinowelt TV HD",p:Unitymedia,C:0
+s:9ca5:ffff0000:0191:270f:25:0:0,"SONY AXN HD",p:Unitymedia,C:0
+s:9ca6:ffff0000:006f:270f:25:0:0,"Tele 5 HD",p:Unitymedia
+s:9ca7:ffff0000:006f:270f:25:0:0,"MTV HD",p:Unitymedia
+s:9ca8:ffff0000:0191:270f:25:0:0,"SPORTDIGITAL FUSSBALL HD",p:Unitymedia
+s:9ca9:ffff0000:0191:270f:25:0:0,"SONY CHANNEL HD",p:Unitymedia
+s:71b5:ffff0000:0191:270f:25:0:0,"ServusTV HD",p:Unitymedia
+s:c3b5:ffff0000:006f:270f:25:0:0,"TLC HD",p:Unitymedia
+s:98bd:ffff0000:0187:270f:25:0:0,"kabeleinsclassics HD",p:Unitymedia,C:0
+s:94d5:ffff0000:0187:270f:25:0:0,"ProSieben FUN HD",p:Unitymedia,C:0
+s:94d6:ffff0000:01af:270f:25:0:0,"Warner TV Comedy HD",p:Unitymedia,C:0
+s:94d7:ffff0000:014b:270f:25:0:0,"RTL Crime HD",p:Unitymedia
+s:42d9:ffff0000:0079:270f:25:0:0,"arte HD",p:Unitymedia
+s:42da:ffff0000:01a5:270f:25:0:0,"Sport1+ HD",p:Unitymedia,C:0
+s:69e7:ffff0000:0079:270f:25:0:0,"Disney HD",p:Unitymedia
+s:69ea:ffff0000:019b:270f:25:0:0,"SYFY HD",p:Unitymedia
+s:e2f5:ffff0000:0245:270f:25:0:0,"Discovery Channel HD",p:Unitymedia,C:0
+s:e2f6:ffff0000:0245:270f:25:0:0,"The HISTORY Channel HD",p:Unitymedia,C:0
+s:e2f9:ffff0000:0245:270f:25:0:0,"HSE Extra HD",p:Unitymedia
+s:e2fa:ffff0000:0245:270f:25:0:0,"rbb Berlin HD",p:Unitymedia
+s:e2fb:ffff0000:0187:270f:25:0:0,"Radio Bremen TV HD",p:Unitymedia
+s:0228:ffff0000:000c:0085:31:0:0,"Sky Sport Bundesliga UHD",p:SKY,C:0
+s:0229:ffff0000:000c:0085:31:0:0,"Sky Sport UHD",p:SKY
+s:022a:ffff0000:000c:0085:31:0:0,".",p:SKY
+s:4011:ffff0000:0083:270f:100:0:0,"346 SID 0x4011"
+s:4012:ffff0000:0083:270f:100:0:0,"346 SID 0x4012"
+s:4013:ffff0000:0083:270f:100:0:0,"346 SID 0x4013"
+s:4014:ffff0000:0083:270f:100:0:0,"346 SID 0x4014"
+s:4015:ffff0000:0083:270f:100:0:0,"346 SID 0x4015"
+s:4016:ffff0000:0083:270f:100:0:0,"346 SID 0x4016"
+s:4017:ffff0000:0083:270f:100:0:0,"346 SID 0x4017"
+s:4018:ffff0000:0083:270f:100:0:0,"346 SID 0x4018"
+s:4019:ffff0000:0083:270f:100:0:0,"346 SID 0x4019"
+s:401a:ffff0000:0083:270f:100:0:0,"346 SID 0x401a"
+s:cb20:ffff0000:015f:270f:100:0:0,"130 SID 0xcb20"
+s:6222:ffff0000:00fb:270f:100:0:0,"610 SID 0x6222"
+s:6223:ffff0000:00fb:270f:100:0:0,"610 SID 0x6223"
+s:6224:ffff0000:00fb:270f:100:0:0,"610 SID 0x6224"
+s:6225:ffff0000:00fb:270f:100:0:0,"610 SID 0x6225"
+s:6235:ffff0000:00fb:270f:100:0:0,"610 SID 0x6235"
+s:6236:ffff0000:00fb:270f:100:0:0,"610 SID 0x6236"
+s:6237:ffff0000:00fb:270f:100:0:0,"610 SID 0x6237"
+s:6238:ffff0000:00fb:270f:100:0:0,"610 SID 0x6238"
+s:6239:ffff0000:00fb:270f:100:0:0,"610 SID 0x6239"
+s:623a:ffff0000:00fb:270f:100:0:0,"610 SID 0x623a"
+s:3367:ffff0000:0083:270f:100:0:0,"346 SID 0x3367"
+s:3369:ffff0000:0083:270f:100:0:0,"346 SID 0x3369"
+s:4bc9:ffff0000:0083:270f:100:0:0,"346 SID 0x4bc9"
+s:4bca:ffff0000:0083:270f:100:0:0,"346 SID 0x4bca"
+s:4bcb:ffff0000:0083:270f:100:0:0,"346 SID 0x4bcb"
+s:4bcc:ffff0000:0083:270f:100:0:0,"346 SID 0x4bcc"
+s:4bcd:ffff0000:0083:270f:100:0:0,"346 SID 0x4bcd"
+s:4bce:ffff0000:0083:270f:100:0:0,"346 SID 0x4bce"
+s:4bcf:ffff0000:0083:270f:100:0:0,"346 SID 0x4bcf"
+s:0dac:ffff0000:0003:0085:149:0:0,"BEM Service",p:SKY
+s:6221:ffff0000:00fb:270f:193:0:0,"HZN iStreamer",p:Unitymedia
+s:0a83:ffff0000:0004:0085:193:0:0,"NDS Applikation",p:SKY
+s:0bc3:ffff0000:0083:270f:193:0:0,"KBW_DS_evol1",p:UMKBW
+s:0bc5:ffff0000:0083:270f:193:0:0,"KBW_DS_evol3",p:UMKBW
+s:0bc6:ffff0000:0083:270f:193:0:0,"KBW_DS_evol4",p:UMKBW
+s:0bc7:ffff0000:0083:270f:193:0:0,"KBW_DS_evol5",p:UMKBW
+s:00c8:ffff0000:0003:0085:198:0:0,"BDL VoD",p:SKY
+s:8966:ffff0000:015f:270f:213:0:0,"WDR Dortmund",p:ARD
+s:8969:ffff0000:015f:270f:213:0:0,"WDR Essen",p:ARD
+s:8972:ffff0000:015f:270f:213:0:0,"Lokalprogramm",p:Unitymedia
+# done. 37 channels and 530 services

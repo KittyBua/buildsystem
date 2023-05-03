@@ -1846,10 +1846,10 @@ $(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATI
 	$(START_BUILD)
 	$(REMOVE)/minisatip
 	set -e; 
-#	if [ -d $(ARCHIVE)/minisatip.git ]; \
-#		then cd $(ARCHIVE)/minisatip.git; git pull; \
-#		else cd $(ARCHIVE); git clone https://github.com/catalinii/minisatip.git minisatip.git; \
-#		fi
+	[ -d "$(ARCHIVE)/minisatip.git" ] && \
+	(cd $(ARCHIVE)/minisatip.git; git pull;); \
+	[ -d "$(ARCHIVE)/minisatip.git" ] || \
+	git clone https://github.com/catalinii/minisatip.git $(ARCHIVE)/minisatip.git; \
 	cp -ra $(ARCHIVE)/minisatip $(BUILD_TMP)/minisatip
 	$(CHDIR)/minisatip; \
 		$(call apply_patches,$(MINISATIP_PATCH)); \
@@ -1878,10 +1878,11 @@ XUPNPD_PATCH = xupnpd.patch
 $(D)/xupnpd: $(D)/bootstrap $(D)/openssl
 	$(START_BUILD)
 	$(REMOVE)/xupnpd
-	set -e; if [ -d $(ARCHIVE)/xupnpd.git ]; \
-		then cd $(ARCHIVE)/xupnpd.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/clark15b/xupnpd.git xupnpd.git; \
-		fi
+	set -e; 
+	[ -d "$(ARCHIVE)/xupnpd.git" ] && \
+	(cd $(ARCHIVE)/xupnpd.git; git pull;); \
+	[ -d "$(ARCHIVE)/xupnpd.git" ] || \
+	git clone https://github.com/clark15b/xupnpd.git $(ARCHIVE)/xupnpd.git; \
 	cp -ra $(ARCHIVE)/xupnpd.git $(BUILD_TMP)/xupnpd
 	($(CHDIR)/xupnpd; git checkout -q $(XUPNPD_BRANCH);)
 	$(CHDIR)/xupnpd; \

@@ -11,6 +11,9 @@ TITAN_DEPS += $(D)/openssl
 TITAN_DEPS += $(D)/timezone
 TITAN_DEPS += $(D)/libcurl
 TITAN_DEPS += $(D)/ffmpeg
+TITAN_DEPS += $(D)/titan-libipkg 
+TITAN_DEPS += $(D)/titan-libdreamdvd 
+TITAN_DEPS += $(D)/titan-libeplayer3
 ifeq ($(BOXARCH), sh4)
 TITAN_DEPS += $(D)/tools-libmme_host
 TITAN_DEPS += $(D)/tools-libmme_image
@@ -117,7 +120,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
+$(D)/titan.do_compile: $(D)/titan.config.status
 	cd $(SOURCE_DIR)/titan; \
 		$(MAKE) all
 	@touch $@
@@ -129,7 +132,7 @@ $(D)/titan: $(D)/titan.do_compile
 #
 # titan-plugins
 #
-$(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan.do_prepare $(D)/python
+$(SOURCE_DIR)/titan/plugins/config.status: $(D)/python
 #$(D)/titan-plugins: $(D)/titan.do_prepare $(D)/python
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/plugins; \
@@ -165,7 +168,7 @@ $(D)/titan-plugins: $(D)/titan-plugins.do_compile
 # titan-libipkg
 #
 TITAN_LIBIPKG_PATCH =
-$(D)/titan-libipkg: $(D)/titan.do_prepare
+$(D)/titan-libipkg:
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/libipkg; \
 	aclocal $(ACLOCAL_FLAGS); \
@@ -194,7 +197,7 @@ $(D)/titan-libipkg: $(D)/titan.do_prepare
 #
 # titan-libdreamdvd
 #
-$(D)/titan-libdreamdvd: $(D)/titan.do_prepare $(D)/libdvdnav
+$(D)/titan-libdreamdvd: $(D)/libdvdnav
 	$(START_BUILD)
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(SOURCE_DIR)/titan/libdreamdvd && \
@@ -218,7 +221,7 @@ $(D)/titan-libdreamdvd: $(D)/titan.do_prepare $(D)/libdvdnav
 # titan-libeplayer3
 #	
 TITAN_LIBEPLAYER3_PATCH =
-$(D)/titan-libeplayer3: $(D)/titan.do_prepare
+$(D)/titan-libeplayer3:
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/libeplayer3; \
 		$(CONFIGURE_TOOLS) \
@@ -274,13 +277,15 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	install -d $(RELEASE_DIR)/var/usr/share/fonts
 	cp -af $(TARGET_DIR)/usr/bin/titan $(RELEASE_DIR)/usr/bin/
 	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
+	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
 	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
 	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
 	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
-	cp -af $(SKEL_ROOT)/usr/share/fonts $(RELEASE_DIR)/var/usr/share
+	cp -af $(SKEL_ROOT)/var/usr/share/fonts $(RELEASE_DIR)/var/usr/share
 	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
-	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan	
+	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan
+	cp -aR $(SKEL_ROOT)/mnt $(RELEASE_DIR)/	
 #
 # po
 #

@@ -1,0 +1,88 @@
+  0.012	PYTHON_START
+  0.019	Geolocation
+  1.350	SetupDevices
+  2.164	SimpleSummary
+ 15.475	ChannelSelection.py 1
+ 15.561	ChannelSelection.py 2
+ 15.561	ChannelSelection.py 2.1
+ 15.571	ChannelSelection.py 2.2
+ 15.571	ChannelSelection.py 2.3
+ 15.572	ChannelSelection.py 3
+ 15.840	ChannelSelection.py 4
+ 15.848	ChannelSelection.py after imports
+ 15.873	LOAD:enigma
+ 15.874	LOAD:InfoBarGenerics
+ 15.947	VolumeControl
+ 16.097	LOAD:InitBar_Components
+ 16.098	LOAD:HelpableScreen
+ 16.106	Bouquets
+ 16.147	ParentalControl
+ 16.156	LOAD:Navigation
+ 16.180	LOAD:skin
+ 16.181	LOAD:Tools
+ 16.184	config.misc
+ 16.208	Twisted
+ 21.675	LOAD:Plugin
+ 21.688	LOAD:Wizard
+ 21.750	misc
+ 21.750	LOAD:ScreenGlobals
+ 21.790	Screen
+ 21.791	Standby,PowerKey
+ 21.792	Scart
+ 21.796	Load:CI
+ 21.814	Load:VolumeControl
+ 21.815	Load:StackTracePrinter
+ 21.825	Init:skin
+ 23.095	InputDevice
+ 23.352	AVSwitch
+ 23.504	HdmiRecord
+ 23.509	RecordingConfig
+ 23.522	UsageConfig
+ 24.891	TimeZones
+ 25.892	Init:DebugLogCheck
+ 25.978	Init:NTPSync
+ 25.981	keymapparser
+ 26.237	Network
+ 26.290	LCD
+ 26.412	UserInterface
+ 26.449	EpgCacheSched
+ 26.456	RFMod
+ 26.461	Init:CI
+ 26.472	RcModel
+ 26.473	readPluginList
+ 26.486	plugin Tuxtxt
+ 26.498	plugin skin_revolution_pro
+ 26.579	plugin WeatherPlugin
+ 27.540	plugin FileCommander
+ 27.734	plugin Volume_adjust
+ 27.781	plugin MediaScanner
+ 27.789	plugin MyMetrixLite
+ 28.757	plugin HbbTV
+ 28.931	plugin MediaPlayer
+ 28.985	plugin Infopanel
+ 29.620	plugin BlueLineFHD
+ 29.689	plugin OpenWebif
+ 34.366	plugin WebInterface
+ 34.376	plugin AtileHD
+ 34.399	plugin PicturePlayer
+ 34.408	plugin Filebrowser
+ 34.449	plugin EnhancedMovieCenter
+ 38.884	plugin CommonInterfaceAssignment
+ 38.906	plugin Satfinder
+ 38.945	plugin CableScan
+ 38.962	plugin SoftwareManager
+ 39.166	plugin Hotplug
+ 39.173	plugin WeatherComponentHandler
+ 39.182	plugin WirelessLan
+ 39.280	plugin AutoBouquetsMaker
+ 39.668	plugin NetworkWizard
+ 39.675	plugin NetworkBrowser
+ 39.859	plugin VideoTune
+ 39.866	plugin HdmiCEC
+ 39.940	Init:Session
+ 40.677	wizards
+ 43.663	Init:VolumeControl
+ 43.763	Init:PowerKey
+ 43.821	Init:Trashcan
+ 43.823	Init:AutoVideoMode
+ 43.878	RunReactor

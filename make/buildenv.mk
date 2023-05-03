@@ -171,26 +171,15 @@ PKG_VER_HELPER        = A$($(PKG_NAME_HELPER)_VER)A
 PKG_VER               = $($(PKG_NAME_HELPER)_VER)
 
 START_BUILD           = echo; \
-                        if [ $(PKG_VER_HELPER) == "AA" ]; then \
-                            echo -e "Start build of $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL)"; \
-                        else \
-                            echo -e "Start build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL)"; \
-                        fi
+			echo -e "Start build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL)"; \
+                        echo
                         
 END_BUILD             = echo; \
-                        if [ $(PKG_VER_HELPER) == "AA" ]; then \
-                            echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL) completed"; \
-                        else \
-                            echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
-                        fi; \
+			echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
                         echo
 
 TOUCH                 = @touch $@; \
-                        if [ $(PKG_VER_HELPER) == "AA" ]; then \
-                            echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL) completed"; \
-                        else \
-                            echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
-                        fi; \
+			echo -e "Build of $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
                         echo
 
 #
@@ -214,11 +203,7 @@ define apply_patches
             fi; \
         fi; \
     done; \
-    if [ $(PKG_VER_HELPER) == "AA" ]; then \
-        echo -e "Patching $(TERM_GREEN_BOLD)$(PKG_NAME)$(TERM_NORMAL) completed"; \
-    else \
-        echo -e "Patching $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
-    fi; \
+    echo -e "Patching $(TERM_GREEN_BOLD)$(PKG_NAME) $(PKG_VER)$(TERM_NORMAL) completed"; \
     echo
 endef
 

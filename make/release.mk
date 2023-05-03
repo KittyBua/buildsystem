@@ -144,7 +144,6 @@ endif
 	install -d $(RELEASE_DIR)/usr/{bin,lib,sbin,share}
 	install -d $(RELEASE_DIR)/usr/lib/locale
 	cp -aR $(SKEL_ROOT)/usr/lib/locale/* $(RELEASE_DIR)/usr/lib/locale
-#	install -d $(RELEASE_DIR)/usr/local/{bin,sbin,share}
 	install -d $(RELEASE_DIR)/usr/share/{udhcpc,zoneinfo,fonts}
 	install -d $(RELEASE_DIR)/var/{bin,etc,lib,net,keys}
 	install -d $(RELEASE_DIR)/var/lib/{nfs,modules}

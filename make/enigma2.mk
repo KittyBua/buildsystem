@@ -45,10 +45,6 @@ ENIGMA2_CPPFLAGS   += -I$(DRIVER_DIR)/include
 endif
 ENIGMA2_CPPFLAGS   += -I$(TARGET_DIR)/usr/include
 
-#ifeq ($(GUI), ENIGMA2)
-#PYTHON = python
-#endif
-
 ENIGMA2_CONFIG_OPTS += PYTHON_CPPFLAGS="-I$(TARGET_DIR)/usr/include/python2.7" PYTHON_LIBS="-L$(TARGET_DIR)/usr/lib -lpython2.7" PYTHON_SITE_PKG="$(TARGET_DIR)/usr/lib/python2.7/site-packages"
 
 ENIGMA2_PATCHES = enigma2.patch
@@ -251,6 +247,7 @@ release-enigma2: release-common release-$(BOXTYPE) $(D)/enigma2
 	cp -Rf $(TARGET_DIR)/usr/share/enigma2/po/de $(RELEASE_DIR)/usr/share/enigma2/po
 	cp -aR $(SKEL_ROOT)/usr/share/enigma2/* $(RELEASE_DIR)/usr/share/enigma2
 	cp -aR $(SKEL_ROOT)/etc/tuxbox/* $(RELEASE_DIR)/etc/tuxbox/
+	cp -aR $(SKEL_ROOT)/etc/enigma2/* $(RELEASE_DIR)/etc/enigma2/
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_ENIGMA2 $(RELEASE_DIR)/etc/init.d/rcS
 #
 # lib usr/lib
