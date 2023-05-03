@@ -65,3 +65,37 @@ diff -Nur neutrino-ddt.git/src/driver/simple_display.cpp neutrino-ddt.git.patche
  	return fd;
  }
  
+diff -Nur neutrino-ddt.git/src/gui/webtv_setup.cpp neutrino-ddt.git.patched/src/gui/webtv_setup.cpp
+--- neutrino-ddt.git/src/gui/webtv_setup.cpp	2022-10-22 12:24:07.692823091 +0200
++++ neutrino-ddt.git.patched/src/gui/webtv_setup.cpp	2023-05-03 22:41:49.893077975 +0200
+@@ -96,6 +96,7 @@
+ 			fileFilter.addFilter("xml");
+ 			fileFilter.addFilter("tv");
+ 			fileFilter.addFilter("m3u");
++			fileFilter.addFilter("m3u8");
+ 			fileBrowser.Filter = &fileFilter;
+ 
+ 			dirname = dirname.substr(0, dirname.rfind('/'));
+diff -Nur neutrino-ddt.git/src/zapit/src/bouquets.cpp neutrino-ddt.git.patched/src/zapit/src/bouquets.cpp
+--- neutrino-ddt.git/src/zapit/src/bouquets.cpp	2023-04-08 22:32:29.567304444 +0200
++++ neutrino-ddt.git.patched/src/zapit/src/bouquets.cpp	2023-05-03 22:56:32.453281490 +0200
+@@ -800,7 +800,7 @@
+ 
+ 			if (strcasecmp("xml", extension.c_str()) == 0)
+ 				xml = true;
+-			if (strcasecmp("m3u", extension.c_str()) == 0)
++			if ( (strcasecmp("m3u", extension.c_str()) == 0) || (strcasecmp("m3u8", extension.c_str()) == 0) )
+ 				m3u = true;
+ 			if (strcasecmp("tv", extension.c_str()) == 0)
+ 				e2tv = true;
+@@ -904,6 +904,10 @@
+ 					{
+ 						epg_url = "";
+ 						epg_url = ReadMarkerValue(strLine, M3U_START_EPG_MARKER);
++						if (epg_url.empty())
++						{
++							epg_url = ReadMarkerValue(strLine, "x-tvg-url");
++						}
+ 						printf("tvg-url: %s\n", epg_url.c_str());
+ 						if (!epg_url.empty())
+ 						{
