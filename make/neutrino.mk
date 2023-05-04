@@ -3,6 +3,7 @@
 #
 N_OBJDIR = $(BUILD_TMP)/neutrino
 LH_OBJDIR = $(BUILD_TMP)/libstb-hal
+NP_OBJDIR = $(BUILD_TMP)/neutrino-plugins
 
 $(TARGET_DIR)/.version:
 	echo "distro=$(FLAVOUR)" > $@
@@ -129,12 +130,15 @@ NEUTRINO_CONFIG_OPTS += \
 #
 # DDT
 #
-NEUTRINO = neutrino-ddt
-N_BRANCH = master
-N_URL = https://github.com/Duckbox-Developers/neutrino-ddt.git
-LIBSTB-HAL = libstb-hal-ddt
-LH_BRANCH = master
-HAL_URL = https://github.com/Duckbox-Developers/libstb-hal-ddt.git
+#NEUTRINO = neutrino-ddt
+#N_BRANCH = master
+#N_URL = https://github.com/Duckbox-Developers/neutrino-ddt.git
+#LIBSTB-HAL = libstb-hal-ddt
+#LH_BRANCH = master
+#HAL_URL = https://github.com/Duckbox-Developers/libstb-hal-ddt.git
+#N_PLUGINS = neutrino-ddt-plugins
+#N_PLUGINS_BRANCH = master
+#N_PLUGINS_URL = https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git
 
 #
 # libstb-hal
@@ -143,24 +147,24 @@ LIBSTB_HAL_PATCHES = libstb-hal-ddt.patch
 
 $(D)/libstb-hal.do_prepare:
 	$(START_BUILD)
-	rm -rf $(SOURCE_DIR)/$(LIBSTB-HAL)
+	rm -rf $(SOURCE_DIR)/libstb-hal-ddt
 	rm -rf $(LH_OBJDIR)
-	[ -d "$(ARCHIVE)/$(LIBSTB-HAL).git" ] && \
-	(cd $(ARCHIVE)/$(LIBSTB-HAL).git; git pull; cd "$(BUILD_TMP)";); \
-	[ -d "$(ARCHIVE)/$(LIBSTB-HAL).git" ] || \
-	git clone $(HAL_URL) $(ARCHIVE)/$(LIBSTB-HAL).git; \
-	cp -ra $(ARCHIVE)/$(LIBSTB-HAL).git $(SOURCE_DIR)/$(LIBSTB-HAL);\
-	set -e; cd $(SOURCE_DIR)/$(LIBSTB-HAL); \
+	[ -d "$(ARCHIVE)/libstb-hal-ddt.git" ] && \
+	(cd $(ARCHIVE)/libstb-hal-ddt.git; git pull; cd "$(BUILD_TMP)";); \
+	[ -d "$(ARCHIVE)/libstb-hal-ddt.git" ] || \
+	git clone https://github.com/Duckbox-Developers/libstb-hal-ddt.git $(ARCHIVE)/libstb-hal-ddt.git; \
+	cp -ra $(ARCHIVE)/libstb-hal-ddt.git $(SOURCE_DIR)/libstb-hal-ddt;\
+	set -e; cd $(SOURCE_DIR)/libstb-hal-ddt; \
 		$(call apply_patches,$(LIBSTB_HAL_PATCHES))
 	@touch $@
 
-$(D)/libstb-hal.config.status: | $(NEUTRINO_DEPS)
+$(D)/libstb-hal.config.status: $(D)/libstb-hal.do_prepare
 	rm -rf $(LH_OBJDIR); \
 	test -d $(LH_OBJDIR) || mkdir -p $(LH_OBJDIR); \
 	cd $(LH_OBJDIR); \
-		$(SOURCE_DIR)/$(LIBSTB-HAL)/autogen.sh; \
+		$(SOURCE_DIR)/libstb-hal-ddt/autogen.sh; \
 		$(BUILDENV) \
-		$(SOURCE_DIR)/$(LIBSTB-HAL)/configure --enable-silent-rules \
+		$(SOURCE_DIR)/libstb-hal-ddt/configure --enable-silent-rules \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
 			--prefix=/usr \
@@ -175,22 +179,22 @@ $(D)/libstb-hal.config.status: | $(NEUTRINO_DEPS)
 	@touch $@
 
 $(D)/libstb-hal.do_compile: $(D)/libstb-hal.config.status
-	cd $(SOURCE_DIR)/$(LIBSTB-HAL); \
+	cd $(SOURCE_DIR)/libstb-hal-ddt; \
 		$(MAKE) -C $(LH_OBJDIR) all DESTDIR=$(TARGET_DIR)
 	@touch $@
 
-$(D)/libstb-hal: $(D)/libstb-hal.do_prepare $(D)/libstb-hal.do_compile
+$(D)/libstb-hal: $(D)/libstb-hal.do_compile
 	$(MAKE) -C $(LH_OBJDIR) install DESTDIR=$(TARGET_DIR)
 	$(TOUCH)
 
 libstb-hal-clean:
-	rm -f $(D)/libstb-hal
-	rm -f $(D)/libstb-hal.config.status
+	rm -f $(D)/libstb-hal.do_compile
 	cd $(LH_OBJDIR); \
 		$(MAKE) -C $(LH_OBJDIR) distclean
 
 libstb-hal-distclean:
 	rm -rf $(LH_OBJDIR)
+	$(MAKE) -C $(LH_OBJDIR) distclean
 	rm -f $(D)/libstb-hal*
 
 #
@@ -198,43 +202,43 @@ libstb-hal-distclean:
 #
 NEUTRINO_PATCHES = neutrino-ddt.patch
 
-$(D)/neutrino.do_prepare: | $(NEUTRINO_DEPS) $(D)/libstb-hal
+$(D)/neutrino.do_prepare: $(NEUTRINO_DEPS) $(D)/libstb-hal
 	$(START_BUILD)
-	rm -rf $(SOURCE_DIR)/$(NEUTRINO)
+	rm -rf $(SOURCE_DIR)/neutrino-ddt
 	rm -rf $(N_OBJDIR)
-	[ -d "$(ARCHIVE)/$(NEUTRINO).git" ] && \
-	(cd $(ARCHIVE)/$(NEUTRINO).git; git pull; cd "$(BUILD_TMP)";); \
-	[ -d "$(ARCHIVE)/$(NEUTRINO).git" ] || \
-	git clone $(N_URL) $(ARCHIVE)/$(NEUTRINO).git; \
-	cp -ra $(ARCHIVE)/$(NEUTRINO).git $(SOURCE_DIR)/$(NEUTRINO); \
-	set -e; cd $(SOURCE_DIR)/$(NEUTRINO); \
+	[ -d "$(ARCHIVE)/neutrino-ddt.git" ] && \
+	(cd $(ARCHIVE)/neutrino-ddt.git; git pull; cd "$(BUILD_TMP)";); \
+	[ -d "$(ARCHIVE)/neutrino-ddt.git" ] || \
+	git clone https://github.com/Duckbox-Developers/neutrino-ddt.git $(ARCHIVE)/neutrino-ddt.git; \
+	cp -ra $(ARCHIVE)/neutrino-ddt.git $(SOURCE_DIR)/neutrino-ddt; \
+	set -e; cd $(SOURCE_DIR)/neutrino-ddt; \
 		$(call apply_patches,$(NEUTRINO_PATCHES))
 	@touch $@
 
-$(D)/neutrino.config.status:
+$(D)/neutrino.config.status: $(D)/neutrino.do_prepare
 	rm -rf $(N_OBJDIR)
 	test -d $(N_OBJDIR) || mkdir -p $(N_OBJDIR); \
 	cd $(N_OBJDIR); \
-		$(SOURCE_DIR)/$(NEUTRINO)/autogen.sh; \
+		$(SOURCE_DIR)/neutrino-ddt/autogen.sh; \
 		$(BUILDENV) \
-		$(SOURCE_DIR)/$(NEUTRINO)/configure --enable-silent-rules \
+		$(SOURCE_DIR)/neutrino-ddt/configure --enable-silent-rules \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix=/usr \
 			--with-targetprefix=/usr \
 			$(NEUTRINO_CONFIG_OPTS) \
-			--with-stb-hal-includes=$(SOURCE_DIR)/$(LIBSTB-HAL)/include \
+			--with-stb-hal-includes=$(SOURCE_DIR)/libstb-hal-ddt/include \
 			--with-stb-hal-build=$(LH_OBJDIR)
 	@touch $@
 
-$(SOURCE_DIR)/$(NEUTRINO)/src/gui/version.h:
+$(SOURCE_DIR)/neutrino-ddt/src/gui/version.h:
 	@rm -f $@; \
 	echo '#define BUILT_DATE "'`date`'"' > $@
-	@if test -d $(SOURCE_DIR)/$(LIBSTB-HAL) ; then \
-		pushd $(SOURCE_DIR)/$(LIBSTB-HAL) ; \
+	@if test -d $(SOURCE_DIR)/libstb-hal-ddt ; then \
+		pushd $(SOURCE_DIR)/libstb-hal-ddt ; \
 		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
-		pushd $(SOURCE_DIR)/$(NEUTRINO) ; \
+		pushd $(SOURCE_DIR)/neutrino-ddt ; \
 		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
 		popd ; \
 		pushd $(BASE_DIR) ; \
@@ -243,12 +247,12 @@ $(SOURCE_DIR)/$(NEUTRINO)/src/gui/version.h:
 		echo '#define VCS "DDT-rev'$$DDT_REV'_HAL-rev'$$HAL_REV'_NMP-rev'$$NMP_REV'"' >> $@ ; \
 	fi
 
-$(D)/neutrino.do_compile: $(D)/neutrino.config.status $(SOURCE_DIR)/$(NEUTRINO)/src/gui/version.h
-	cd $(SOURCE_DIR)/$(NEUTRINO); \
+$(D)/neutrino.do_compile: $(D)/neutrino.config.status $(SOURCE_DIR)/neutrino-ddt/src/gui/version.h
+	cd $(SOURCE_DIR)/neutrino-ddt; \
 		$(MAKE) -C $(N_OBJDIR) all
 	@touch $@
 
-$(D)/neutrino: $(D)/neutrino.do_prepare $(D)/neutrino.do_compile
+$(D)/neutrino: $(D)/neutrino.do_compile
 	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(TARGET_DIR); \
 	rm -f $(TARGET_DIR)/.version
 	make $(TARGET_DIR)/.version
@@ -257,10 +261,9 @@ $(D)/neutrino: $(D)/neutrino.do_prepare $(D)/neutrino.do_compile
 neutrino-clean:
 	rm -f $(D)/neutrino.do_compile
 	$(MAKE) -C $(N_OBJDIR) clean
-	rm -f $(D)/neutrino
-	rm -f $(SOURCE_DIR)/$(NEUTRINO)/src/gui/version.h
+	rm -f $(SOURCE_DIR)/neutrino-ddt/src/gui/version.h
 
-neutrino-distclean: libstb-hal-distclean
+neutrino-distclean: libstb-hal-distclean neutrino-plugins-distclean
 	rm -f $(D)/neutrino*
 	$(MAKE) -C $(N_OBJDIR) distclean
 	rm -rf $(N_OBJDIR)
@@ -275,35 +278,34 @@ NEUTRINO_PLUGINS += $(D)/neutrino-plugins-mediathek
 
 NEUTRINO_PLUGINS_PATCHES = neutrino-ddt-plugins.patch
 
-NP_OBJDIR = $(BUILD_TMP)/neutrino-plugins
-
 ifeq ($(BOXARCH), sh4)
 EXTRA_CPPFLAGS_MP_PLUGINS = -DMARTII
 endif
 
 $(D)/neutrino-plugins.do_prepare:
 	$(START_BUILD)
-	rm -rf $(SOURCE_DIR)/neutrino-plugins
+	rm -rf $(SOURCE_DIR)/neutrino-ddt-plugins
+	rm -rf $(NP_OBJDIR)
 	set -e; 
-	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] && \
-	(cd $(ARCHIVE)/neutrino-plugins.git; git pull;); \
-	[ -d "$(ARCHIVE)/neutrino-plugins.git" ] || \
+	[ -d "$(ARCHIVE)/neutrino-ddt-plugins.git" ] && \
+	(cd $(ARCHIVE)/neutrino-ddt-plugins.git; git pull;); \
+	[ -d "$(ARCHIVE)/neutrino-ddt-plugins.git" ] || \
 	git clone https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git $(ARCHIVE)/neutrino-ddt-plugins.git; \
-	cp -ra $(ARCHIVE)/neutrino-plugins.git $(SOURCE_DIR)/neutrino-plugins
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
-	sed -i -e 's#shellexec fx2#shellexec#g' $(SOURCE_DIR)/neutrino-plugins/Makefile.am
-endif
-	set -e; cd $(SOURCE_DIR)/neutrino-plugins; \
+	cp -ra $(ARCHIVE)/neutrino-ddt-plugins.git $(SOURCE_DIR)/neutrino-ddt-plugins
+	set -e; cd $(SOURCE_DIR)/neutrino-ddt-plugins; \
 		$(call apply_patches, $(NEUTRINO_PLUGINS_PATCHES))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+	sed -i -e 's#shellexec fx2#shellexec#g' $(SOURCE_DIR)/neutrino-ddt-plugins/Makefile.am
+endif
 	@touch $@
 
-$(D)/neutrino-plugins.config.status: $(D)/bootstrap
+$(D)/neutrino-plugins.config.status: $(D)/neutrino-plugins.do_prepare
 	rm -rf $(NP_OBJDIR); \
 	test -d $(NP_OBJDIR) || mkdir -p $(NP_OBJDIR); \
 	cd $(NP_OBJDIR); \
-		$(SOURCE_DIR)/neutrino-plugins/autogen.sh $(SILENT_OPT) && automake --add-missing $(SILENT_OPT); \
+		$(SOURCE_DIR)/neutrino-ddt-plugins/autogen.sh $(SILENT_OPT) && automake --add-missing $(SILENT_OPT); \
 		$(BUILDENV) \
-		$(SOURCE_DIR)/neutrino-plugins/configure $(SILENT_OPT) \
+		$(SOURCE_DIR)/neutrino-ddt-plugins/configure $(SILENT_OPT) \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
 			--prefix= \
@@ -326,20 +328,19 @@ $(D)/neutrino-plugins.do_compile: $(D)/neutrino-plugins.config.status
 	$(MAKE) -C $(NP_OBJDIR) DESTDIR=$(TARGET_DIR)
 	@touch $@
 
-$(D)/neutrino-plugins: $(D)/neutrino-plugins.do_prepare $(D)/neutrino-plugins.do_compile
+$(D)/neutrino-plugins: $(D)/neutrino-plugins.do_compile
 	$(MAKE) -C $(NP_OBJDIR) install DESTDIR=$(TARGET_DIR)
 	$(TOUCH)
 
 neutrino-plugins-clean:
-	rm -f $(D)/neutrino-plugins
-	rm -f $(D)/neutrino-plugin
-	rm -f $(D)/neutrino-plugin.config.status
+	rm -f $(D)/neutrino-plugins.do_compile
 	cd $(NP_OBJDIR); \
 		$(MAKE) -C $(NP_OBJDIR) clean
 
 neutrino-plugins-distclean:
-	rm -rf $(NP_OBJDIR)
 	rm -f $(D)/neutrino-plugin*
+	$(MAKE) -C $(NP_OBJDIR) distclean
+	rm -rf $(NP_OBJDIR)
 
 #
 # neutrino-plugins-xupnpd

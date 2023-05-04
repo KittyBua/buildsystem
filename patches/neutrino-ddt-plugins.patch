@@ -1,6 +1,6 @@
 diff -Nur neutrino-ddt-plugins.git/acinclude.m4 neutrino-ddt-plugins.git.patched/acinclude.m4
---- neutrino-ddt-plugins.git/acinclude.m4	2022-06-22 10:46:47.763222000 +0200
-+++ neutrino-ddt-plugins.git.patched/acinclude.m4	2023-05-03 16:57:07.019764289 +0200
+--- neutrino-ddt-plugins.git/acinclude.m4	2023-05-04 00:56:36.793345058 +0200
++++ neutrino-ddt-plugins.git.patched/acinclude.m4	2023-05-04 00:58:25.189301825 +0200
 @@ -152,7 +152,7 @@
  AC_ARG_WITH(boxtype,
  	AS_HELP_STRING([--with-boxtype], [valid values: spark, generic, armbox, duckbox, spark7162, mipsbox]),
@@ -10,3 +10,78 @@ diff -Nur neutrino-ddt-plugins.git/acinclude.m4 neutrino-ddt-plugins.git.patched
  			BOXTYPE="$withval"
  		;;
  		spark|spark7162)
+diff -Nur neutrino-ddt-plugins.git/configure.ac neutrino-ddt-plugins.git.patched/configure.ac
+--- neutrino-ddt-plugins.git/configure.ac	2022-06-22 10:46:47.767222000 +0200
++++ neutrino-ddt-plugins.git.patched/configure.ac	2023-05-04 00:58:06.765311015 +0200
+@@ -37,6 +37,7 @@
+ tuxmail/daemon/Makefile
+ tuxcal/Makefile
+ tuxcal/daemon/Makefile
++tuxcom/Makefile
+ fx2/Makefile
+ fx2/lemm/Makefile
+ fx2/master/Makefile
+diff -Nur neutrino-ddt-plugins.git/.git/ORIG_HEAD neutrino-ddt-plugins.git.patched/.git/ORIG_HEAD
+--- neutrino-ddt-plugins.git/.git/ORIG_HEAD	2023-05-04 01:04:08.109027764 +0200
++++ neutrino-ddt-plugins.git.patched/.git/ORIG_HEAD	2022-06-24 11:25:58.243053000 +0200
+@@ -1 +1 @@
+-ccad1500c7b17e0f3c60ae269a08d65bbd443cde
++1a85b819a53a687d187b5c4b8e8a1fcaeae46664
+diff -Nur neutrino-ddt-plugins.git/Makefile.am neutrino-ddt-plugins.git.patched/Makefile.am
+--- neutrino-ddt-plugins.git/Makefile.am	2022-06-22 10:46:47.759222000 +0200
++++ neutrino-ddt-plugins.git.patched/Makefile.am	2023-05-04 00:59:18.561271477 +0200
+@@ -1,7 +1,7 @@
+ AUTOMAKE_OPTIONS = gnu
+ 
+ SUBDIRS = \
+-	include tuxwetter input getrc shellexec fx2
++	include tuxwetter input getrc tuxcom tuxcal shellexec fx2
+ #	include tuxcom tuxwetter msgbox input getrc shellexec fx2
+ #	include tuxmail tuxtxt tuxcom tuxcal tuxclock fx2 vncviewer enigma shellexec tuxwetter sysinfo clock logomask blockads links
+ 
+diff -Nur neutrino-ddt-plugins.git/tuxcom/tuxcom.c neutrino-ddt-plugins.git.patched/tuxcom/tuxcom.c
+--- neutrino-ddt-plugins.git/tuxcom/tuxcom.c	2023-05-04 00:56:36.797345056 +0200
++++ neutrino-ddt-plugins.git.patched/tuxcom/tuxcom.c	2023-05-04 00:59:00.513282357 +0200
+@@ -982,20 +982,14 @@
+ 	}
+ 
+ 	/* open Remote Control */
+-#if HAVE_COOL_HARDWARE || HAVE_TRIPLEDRAGON || HAVE_SPARK_HARDWARE || HAVE_DUCKBOX_HARDWARE || HAVE_ARM_HARDWARE || HAVE_MIPS_HARDWARE
++#if HAVE_COOL_HARDWARE
+ 	rc = open("/dev/input/nevis_ir", O_RDONLY);
+-#if defined(HAVE_SPARK_HARDWARE) || defined(HAVE_DUCKBOX_HARDWARE) || defined(HAVE_ARM_HARDWARE)
+-	if (rc < 0)
+-#if HAVE_DUCKBOX_HARDWARE || BOXMODEL_VUPLUS_ALL
+-		rc = open("/dev/input/event0", O_RDONLY);
+-#elif BOXMODEL_H7 || BOXMODEL_H9COMBO || BOXMODEL_H9
+-		rc = open("/dev/input/event2", O_RDONLY);
++#elif HAVE_DUCKBOX_HARDWARE || HAVE_MIPS_HARDWARE || HAVE_ARM_HARDWARE
++	rc = open("/dev/input/event0", O_RDONLY);
++#elif BOXMODEL_H7
++	rc = open("/dev/input/event2", O_RDONLY);
+ #else
+-		rc = open("/dev/input/event1", O_RDONLY);
+-#endif
+-#endif
+-#else
+-#error your hardware is not yet implemented.
++	rc = open("/dev/input/event1", O_RDONLY);
+ #endif
+ 	if(rc == -1) {
+ 		perror("TuxCom <open remote control>");
+diff -Nur neutrino-ddt-plugins.git/tuxwetter/io.c neutrino-ddt-plugins.git.patched/tuxwetter/io.c
+--- neutrino-ddt-plugins.git/tuxwetter/io.c	2022-06-22 10:46:47.819221000 +0200
++++ neutrino-ddt-plugins.git.patched/tuxwetter/io.c	2023-05-04 01:23:29.959462775 +0200
+@@ -29,10 +29,10 @@
+ int InitRC(void)
+ {
+ 	rc = open(RC_DEVICE, O_RDONLY | O_CLOEXEC);
+-#ifdef MARTII
++
+ 	if (rc < 0)
+ 		rc = open(RC_DEVICE_FALLBACK, O_RDONLY);
+-#endif
++
+ 	if(rc == -1)
+ 	{
+ 		perror("tuxwetter <open remote control>");
