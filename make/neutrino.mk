@@ -264,7 +264,7 @@ neutrino-clean:
 	rm -f $(SOURCE_DIR)/neutrino-ddt/src/gui/version.h
 
 neutrino-distclean: libstb-hal-distclean neutrino-plugins-distclean
-	rm -f $(D)/neutrino*
+	rm -f $(D)/neutrino.*
 	$(MAKE) -C $(N_OBJDIR) distclean
 	rm -rf $(N_OBJDIR)
 

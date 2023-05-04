@@ -8,12 +8,9 @@ TITAN_DEPS += $(D)/freetype
 TITAN_DEPS += $(D)/libjpeg
 TITAN_DEPS += $(D)/zlib
 TITAN_DEPS += $(D)/openssl
-TITAN_DEPS += $(D)/timezone
+#TITAN_DEPS += $(D)/timezone
 TITAN_DEPS += $(D)/libcurl
 TITAN_DEPS += $(D)/ffmpeg
-TITAN_DEPS += $(D)/titan-libipkg 
-TITAN_DEPS += $(D)/titan-libdreamdvd 
-TITAN_DEPS += $(D)/titan-libeplayer3
 ifeq ($(BOXARCH), sh4)
 TITAN_DEPS += $(D)/tools-libmme_host
 TITAN_DEPS += $(D)/tools-libmme_image
@@ -93,9 +90,9 @@ $(D)/titan.do_prepare: $(TITAN_DEPS)
 	$(START_BUILD)
 	rm -rf $(SOURCE_DIR)/titan
 	[ -d "$(ARCHIVE)/titan.svn" ] && \
-	(cd $(ARCHIVE)/titan.svn; svn up;); \
+	(cd $(ARCHIVE)/titan.svn; svn update --username=public --password=public -q;); \
 	[ -d "$(ARCHIVE)/titan.svn" ] || \
-	svn checkout --username=public --password=public http://sbnc.dyndns.tv/svn/titan/ $(ARCHIVE)/titan.svn; \
+	svn checkout --username=public --password=public http://sbnc.dyndns.tv/svn/titan/ $(ARCHIVE)/titan.svn -q; \
 	cp -ra $(ARCHIVE)/titan.svn $(SOURCE_DIR)/titan; \
 	set -e; cd $(SOURCE_DIR)/titan; \
 		$(call apply_patches, $(TITAN_PATCH))
@@ -103,9 +100,9 @@ $(D)/titan.do_prepare: $(TITAN_DEPS)
 
 $(D)/titan.config.status: $(D)/titan.do_prepare
 	cd $(SOURCE_DIR)/titan; \
-		./autogen.sh $(SILENT_OPT); \
+		./autogen.sh; \
 		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			$(TITAN_CONFIG_OPTS) \
@@ -120,7 +117,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status
+$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
 	cd $(SOURCE_DIR)/titan; \
 		$(MAKE) all
 	@touch $@
@@ -130,45 +127,10 @@ $(D)/titan: $(D)/titan.do_compile
 	$(TOUCH)
 
 #
-# titan-plugins
-#
-$(SOURCE_DIR)/titan/plugins/config.status: $(D)/python
-#$(D)/titan-plugins: $(D)/titan.do_prepare $(D)/python
-	$(START_BUILD)
-	cd $(SOURCE_DIR)/titan/plugins; \
-		./autogen.sh $(SILENT_OPT); \
-		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
-			--build=$(BUILD) \
-			--host=$(TARGET) \
-			$(TITAN_CONFIG_OPTS) \
-			--datadir=/usr/share \
-			--libdir=/usr/lib \
-			--bindir=/usr/bin \
-			--prefix=/usr \
-			--sysconfdir=/etc \
-			PKG_CONFIG=$(PKG_CONFIG) \
-			CPPFLAGS="$(TITAN_CPPFLAGS)"
-#		$(MAKE) all
-#		$(MAKE) -C $(SOURCE_DIR)/titan/plugins all install DESTDIR=$(TARGET_DIR)
-#		$(TOUCH)		
-
-$(D)/titan-plugins.do_compile: $(SOURCE_DIR)/titan/plugins/config.status
-	cd $(SOURCE_DIR)/titan/plugins; \
-		$(MAKE) all
-	@touch $@
-
-$(D)/titan-plugins: $(D)/titan-plugins.do_compile
-#	$(START_BUILD)
-	cd $(SOURCE_DIR)/titan/plugins
-#	$(MAKE) -C $(SOURCE_DIR)/titan/plugins all install DESTDIR=$(TARGET_DIR)
-	$(TOUCH)
-
-#
 # titan-libipkg
 #
 TITAN_LIBIPKG_PATCH =
-$(D)/titan-libipkg:
+$(D)/titan-libipkg: $(D)/titan.do_prepare
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/libipkg; \
 	aclocal $(ACLOCAL_FLAGS); \
@@ -197,7 +159,7 @@ $(D)/titan-libipkg:
 #
 # titan-libdreamdvd
 #
-$(D)/titan-libdreamdvd: $(D)/libdvdnav
+$(D)/titan-libdreamdvd: $(D)/libdvdnav $(D)/titan.do_prepare
 	$(START_BUILD)
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(SOURCE_DIR)/titan/libdreamdvd && \
@@ -221,7 +183,7 @@ $(D)/titan-libdreamdvd: $(D)/libdvdnav
 # titan-libeplayer3
 #	
 TITAN_LIBEPLAYER3_PATCH =
-$(D)/titan-libeplayer3:
+$(D)/titan-libeplayer3: $(D)/titan.do_prepare
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/libeplayer3; \
 		$(CONFIGURE_TOOLS) \

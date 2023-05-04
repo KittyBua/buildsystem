@@ -1,13 +1,3 @@
-diff -Nur titan.svn/Makefile.am titan.svn.patched/Makefile.am
---- titan.svn/Makefile.am	2022-06-27 22:22:53.917965000 +0200
-+++ titan.svn.patched/Makefile.am	2023-05-03 01:36:26.391292916 +0200
-@@ -1,3 +1,3 @@
- AUTOMAKE_OPTIONS = gnu
- 
--SUBDIRS = titan plugins
-\ No newline at end of file
-+SUBDIRS = titan
-Binary files titan.svn/.svn/wc.db and titan.svn.patched/.svn/wc.db differ
 diff -Nur titan.svn/titan/autogen.sh titan.svn.patched/titan/autogen.sh
 --- titan.svn/titan/autogen.sh	2022-06-27 22:22:39.942121000 +0200
 +++ titan.svn.patched/titan/autogen.sh	1970-01-01 01:00:00.000000000 +0100
@@ -646,8 +636,8 @@ diff -Nur titan.svn/titan/makearm.sh titan.svn.patched/titan/makearm.sh
 -echo "[titan]--------------------------------------------------------"
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-03 02:42:30.934610389 +0200
-@@ -1,18 +1,10 @@
++++ titan.svn.patched/titan/Makefile.am	2023-05-04 22:12:25.432104557 +0200
+@@ -1,18 +1,9 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
 -INCLUDES = \
@@ -666,10 +656,9 @@ diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
  titan_SOURCES =	titan.c
  
 -titan_LDADD = -lm -lpthread -ldl -lpng -lfreetype -leplayer3 -ldreamdvd -ljpeg -lz -lmmeimage -lmme_host -lssl -lcrypto
-+titan_LDADD = -lm -lpthread -ldl -lpng -lfreetype -leplayer3 -lipkg -ldreamdvd -ljpeg -lz -lssl -lcrypto
++titan_LDADD = -lm -lpthread -ldl -lpng -lfreetype -leplayer3 -ldreamdvd -ljpeg -lz -lssl -lcrypto -lipkg
 +
  titan_CFLAGS = $(ALL_CFLAGS)
-+
 diff -Nur titan.svn/titan/Makefile.am.4.3 titan.svn.patched/titan/Makefile.am.4.3
 --- titan.svn/titan/Makefile.am.4.3	2022-06-27 22:22:39.918121000 +0200
 +++ titan.svn.patched/titan/Makefile.am.4.3	1970-01-01 01:00:00.000000000 +0100
@@ -738,9 +727,9 @@ diff -Nur titan.svn/titan/makei386.sh titan.svn.patched/titan/makei386.sh
 -	/bin/bash libtool --tag=CC --mode=link gcc -DSIMULATE -DI386 -DNOFB -Os -export-dynamic -Wall -Wno-unused-but-set-variable -pipe -Os  -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,/usr/lib -L/lib -L/usr/lib -L/usr/lib/i386-linux-gnu -o titan titan.o -lpthread -ldl -lpng -lfreetype -ljpeg -lz -lm -lz -lssl -lcrypto
 -fi
 diff -Nur titan.svn/titan/makesh4.sh titan.svn.patched/titan/makesh4.sh
---- titan.svn/titan/makesh4.sh	2022-06-27 22:22:39.686124000 +0200
+--- titan.svn/titan/makesh4.sh	2023-05-04 21:46:27.524214153 +0200
 +++ titan.svn.patched/titan/makesh4.sh	1970-01-01 01:00:00.000000000 +0100
-@@ -1,683 +0,0 @@
+@@ -1,688 +0,0 @@
 -TYPE=$1
 -STM=$2
 -MEDIAFW=$3
@@ -878,8 +867,8 @@ diff -Nur titan.svn/titan/makesh4.sh titan.svn.patched/titan/makesh4.sh
 -elif [ "$TYPE1" = "homecastpro-cable" ];then
 -    svn co --username $SVNUSER --password $SVNPASS http://"$SVNURL"/svn/ipk/source/settings_kabelplus_cable_1_0/mnt/settings "$HOME"/flashimg/$SRCDIR/settings.svn
 -else
--#    svn co --username $SVNUSER --password $SVNPASS http://"$SVNURL"/svn/ipk/source/settings_default_all_2_0/mnt/settings "$HOME"/flashimg/$SRCDIR/settings.svn
--    cp -a "$HOME"/flashimg/$SRCDIR/settings "$HOME"/flashimg/$SRCDIR/settings.svn
+-    svn co --username $SVNUSER --password $SVNPASS http://"$SVNURL"/svn/ipk/source/settings_default_all_2_0/mnt/settings "$HOME"/flashimg/$SRCDIR/settings.svn
+-#    cp -a "$HOME"/flashimg/$SRCDIR/settings "$HOME"/flashimg/$SRCDIR/settings.svn
 -fi
 -sort -u "$HOME"/flashimg/$SRCDIR/settings.svn/channel > "$HOME"/flashimg/$SRCDIR/settings.svn/channel.sort
 -mv -f "$HOME"/flashimg/$SRCDIR/settings.svn/channel.sort "$HOME"/flashimg/$SRCDIR/settings.svn/channel
@@ -1013,13 +1002,13 @@ diff -Nur titan.svn/titan/makesh4.sh titan.svn.patched/titan/makesh4.sh
 -
 -#if [ "$GROUP" = "dev" ] && ([ "$TYPE" = "spark" ] || [ "$TYPE" = "spark7162" ]); then
 -if [ "$TYPE" = "spark_aus" ] || [ "$TYPE" = "spark7162_aus" ]; then
--    devflag="-finstrument-functions -rdynamic -DBETA -DEPLAYER3"
+-    devflag="-finstrument-functions -rdynamic -DBETA -DDDTBUILD -DEPLAYER3"
 -elif [ "$GROUP" = "dev" ] && [ "$TYPE" != "ufs910" ] && [ "$TYPE" != "ufs922" ]; then
--    devflag="-finstrument-functions -rdynamic -DBETA -DEXTEPLAYER3"
+-    devflag="-finstrument-functions -rdynamic -DBETA -DDDTBUILD -DEXTEPLAYER3"
 -elif [ "$GROUP" = "dev" ]; then
--    devflag="-DBETA -DEXTEPLAYER3"
+-    devflag="-DBETA -DDDTBUILD -DEXTEPLAYER3"
 -else
--    devflag="-DEXTEPLAYER3"
+-    devflag="-DDDTBUILD -DEXTEPLAYER3"
 -fi
 -
 - #ffmpeg=3.4.2
@@ -1189,6 +1178,11 @@ diff -Nur titan.svn/titan/makesh4.sh titan.svn.patched/titan/makesh4.sh
 -rm -rf "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/rc_virtual.*.html
 -#cp -a "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/index."$TYPE".html "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/index.html
 -rm -rf "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/index.*.html
+-cp -a "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/rc_virtual."$TYPE".html "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/rc_virtual.html
+-rm -rf "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/rc_virtual.*.html
+-echo use system_extensions.ddtbuild.html > system_extensions.html
+-cp -a "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/system_extensions.ddtbuild.html "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/system_extensions.html
+-rm -rf "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/web/system_extensions.*.html
 -
 -cp -a "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/plugins/player/mc/skin/bgMusic."$TYPE".mvi "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/plugins/player/mc/skin/bgMusic.mvi
 -rm -rf "$HOME"/flashimg/BUILD/titan/var/usr/local/share/titan/plugins/player/mc/skin/bgMusic.*.mvi
