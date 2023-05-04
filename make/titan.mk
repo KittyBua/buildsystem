@@ -235,9 +235,8 @@ $(D)/titan-libeplayer3:
 #
 #
 titan-clean:
-	$(MAKE) -C $(SOURCE_DIR)/titan clean
-	rm -f $(D)/titan
 	rm -f $(D)/titan.do_compile
+	$(MAKE) -C $(SOURCE_DIR)/titan clean
 
 titan-distclean:
 	rm -f $(D)/titan*
@@ -247,12 +246,13 @@ titan-distclean:
 #
 #
 titan-plugins-clean:
-	rm -f $(D)/titan-plugins
+	rm -f $(D)/titan-plugins.do_compile
 	cd $(SOURCE_DIR)/titan/plugins; \
 		$(MAKE) distclean
 
 titan-plugins-distclean:
 	rm -f $(D)/titan-plugins*
+	$(MAKE) -C $(SOURCE_DIR)/titan distclean
 		
 #
 # release-titan

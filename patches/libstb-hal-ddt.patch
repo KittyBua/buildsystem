@@ -1,18 +1,6 @@
-diff -Nur libstb-hal-ddt.git/acinclude.m4 libstb-hal-ddt.git.patched/acinclude.m4
---- libstb-hal-ddt.git/acinclude.m4	2023-04-08 22:32:04.855325550 +0200
-+++ libstb-hal-ddt.git.patched/acinclude.m4	2023-05-03 16:55:01.497492631 +0200
-@@ -152,7 +152,7 @@
- AC_ARG_WITH(boxtype,
- 	AS_HELP_STRING([--with-boxtype], [valid values: spark, generic, armbox, duckbox, spark7162, mipsbox]),
- 	[case "${withval}" in
--		generic|armbox)
-+		generic|armbox|mipsbox)
- 			BOXTYPE="$withval"
- 		;;
- 		spark|spark7162)
 diff -Nur libstb-hal-ddt.git/libarmbox/hardware_caps.c libstb-hal-ddt.git.patched/libarmbox/hardware_caps.c
 --- libstb-hal-ddt.git/libarmbox/hardware_caps.c	2022-12-25 09:21:26.785297961 +0100
-+++ libstb-hal-ddt.git.patched/libarmbox/hardware_caps.c	2023-05-03 21:39:32.876344963 +0200
++++ libstb-hal-ddt.git.patched/libarmbox/hardware_caps.c	2023-05-04 12:07:28.642095946 +0200
 @@ -53,8 +53,7 @@
  	strcpy(caps.boxvendor, "VU+");
  	strcpy(caps.boxname, "SOLO4K");
@@ -139,7 +127,7 @@ diff -Nur libstb-hal-ddt.git/libarmbox/hardware_caps.c libstb-hal-ddt.git.patche
  }
 diff -Nur libstb-hal-ddt.git/libmipsbox/hardware_caps.c libstb-hal-ddt.git.patched/libmipsbox/hardware_caps.c
 --- libstb-hal-ddt.git/libmipsbox/hardware_caps.c	2023-04-08 22:32:04.883325527 +0200
-+++ libstb-hal-ddt.git.patched/libmipsbox/hardware_caps.c	2023-05-03 21:39:04.044618374 +0200
++++ libstb-hal-ddt.git.patched/libmipsbox/hardware_caps.c	2023-05-04 12:18:41.325156976 +0200
 @@ -52,8 +52,7 @@
  	strcpy(caps.boxvendor, "VU+");
  	strcpy(caps.boxname, "DUO");

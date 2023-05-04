@@ -193,9 +193,9 @@ libstb-hal-clean:
 		$(MAKE) -C $(LH_OBJDIR) distclean
 
 libstb-hal-distclean:
-	rm -rf $(LH_OBJDIR)
-	$(MAKE) -C $(LH_OBJDIR) distclean
 	rm -f $(D)/libstb-hal*
+	$(MAKE) -C $(LH_OBJDIR) distclean
+	rm -rf $(LH_OBJDIR)
 
 #
 # neutrino

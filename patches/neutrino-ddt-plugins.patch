@@ -1,18 +1,6 @@
-diff -Nur neutrino-ddt-plugins.git/acinclude.m4 neutrino-ddt-plugins.git.patched/acinclude.m4
---- neutrino-ddt-plugins.git/acinclude.m4	2023-05-04 00:56:36.793345058 +0200
-+++ neutrino-ddt-plugins.git.patched/acinclude.m4	2023-05-04 00:58:25.189301825 +0200
-@@ -152,7 +152,7 @@
- AC_ARG_WITH(boxtype,
- 	AS_HELP_STRING([--with-boxtype], [valid values: spark, generic, armbox, duckbox, spark7162, mipsbox]),
- 	[case "${withval}" in
--		generic|armbox)
-+		generic|armbox|mipsbox)
- 			BOXTYPE="$withval"
- 		;;
- 		spark|spark7162)
 diff -Nur neutrino-ddt-plugins.git/configure.ac neutrino-ddt-plugins.git.patched/configure.ac
 --- neutrino-ddt-plugins.git/configure.ac	2022-06-22 10:46:47.767222000 +0200
-+++ neutrino-ddt-plugins.git.patched/configure.ac	2023-05-04 00:58:06.765311015 +0200
++++ neutrino-ddt-plugins.git.patched/configure.ac	2023-05-04 12:24:57.896174977 +0200
 @@ -37,6 +37,7 @@
  tuxmail/daemon/Makefile
  tuxcal/Makefile
@@ -21,15 +9,9 @@ diff -Nur neutrino-ddt-plugins.git/configure.ac neutrino-ddt-plugins.git.patched
  fx2/Makefile
  fx2/lemm/Makefile
  fx2/master/Makefile
-diff -Nur neutrino-ddt-plugins.git/.git/ORIG_HEAD neutrino-ddt-plugins.git.patched/.git/ORIG_HEAD
---- neutrino-ddt-plugins.git/.git/ORIG_HEAD	2023-05-04 01:04:08.109027764 +0200
-+++ neutrino-ddt-plugins.git.patched/.git/ORIG_HEAD	2022-06-24 11:25:58.243053000 +0200
-@@ -1 +1 @@
--ccad1500c7b17e0f3c60ae269a08d65bbd443cde
-+1a85b819a53a687d187b5c4b8e8a1fcaeae46664
 diff -Nur neutrino-ddt-plugins.git/Makefile.am neutrino-ddt-plugins.git.patched/Makefile.am
 --- neutrino-ddt-plugins.git/Makefile.am	2022-06-22 10:46:47.759222000 +0200
-+++ neutrino-ddt-plugins.git.patched/Makefile.am	2023-05-04 00:59:18.561271477 +0200
++++ neutrino-ddt-plugins.git.patched/Makefile.am	2023-05-04 12:24:25.930747683 +0200
 @@ -1,7 +1,7 @@
  AUTOMAKE_OPTIONS = gnu
  
@@ -41,7 +23,7 @@ diff -Nur neutrino-ddt-plugins.git/Makefile.am neutrino-ddt-plugins.git.patched/
  
 diff -Nur neutrino-ddt-plugins.git/tuxcom/tuxcom.c neutrino-ddt-plugins.git.patched/tuxcom/tuxcom.c
 --- neutrino-ddt-plugins.git/tuxcom/tuxcom.c	2023-05-04 00:56:36.797345056 +0200
-+++ neutrino-ddt-plugins.git.patched/tuxcom/tuxcom.c	2023-05-04 00:59:00.513282357 +0200
++++ neutrino-ddt-plugins.git.patched/tuxcom/tuxcom.c	2023-05-04 12:26:33.669867571 +0200
 @@ -982,20 +982,14 @@
  	}
  
@@ -71,7 +53,7 @@ diff -Nur neutrino-ddt-plugins.git/tuxcom/tuxcom.c neutrino-ddt-plugins.git.patc
  		perror("TuxCom <open remote control>");
 diff -Nur neutrino-ddt-plugins.git/tuxwetter/io.c neutrino-ddt-plugins.git.patched/tuxwetter/io.c
 --- neutrino-ddt-plugins.git/tuxwetter/io.c	2022-06-22 10:46:47.819221000 +0200
-+++ neutrino-ddt-plugins.git.patched/tuxwetter/io.c	2023-05-04 01:23:29.959462775 +0200
++++ neutrino-ddt-plugins.git.patched/tuxwetter/io.c	2023-05-04 12:27:07.778408264 +0200
 @@ -29,10 +29,10 @@
  int InitRC(void)
  {

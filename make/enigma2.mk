@@ -100,7 +100,6 @@ enigma2-clean:
 	rm -f $()/enigma2.do_compile
 	$(MAKE) -C $(SOURCE_DIR)/enigma2 clean
 	rm -f $(TARGET_DIR)/usr/share/fonts/fallback.font
-	rm -f $(D)/enigma2
 
 enigma2-distclean:
 	rm -f $(D)/enigma2*

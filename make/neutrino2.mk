@@ -135,7 +135,6 @@ $(D)/neutrino2: $(D)/neutrino2.do_compile
 neutrino2-clean:
 	rm -f $(D)/neutrino2.do_compile
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/neutrino2 clean
-	rm -f $(D)/neutrino2
 
 neutrino2-distclean:
 	rm -f $(D)/neutrino2*
@@ -179,7 +178,7 @@ $(D)/neutrino2-plugins: $(D)/neutrino2-plugins.do_compile
 	$(TUXBOX_CUSTOMIZE)
 
 neutrino2-plugins-clean:
-	rm -f $(D)/neutrino2-plugins
+	rm -f $(D)/neutrino2-plugins.do_compile
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/plugins clean
 
 neutrino2-plugins-distclean:
