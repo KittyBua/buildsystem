@@ -19,6 +19,7 @@ RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/fbshot
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
 RELEASE_DEPS += $(D)/ofgwrite
+RELEASE_DEPS += $(D)/parted
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), atevio7500 spark spark7162 ufs912 ufs913))
 	RELEASE_DEPS += $(D)/ntfs_3g
