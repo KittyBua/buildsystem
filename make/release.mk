@@ -270,7 +270,6 @@ ifeq ($(WLAN), wlandriver)
 	[ -e $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/wireless/rtl8192du/8192du.ko ] && cp $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/wireless/rtl8192du/8192du.ko $(RELEASE_DIR)/lib/modules/ || true
 endif
 endif
-
 #
 # wlan firmware
 #
@@ -280,12 +279,6 @@ ifeq ($(WLAN), wlandriver)
 	cp -aR $(SKEL_ROOT)/lib/firmware/rtlwifi $(RELEASE_DIR)/lib/firmware/
 	cp -aR $(SKEL_ROOT)/lib/firmware/*.bin $(RELEASE_DIR)/lib/firmware/
 endif
-	
-#
-# release-none
-#
-$(D)/release-none: release-common release-$(BOXTYPE)
-	$(START_BUILD)
 #
 # lib usr/lib
 #
@@ -416,6 +409,18 @@ endif
 		cp -aR $(TARGET_DIR)/usr/share/xupnpd $(RELEASE_DIR)/usr/share; \
 		mkdir -p $(RELEASE_DIR)/usr/share/xupnpd/playlists; \
 	fi
+#
+# minisatip
+#
+	if [ -e $(TARGET_DIR)/usr/bin/minisatip ]; then \
+		cp -aR $(TARGET_DIR)/usr/share/minisatip $(RELEASE_DIR)/usr/share; \
+	fi
+	
+#
+# release-none
+#
+$(D)/release-none: release-common release-$(BOXTYPE)
+	$(START_BUILD)
 #
 # delete unnecessary files
 #

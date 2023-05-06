@@ -395,3 +395,4 @@ fe_core-objs += pace7241/stv6110x.o
 fe_core-objs += pace7241/core.o
 obj-m += fe_core.o
 endif
+

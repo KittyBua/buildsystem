@@ -31,5 +31,4 @@ else
 	rm -f $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/*
 endif
 	rm -f $(D)/driver
-
-
+	

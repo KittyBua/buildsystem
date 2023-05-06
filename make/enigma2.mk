@@ -247,130 +247,16 @@ release-enigma2: release-common release-$(BOXTYPE) $(D)/enigma2
 	cp -aR $(SKEL_ROOT)/usr/share/enigma2/* $(RELEASE_DIR)/usr/share/enigma2
 	cp -aR $(SKEL_ROOT)/etc/tuxbox/* $(RELEASE_DIR)/etc/tuxbox/
 	cp -aR $(SKEL_ROOT)/etc/enigma2/* $(RELEASE_DIR)/etc/enigma2/
+	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_ENIGMA2 $(RELEASE_DIR)/etc/init.d/rcS
 #
-# lib usr/lib
-#
-	cp -R $(TARGET_DIR)/lib/* $(RELEASE_DIR)/lib/
-	rm -f $(RELEASE_DIR)/lib/*.{a,o,la}
-	chmod 755 $(RELEASE_DIR)/lib/*
-	cp -R $(TARGET_DIR)/usr/lib/* $(RELEASE_DIR)/usr/lib/
-	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,sigc++-1.2,sigc++-2.0,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio}
-	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
-	chmod 755 $(RELEASE_DIR)/usr/lib/*
-#
-# enigma2
-#
-	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
-#
-#gstreamer
-#
-ifeq ($(GSTREAMER), gstreamer)
-	cp -aR $(TARGET_DIR)/usr/lib/gstreamer-1.0 $(RELEASE_DIR)/usr/lib
-	cp -aR $(TARGET_DIR)/usr/lib/gio $(RELEASE_DIR)/usr/lib
-endif
-#
-# python
-#
-	install -d $(RELEASE_DIR)/$(PYTHON_DIR)
-	cp -R $(TARGET_DIR)/$(PYTHON_DIR)/* $(RELEASE_DIR)/$(PYTHON_DIR)/
-	install -d $(RELEASE_DIR)/$(PYTHON_INCLUDE_DIR)
-	cp $(TARGET_DIR)/$(PYTHON_INCLUDE_DIR)/pyconfig.h $(RELEASE_DIR)/$(PYTHON_INCLUDE_DIR)
-#
-# mc
-#
-	if [ -e $(TARGET_DIR)/usr/bin/mc ]; then \
-		cp -aR $(TARGET_DIR)/usr/share/mc $(RELEASE_DIR)/usr/share/; \
-		cp -af $(TARGET_DIR)/usr/libexec $(RELEASE_DIR)/usr/; \
-	fi
-#
-# shairport
-#
-	if [ -e $(TARGET_DIR)/usr/bin/shairport ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/shairport $(RELEASE_DIR)/usr/bin; \
-		cp -f $(TARGET_DIR)/usr/bin/mDNSPublish $(RELEASE_DIR)/usr/bin; \
-		cp -f $(TARGET_DIR)/usr/bin/mDNSResponder $(RELEASE_DIR)/usr/bin; \
-		cp -f $(SKEL_ROOT)/etc/init.d/shairport $(RELEASE_DIR)/etc/init.d/shairport; \
-		chmod 755 $(RELEASE_DIR)/etc/init.d/shairport; \
-		cp -f $(TARGET_DIR)/usr/lib/libhowl.so* $(RELEASE_DIR)/usr/lib; \
-		cp -f $(TARGET_DIR)/usr/lib/libmDNSResponder.so* $(RELEASE_DIR)/usr/lib; \
-	fi	
-#
-# alsa
-#
-	if [ -e $(TARGET_DIR)/usr/share/alsa ]; then \
-		mkdir -p $(RELEASE_DIR)/usr/share/alsa/; \
-		mkdir $(RELEASE_DIR)/usr/share/alsa/cards/; \
-		mkdir $(RELEASE_DIR)/usr/share/alsa/pcm/; \
-		cp -dp $(TARGET_DIR)/usr/share/alsa/alsa.conf $(RELEASE_DIR)/usr/share/alsa/alsa.conf; \
-		cp $(TARGET_DIR)/usr/share/alsa/cards/aliases.conf $(RELEASE_DIR)/usr/share/alsa/cards/; \
-		cp $(TARGET_DIR)/usr/share/alsa/pcm/default.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
-		cp $(TARGET_DIR)/usr/share/alsa/pcm/dmix.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
-#		cp $(TARGET_DIR)/usr/bin/amixer $(RELEASE_DIR)/usr/bin/; \
-	fi
-#
-# nfs-utils
-#
-	if [ -e $(TARGET_DIR)/usr/sbin/rpc.nfsd ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/exportfs $(RELEASE_DIR)/usr/sbin/; \
-		cp -f $(TARGET_DIR)/usr/sbin/rpc.nfsd $(RELEASE_DIR)/usr/sbin/; \
-		cp -f $(TARGET_DIR)/usr/sbin/rpc.mountd $(RELEASE_DIR)/usr/sbin/; \
-		cp -f $(TARGET_DIR)/usr/sbin/rpc.statd $(RELEASE_DIR)/usr/sbin/; \
-	fi
-#
-# autofs
-#
-ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
-	if [ -d $(RELEASE_DIR)/usr/lib/autofs ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/automount $(RELEASE_DIR)/usr/sbin/; \
-#		ln -s /usr/sbin/automount $(RELEASE_DIR)/sbin/automount; \
-	fi
-endif
-#
-# graphlcd
-#
-	if [ -e $(RELEASE_DIR)/usr/lib/libglcddrivers.so ]; then \
-		cp -f $(TARGET_DIR)/etc/graphlcd.conf $(RELEASE_DIR)/etc/; \
-		rm -f $(RELEASE_DIR)/usr/lib/libglcdskin.so*; \
-	fi
-#
-# lcd4linux
-#
-	if [ -e $(TARGET_DIR)/usr/bin/lcd4linux ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/lcd4linux $(RELEASE_DIR)/usr/bin/; \
-		cp -f $(TARGET_DIR)/etc/init.d/lcd4linux $(RELEASE_DIR)/etc/init.d/; \
-		cp -a $(TARGET_DIR)/etc/lcd4linux.conf $(RELEASE_DIR)/etc/; \
-	fi
-#
-# minidlna
-#
-	if [ -e $(TARGET_DIR)/usr/sbin/minidlnad ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/minidlnad $(RELEASE_DIR)/usr/sbin/; \
-	fi
-#
-# openvpn
-#
-	if [ -e $(TARGET_DIR)/usr/sbin/openvpn ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/openvpn $(RELEASE_DIR)/usr/sbin; \
-		install -d $(RELEASE_DIR)/etc/openvpn; \
-	fi
-#
-# udpxy
-#
-	if [ -e $(TARGET_DIR)/usr/bin/udpxy ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/udpxy $(RELEASE_DIR)/usr/bin; \
-		cp -a $(TARGET_DIR)/usr/bin/udpxrec $(RELEASE_DIR)/usr/bin; \
-	fi
-#
-# xupnpd
-#
-	if [ -e $(TARGET_DIR)/usr/bin/xupnpd ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/xupnpd $(RELEASE_DIR)/usr/bin; \
-		cp -aR $(TARGET_DIR)/usr/share/xupnpd $(RELEASE_DIR)/usr/share; \
-		mkdir -p $(RELEASE_DIR)/usr/share/xupnpd/playlists; \
-	fi
-#
 # delete unnecessary files
+#
+	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2
+	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan
+	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino
+#
+#
 #
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/{bsddb,compiler,curses,lib-old,lib-tk,plat-linux3,test,sqlite3,pydoc_data,multiprocessing,hotshot,distutils,email,unitest,ensurepip,wsgiref,lib2to3,logging,idlelib}
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/pdb.doc

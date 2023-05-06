@@ -69,7 +69,7 @@ $(D)/tools-aio-grab: $(D)/bootstrap $(D)/libpng $(D)/libjpeg
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/aio-grab-$(BOXARCH); \
 		$(CONFIGURE_TOOLS) CPPFLAGS="$(CPPFLAGS) -I$(DRIVER_DIR)/bpamem" \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -219,7 +219,7 @@ $(D)/tools-exteplayer3: $(D)/bootstrap $(D)/ffmpeg $(D)/libass
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3); \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -238,7 +238,7 @@ $(D)/tools-eplayer4: $(D)/bootstrap $(D)/gstreamer $(D)/gst_plugins_base $(D)/gs
 	set -e; cd $(TOOLS_DIR)/eplayer4; \
 		$(CONFIGURE_TOOLS) \
 			CPPFLAGS="$(EPLAYER4_CPPFLAGS)" \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -290,7 +290,7 @@ $(D)/tools-satfind: $(D)/bootstrap
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/satfind; \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -303,7 +303,7 @@ $(D)/tools-showiframe: $(D)/bootstrap
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/showiframe-$(BOXARCH); \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -329,7 +329,7 @@ $(D)/tools-stfbcontrol: $(D)/bootstrap
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/stfbcontrol; \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -342,7 +342,7 @@ $(D)/tools-streamproxy: $(D)/bootstrap
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/streamproxy; \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

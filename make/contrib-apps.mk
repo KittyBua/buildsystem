@@ -888,7 +888,7 @@ $(D)/fbshot: $(D)/bootstrap $(D)/libpng $(ARCHIVE)/$(FBSHOT_SOURCE)
 		sed -i s~'gcc'~"$(TARGET)-gcc $(TARGET_CFLAGS) $(TARGET_LDFLAGS)"~ Makefile; \
 		sed -i 's/strip fbshot/$(TARGET)-strip fbshot/' Makefile; \
 		$(MAKE) all; \
-		install -D -m 755 fbshot $(TARGET_DIR)/bin/fbshot
+		install -D -m 755 fbshot $(TARGET_DIR)/usr/bin/fbshot
 	$(REMOVE)/fbshot-$(FBSHOT_VER)
 	$(TOUCH)
 
