@@ -46,11 +46,17 @@ TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/libmme_image
 TITAN_CPPFLAGS   += -L$(TARGET_DIR)/usr/lib
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
 TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
+
+ifeq ($(EXTEPLAYER3), exteplayer3)
+TITAN_CONFIG_OPTS += --enable-eplayer3
 TITAN_CPPFLAGS   += -DEPLAYER3
 TITAN_CPPFLAGS   += -DEXTEPLAYER3
 TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
+TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3)/include
+endif
 
 ifeq ($(GSTREAMER), gstreamer)
+TITAN_CONFIG_OPTS += --enable-gstreamer
 TITAN_CPPFLAGS   += -DEPLAYER4
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/gstreamer-1.0
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/glib-2.0
@@ -106,7 +112,6 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			$(TITAN_CONFIG_OPTS) \
-			--enable-eplayer3 \
 			--datadir=/usr/share \
 			--libdir=/usr/lib \
 			--bindir=/usr/bin \
@@ -117,7 +122,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
+$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd
 	cd $(SOURCE_DIR)/titan; \
 		$(MAKE) all
 	@touch $@

@@ -414,9 +414,9 @@ release-neutrino: release-common release-$(BOXTYPE) $(D)/neutrino $(NEUTRINO_PLU
 	cp -af $(TARGET_DIR)/usr/bin/sectionsdcontrol $(RELEASE_DIR)/usr/bin/
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
-#	cp -aR $(TARGET_DIR)/usr/share/tuxbox/sokoban $(RELEASE_DIR)/usr/share/tuxbox
 	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share/
 	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
+	[ -d $(RELEASE_DIR)/var/tuxbox/locale ] && rm -rf $(RELEASE_DIR)/var/tuxbox/locale
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NEUTRINO $(RELEASE_DIR)/etc/init.d/rcS
 #

@@ -62,7 +62,6 @@ RELEASE_DEPS += $(D)/tools-ustslave
 RELEASE_DEPS += $(D)/tools-vfdctl
 RELEASE_DEPS += $(D)/tools-wait4button
 endif
-RELEASE_DEPS += $(D)/tools-exteplayer3
 RELEASE_DEPS += $(LIRC)
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
@@ -98,6 +97,13 @@ RELEASE_DEPS += $(D)/luasocket
 RELEASE_DEPS += $(D)/luafeedparser 
 RELEASE_DEPS += $(D)/luasoap 
 RELEASE_DEPS += $(D)/luajson
+endif
+
+#
+# exteplayer3
+#
+ifeq ($(EXTEPLAYER3), exteplayer3)
+RELEASE_DEPS += $(D)/tools-exteplayer3
 endif
 
 #
