@@ -415,15 +415,10 @@ endif
 	if [ -e $(TARGET_DIR)/usr/bin/minisatip ]; then \
 		cp -aR $(TARGET_DIR)/usr/share/minisatip $(RELEASE_DIR)/usr/share; \
 	fi
-	
-#
-# release-none
-#
-$(D)/release-none: release-common release-$(BOXTYPE)
-	$(START_BUILD)
 #
 # delete unnecessary files
 #
+ifeq ($(PYTHON), python)
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/{bsddb,compiler,curses,lib-old,lib-tk,plat-linux3,test,sqlite3,pydoc_data,multiprocessing,hotshot,distutils,email,unitest,ensurepip,wsgiref,lib2to3,logging,idlelib}
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/pdb.doc
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/ctypes/test
@@ -462,13 +457,30 @@ $(D)/release-none: release-common release-$(BOXTYPE)
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/web/test
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/twisted/words/test
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/site-packages/*-py$(PYTHON_VER_MAJOR).egg-info
-ifeq ($(PYTHON), python)
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.a' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.c' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.pyx' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.py' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
+endif
+ifeq ($(BOXARCH), sh4)
+	rm -rf $(RELEASE_DIR)/usr/lib/enigma2
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
+	rm -f $(RELEASE_DIR)/sbin/jfs_fsck
+	rm -f $(RELEASE_DIR)/sbin/fsck.jfs
+	rm -f $(RELEASE_DIR)/sbin/jfs_mkfs
+	rm -f $(RELEASE_DIR)/sbin/mkfs.jfs
+	rm -f $(RELEASE_DIR)/sbin/jfs_tune
+	rm -f $(RELEASE_DIR)/sbin/ffmpeg
+	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
+endif
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+	rm -rf $(RELEASE_DIR)/dev.static
+	rm -rf $(RELEASE_DIR)/ram
+	rm -rf $(RELEASE_DIR)/root
 endif
 	rm -f $(RELEASE_DIR)/usr/bin/avahi-*
 	rm -f $(RELEASE_DIR)/usr/bin/easy_install*
@@ -477,7 +489,6 @@ endif
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole opkg-check-config opkg-cl)
 	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
-	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 	rm -rf $(RELEASE_DIR)/usr/lib/gcc
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
 	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
@@ -493,7 +504,6 @@ endif
 	rm -f $(RELEASE_DIR)/lib/libstdc++.*-gdb.py
 	rm -f $(RELEASE_DIR)/lib/libthread_db*
 	rm -f $(RELEASE_DIR)/lib/libanl*
-	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 	rm -rf $(RELEASE_DIR)/usr/lib/alsa
 	rm -rf $(RELEASE_DIR)/usr/lib/glib-2.0
 	rm -rf $(RELEASE_DIR)/usr/lib/cmake
@@ -514,27 +524,18 @@ endif
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaScanner
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaPlayer
 	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
-	rm -f $(RELEASE_DIR)/sbin/jfs_fsck
-	rm -f $(RELEASE_DIR)/sbin/fsck.jfs
-	rm -f $(RELEASE_DIR)/sbin/jfs_mkfs
-	rm -f $(RELEASE_DIR)/sbin/mkfs.jfs
-	rm -f $(RELEASE_DIR)/sbin/jfs_tune
-	rm -f $(RELEASE_DIR)/sbin/ffmpeg
-	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
-endif
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
-	rm -rf $(RELEASE_DIR)/dev.static
-	rm -rf $(RELEASE_DIR)/ram
-	rm -rf $(RELEASE_DIR)/root
-endif
-	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
-	rm -fr $(RELEASE_DIR)/etc
-	ln -sf /var/etc $(RELEASE_DIR)
 	ln -s /tmp $(RELEASE_DIR)/var/lock
 	ln -s /tmp $(RELEASE_DIR)/var/log
 	ln -s /tmp $(RELEASE_DIR)/var/run
 	ln -s /tmp $(RELEASE_DIR)/var/tmp
+	
+#
+# release-none
+#
+$(D)/release-none: release-common release-$(BOXTYPE)
+	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
+	rm -fr $(RELEASE_DIR)/etc
+	ln -sf /var/etc $(RELEASE_DIR)
 	$(TUXBOX_CUSTOMIZE)
 #
 # strip
