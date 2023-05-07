@@ -47,6 +47,7 @@ TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/libmme_image
 TITAN_CPPFLAGS   += -L$(TARGET_DIR)/usr/lib
 #TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
 TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
+TITAN_CPPFLAGS   += -DOEBUILD -DOVBUILD
 
 ifeq ($(EXTEPLAYER3), exteplayer3)
 TITAN_DEPS  += $(D)/tools-exteplayer3
@@ -177,7 +178,7 @@ $(D)/titan-libdreamdvd: $(D)/libdvdnav $(D)/titan.do_prepare
 		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
-			--prefix=/ \
+			--prefix=/usr \
 		; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -192,7 +193,7 @@ $(D)/titan-libeplayer3: $(D)/titan.do_prepare
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/libeplayer3; \
 		$(CONFIGURE_TOOLS) \
-			--prefix= \
+			--prefix=/usr \
 		; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)

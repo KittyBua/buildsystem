@@ -172,6 +172,23 @@ diff -Nur titan.svn/titan/configure.ac titan.svn.patched/titan/configure.ac
 -AC_OUTPUT([
 -Makefile
 -])
+diff -Nur titan.svn/titan/header.h titan.svn.patched/titan/header.h
+--- titan.svn/titan/header.h	2023-05-04 21:46:27.528214147 +0200
++++ titan.svn.patched/titan/header.h	2023-05-07 15:16:24.520763157 +0200
+@@ -8,9 +8,12 @@
+ #ifndef HEADER_H
+ #define HEADER_H
+ 
++#include <stdint.h>
++#include <stdbool.h>
++
+ // libeplayer3/playback/playback.h
+ int8_t PlaybackDieNow(int8_t val);
+-#ifndef EPLAYER4 
++#ifdef EPLAYER3
+ bool PlaybackDieNowRegisterCallback(PlaybackDieNowCallback callback);
+ #endif
+ // ca.h
 diff -Nur titan.svn/titan/makearm.sh titan.svn.patched/titan/makearm.sh
 --- titan.svn/titan/makearm.sh	2022-06-27 22:22:39.694124000 +0200
 +++ titan.svn.patched/titan/makearm.sh	1970-01-01 01:00:00.000000000 +0100
@@ -691,7 +708,7 @@ diff -Nur titan.svn/titan/makearm.sh titan.svn.patched/titan/makearm.sh
 -echo "[titan]--------------------------------------------------------"
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-07 09:05:25.838995454 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-07 15:03:21.998025637 +0200
 @@ -1,18 +1,17 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
@@ -1481,6 +1498,19 @@ diff -Nur titan.svn/titan/makesh4.sh titan.svn.patched/titan/makesh4.sh
 -echo "[titan] building to: "$HOME"/flashimg/BUILD/titan"
 -echo "[titan] copy this folder to duckbox: /var/usr/local/share/titan"
 -echo "[titan]--------------------------------------------------------"
+diff -Nur titan.svn/titan/player.h titan.svn.patched/titan/player.h
+--- titan.svn/titan/player.h	2023-05-04 21:46:27.528214147 +0200
++++ titan.svn.patched/titan/player.h	2023-05-07 15:12:45.539832732 +0200
+@@ -3499,7 +3499,8 @@
+ printf("return tracklist\n");
+ 		return TrackList;
+ 	#endif
+-	#else
++	#endif
++	#ifdef EPLAYER4
+ printf("return tracklist4b\n");
+ 
+ 		return TrackList4;
 diff -Nur titan.svn/titan.patch titan.svn.patched/titan.patch
 --- titan.svn/titan.patch	1970-01-01 01:00:00.000000000 +0100
 +++ titan.svn.patched/titan.patch	2022-06-30 15:56:39.621653000 +0200
