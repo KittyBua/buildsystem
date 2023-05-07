@@ -8,7 +8,6 @@ TITAN_DEPS += $(D)/freetype
 TITAN_DEPS += $(D)/libjpeg
 TITAN_DEPS += $(D)/zlib
 TITAN_DEPS += $(D)/openssl
-#TITAN_DEPS += $(D)/timezone
 TITAN_DEPS += $(D)/libcurl
 TITAN_DEPS += $(D)/ffmpeg
 ifeq ($(BOXARCH), sh4)
@@ -17,10 +16,12 @@ TITAN_DEPS += $(D)/tools-libmme_image
 endif
 
 ifeq ($(GRAPHLCD), graphlcd)
+TITAN_DEPS += $(D)/graphlcd
 TITAN_CONFIG_OPTS += --with-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
+TITAN_DEPS += $(D)/lcd4linux
 TITAN_CONFIG_OPTS += --with-lcd4linux
 endif
 
@@ -44,18 +45,26 @@ TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/libpng16
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/dreamdvd
 TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/libmme_image
 TITAN_CPPFLAGS   += -L$(TARGET_DIR)/usr/lib
-TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
+#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
 TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
 
 ifeq ($(EXTEPLAYER3), exteplayer3)
+TITAN_DEPS  += $(D)/tools-exteplayer3
 TITAN_CONFIG_OPTS += --enable-eplayer3
 TITAN_CPPFLAGS   += -DEPLAYER3
 TITAN_CPPFLAGS   += -DEXTEPLAYER3
-TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
+#TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
 TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3)/include
 endif
 
 ifeq ($(GSTREAMER), gstreamer)
+TITAN_DEPS  += $(D)/gstreamer 
+TITAN_DEPS  += $(D)/gst_plugins_base 
+TITAN_DEPS  += $(D)/gst_plugins_good 
+TITAN_DEPS  += $(D)/gst_plugins_bad 
+TITAN_DEPS  += $(D)/gst_plugins_ugly 
+TITAN_DEPS  += $(D)/gst_plugins_subsink
+TITAN_DEPS  += $(D)/gst_plugins_dvbmediasink
 TITAN_CONFIG_OPTS += --enable-gstreamer
 TITAN_CPPFLAGS   += -DEPLAYER4
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/gstreamer-1.0
@@ -72,15 +81,6 @@ ifeq ($(BOXARCH), sh4)
 TITAN_CPPFLAGS   += -DSH4
 else
 TITAN_CPPFLAGS   += -DMIPSEL -DOEBUILD
-endif
-
-#
-#
-#
-BOARD = $(BOXTYPE)
-
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
-BOARD = vuduo
 endif
 
 #
@@ -117,7 +117,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			--bindir=/usr/bin \
 			--prefix=/usr \
 			--sysconfdir=/etc \
-			--with-boxtype=$(BOARD) \
+			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(PKG_CONFIG) \
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@

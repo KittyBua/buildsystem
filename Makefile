@@ -136,7 +136,7 @@ init:
 # Exteplayer3
 	@echo -e "\nExteplayer3:"
 	@echo "   1) yes"
-	@echo -e "   \033[01;32m1) no\033[00m"
+	@echo -e "   \033[01;32m2) no\033[00m"
 	@read -p "Select exteplayer3 (1-2)?" EXTEPLAYER3; \
 	EXTEPLAYER3=$${EXTEPLAYER3}; \
 	case "$$EXTEPLAYER3" in \
@@ -147,7 +147,7 @@ init:
 # Gstreamer
 	@echo -e "\nGstreamer:"
 	@echo "   1) yes (recommended for mipsel and arm boxes)"
-	@echo -e "   \033[01;32m1) no\033[00m"
+	@echo -e "   \033[01;32m2) no\033[00m"
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
 	GSTREAMER=$${GSTREAMER}; \
 	case "$$GSTREAMER" in \
@@ -253,6 +253,7 @@ printenv:
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
+	@echo "EXTEPLAYER3      : $(EXTEPLAYER3)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
 	@echo "WLAN             : $(WLAN)"
 	@echo "LUA              : $(LUA)"

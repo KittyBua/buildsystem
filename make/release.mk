@@ -306,12 +306,12 @@ endif
 # lua
 #
 ifeq ($(LUA), lua)
-ifneq ($(GUI), ENIGMA2)
+#ifneq ($(GUI), ENIGMA2)
 	cp -R $(TARGET_DIR)/usr/lib/lua $(RELEASE_DIR)/usr/lib/
 	if [ -d $(TARGET_DIR)/usr/share/lua ]; then \
 		cp -aR $(TARGET_DIR)/usr/share/lua/* $(RELEASE_DIR)/usr/share/lua; \
 	fi
-endif
+#endif
 endif
 #
 # python

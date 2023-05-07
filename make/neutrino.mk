@@ -35,15 +35,6 @@ NEUTRINO_DEPS += $(D)/libopenthreads
 NEUTRINO_DEPS += $(D)/libid3tag
 NEUTRINO_DEPS += $(D)/libmad
 NEUTRINO_DEPS += $(D)/flac
-#ifeq ($(LUA), lua)
-NEUTRINO_DEPS += $(D)/lua 
-NEUTRINO_DEPS += $(D)/luaexpat 
-NEUTRINO_DEPS += $(D)/luacurl 
-NEUTRINO_DEPS += $(D)/luasocket 
-NEUTRINO_DEPS += $(D)/luafeedparser 
-NEUTRINO_DEPS += $(D)/luasoap 
-NEUTRINO_DEPS += $(D)/luajson
-#endif
 
 NEUTRINO_CFLAGS       = -Wall -W -Wshadow -pipe -Os
 NEUTRINO_CFLAGS      += -D__KERNEL_STRICT_NAMES
@@ -67,18 +58,36 @@ NEUTRINO_CPPFLAGS += -I$(DRIVER_DIR)/frontcontroller/aotom_spark
 endif
 
 NEUTRINO_CONFIG_OPTS = --enable-freesatepg
-NEUTRINO_CONFIG_OPTS += --enable-lua
+#NEUTRINO_CONFIG_OPTS += --enable-lua
 NEUTRINO_CONFIG_OPTS += --enable-giflib
 NEUTRINO_CONFIG_OPTS += --with-tremor
 NEUTRINO_CONFIG_OPTS += --enable-ffmpegdec
 #NEUTRINO_CONFIG_OPTS += --enable-pip
 NEUTRINO_CONFIG_OPTS += --enable-pugixml
 
+ifeq ($(LUA), lua)
+NEUTRINO_DEPS += $(D)/lua 
+NEUTRINO_DEPS += $(D)/luaexpat 
+NEUTRINO_DEPS += $(D)/luacurl 
+NEUTRINO_DEPS += $(D)/luasocket 
+NEUTRINO_DEPS += $(D)/luafeedparser 
+NEUTRINO_DEPS += $(D)/luasoap 
+NEUTRINO_DEPS += $(D)/luajson
+NEUTRINO_CONFIG_OPTS += --enable-lua
+endif
+
 ifeq ($(BOXARCH), arm)
 NEUTRINO_CONFIG_OPTS += --enable-reschange
 endif
 
 ifeq ($(GSTREAMER), gstreamer)
+NEUTRINO_DEPS  += $(D)/gstreamer 
+NEUTRINO_DEPS  += $(D)/gst_plugins_base 
+NEUTRINO_DEPS  += $(D)/gst_plugins_good 
+NEUTRINO_DEPS  += $(D)/gst_plugins_bad 
+NEUTRINO_DEPS  += $(D)/gst_plugins_ugly 
+NEUTRINO_DEPS  += $(D)/gst_plugins_subsink
+NEUTRINO_DEPS  += $(D)/gst_plugins_dvbmediasink
 LH_CONFIG_OPTS += --enable-gstreamer_10
 NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
 NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
@@ -87,10 +96,12 @@ NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
 endif
 
 ifeq ($(GRAPHLCD), graphlcd)
+NEUTRINO_DEPS += $(D)/graphlcd
 NEUTRINO_CONFIG_OPTS += --with-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
+NEUTRINO_DEPS += $(D)/lcd4linux
 NEUTRINO_CONFIG_OPTS += --with-lcd4linux
 endif
 
@@ -126,19 +137,6 @@ NEUTRINO_CONFIG_OPTS += \
 	PKG_CONFIG=$(PKG_CONFIG) \
 	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) \
 	CFLAGS="$(NEUTRINO_CFLAGS)" CXXFLAGS="$(NEUTRINO_CFLAGS)" CPPFLAGS="$(NEUTRINO_CPPFLAGS)"
-
-#
-# DDT
-#
-#NEUTRINO = neutrino-ddt
-#N_BRANCH = master
-#N_URL = https://github.com/Duckbox-Developers/neutrino-ddt.git
-#LIBSTB-HAL = libstb-hal-ddt
-#LH_BRANCH = master
-#HAL_URL = https://github.com/Duckbox-Developers/libstb-hal-ddt.git
-#N_PLUGINS = neutrino-ddt-plugins
-#N_PLUGINS_BRANCH = master
-#N_PLUGINS_URL = https://github.com/Duckbox-Developers/neutrino-ddt-plugins.git
 
 #
 # libstb-hal
@@ -272,9 +270,11 @@ neutrino-distclean: libstb-hal-distclean neutrino-plugins-distclean
 # neutrino-plugins
 #
 NEUTRINO_PLUGINS  = $(D)/neutrino-plugins
+ifeq ($(LUA), lua)
 NEUTRINO_PLUGINS += $(D)/neutrino-plugins-scripts-lua
 NEUTRINO_PLUGINS += $(D)/neutrino-plugins-mediathek
 #NEUTRINO_PLUGINS += $(D)/neutrino-plugins-xupnpd
+endif
 
 NEUTRINO_PLUGINS_PATCHES = neutrino-ddt-plugins.patch
 
