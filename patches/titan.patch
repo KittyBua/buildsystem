@@ -52,6 +52,200 @@ diff -Nur titan.svn/Makefile.am titan.svn.patched/Makefile.am
 -SUBDIRS = titan plugins
 \ No newline at end of file
 +SUBDIRS = titan
+diff -Nur titan.svn/plugins/tools/autotimer/autotimer.c titan.svn.patched/plugins/tools/autotimer/autotimer.c
+--- titan.svn/plugins/tools/autotimer/autotimer.c	2022-06-27 22:22:41.198107000 +0200
++++ titan.svn.patched/plugins/tools/autotimer/autotimer.c	2023-05-07 20:29:20.465352252 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "Auto Timer";
+ char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/callmonitor1/callmonitor1.c titan.svn.patched/plugins/tools/callmonitor1/callmonitor1.c
+--- titan.svn/plugins/tools/callmonitor1/callmonitor1.c	2022-06-27 22:22:41.198107000 +0200
++++ titan.svn.patched/plugins/tools/callmonitor1/callmonitor1.c	2023-05-07 20:39:40.927772900 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ #include "callmon_main.h"
+ 
+ 
+diff -Nur titan.svn/plugins/tools/instar/instar.c titan.svn.patched/plugins/tools/instar/instar.c
+--- titan.svn/plugins/tools/instar/instar.c	2022-06-27 22:22:41.250106000 +0200
++++ titan.svn.patched/plugins/tools/instar/instar.c	2023-05-07 20:40:14.407472020 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ #include "instar.h"
+ 
+diff -Nur titan.svn/plugins/tools/keylock/keylock.c titan.svn.patched/plugins/tools/keylock/keylock.c
+--- titan.svn/plugins/tools/keylock/keylock.c	2022-06-27 22:22:41.278106000 +0200
++++ titan.svn.patched/plugins/tools/keylock/keylock.c	2023-05-07 20:40:31.471318690 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "KeyLock";
+ char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/lcdpearl1/lcdpearl1.c titan.svn.patched/plugins/tools/lcdpearl1/lcdpearl1.c
+--- titan.svn/plugins/tools/lcdpearl1/lcdpearl1.c	2023-05-04 21:46:29.004212188 +0200
++++ titan.svn.patched/plugins/tools/lcdpearl1/lcdpearl1.c	2023-05-07 20:41:00.375058971 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ #include "lcd_weather.h"
+ 
+diff -Nur titan.svn/plugins/tools/lcdsamsung/lcdsamsung.c titan.svn.patched/plugins/tools/lcdsamsung/lcdsamsung.c
+--- titan.svn/plugins/tools/lcdsamsung/lcdsamsung.c	2023-05-04 21:46:28.984212214 +0200
++++ titan.svn.patched/plugins/tools/lcdsamsung/lcdsamsung.c	2023-05-07 20:41:25.270835275 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ #include "lcd_weather.h"
+ 
+@@ -533,7 +533,7 @@
+ 		hr = atoi(gettime(NULL, "%H"));
+ 		min = atoi(gettime(NULL, "%M"));
+ 		
+-		// TV Programm läuft
++		// TV Programm l\E4uft
+ 		if(status.infobaraktiv == 1)
+ 		{
+ 			if(ostrcmp(getconfig("write_fb_to_jpg", NULL), "yes") == 0) {
+diff -Nur titan.svn/plugins/tools/multiimage/MultiImage.c titan.svn.patched/plugins/tools/multiimage/MultiImage.c
+--- titan.svn/plugins/tools/multiimage/MultiImage.c	2022-06-27 22:22:41.638102000 +0200
++++ titan.svn.patched/plugins/tools/multiimage/MultiImage.c	2023-05-07 20:41:44.430663124 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "MultiImage";
+ char plugindesc[] = "Start Images from USB device";
+diff -Nur titan.svn/plugins/tools/permtime/permtime.c titan.svn.patched/plugins/tools/permtime/permtime.c
+--- titan.svn/plugins/tools/permtime/permtime.c	2022-06-27 22:22:41.654102000 +0200
++++ titan.svn.patched/plugins/tools/permtime/permtime.c	2023-05-07 20:42:13.282403890 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "Permanent Time";
+ char plugindesc[] = "Extensions";
+@@ -159,4 +159,4 @@
+ 		permtime_main();
+ 		
+ 	}
+-}
+\ No newline at end of file
++}
+diff -Nur titan.svn/plugins/tools/sispmctl/sispmctl.c titan.svn.patched/plugins/tools/sispmctl/sispmctl.c
+--- titan.svn/plugins/tools/sispmctl/sispmctl.c	2022-06-27 22:22:41.726101000 +0200
++++ titan.svn.patched/plugins/tools/sispmctl/sispmctl.c	2023-05-07 20:42:54.890030063 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ #include "sispmctl.h"
+ 
+diff -Nur titan.svn/plugins/tools/stopifnotused/stopifnotused.c titan.svn.patched/plugins/tools/stopifnotused/stopifnotused.c
+--- titan.svn/plugins/tools/stopifnotused/stopifnotused.c	2022-06-27 22:22:41.774100000 +0200
++++ titan.svn.patched/plugins/tools/stopifnotused/stopifnotused.c	2023-05-07 20:43:11.313882506 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "Stop if not used";
+ char plugindesc[] = "Auschalten der Box wenn in einem bestimmten Zeitraum keine Aktion erfolgte";
+diff -Nur titan.svn/plugins/tools/tsschnitt/tsschnitt.c titan.svn.patched/plugins/tools/tsschnitt/tsschnitt.c
+--- titan.svn/plugins/tools/tsschnitt/tsschnitt.c	2023-05-04 21:46:28.828212421 +0200
++++ titan.svn.patched/plugins/tools/tsschnitt/tsschnitt.c	2023-05-07 20:43:41.197614032 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "Record cut";
+ char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/wlandisplay/wlandisplay.c titan.svn.patched/plugins/tools/wlandisplay/wlandisplay.c
+--- titan.svn/plugins/tools/wlandisplay/wlandisplay.c	2023-05-04 21:46:29.016212172 +0200
++++ titan.svn.patched/plugins/tools/wlandisplay/wlandisplay.c	2023-05-07 20:44:07.081381496 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ #include "lcd_weather.h"
+ 
+@@ -528,7 +528,7 @@
+ 		hr = atoi(gettime(NULL, "%H"));
+ 		min = atoi(gettime(NULL, "%M"));
+ 		
+-		// TV Programm läuft
++		// TV Programm l\E4uft
+ 		if(status.infobaraktiv == 1)
+ 		{
+ 			if(ostrcmp(getconfig("write_fb_to_jpg", NULL), "yes") == 0) {
+diff -Nur titan.svn/plugins/tools/zapback/zapback.c titan.svn.patched/plugins/tools/zapback/zapback.c
+--- titan.svn/plugins/tools/zapback/zapback.c	2022-06-27 22:22:41.978098000 +0200
++++ titan.svn.patched/plugins/tools/zapback/zapback.c	2023-05-07 20:44:22.373244119 +0200
+@@ -1,6 +1,6 @@
+-#include "../../titan/struct.h"
+-#include "../../titan/debug.h"
+-#include "../../titan/header.h"
++#include "../titan/struct.h"
++#include "../titan/debug.h"
++#include "../titan/header.h"
+ 
+ char pluginname[] = "zapback (Werbezapper)";
+ char plugindesc[] = "Extensions";
 Binary files titan.svn/.svn/wc.db and titan.svn.patched/.svn/wc.db differ
 diff -Nur titan.svn/titan/autogen.sh titan.svn.patched/titan/autogen.sh
 --- titan.svn/titan/autogen.sh	2022-06-27 22:22:39.942121000 +0200
@@ -174,13 +368,11 @@ diff -Nur titan.svn/titan/configure.ac titan.svn.patched/titan/configure.ac
 -])
 diff -Nur titan.svn/titan/header.h titan.svn.patched/titan/header.h
 --- titan.svn/titan/header.h	2023-05-04 21:46:27.528214147 +0200
-+++ titan.svn.patched/titan/header.h	2023-05-07 15:16:24.520763157 +0200
-@@ -8,9 +8,12 @@
++++ titan.svn.patched/titan/header.h	2023-05-07 18:26:22.228958304 +0200
+@@ -8,9 +8,10 @@
  #ifndef HEADER_H
  #define HEADER_H
  
-+#include <stdint.h>
-+#include <stdbool.h>
 +
  // libeplayer3/playback/playback.h
  int8_t PlaybackDieNow(int8_t val);
@@ -708,7 +900,7 @@ diff -Nur titan.svn/titan/makearm.sh titan.svn.patched/titan/makearm.sh
 -echo "[titan]--------------------------------------------------------"
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-07 15:03:21.998025637 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-07 21:20:45.536680058 +0200
 @@ -1,18 +1,17 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
@@ -1511,6 +1703,29 @@ diff -Nur titan.svn/titan/player.h titan.svn.patched/titan/player.h
  printf("return tracklist4b\n");
  
  		return TrackList4;
+diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
+--- titan.svn/titan/titan.c	2023-05-04 21:46:27.520214158 +0200
++++ titan.svn.patched/titan/titan.c	2023-05-07 21:04:52.832048059 +0200
+@@ -272,8 +272,10 @@
+ #include "settings_overclocking.h"
+ #include "settings_pluginbutton.h"
+ #ifndef SIMULATE
++#ifdef MIPSEL
+ #include "bcm.h"
+ #endif
++#endif
+ #include "settings_mediabutton.h"
+ #include "oled.h"
+ #ifdef MIPSEL
+@@ -291,7 +293,7 @@
+ #define ACCEL_DEBUG
+ 
+ //gAccel *gAccel::instance;
+-#define BCM_ACCEL
++//#define BCM_ACCEL
+ #endif
+ 
+ #ifdef HAVE_HISILICON_ACCEL 
 diff -Nur titan.svn/titan.patch titan.svn.patched/titan.patch
 --- titan.svn/titan.patch	1970-01-01 01:00:00.000000000 +0100
 +++ titan.svn.patched/titan.patch	2022-06-30 15:56:39.621653000 +0200

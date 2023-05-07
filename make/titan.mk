@@ -14,6 +14,7 @@ ifeq ($(BOXARCH), sh4)
 TITAN_DEPS += $(D)/tools-libmme_host
 TITAN_DEPS += $(D)/tools-libmme_image
 endif
+TITAN_DEPS += $(D)/python
 
 ifeq ($(GRAPHLCD), graphlcd)
 TITAN_DEPS += $(D)/graphlcd
@@ -45,9 +46,10 @@ TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/libpng16
 TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/dreamdvd
 TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/libmme_image
 TITAN_CPPFLAGS   += -L$(TARGET_DIR)/usr/lib
-#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
+TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/python
 TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
 TITAN_CPPFLAGS   += -DOEBUILD -DOVBUILD
+TITAN_CPPFLAGS   += -I$(SOURCE_DIR)
 
 ifeq ($(EXTEPLAYER3), exteplayer3)
 TITAN_DEPS  += $(D)/tools-exteplayer3
@@ -81,7 +83,7 @@ endif
 ifeq ($(BOXARCH), sh4)
 TITAN_CPPFLAGS   += -DSH4
 else
-TITAN_CPPFLAGS   += -DMIPSEL -DOEBUILD
+TITAN_CPPFLAGS   += -DMIPSEL -DBCM_ACCEL
 endif
 
 #
@@ -178,7 +180,7 @@ $(D)/titan-libdreamdvd: $(D)/libdvdnav $(D)/titan.do_prepare
 		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
-			--prefix=/usr \
+			--prefix=/ \
 		; \
 		$(MAKE) all; \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
@@ -209,7 +211,38 @@ titan-clean:
 titan-distclean:
 	rm -f $(D)/titan*
 	$(MAKE) -C $(SOURCE_DIR)/titan distclean
+	
+#
+# titan-plugins
+#
+$(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan $(D)/python
+	$(START_BUILD)
+	cd $(SOURCE_DIR)/titan/plugins; \
+		./autogen.sh; \
+		$(BUILDENV) \
+		./configure $(SILENT_CONFIGURE) \
+			--build=$(BUILD) \
+			--host=$(TARGET) \
+			$(TITAN_CONFIG_OPTS) \
+			--datadir=/usr/share \
+			--libdir=/usr/lib \
+			--bindir=/usr/bin \
+			--prefix=/usr \
+			--sysconfdir=/etc \
+			PKG_CONFIG=$(PKG_CONFIG) \
+			CPPFLAGS="$(TITAN_CPPFLAGS)"
+	@touch $@
 
+$(D)/titan-plugins.do_compile: $(SOURCE_DIR)/titan/plugins/config.status
+	cd $(SOURCE_DIR)/titan/plugins; \
+		$(MAKE) all
+	@touch $@
+
+$(D)/titan-plugins: $(D)/titan-plugins.do_compile
+	cd $(SOURCE_DIR)/titan/plugins
+	$(MAKE) -C $(SOURCE_DIR)/titan/plugins all install DESTDIR=$(TARGET_DIR)
+	$(TOUCH)
+	
 #
 #
 #
@@ -218,6 +251,9 @@ titan-plugins-clean:
 	cd $(SOURCE_DIR)/titan/plugins; \
 		$(MAKE) distclean
 
+#
+#
+#
 titan-plugins-distclean:
 	rm -f $(D)/titan-plugins*
 	$(MAKE) -C $(SOURCE_DIR)/titan distclean
@@ -247,13 +283,17 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
-	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
-	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
-	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
+	cp $(SKEL_ROOT)/var/etc/titan/satellites.sat $(RELEASE_DIR)/var/etc/titan/satellites.sat
+	cp $(SKEL_ROOT)/var/etc/titan/transponder.sat $(RELEASE_DIR)/var/etc/titan/transponder.sat
+	cp $(SKEL_ROOT)/var/etc/titan/satellites.cable $(RELEASE_DIR)/var/etc/titan/satellites.cable
+	cp $(SKEL_ROOT)/var/etc/titan/transponder.cable $(RELEASE_DIR)/var/etc/titan/transponder.cable
+	cp $(SKEL_ROOT)/var/etc/titan/satellites.ter $(RELEASE_DIR)/var/etc/titan/satellites.ter
+	cp $(SKEL_ROOT)/var/etc/titan/transponder.ter $(RELEASE_DIR)/var/etc/titan/transponder.ter
+#	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
 	cp -af $(SKEL_ROOT)/var/usr/share/fonts $(RELEASE_DIR)/var/usr/share
 	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
 	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan
-	cp -aR $(SKEL_ROOT)/mnt $(RELEASE_DIR)/	
+#	cp -aR $(SKEL_ROOT)/mnt $(RELEASE_DIR)/	
 #
 # po
 #

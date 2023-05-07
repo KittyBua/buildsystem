@@ -1,132 +1,22 @@
-diff -Nur neutrino-ddt.git/configure.ac neutrino-ddt.git.patched/configure.ac
---- neutrino-ddt.git/configure.ac	2022-11-12 13:51:10.578578619 +0100
-+++ neutrino-ddt.git.patched/configure.ac	2023-05-07 13:51:09.897452866 +0200
-@@ -269,8 +269,8 @@
+diff --git a/configure.ac b/configure.ac
+index 4a8e78f5f..7d766b165 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -269,8 +269,7 @@ fi
  
  AC_ARG_ENABLE(lua,
  	AS_HELP_STRING([--enable-lua], [enable Lua support @<:@default=yes@:>@]),
 -	[enable_lua="$enableval"],
 -	[enable_lua="yes"])
 +	[enable_lua="$enableval"])
-+#	[enable_lua="yes"])
  
  if test "$enable_lua" = "yes"; then
  	AC_DEFINE(ENABLE_LUA, 1, [include Lua support])
-diff -Nur neutrino-ddt.git/.git/FETCH_HEAD neutrino-ddt.git.patched/.git/FETCH_HEAD
---- neutrino-ddt.git/.git/FETCH_HEAD	2023-05-07 14:05:20.184004166 +0200
-+++ neutrino-ddt.git.patched/.git/FETCH_HEAD	2023-05-05 13:47:00.432834000 +0200
-@@ -1,4 +1,4 @@
--5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c		branch 'master' of https://github.com/Duckbox-Developers/neutrino-ddt
-+5fe162c7e150ea080e027bb4f88042a6e6d1ebb2		branch 'master' of https://github.com/Duckbox-Developers/neutrino-ddt
- ecd28f032060a2c6832625e7567895ff84af60f8	not-for-merge	branch 'master-eol' of https://github.com/Duckbox-Developers/neutrino-ddt
--7ab9a034470e07da9ad087d780ed95ed2a279a38	not-for-merge	branch 'test' of https://github.com/Duckbox-Developers/neutrino-ddt
--e225ec13dad418c2eab7398db9d9db08cb156058	not-for-merge	branch 'youtube' of https://github.com/Duckbox-Developers/neutrino-ddt
-+9bce4c9f9cb46fcbc5fdceb96e77e225d886ba99	not-for-merge	branch 'test' of https://github.com/Duckbox-Developers/neutrino-ddt
-+46a43b48ef58d4caaa289c02ceaca6d7e9a38af4	not-for-merge	branch 'youtube' of https://github.com/Duckbox-Developers/neutrino-ddt
-Binary files neutrino-ddt.git/.git/index and neutrino-ddt.git.patched/.git/index differ
-diff -Nur neutrino-ddt.git/.git/logs/HEAD neutrino-ddt.git.patched/.git/logs/HEAD
---- neutrino-ddt.git/.git/logs/HEAD	2023-05-07 12:27:47.551458188 +0200
-+++ neutrino-ddt.git.patched/.git/logs/HEAD	2023-05-05 13:45:35.552602000 +0200
-@@ -12,4 +12,3 @@
- 9bb67e9284c52078ff0d35886706cd9a443d64fd 74e3bf1bab92df53b55075017b8c0a62d6c4f022 mohousch <mohousch@gmail.com> 1682547069 +0200	pull: Fast-forward
- 74e3bf1bab92df53b55075017b8c0a62d6c4f022 bbb8a573fa3169fcab623cfc037bfe18ccf583fb mohousch <mohousch@gmail.com> 1683193926 +0200	pull: Fast-forward
- bbb8a573fa3169fcab623cfc037bfe18ccf583fb 5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 mohousch <mohousch@gmail.com> 1683287135 +0200	pull: Fast-forward
--5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c mohousch <mohousch@gmail.com> 1683455267 +0200	pull: Fast-forward
-diff -Nur neutrino-ddt.git/.git/logs/refs/heads/master neutrino-ddt.git.patched/.git/logs/refs/heads/master
---- neutrino-ddt.git/.git/logs/refs/heads/master	2023-05-07 12:27:47.551458188 +0200
-+++ neutrino-ddt.git.patched/.git/logs/refs/heads/master	2023-05-05 13:45:35.552602000 +0200
-@@ -12,4 +12,3 @@
- 9bb67e9284c52078ff0d35886706cd9a443d64fd 74e3bf1bab92df53b55075017b8c0a62d6c4f022 mohousch <mohousch@gmail.com> 1682547069 +0200	pull: Fast-forward
- 74e3bf1bab92df53b55075017b8c0a62d6c4f022 bbb8a573fa3169fcab623cfc037bfe18ccf583fb mohousch <mohousch@gmail.com> 1683193926 +0200	pull: Fast-forward
- bbb8a573fa3169fcab623cfc037bfe18ccf583fb 5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 mohousch <mohousch@gmail.com> 1683287135 +0200	pull: Fast-forward
--5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c mohousch <mohousch@gmail.com> 1683455267 +0200	pull: Fast-forward
-diff -Nur neutrino-ddt.git/.git/logs/refs/remotes/origin/master neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/master
---- neutrino-ddt.git/.git/logs/refs/remotes/origin/master	2023-05-07 12:27:47.283460012 +0200
-+++ neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/master	2023-05-05 13:45:35.472601000 +0200
-@@ -11,4 +11,3 @@
- 9bb67e9284c52078ff0d35886706cd9a443d64fd 74e3bf1bab92df53b55075017b8c0a62d6c4f022 mohousch <mohousch@gmail.com> 1682547069 +0200	pull: fast-forward
- 74e3bf1bab92df53b55075017b8c0a62d6c4f022 bbb8a573fa3169fcab623cfc037bfe18ccf583fb mohousch <mohousch@gmail.com> 1683193925 +0200	pull: fast-forward
- bbb8a573fa3169fcab623cfc037bfe18ccf583fb 5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 mohousch <mohousch@gmail.com> 1683287135 +0200	pull: fast-forward
--5fe162c7e150ea080e027bb4f88042a6e6d1ebb2 5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c mohousch <mohousch@gmail.com> 1683455267 +0200	pull: fast-forward
-diff -Nur neutrino-ddt.git/.git/logs/refs/remotes/origin/test neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/test
---- neutrino-ddt.git/.git/logs/refs/remotes/origin/test	2023-05-07 12:27:47.295459930 +0200
-+++ neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/test	2023-05-05 10:59:07.275390000 +0200
-@@ -11,4 +11,3 @@
- 71be0513885f4b8650050746e96c1fcea44b50a2 a316cb2fcec0888e2ee80e572f20c55d757b262f mohousch <mohousch@gmail.com> 1682547069 +0200	pull: fast-forward
- a316cb2fcec0888e2ee80e572f20c55d757b262f 353a45324757f912d214d965a1bec81290516007 mohousch <mohousch@gmail.com> 1683240731 +0200	pull: fast-forward
- 353a45324757f912d214d965a1bec81290516007 9bce4c9f9cb46fcbc5fdceb96e77e225d886ba99 mohousch <mohousch@gmail.com> 1683277147 +0200	pull: fast-forward
--9bce4c9f9cb46fcbc5fdceb96e77e225d886ba99 7ab9a034470e07da9ad087d780ed95ed2a279a38 mohousch <mohousch@gmail.com> 1683455267 +0200	pull: fast-forward
-diff -Nur neutrino-ddt.git/.git/logs/refs/remotes/origin/youtube neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/youtube
---- neutrino-ddt.git/.git/logs/refs/remotes/origin/youtube	2023-05-07 12:27:47.303459876 +0200
-+++ neutrino-ddt.git.patched/.git/logs/refs/remotes/origin/youtube	2023-05-05 00:52:11.813103000 +0200
-@@ -10,4 +10,3 @@
- 3af8d5bc2c780a06129bf4f40db6c0660e65a410 50631633f2e8b7aa81c43e99c1415e2b9ac7ff86 mohousch <mohousch@gmail.com> 1680985949 +0200	pull: fast-forward
- 50631633f2e8b7aa81c43e99c1415e2b9ac7ff86 4afba22e632fd0d7194309589a67bf6e53d61c13 mohousch <mohousch@gmail.com> 1682547069 +0200	pull: fast-forward
- 4afba22e632fd0d7194309589a67bf6e53d61c13 46a43b48ef58d4caaa289c02ceaca6d7e9a38af4 mohousch <mohousch@gmail.com> 1683240731 +0200	pull: fast-forward
--46a43b48ef58d4caaa289c02ceaca6d7e9a38af4 e225ec13dad418c2eab7398db9d9db08cb156058 mohousch <mohousch@gmail.com> 1683455267 +0200	pull: fast-forward
-Binary files neutrino-ddt.git/.git/objects/0d/56625c0ded8891f8a43ab54b40669a9cd2bab5 and neutrino-ddt.git.patched/.git/objects/0d/56625c0ded8891f8a43ab54b40669a9cd2bab5 differ
-Binary files neutrino-ddt.git/.git/objects/16/9d73a270c7cb889f5a439d9e996705274c3e3b and neutrino-ddt.git.patched/.git/objects/16/9d73a270c7cb889f5a439d9e996705274c3e3b differ
-Binary files neutrino-ddt.git/.git/objects/1d/0471a6c09c19990c4b3d2a3b4f96fbc00ac2f7 and neutrino-ddt.git.patched/.git/objects/1d/0471a6c09c19990c4b3d2a3b4f96fbc00ac2f7 differ
-Binary files neutrino-ddt.git/.git/objects/33/e2e7975c2e9cdb20193f74b44764e05384f3ab and neutrino-ddt.git.patched/.git/objects/33/e2e7975c2e9cdb20193f74b44764e05384f3ab differ
-Binary files neutrino-ddt.git/.git/objects/38/9263ffda76f4d2224dd1e953648500c8ea4efa and neutrino-ddt.git.patched/.git/objects/38/9263ffda76f4d2224dd1e953648500c8ea4efa differ
-Binary files neutrino-ddt.git/.git/objects/44/f57fd3a38bb5a74d3f77508753863ec8449eef and neutrino-ddt.git.patched/.git/objects/44/f57fd3a38bb5a74d3f77508753863ec8449eef differ
-Binary files neutrino-ddt.git/.git/objects/50/8b7b50840ef4b9757f9ba8cf17138b0e924288 and neutrino-ddt.git.patched/.git/objects/50/8b7b50840ef4b9757f9ba8cf17138b0e924288 differ
-Binary files neutrino-ddt.git/.git/objects/5c/f5dbfcd269d4a17c2a2195a5a04c1dd9ac185c and neutrino-ddt.git.patched/.git/objects/5c/f5dbfcd269d4a17c2a2195a5a04c1dd9ac185c differ
-Binary files neutrino-ddt.git/.git/objects/65/fef60673b480ea89eca5ca3e47e3888bc208a7 and neutrino-ddt.git.patched/.git/objects/65/fef60673b480ea89eca5ca3e47e3888bc208a7 differ
-Binary files neutrino-ddt.git/.git/objects/7a/b9a034470e07da9ad087d780ed95ed2a279a38 and neutrino-ddt.git.patched/.git/objects/7a/b9a034470e07da9ad087d780ed95ed2a279a38 differ
-Binary files neutrino-ddt.git/.git/objects/7e/1bb73495e681c14066b64a14b927ecf49519fa and neutrino-ddt.git.patched/.git/objects/7e/1bb73495e681c14066b64a14b927ecf49519fa differ
-Binary files neutrino-ddt.git/.git/objects/8b/1ad741bc75a21b6b273b18a99077a58a31c388 and neutrino-ddt.git.patched/.git/objects/8b/1ad741bc75a21b6b273b18a99077a58a31c388 differ
-Binary files neutrino-ddt.git/.git/objects/9b/b1d0214440dbede09532254e3635a8c3f8a682 and neutrino-ddt.git.patched/.git/objects/9b/b1d0214440dbede09532254e3635a8c3f8a682 differ
-Binary files neutrino-ddt.git/.git/objects/bc/29e0d300957f18df41a5739c6fbcc5576a71d3 and neutrino-ddt.git.patched/.git/objects/bc/29e0d300957f18df41a5739c6fbcc5576a71d3 differ
-Binary files neutrino-ddt.git/.git/objects/c0/87e881091122bdb25aab44c9eb58e1ad5a7b15 and neutrino-ddt.git.patched/.git/objects/c0/87e881091122bdb25aab44c9eb58e1ad5a7b15 differ
-Binary files neutrino-ddt.git/.git/objects/cc/ddf60a3c63727e2a3fbb55e3ac5ec010dda3a2 and neutrino-ddt.git.patched/.git/objects/cc/ddf60a3c63727e2a3fbb55e3ac5ec010dda3a2 differ
-Binary files neutrino-ddt.git/.git/objects/cf/6d43d6c7870a1286b9983ece3adb63846002d6 and neutrino-ddt.git.patched/.git/objects/cf/6d43d6c7870a1286b9983ece3adb63846002d6 differ
-Binary files neutrino-ddt.git/.git/objects/dd/86f9d545779caffc91a849cb6f36e3c1f58d7b and neutrino-ddt.git.patched/.git/objects/dd/86f9d545779caffc91a849cb6f36e3c1f58d7b differ
-Binary files neutrino-ddt.git/.git/objects/df/ddd4e4ff15b5d4877f2f31a40ac07abb3fd89d and neutrino-ddt.git.patched/.git/objects/df/ddd4e4ff15b5d4877f2f31a40ac07abb3fd89d differ
-Binary files neutrino-ddt.git/.git/objects/e2/25ec13dad418c2eab7398db9d9db08cb156058 and neutrino-ddt.git.patched/.git/objects/e2/25ec13dad418c2eab7398db9d9db08cb156058 differ
-Binary files neutrino-ddt.git/.git/objects/e2/60e25d415f3d0f2ed8b7cff592143adb85dbd7 and neutrino-ddt.git.patched/.git/objects/e2/60e25d415f3d0f2ed8b7cff592143adb85dbd7 differ
-Binary files neutrino-ddt.git/.git/objects/e6/96b6447179531fce0ba848c08ddf1d2751d636 and neutrino-ddt.git.patched/.git/objects/e6/96b6447179531fce0ba848c08ddf1d2751d636 differ
-Binary files neutrino-ddt.git/.git/objects/ed/02df81e6387ed7b106006964f698016e5caf17 and neutrino-ddt.git.patched/.git/objects/ed/02df81e6387ed7b106006964f698016e5caf17 differ
-diff -Nur neutrino-ddt.git/.git/objects/ef/44f3297949f045ebc67b02f4fd188d9567337e neutrino-ddt.git.patched/.git/objects/ef/44f3297949f045ebc67b02f4fd188d9567337e
---- neutrino-ddt.git/.git/objects/ef/44f3297949f045ebc67b02f4fd188d9567337e	2023-05-07 12:27:46.679464130 +0200
-+++ neutrino-ddt.git.patched/.git/objects/ef/44f3297949f045ebc67b02f4fd188d9567337e	1970-01-01 01:00:00.000000000 +0100
-@@ -1 +0,0 @@
--x+)JMU046f040031QMÃNMÀÃI’KÃepùôÏCmµ©ßv«EõÙ ~›'&@†êôóúSöí  ”/„}ÅÈÉ‡NõPérÖùvü^ûá®»…LbHN÷€ê&∂P‰‡ó∂k	éè≤XäNBdããíﬁ2›o|fQw}#Cf ∑åy1Î≈fE3¥
-\ No newline at end of file
-diff -Nur neutrino-ddt.git/.git/ORIG_HEAD neutrino-ddt.git.patched/.git/ORIG_HEAD
---- neutrino-ddt.git/.git/ORIG_HEAD	2023-05-07 12:36:11.853826673 +0200
-+++ neutrino-ddt.git.patched/.git/ORIG_HEAD	2023-05-05 13:47:00.444834000 +0200
-@@ -1 +1 @@
--5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c
-+5fe162c7e150ea080e027bb4f88042a6e6d1ebb2
-diff -Nur neutrino-ddt.git/.git/refs/heads/master neutrino-ddt.git.patched/.git/refs/heads/master
---- neutrino-ddt.git/.git/refs/heads/master	2023-05-07 12:27:47.551458188 +0200
-+++ neutrino-ddt.git.patched/.git/refs/heads/master	2023-05-05 13:45:35.552602000 +0200
-@@ -1 +1 @@
--5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c
-+5fe162c7e150ea080e027bb4f88042a6e6d1ebb2
-diff -Nur neutrino-ddt.git/.git/refs/remotes/origin/master neutrino-ddt.git.patched/.git/refs/remotes/origin/master
---- neutrino-ddt.git/.git/refs/remotes/origin/master	2023-05-07 12:27:47.271460094 +0200
-+++ neutrino-ddt.git.patched/.git/refs/remotes/origin/master	2023-05-05 13:45:35.472601000 +0200
-@@ -1 +1 @@
--5cf5dbfcd269d4a17c2a2195a5a04c1dd9ac185c
-+5fe162c7e150ea080e027bb4f88042a6e6d1ebb2
-diff -Nur neutrino-ddt.git/.git/refs/remotes/origin/test neutrino-ddt.git.patched/.git/refs/remotes/origin/test
---- neutrino-ddt.git/.git/refs/remotes/origin/test	2023-05-07 12:27:47.295459930 +0200
-+++ neutrino-ddt.git.patched/.git/refs/remotes/origin/test	2023-05-05 10:59:07.275390000 +0200
-@@ -1 +1 @@
--7ab9a034470e07da9ad087d780ed95ed2a279a38
-+9bce4c9f9cb46fcbc5fdceb96e77e225d886ba99
-diff -Nur neutrino-ddt.git/.git/refs/remotes/origin/youtube neutrino-ddt.git.patched/.git/refs/remotes/origin/youtube
---- neutrino-ddt.git/.git/refs/remotes/origin/youtube	2023-05-07 12:27:47.303459876 +0200
-+++ neutrino-ddt.git.patched/.git/refs/remotes/origin/youtube	2023-05-05 00:52:11.813103000 +0200
-@@ -1 +1 @@
--e225ec13dad418c2eab7398db9d9db08cb156058
-+46a43b48ef58d4caaa289c02ceaca6d7e9a38af4
-diff -Nur neutrino-ddt.git/src/driver/simple_display.cpp neutrino-ddt.git.patched/src/driver/simple_display.cpp
---- neutrino-ddt.git/src/driver/simple_display.cpp	2023-04-08 22:32:29.559304450 +0200
-+++ neutrino-ddt.git.patched/src/driver/simple_display.cpp	2023-05-03 21:28:24.803415000 +0200
-@@ -79,8 +79,49 @@
+diff --git a/src/driver/simple_display.cpp b/src/driver/simple_display.cpp
+index 0999a41c7..abcd1beef 100644
+--- a/src/driver/simple_display.cpp
++++ b/src/driver/simple_display.cpp
+@@ -79,8 +79,49 @@ static bool vol_active = false;
  static inline int dev_open()
  {
  	int fd = open(DISPLAY_DEV, O_RDWR);
@@ -178,179 +68,11 @@ diff -Nur neutrino-ddt.git/src/driver/simple_display.cpp neutrino-ddt.git.patche
  	return fd;
  }
  
-diff -Nur neutrino-ddt.git/src/gui/movieplayer.cpp neutrino-ddt.git.patched/src/gui/movieplayer.cpp
---- neutrino-ddt.git/src/gui/movieplayer.cpp	2022-07-23 18:41:26.087460770 +0200
-+++ neutrino-ddt.git.patched/src/gui/movieplayer.cpp	2023-05-07 14:00:34.643147345 +0200
-@@ -49,8 +49,10 @@
- #include <gui/plugins.h>
- #include <gui/videosettings.h>
- #include <gui/streaminfo.h>
-+#ifdef ENABLE_LUA
- #include <gui/lua/luainstance.h>
- #include <gui/lua/lua_video.h>
-+#endif
- #include <gui/screensaver.h>
- #include <driver/screenshot.h>
- #include <driver/volume.h>
-@@ -259,8 +261,10 @@
- 	vzap_it = filelist_it;
- 	fromInfoviewer = false;
- 	keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NORMAL;
-+#ifdef ENABLE_LUA
- 	isLuaPlay = false;
- 	haveLuaInfoFunc = false;
-+#endif
- 	blockedFromPlugin = false;
- 
- 	CScreenSaver::getInstance()->resetIdleTime();
-@@ -418,6 +422,7 @@
- 		is_file_player = true;
- 		PlayFile();
- 	}
-+#ifdef ENABLE_LUA
- 	else if (actionKey == "http_lua") {
- 		isHTTP = true;
- 		isLuaPlay = true;
-@@ -425,6 +430,7 @@
- 		PlayFile();
- 		haveLuaInfoFunc = false;
- 	}
-+#endif
- 	else {
- 		return menu_return::RETURN_REPAINT;
- 	}
-@@ -630,7 +636,9 @@
- 	isMovieBrowser = false;
- 	isBookmark = false;
- 	isHTTP = false;
-+#ifdef ENABLE_LUA
- 	isLuaPlay = false;
-+#endif
- 	isUPNP = false;
- 	isWebChannel = false;
- 	is_file_player = false;
-@@ -922,6 +930,7 @@
- 	return (info1.res1 < info2.res1);
- }
- 
-+#ifdef ENABLE_LUA
- bool CMoviePlayerGui::luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList)
- {
- 	CHintBox* box = new CHintBox(LOCALE_MESSAGEBOX_INFO, g_Locale->getText(LOCALE_LIVESTREAM_READ_DATA));
-@@ -1046,6 +1055,7 @@
- 
- 	return true;
- }
-+#endif
- 
- bool CMoviePlayerGui::selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info)
- {
-@@ -1114,6 +1124,7 @@
- 		}
- 		_script = _s;
- 	}
-+#ifdef ENABLE_LUA
- 	size_t pos = _script.find(".lua");
- 	if (!file_exists(_script.c_str()) || (pos == std::string::npos) || (_script.length()-pos != 4)) {
- 		printf(">>>>> [%s:%s:%d] script error\n", __file__, __func__, __LINE__);
-@@ -1123,6 +1134,7 @@
- 		printf(">>>>> [%s:%s:%d] lua script error\n", __file__, __func__, __LINE__);
- 		return false;
- 	}
-+#endif
- 
- 	if (!selectLivestream(liveStreamList, g_settings.livestreamResolution, &info)) {
- 		printf(">>>>> [%s:%s:%d] error selectLivestream\n", __file__, __func__, __LINE__);
-@@ -1275,8 +1287,10 @@
- 	PlayFileStart();
- 	PlayFileLoop();
- 	bool repeat = (repeat_mode == REPEAT_OFF);
-+#ifdef ENABLE_LUA
- 	if (isLuaPlay)
- 		repeat = (!blockedFromPlugin);
-+#endif
- 	PlayFileEnd(repeat);
- }
- 
-@@ -1483,7 +1497,11 @@
- 	if ((msg == CRCInput::RC_right) || msg == (neutrino_msg_t) g_settings.key_quickzap_up)
- 	{
- 		//printf("CMoviePlayerGui::%s: CRCInput::RC_right or g_settings.key_quickzap_up\n", __func__);
--		if (isLuaPlay || isUPNP)
-+		if (
-+	#ifdef ENABLE_LUA
-+		isLuaPlay ||
-+	#endif
-+		 isUPNP)
- 		{
- 			playstate = CMoviePlayerGui::STOPPED;
- 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NEXT;
-@@ -1510,7 +1528,11 @@
- 	else if ((msg == CRCInput::RC_left) || msg == (neutrino_msg_t) g_settings.key_quickzap_down)
- 	{
- 		//printf("CMoviePlayerGui::%s: CRCInput::RC_left or g_settings.key_quickzap_down\n", __func__);
--		if (isLuaPlay || isUPNP)
-+		if (
-+		#ifdef ENABLE_LUA
-+		isLuaPlay ||
-+		#endif
-+		 isUPNP)
- 		{
- 			playstate = CMoviePlayerGui::STOPPED;
- 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_PREV;
-diff -Nur neutrino-ddt.git/src/gui/movieplayer.h neutrino-ddt.git.patched/src/gui/movieplayer.h
---- neutrino-ddt.git/src/gui/movieplayer.h	2022-07-23 18:41:26.087460770 +0200
-+++ neutrino-ddt.git.patched/src/gui/movieplayer.h	2023-05-07 13:56:18.482378731 +0200
-@@ -53,11 +53,13 @@
- #include <OpenThreads/Thread>
- #include <OpenThreads/Condition>
- 
-+#ifdef ENABLE_LUA
- extern "C" {
- #include <lua.h>
- #include <lauxlib.h>
- #include <lualib.h>
- }
-+#endif
- 
- class CFrameBuffer;
- class CMoviePlayerGui : public CMenuTarget
-@@ -118,9 +120,11 @@
- 	bool		time_forced;
- 	CMoviePlayerGui::state playstate;
- 	int keyPressed;
-+#ifdef ENABLE_LUA
- 	bool isLuaPlay;
- 	bool haveLuaInfoFunc;
- 	lua_State* luaState;
-+#endif
- 	bool blockedFromPlugin;
- 	int speed;
- 	int startposition;
-@@ -245,7 +249,9 @@
- 	static void* bgPlayThread(void *arg);
- 	static bool sortStreamList(livestream_info_t info1, livestream_info_t info2);
- 	bool selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info);
-+#ifdef ENABLE_LUA
- 	bool luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList);
-+#endif
- 
- 	CMoviePlayerGui(const CMoviePlayerGui&) {};
- 	CMoviePlayerGui();
-@@ -299,7 +305,9 @@
- 	void setFromInfoviewer(bool f) { fromInfoviewer = f; };
- 	void setBlockedFromPlugin(bool b) { blockedFromPlugin = b; };
- 	bool getBlockedFromPlugin() { return blockedFromPlugin; };
-+#ifdef ENABLE_LUA
- 	void setLuaInfoFunc(lua_State* L, bool func) { luaState = L; haveLuaInfoFunc = func; };
-+#endif
- 	void getLivestreamInfo(std::string *i1, std::string *i2) { *i1=livestreamInfo1; *i2=livestreamInfo2; };
- 	bool getLiveUrl(const std::string &url, const std::string &script, std::string &realUrl, std::string &_pretty_name, std::string &info1, std::string &info2, std::string &header, std::string &url2);
- 	bool IsAudioPlaying() { return is_audio_player; };
-diff -Nur neutrino-ddt.git/src/gui/plugins.cpp neutrino-ddt.git.patched/src/gui/plugins.cpp
---- neutrino-ddt.git/src/gui/plugins.cpp	2022-12-25 09:21:48.963498025 +0100
-+++ neutrino-ddt.git.patched/src/gui/plugins.cpp	2023-05-07 14:04:17.871817188 +0200
-@@ -61,7 +61,9 @@
+diff --git a/src/gui/plugins.cpp b/src/gui/plugins.cpp
+index 79be18af4..e580e30f0 100644
+--- a/src/gui/plugins.cpp
++++ b/src/gui/plugins.cpp
+@@ -61,7 +61,9 @@ extern cVideo * videoDecoder;
  #include "plugins.h"
  
  #include <daemonc/remotecontrol.h>
@@ -360,34 +82,11 @@ diff -Nur neutrino-ddt.git/src/gui/plugins.cpp neutrino-ddt.git.patched/src/gui/
  
  extern CPlugins       * g_Plugins;    /* neutrino.cpp */
  extern CRemoteControl * g_RemoteControl; /* neutrino.cpp */
-diff -Nur neutrino-ddt.git/src/gui/webradio_setup.cpp neutrino-ddt.git.patched/src/gui/webradio_setup.cpp
---- neutrino-ddt.git/src/gui/webradio_setup.cpp	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/gui/webradio_setup.cpp	2022-07-23 18:41:26.099460000 +0200
-@@ -203,7 +203,7 @@
- 			g_settings.webradio_xml.push_back(f->getName());
- 		}
- 		g_Zapit->reinitChannels();
--		CNeutrinoApp::getInstance()->xmltv_xml_auto_readepg();
-+		CNeutrinoApp::getInstance()->xmltv_xml_m3u_readepg();
- 		changed = false;
- 		hint.hide();
- 	}
-diff -Nur neutrino-ddt.git/src/gui/webtv_setup.cpp neutrino-ddt.git.patched/src/gui/webtv_setup.cpp
---- neutrino-ddt.git/src/gui/webtv_setup.cpp	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/gui/webtv_setup.cpp	2023-05-04 11:52:06.103270000 +0200
-@@ -208,7 +208,7 @@
- 			g_settings.webtv_xml.push_back(f->getName());
- 		}
- 		g_Zapit->reinitChannels();
--		CNeutrinoApp::getInstance()->xmltv_xml_auto_readepg();
-+		CNeutrinoApp::getInstance()->xmltv_xml_m3u_readepg();
- 		changed = false;
- 		hint.hide();
- 	}
-diff -Nur neutrino-ddt.git/src/gui/widget/menue.cpp neutrino-ddt.git.patched/src/gui/widget/menue.cpp
---- neutrino-ddt.git/src/gui/widget/menue.cpp	2022-12-25 09:21:48.963498025 +0100
-+++ neutrino-ddt.git.patched/src/gui/widget/menue.cpp	2023-05-07 13:42:11.231836995 +0200
-@@ -1869,12 +1869,15 @@
+diff --git a/src/gui/widget/menue.cpp b/src/gui/widget/menue.cpp
+index 3a868b5d3..af8411aa3 100644
+--- a/src/gui/widget/menue.cpp
++++ b/src/gui/widget/menue.cpp
+@@ -1869,12 +1869,15 @@ int CMenuOptionNumberChooser::exec(CMenuTarget *)
  	}
  
  	bool wantsRepaint = false;
@@ -404,7 +103,7 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.cpp neutrino-ddt.git.patched/src
  		wantsRepaint = observ->changeNotify(name, optionValue);
  
  	// give the observer a chance to modify the value
-@@ -2197,12 +2200,15 @@
+@@ -2197,12 +2200,15 @@ int CMenuOptionChooser::exec(CMenuTarget *)
  	}
  	paint(true);
  	OnAfterChangeOption();
@@ -421,7 +120,7 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.cpp neutrino-ddt.git.patched/src
  		wantsRepaint = observ->changeNotify(name, optionValue);
  
  	if (wantsRepaint)
-@@ -2386,9 +2392,12 @@
+@@ -2386,9 +2392,12 @@ int CMenuOptionStringChooser::exec(CMenuTarget *parent)
  
  		paint(true);
  	}
@@ -435,9 +134,10 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.cpp neutrino-ddt.git.patched/src
  	{
  		wantsRepaint = observ->changeNotify(name, (void *)(optionValuePtr ? optionValuePtr->c_str() : ""));
  	}
-diff -Nur neutrino-ddt.git/src/gui/widget/menue.h neutrino-ddt.git.patched/src/gui/widget/menue.h
---- neutrino-ddt.git/src/gui/widget/menue.h	2022-10-12 16:48:25.575581566 +0200
-+++ neutrino-ddt.git.patched/src/gui/widget/menue.h	2023-05-07 13:41:00.319624331 +0200
+diff --git a/src/gui/widget/menue.h b/src/gui/widget/menue.h
+index a56fc15f9..a7612ba0c 100644
+--- a/src/gui/widget/menue.h
++++ b/src/gui/widget/menue.h
 @@ -46,11 +46,13 @@
  #include <vector>
  #include <neutrino_menue.h>
@@ -452,7 +152,7 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.h neutrino-ddt.git.patched/src/g
  
  #define NO_WIDGET_ID -1
  
-@@ -92,10 +94,12 @@
+@@ -92,10 +94,12 @@ class CChangeObserver
  		{
  			return false;
  		}
@@ -465,7 +165,7 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.h neutrino-ddt.git.patched/src/g
  };
  
  class CActivateObserver
-@@ -117,9 +121,11 @@
+@@ -117,9 +121,11 @@ class CMenuItem : public  CComponentsSignals
  		fb_pixel_t item_color, item_bgcolor;
  		bool initModeCondition(const int &stb_mode);
  		void initItemColors(const bool select_mode);
@@ -477,7 +177,7 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.h neutrino-ddt.git.patched/src/g
  		neutrino_locale_t name;
  		std::string nameString;
  		neutrino_locale_t desc;
-@@ -201,12 +207,14 @@
+@@ -201,12 +207,14 @@ class CMenuItem : public  CComponentsSignals
  			hintText = text;
  		}
  
@@ -492,74 +192,11 @@ diff -Nur neutrino-ddt.git/src/gui/widget/menue.h neutrino-ddt.git.patched/src/g
  		virtual const char *getName();
  		virtual void setName(const std::string &text);
  		virtual void setName(const neutrino_locale_t text);
-diff -Nur neutrino-ddt.git/src/neutrino.cpp neutrino-ddt.git.patched/src/neutrino.cpp
---- neutrino-ddt.git/src/neutrino.cpp	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/neutrino.cpp	2023-04-08 22:32:29.563304000 +0200
-@@ -847,7 +847,7 @@
- 		}
- 	}
- 
--	g_settings.xmltv_xml_auto.clear();
-+	g_settings.xmltv_xml_m3u.clear();
- 	g_settings.xmltv_xml.clear();
- 	int xmltv_count = configfile.getInt32("xmltv_xml_count", 0);
- 	if (xmltv_count) {
-@@ -2719,7 +2719,7 @@
- 	}
- 
- 	xmltv_xml_readepg();
--	xmltv_xml_auto_readepg();
-+	xmltv_xml_m3u_readepg();
- 
- 	RealRun();
- 	ExitRun(CNeutrinoApp::EXIT_REBOOT);
-@@ -4145,7 +4145,7 @@
- 	else if (msg == NeutrinoMessages::EVT_RELOAD_XMLTV) {
- 		printf("CNeutrinoApp::handleMsg: reload xmltv epg\n");
- 		xmltv_xml_readepg();
--		xmltv_xml_auto_readepg();
-+		xmltv_xml_m3u_readepg();
- 		return messages_return::handled;
- 	}
- 	if ((msg >= CRCInput::RC_WithData) && (msg < CRCInput::RC_WithData + 0x10000000)) {
-diff -Nur neutrino-ddt.git/src/neutrino.h neutrino-ddt.git.patched/src/neutrino.h
---- neutrino-ddt.git/src/neutrino.h	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/neutrino.h	2022-10-12 16:48:25.579581000 +0200
-@@ -229,24 +229,11 @@
- 
- 	void g_settings_video_Mode(int value) { g_settings.video_Mode = value; }
- 
--	void g_settings_xmltv_xml_auto_clear()
--	{
--		g_settings.xmltv_xml_auto.clear();
--	}
--	void g_settings_xmltv_xml_auto_pushback(std::string _xmltv_url)
--	{
--		if (find(g_settings.xmltv_xml_auto.begin(), g_settings.xmltv_xml_auto.end(), _xmltv_url) == g_settings.xmltv_xml_auto.end())
--			g_settings.xmltv_xml_auto.push_back(_xmltv_url);
--	}
--	void xmltv_xml_readepg()
--	{
--		for (std::list<std::string>::iterator it = g_settings.xmltv_xml.begin(); it != g_settings.xmltv_xml.end(); it++)
--			g_Sectionsd->readSIfromXMLTV((*it).c_str());
--	}
--	void xmltv_xml_auto_readepg()
--	{
--		for (std::list<std::string>::iterator it = g_settings.xmltv_xml_auto.begin(); it != g_settings.xmltv_xml_auto.end(); it++)
--			g_Sectionsd->readSIfromXMLTV((*it).c_str());
--	}
-+	void g_settings_xmltv_xml_m3u_clear() { g_settings.xmltv_xml_m3u.clear(); }
-+	void g_settings_xmltv_xml_m3u_pushback(std::string _epg_url) {g_settings.xmltv_xml_m3u.push_back(_epg_url); }
-+	void xmltv_xml_readepg() { for (std::list<std::string>::iterator it = g_settings.xmltv_xml.begin(); it != g_settings.xmltv_xml.end(); it++)
-+			g_Sectionsd->readSIfromXMLTV((*it).c_str()); }
-+	void xmltv_xml_m3u_readepg() { for (std::list<std::string>::iterator it = g_settings.xmltv_xml_m3u.begin(); it != g_settings.xmltv_xml_m3u.end(); it++)
-+			g_Sectionsd->readSIfromXMLTV((*it).c_str()); }
- };
- #endif
-diff -Nur neutrino-ddt.git/src/system/Makefile.am neutrino-ddt.git.patched/src/system/Makefile.am
---- neutrino-ddt.git/src/system/Makefile.am	2022-07-23 18:41:26.111460807 +0200
-+++ neutrino-ddt.git.patched/src/system/Makefile.am	2023-05-07 14:08:49.048630893 +0200
-@@ -29,7 +29,6 @@
+diff --git a/src/system/Makefile.am b/src/system/Makefile.am
+index 3839e1ee9..e9ab07af9 100644
+--- a/src/system/Makefile.am
++++ b/src/system/Makefile.am
+@@ -29,7 +29,6 @@ libneutrino_system_a_SOURCES = \
  	hddstat.cpp \
  	httptool.cpp \
  	lastchannel.cpp \
@@ -567,7 +204,7 @@ diff -Nur neutrino-ddt.git/src/system/Makefile.am neutrino-ddt.git.patched/src/s
  	localize.cpp \
  	helpers.cpp \
  	ping.cpp \
-@@ -39,3 +38,7 @@
+@@ -39,3 +38,7 @@ libneutrino_system_a_SOURCES = \
  	sysload.cpp \
  	setting_helpers.cpp
  #	safe_system.c
@@ -575,88 +212,3 @@ diff -Nur neutrino-ddt.git/src/system/Makefile.am neutrino-ddt.git.patched/src/s
 +if ENABLE_LUA
 +libneutrino_system_a_SOURCES += luaserver.cpp
 +endif
-diff -Nur neutrino-ddt.git/src/system/settings.h neutrino-ddt.git.patched/src/system/settings.h
---- neutrino-ddt.git/src/system/settings.h	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/system/settings.h	2023-04-08 22:32:29.567304000 +0200
-@@ -354,7 +354,7 @@
- 	std::list<std::string> webtv_xml;
- 	std::list<std::string> webradio_xml;
- 	std::list<std::string> xmltv_xml; // see http://wiki.xmltv.org/
--	std::list<std::string> xmltv_xml_auto;
-+	std::list<std::string> xmltv_xml_m3u; // contains temp xml from m3u
- 
- 	//personalize
- 	enum PERSONALIZE_SETTINGS  //settings.h
-diff -Nur neutrino-ddt.git/src/zapit/src/bouquets.cpp neutrino-ddt.git.patched/src/zapit/src/bouquets.cpp
---- neutrino-ddt.git/src/zapit/src/bouquets.cpp	2023-05-07 12:27:47.435458977 +0200
-+++ neutrino-ddt.git.patched/src/zapit/src/bouquets.cpp	2023-05-05 13:45:35.552602000 +0200
-@@ -497,7 +497,7 @@
- 		sortBouquets();
- 	}
- 
--	CNeutrinoApp::getInstance()->g_settings_xmltv_xml_auto_clear();
-+	CNeutrinoApp::getInstance()->g_settings_xmltv_xml_m3u_clear();
- 	loadWebtv();
- 	loadWebradio();
- 	loadLogos();
-@@ -505,10 +505,10 @@
- 	renumServices();
- 	CServiceManager::getInstance()->SetCIFilter();
- 	if(!EpgIDMapping.empty()){
--		EpgIDMapping.clear();
-+			EpgIDMapping.clear();
- 	}
- 	if(!EpgXMLMapping.empty()){
--		EpgXMLMapping.clear();
-+			EpgXMLMapping.clear();
- 	}
- 	TIMER_STOP("[zapit] bouquet loading took");
- }
-@@ -832,8 +832,6 @@
- 						const char *desc = xmlGetAttribute(l1, "description");
- 						const char *genre = xmlGetAttribute(l1, "genre");
- 						const char *epgid = xmlGetAttribute(l1, "epgid");
--						const char *xmltv = xmlGetAttribute(l1, "xmltv");
--						const char *epgmap = xmlGetAttribute(l1, "epgmap");
- 						const char *script = xmlGetAttribute(l1, "script");
- 						t_channel_id epg_id = 0;
- 						if (epgid)
-@@ -859,23 +857,12 @@
- 							t_channel_id new_epgid = reMapEpgID(chid);
- 							if(new_epgid)
- 								channel->setEPGid(new_epgid);
--							if (xmltv)
--							{
--								CNeutrinoApp::getInstance()->g_settings_xmltv_xml_auto_pushback(std::string(xmltv));
--							}
--							char buf[100];
--							snprintf(buf, sizeof(buf), "%llx", chid & 0xFFFFFFFFFFFFULL);
- 							std::string new_epgxml = reMapEpgXML(chid);
- 							if(!new_epgxml.empty()) {
-+								char buf[100];
-+								snprintf(buf, sizeof(buf), "%llx", chid & 0xFFFFFFFFFFFFULL);
- 								channel->setEPGmap("#" + new_epgxml + "=" + buf);
- 							}
--							// local epgmap overrides global epgmap
--							if (epgmap)
--							{
--								std::string new_epgmap(epgmap);
--								if(!new_epgmap.empty())
--									channel->setEPGmap("#" + new_epgmap + "=" + buf);
--							}
- 							channel->flags = CZapitChannel::UPDATED;
- 							if (gbouquet)
- 								gbouquet->addService(channel);
-@@ -933,10 +920,10 @@
- 							{
- 								std::vector<std::string> epg_list = ::split(epg_url, ',');
- 								for (std::vector<std::string>::iterator it_epg = epg_list.begin(); it_epg != epg_list.end(); it_epg++)
--									CNeutrinoApp::getInstance()->g_settings_xmltv_xml_auto_pushback((*it_epg));
-+									CNeutrinoApp::getInstance()->g_settings_xmltv_xml_m3u_pushback((*it_epg));
- 							}
- 							else
--								CNeutrinoApp::getInstance()->g_settings_xmltv_xml_auto_pushback(epg_url);
-+								CNeutrinoApp::getInstance()->g_settings_xmltv_xml_m3u_pushback(epg_url);
- 						}
- 					}
- 					if (strLine.find(M3U_INFO_MARKER) != std::string::npos)
