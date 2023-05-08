@@ -1,47 +1,54 @@
 #
-# ffmpeg
+# ffmpeg 4.3.2
 #
-FFMPEG_VER = 3.3
+FFMPEG_VER = 4.3.2
 
-FFMPEG_PATCH = ffmpeg-$(FFMPEG_VER)-aac.patch
-FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-add_dash_demux.patch
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VER).tar.xz
+FFMPEG_PATCH  = ffmpeg-$(FFMPEG_VER)-aac.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-allow_to_choose_rtmp_impl_at_runtime.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-buffer-size.patch
-FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-chunked_transfer_fix_eof.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-fix-edit-list-parsing.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-fix-hls.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-fix_mpegts.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-hls_replace_key_uri.patch
-FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-sh4.patch
-
-FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VER).tar.xz
-
-FFMPEG_CONF_OPTS  = --enable-librtmp
-FFMPEG_CONF_OPTS  += --disable-yasm
-FFMPEG_CONF_OPTS  += --disable-ffserver
-FFMPEG_CONF_OPTS  += --enable-decoder=pcm_zork
+#FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-mips64_cpu_detection.patch
+FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-corrupt-h264-frames.patch
+FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-FFmpeg-devel-amfenc-Add-support-for-pict_type-field.patch
+FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-INT64-fix.patch
+FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-remove_diagnostics-color=auto.patch
+FFMPEG_CONF_OPTS   = --disable-librtmp
+FFMPEG_CONF_OPTS  += --enable-libxml2
+FFMPEG_CONF_OPTS  += --enable-libfreetype
+FFMPEG_CONF_OPTS  += --disable-x86asm
 
 ifeq ($(BOXARCH), arm)
 FFMPEG_CONF_OPTS  += --cpu=cortex-a15
+endif
+
+ARCH=$(BOXARCH)
+ifeq ($(BOXARCH), mipsel)
+ARCH=mips
 endif
 
 ifeq ($(BOXARCH), $(filter $(BOXARCH), mipsel sh4))
 FFMPEG_CONF_OPTS  += --cpu=generic
 endif
 
-FFMPRG_EXTRA_CFLAGS  = -I$(TARGET_DIR)/usr/include/libxml2
+FFMPEG_EXTRA_CFLAGS  = -I$(TARGET_INCLUDE_DIR)/libxml2
+
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VER).tar.xz
 
 $(ARCHIVE)/$(FFMPEG_SOURCE):
 	$(WGET) http://www.ffmpeg.org/releases/$(FFMPEG_SOURCE)
 
-$(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/libass $(D)/libxml2 $(D)/libroxml $(D)/librtmp $(ARCHIVE)/$(FFMPEG_SOURCE)
+$(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib $(D)/libass $(D)/libxml2 $(D)/libroxml $(FFMPEG_DEPS) $(ARCHIVE)/$(FFMPEG_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/ffmpeg-$(FFMPEG_VER)
 	$(UNTAR)/$(FFMPEG_SOURCE)
 	$(CHDIR)/ffmpeg-$(FFMPEG_VER); \
 		$(call apply_patches, $(FFMPEG_PATCH)); \
-		./configure $(SILENT_OPT) \
-			--disable-ffplay \
+		./configure \
+		--disable-ffplay \
 			--disable-ffprobe \
 			\
 			--disable-doc \
@@ -318,20 +325,21 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/libass $(
 			--enable-shared \
 			--enable-network \
 			--enable-nonfree \
+			--enable-small \
+			--enable-stripping \
 			--disable-static \
 			--disable-debug \
 			--disable-runtime-cpudetect \
 			--enable-pic \
 			--enable-pthreads \
 			--enable-hardcoded-tables \
-			--disable-optimizations \
 			\
 			--pkg-config=pkg-config \
 			--enable-cross-compile \
 			--cross-prefix=$(TARGET)- \
-			--extra-cflags="$(TARGET_CFLAGS) $(FFMPRG_EXTRA_CFLAGS)" \
+			--extra-cflags="$(TARGET_CFLAGS) $(FFMPEG_EXTRA_CFLAGS)" \
 			--extra-ldflags="$(TARGET_LDFLAGS) -lrt" \
-			--arch=$(BOXARCH) \
+			--arch=$(ARCH) \
 			--target-os=linux \
 			--prefix=/usr \
 			--bindir=/sbin \
@@ -347,7 +355,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/libass $(
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libavformat.pc
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libavutil.pc
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libswresample.pc
-	test -e $(PKG_CONFIG_PATH)/libswscale.pc && $(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libswscale.pc || true
+	$(SILENT)test -e $(PKG_CONFIG_PATH)/libswscale.pc && $(REWRITE_PKGCONF_NQ) $(PKG_CONFIG_PATH)/libswscale.pc || true
 	$(REMOVE)/ffmpeg-$(FFMPEG_VER)
 	$(TOUCH)
 

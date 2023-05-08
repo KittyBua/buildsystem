@@ -14,7 +14,6 @@ ifeq ($(BOXARCH), sh4)
 TITAN_DEPS += $(D)/tools-libmme_host
 TITAN_DEPS += $(D)/tools-libmme_image
 endif
-TITAN_DEPS += $(D)/python
 
 ifeq ($(GRAPHLCD), graphlcd)
 TITAN_DEPS += $(D)/graphlcd
@@ -51,13 +50,13 @@ TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
 TITAN_CPPFLAGS   += -DOEBUILD -DOVBUILD
 TITAN_CPPFLAGS   += -I$(SOURCE_DIR)
 
+TITAN_LIBEPLAYER3 =
 ifeq ($(EXTEPLAYER3), exteplayer3)
-TITAN_DEPS  += $(D)/tools-exteplayer3
+TITAN_LIBEPLAYER3 = $(D)/titan-libeplayer3
 TITAN_CONFIG_OPTS += --enable-eplayer3
 TITAN_CPPFLAGS   += -DEPLAYER3
 TITAN_CPPFLAGS   += -DEXTEPLAYER3
-#TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
-TITAN_CPPFLAGS   += -I$(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3)/include
+TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
 endif
 
 ifeq ($(GSTREAMER), gstreamer)
@@ -108,7 +107,7 @@ $(D)/titan.do_prepare: $(TITAN_DEPS)
 	@touch $@ 
 
 $(D)/titan.config.status: $(D)/titan.do_prepare
-	cd $(SOURCE_DIR)/titan; \
+	cd $(SOURCE_DIR)/titan/titan; \
 		./autogen.sh; \
 		$(BUILDENV) \
 		./configure \
@@ -125,13 +124,13 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd
-	cd $(SOURCE_DIR)/titan; \
+$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(TITAN_LIBEPLAYER3)
+	cd $(SOURCE_DIR)/titan/titan; \
 		$(MAKE) all
 	@touch $@
 
 $(D)/titan: $(D)/titan.do_compile
-	$(MAKE) -C $(SOURCE_DIR)/titan install DESTDIR=$(TARGET_DIR)
+	$(MAKE) -C $(SOURCE_DIR)/titan/titan install DESTDIR=$(TARGET_DIR)
 	$(TOUCH)
 
 #
@@ -147,7 +146,7 @@ $(D)/titan-libipkg: $(D)/titan.do_prepare
 	autoheader; \
 	automake --add-missing; \
 	$(call apply_patches, $(TITAN_LIBIPKG_PATCH)); \
-	./configure $(SILENT_CONFIGURE) \
+	./configure \
 		--build=$(BUILD) \
 		--host=$(TARGET) \
 		$(TITAN_CONFIG_OPTS) \
@@ -206,11 +205,11 @@ $(D)/titan-libeplayer3: $(D)/titan.do_prepare
 #
 titan-clean:
 	rm -f $(D)/titan.do_compile
-	$(MAKE) -C $(SOURCE_DIR)/titan clean
+	$(MAKE) -C $(SOURCE_DIR)/titan/titan clean
 
 titan-distclean:
 	rm -f $(D)/titan*
-	$(MAKE) -C $(SOURCE_DIR)/titan distclean
+	$(MAKE) -C $(SOURCE_DIR)/titan/titan distclean
 	
 #
 # titan-plugins
@@ -220,7 +219,7 @@ $(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan $(D)/python
 	cd $(SOURCE_DIR)/titan/plugins; \
 		./autogen.sh; \
 		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			$(TITAN_CONFIG_OPTS) \
@@ -283,13 +282,9 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
-	cp $(SKEL_ROOT)/var/etc/titan/satellites.sat $(RELEASE_DIR)/var/etc/titan/satellites.sat
-	cp $(SKEL_ROOT)/var/etc/titan/transponder.sat $(RELEASE_DIR)/var/etc/titan/transponder.sat
-	cp $(SKEL_ROOT)/var/etc/titan/satellites.cable $(RELEASE_DIR)/var/etc/titan/satellites.cable
-	cp $(SKEL_ROOT)/var/etc/titan/transponder.cable $(RELEASE_DIR)/var/etc/titan/transponder.cable
-	cp $(SKEL_ROOT)/var/etc/titan/satellites.ter $(RELEASE_DIR)/var/etc/titan/satellites.ter
-	cp $(SKEL_ROOT)/var/etc/titan/transponder.ter $(RELEASE_DIR)/var/etc/titan/transponder.ter
-#	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
+	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
+	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
+	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
 	cp -af $(SKEL_ROOT)/var/usr/share/fonts $(RELEASE_DIR)/var/usr/share
 	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
 	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan

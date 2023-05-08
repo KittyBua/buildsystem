@@ -68,6 +68,177 @@ index 0999a41c7..abcd1beef 100644
  	return fd;
  }
  
+diff --git a/src/gui/movieplayer.cpp b/src/gui/movieplayer.cpp
+index 09c13ed79..20483865e 100644
+--- a/src/gui/movieplayer.cpp
++++ b/src/gui/movieplayer.cpp
+@@ -49,8 +49,10 @@
+ #include <gui/plugins.h>
+ #include <gui/videosettings.h>
+ #include <gui/streaminfo.h>
++#ifdef ENABLE_LUA
+ #include <gui/lua/luainstance.h>
+ #include <gui/lua/lua_video.h>
++#endif
+ #include <gui/screensaver.h>
+ #include <driver/screenshot.h>
+ #include <driver/volume.h>
+@@ -259,8 +261,10 @@ void CMoviePlayerGui::Init(void)
+ 	vzap_it = filelist_it;
+ 	fromInfoviewer = false;
+ 	keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NORMAL;
++#ifdef ENABLE_LUA
+ 	isLuaPlay = false;
+ 	haveLuaInfoFunc = false;
++#endif
+ 	blockedFromPlugin = false;
+ 
+ 	CScreenSaver::getInstance()->resetIdleTime();
+@@ -418,6 +422,7 @@ int CMoviePlayerGui::exec(CMenuTarget * parent, const std::string & actionKey)
+ 		is_file_player = true;
+ 		PlayFile();
+ 	}
++#ifdef ENABLE_LUA
+ 	else if (actionKey == "http_lua") {
+ 		isHTTP = true;
+ 		isLuaPlay = true;
+@@ -425,6 +430,7 @@ int CMoviePlayerGui::exec(CMenuTarget * parent, const std::string & actionKey)
+ 		PlayFile();
+ 		haveLuaInfoFunc = false;
+ 	}
++#endif
+ 	else {
+ 		return menu_return::RETURN_REPAINT;
+ 	}
+@@ -630,7 +636,9 @@ void CMoviePlayerGui::ClearFlags()
+ 	isMovieBrowser = false;
+ 	isBookmark = false;
+ 	isHTTP = false;
++#ifdef ENABLE_LUA
+ 	isLuaPlay = false;
++#endif
+ 	isUPNP = false;
+ 	isWebChannel = false;
+ 	is_file_player = false;
+@@ -922,6 +930,7 @@ bool CMoviePlayerGui::sortStreamList(livestream_info_t info1, livestream_info_t
+ 	return (info1.res1 < info2.res1);
+ }
+ 
++#ifdef ENABLE_LUA
+ bool CMoviePlayerGui::luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList)
+ {
+ 	CHintBox* box = new CHintBox(LOCALE_MESSAGEBOX_INFO, g_Locale->getText(LOCALE_LIVESTREAM_READ_DATA));
+@@ -1046,6 +1055,7 @@ bool CMoviePlayerGui::luaGetUrl(const std::string &script, const std::string &fi
+ 
+ 	return true;
+ }
++#endif
+ 
+ bool CMoviePlayerGui::selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info)
+ {
+@@ -1114,6 +1124,7 @@ bool CMoviePlayerGui::getLiveUrl(const std::string &url, const std::string &scri
+ 		}
+ 		_script = _s;
+ 	}
++#ifdef ENABLE_LUA
+ 	size_t pos = _script.find(".lua");
+ 	if (!file_exists(_script.c_str()) || (pos == std::string::npos) || (_script.length()-pos != 4)) {
+ 		printf(">>>>> [%s:%s:%d] script error\n", __file__, __func__, __LINE__);
+@@ -1123,6 +1134,7 @@ bool CMoviePlayerGui::getLiveUrl(const std::string &url, const std::string &scri
+ 		printf(">>>>> [%s:%s:%d] lua script error\n", __file__, __func__, __LINE__);
+ 		return false;
+ 	}
++#endif
+ 
+ 	if (!selectLivestream(liveStreamList, g_settings.livestreamResolution, &info)) {
+ 		printf(">>>>> [%s:%s:%d] error selectLivestream\n", __file__, __func__, __LINE__);
+@@ -1275,8 +1287,10 @@ void CMoviePlayerGui::PlayFile(void)
+ 	PlayFileStart();
+ 	PlayFileLoop();
+ 	bool repeat = (repeat_mode == REPEAT_OFF);
++#ifdef ENABLE_LUA
+ 	if (isLuaPlay)
+ 		repeat = (!blockedFromPlugin);
++#endif
+ 	PlayFileEnd(repeat);
+ }
+ 
+@@ -1483,7 +1497,11 @@ void CMoviePlayerGui::quickZap(neutrino_msg_t msg)
+ 	if ((msg == CRCInput::RC_right) || msg == (neutrino_msg_t) g_settings.key_quickzap_up)
+ 	{
+ 		//printf("CMoviePlayerGui::%s: CRCInput::RC_right or g_settings.key_quickzap_up\n", __func__);
+-		if (isLuaPlay || isUPNP)
++		if (
++	#ifdef ENABLE_LUA
++		isLuaPlay ||
++	#endif
++		 isUPNP)
+ 		{
+ 			playstate = CMoviePlayerGui::STOPPED;
+ 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NEXT;
+@@ -1510,7 +1528,11 @@ void CMoviePlayerGui::quickZap(neutrino_msg_t msg)
+ 	else if ((msg == CRCInput::RC_left) || msg == (neutrino_msg_t) g_settings.key_quickzap_down)
+ 	{
+ 		//printf("CMoviePlayerGui::%s: CRCInput::RC_left or g_settings.key_quickzap_down\n", __func__);
+-		if (isLuaPlay || isUPNP)
++		if (
++		#ifdef ENABLE_LUA
++		isLuaPlay ||
++		#endif
++		 isUPNP)
+ 		{
+ 			playstate = CMoviePlayerGui::STOPPED;
+ 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_PREV;
+diff --git a/src/gui/movieplayer.h b/src/gui/movieplayer.h
+index ef347b32a..d4af4d7bc 100644
+--- a/src/gui/movieplayer.h
++++ b/src/gui/movieplayer.h
+@@ -53,11 +53,13 @@
+ #include <OpenThreads/Thread>
+ #include <OpenThreads/Condition>
+ 
++#ifdef ENABLE_LUA
+ extern "C" {
+ #include <lua.h>
+ #include <lauxlib.h>
+ #include <lualib.h>
+ }
++#endif
+ 
+ class CFrameBuffer;
+ class CMoviePlayerGui : public CMenuTarget
+@@ -118,9 +120,11 @@ class CMoviePlayerGui : public CMenuTarget
+ 	bool		time_forced;
+ 	CMoviePlayerGui::state playstate;
+ 	int keyPressed;
++#ifdef ENABLE_LUA
+ 	bool isLuaPlay;
+ 	bool haveLuaInfoFunc;
+ 	lua_State* luaState;
++#endif
+ 	bool blockedFromPlugin;
+ 	int speed;
+ 	int startposition;
+@@ -245,7 +249,9 @@ class CMoviePlayerGui : public CMenuTarget
+ 	static void* bgPlayThread(void *arg);
+ 	static bool sortStreamList(livestream_info_t info1, livestream_info_t info2);
+ 	bool selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info);
++#ifdef ENABLE_LUA
+ 	bool luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList);
++#endif
+ 
+ 	CMoviePlayerGui(const CMoviePlayerGui&) {};
+ 	CMoviePlayerGui();
+@@ -299,7 +305,9 @@ class CMoviePlayerGui : public CMenuTarget
+ 	void setFromInfoviewer(bool f) { fromInfoviewer = f; };
+ 	void setBlockedFromPlugin(bool b) { blockedFromPlugin = b; };
+ 	bool getBlockedFromPlugin() { return blockedFromPlugin; };
++#ifdef ENABLE_LUA
+ 	void setLuaInfoFunc(lua_State* L, bool func) { luaState = L; haveLuaInfoFunc = func; };
++#endif
+ 	void getLivestreamInfo(std::string *i1, std::string *i2) { *i1=livestreamInfo1; *i2=livestreamInfo2; };
+ 	bool getLiveUrl(const std::string &url, const std::string &script, std::string &realUrl, std::string &_pretty_name, std::string &info1, std::string &info2, std::string &header, std::string &url2);
+ 	bool IsAudioPlaying() { return is_audio_player; };
 diff --git a/src/gui/plugins.cpp b/src/gui/plugins.cpp
 index 79be18af4..e580e30f0 100644
 --- a/src/gui/plugins.cpp

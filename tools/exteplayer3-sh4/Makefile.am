@@ -7,9 +7,9 @@ AM_CPPFLAGS = \
 	-Iinclude \
 	-Iexternal
 
-lib_LTLIBRARIES = libeplayer3.la
+lib_LTLIBRARIES = libexteplayer3.la
 
-libeplayer3_la_SOURCES = \
+libexteplayer3_la_SOURCES = \
 	container/container.c \
 	container/container_ffmpeg.c \
 	manager/manager.c \
@@ -48,10 +48,10 @@ libeplayer3_la_SOURCES = \
 	external/flv2mpeg4/src/flv2mpeg4.c \
 	external/plugins/src/png.c
 
-libeplayer3_la_LIBADD = -lswscale -ldl -lpthread -lavformat -lavcodec -lavutil -lswresample
+libexteplayer3_la_LIBADD = -lswscale -ldl -lpthread -lavformat -lavcodec -lavutil -lswresample
 
 bin_PROGRAMS = exteplayer3
 exteplayer3_SOURCES = main/exteplayer.c
-exteplayer3_LDADD = -leplayer3 -lpthread
-exteplayer3_DEPENDENCIES = libeplayer3.la
+exteplayer3_LDADD = -lexteplayer3 -lpthread
+exteplayer3_DEPENDENCIES = libexteplayer3.la
 

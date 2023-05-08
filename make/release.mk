@@ -187,7 +187,8 @@ endif
 	cp -aR $(TARGET_DIR)/etc/* $(RELEASE_DIR)/etc/
 	echo "$(BOXTYPE)" > $(RELEASE_DIR)/etc/hostname
 	ln -sf ../../bin/busybox $(RELEASE_DIR)/usr/bin/ether-wake
-	ln -sf ../../bin/showiframe $(RELEASE_DIR)/usr/bin/showiframe
+#	ln -sf ../../bin/showiframe $(RELEASE_DIR)/usr/bin/showiframe
+	cp $(SKEL_ROOT)/usr/sbin/fw_printenv $(RELEASE_DIR)/usr/sbin/
 	ln -sf ../../usr/sbin/fw_printenv $(RELEASE_DIR)/usr/sbin/fw_setenv	
 ifeq ($(BOXARCH), sh4)
 #
