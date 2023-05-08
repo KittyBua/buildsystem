@@ -82,7 +82,7 @@ endif
 ifeq ($(BOXARCH), sh4)
 TITAN_CPPFLAGS   += -DSH4
 else
-TITAN_CPPFLAGS   += -DMIPSEL -DBCM_ACCEL
+TITAN_CPPFLAGS   += -DMIPSEL
 endif
 
 #

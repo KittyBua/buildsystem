@@ -188,7 +188,7 @@ $(D)/libstb-hal: $(D)/libstb-hal.do_compile
 libstb-hal-clean:
 	rm -f $(D)/libstb-hal.do_compile
 	cd $(LH_OBJDIR); \
-		$(MAKE) -C $(LH_OBJDIR) distclean
+		$(MAKE) -C $(LH_OBJDIR) clean
 
 libstb-hal-distclean:
 	rm -f $(D)/libstb-hal*

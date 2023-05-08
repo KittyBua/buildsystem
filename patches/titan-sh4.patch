@@ -448,6 +448,18 @@ diff -Nur titan.svn/titan/autogen.sh titan.svn.patched/titan/autogen.sh
 -automake --add-missing 
 \ No newline at end of file
 +automake --add-missing 
+diff -Nur titan.svn/titan/bcm.h titan.svn.patched/titan/bcm.h
+--- titan.svn/titan/bcm.h	2023-05-04 21:46:27.460214239 +0200
++++ titan.svn.patched/titan/bcm.h	2023-05-08 12:09:26.524194218 +0200
+@@ -15,7 +15,7 @@
+ 
+ #define FBIO_ACCEL  0x23
+ 
+-#if defined(EPLAYER4) && !defined(EXTEPLAYER3)
++#if !defined(EPLAYER3)
+ // disable bool work include come from libeplayer3 titan/libeplayer3/include/playback.h #include <stdbool.h>
+ // bool work start
+ typedef int bool;
 diff -Nur titan.svn/titan/ChangeLog titan.svn.patched/titan/ChangeLog
 --- titan.svn/titan/ChangeLog	1970-01-01 01:00:00.000000000 +0100
 +++ titan.svn.patched/titan/ChangeLog	2023-05-08 10:18:25.457542222 +0200
@@ -496,7 +508,7 @@ diff -Nur titan.svn/titan/header.h titan.svn.patched/titan/header.h
  // ca.h
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-08 09:36:44.592357542 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-08 23:59:33.308810657 +0200
 @@ -1,18 +1,17 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
@@ -552,7 +564,7 @@ diff -Nur titan.svn/titan/README titan.svn.patched/titan/README
 +titan
 diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
 --- titan.svn/titan/titan.c	2023-05-04 21:46:27.520214158 +0200
-+++ titan.svn.patched/titan/titan.c	2023-05-07 21:04:52.832048059 +0200
++++ titan.svn.patched/titan/titan.c	2023-05-08 23:42:47.072561881 +0200
 @@ -272,8 +272,10 @@
  #include "settings_overclocking.h"
  #include "settings_pluginbutton.h"
@@ -564,12 +576,21 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  #include "settings_mediabutton.h"
  #include "oled.h"
  #ifdef MIPSEL
-@@ -291,7 +293,7 @@
- #define ACCEL_DEBUG
+@@ -706,7 +708,7 @@
+ 	}
  
- //gAccel *gAccel::instance;
--#define BCM_ACCEL
-+//#define BCM_ACCEL
- #endif
+ 	//setze groesse Framebuffer
+-	if(checkchipset("BCM7424") == 1 || checkchipset("BCM7358") == 1 || checkchipset("BCM7362") == 1)
++	if(checkchipset("BCM7424") == 1 || checkchipset("BCM7358") == 1 || checkchipset("BCM7362") == 1 || checkchipset("BCM7325") == 1)
+ 		setframebuffer(1280, 720, 1280, 1440, 32);
+ 	if(frameb1 == 1)
+ 	{
+@@ -947,7 +949,7 @@
  
- #ifdef HAVE_HISILICON_ACCEL 
+ #ifdef MIPSEL
+ 	waitvsync();
+-	if(checkbox("DM7020HD") == 0 && checkbox("DM7020HDV2") == 0 && checkbox("VUSOLO2") == 0 && checkbox("DM900") == 0 && checkbox("DM920") == 0 && checkbox("DM520") == 0 && checkbox("DM525") == 0 && vubox1 == 1)
++	if(checkbox("DM7020HD") == 0 && checkbox("DM7020HDV2") == 0 && checkbox("VUSOLO2") == 0 && checkbox("DM900") == 0 && checkbox("DM920") == 0 && checkbox("DM520") == 0 && checkbox("DM525") == 0 && checkchipset("BCM7325") == 1 && vubox1 == 1)
+ 		setfbosd();
+ 	if(checkrealbox("HD51") == 1 || checkrealbox("HD60") == 1 || checkrealbox("HD61") == 1 || checkbox("SF4008") == 1 || checkchipset("HI3798MV200") == 1)
+ 	{
