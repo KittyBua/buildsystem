@@ -58,7 +58,6 @@ NEUTRINO_CPPFLAGS += -I$(DRIVER_DIR)/frontcontroller/aotom_spark
 endif
 
 NEUTRINO_CONFIG_OPTS = --enable-freesatepg
-#NEUTRINO_CONFIG_OPTS += --enable-lua
 NEUTRINO_CONFIG_OPTS += --enable-giflib
 NEUTRINO_CONFIG_OPTS += --with-tremor
 NEUTRINO_CONFIG_OPTS += --enable-ffmpegdec
@@ -199,7 +198,7 @@ libstb-hal-distclean:
 #
 # neutrino
 #
-NEUTRINO_PATCHES = neutrino-ddt.patch
+NEUTRINO_PATCHES =
 
 $(D)/neutrino.do_prepare: $(NEUTRINO_DEPS) $(D)/libstb-hal
 	$(START_BUILD)
