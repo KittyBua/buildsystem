@@ -556,6 +556,103 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	$(END_BUILD)
+	
+#
+# release-all
+#
+release-all: release-common release-$(BOXTYPE) $(D)/neutrino2 $(D)/neutrino2-plugins $(D)/neutrino $(NEUTRINO_PLUGINS) $(D)/titan $(D)/enigma2
+	# neutrino2
+	install -d $(RELEASE_DIR)/var/tuxbox
+	install -d $(RELEASE_DIR)/usr/share/iso-codes
+	install -d $(RELEASE_DIR)/usr/share/tuxbox
+	install -d $(RELEASE_DIR)/var/tuxbox
+	install -d $(RELEASE_DIR)/var/tuxbox/config/{webtv,zapit}
+	install -d $(RELEASE_DIR)/var/tuxbox/plugins
+	install -d $(RELEASE_DIR)/var/httpd
+	cp -af $(TARGET_DIR)/usr/bin/neutrino2 $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/backup.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/init_hdd.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/install.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
+	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino2 $(RELEASE_DIR)/usr/share/tuxbox
+	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
+	# neutrino
+	install -d $(RELEASE_DIR)/var/tuxbox
+	install -d $(RELEASE_DIR)/usr/share/iso-codes
+	install -d $(RELEASE_DIR)/usr/share/tuxbox
+	install -d $(RELEASE_DIR)/var/tuxbox
+	install -d $(RELEASE_DIR)/var/tuxbox/config/{webtv,zapit}
+	install -d $(RELEASE_DIR)/var/tuxbox/plugins
+	install -d $(RELEASE_DIR)/var/httpd
+	cp -af $(TARGET_DIR)/usr/bin/neutrino $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/backup.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/install.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/luaclient $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/pzapit $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/rcsim $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
+	cp -af $(TARGET_DIR)/usr/bin/sectionsdcontrol $(RELEASE_DIR)/usr/bin/
+	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
+	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
+	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share/
+	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
+	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
+	# titan
+	install -d $(RELEASE_DIR)/var/etc/titan
+	install -d $(RELEASE_DIR)/var/etc/autostart
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/{skin,po,web,plugins}
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/{de,el,en,es,fr,it,lt,nl,pl,ru,vi}
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/de/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/el/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/en/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/es/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/fr/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/it/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/lt/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/nl/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/pl/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/ru/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/vi/LC_MESSAGES
+	install -d $(RELEASE_DIR)/var/usr/share/fonts
+	cp -af $(TARGET_DIR)/usr/bin/titan $(RELEASE_DIR)/usr/bin/
+	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
+	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
+	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
+	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
+	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
+	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
+	cp -af $(SKEL_ROOT)/var/usr/share/fonts $(RELEASE_DIR)/var/usr/share
+	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
+	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan
+	# enigma2
+	install -d $(RELEASE_DIR)/etc/enigma2
+	install -d $(RELEASE_DIR)/etc/tuxbox
+	install -d $(RELEASE_DIR)/usr/share/enigma2
+	cp -af $(TARGET_DIR)/usr/bin/enigma2 $(RELEASE_DIR)/usr/bin/enigma2
+	cp -aR $(TARGET_DIR)/usr/share/enigma2 $(RELEASE_DIR)/usr/share
+	cp -aR $(TARGET_DIR)/usr/share/keymaps $(RELEASE_DIR)/usr/share
+	cp -aR $(TARGET_DIR)/usr/share/meta $(RELEASE_DIR)/usr/share
+	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share
+	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
+	cp -Rf $(TARGET_DIR)/usr/share/enigma2/po/en $(RELEASE_DIR)/usr/share/enigma2/po
+	cp -Rf $(TARGET_DIR)/usr/share/enigma2/po/de $(RELEASE_DIR)/usr/share/enigma2/po
+	cp -aR $(SKEL_ROOT)/usr/share/enigma2/* $(RELEASE_DIR)/usr/share/enigma2
+	cp -aR $(SKEL_ROOT)/etc/tuxbox/* $(RELEASE_DIR)/etc/tuxbox/
+	cp -aR $(SKEL_ROOT)/etc/enigma2/* $(RELEASE_DIR)/etc/enigma2/
+	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
+	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NONE $(RELEASE_DIR)/etc/init.d/rcS
+	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
+	rm -fr $(RELEASE_DIR)/etc
+	ln -sf /var/etc $(RELEASE_DIR)
+	$(TUXBOX_CUSTOMIZE)
+#
+# strip
+#	
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	$(END_BUILD)
+	
 
 #
 # release-clean
