@@ -230,6 +230,88 @@ diff -Nur titan.svn/plugins/network/xupnpd/Makefile.am titan.svn.patched/plugins
 +noinst_LTLIBRARIES = libxupnpd.la
  libxupnpd_la_SOURCES = xupnpd.c
  
+diff -Nur titan.svn/plugins/player/dvdplayer/Makefile.am titan.svn.patched/plugins/player/dvdplayer/Makefile.am
+--- titan.svn/plugins/player/dvdplayer/Makefile.am	2022-06-27 22:22:40.146119000 +0200
++++ titan.svn.patched/plugins/player/dvdplayer/Makefile.am	2023-05-11 09:43:17.110215582 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libdvdplayer.la
++noinst_LTLIBRARIES = libdvdplayer.la
+ libdvdplayer_la_SOURCES = dvdplay.c
+ 
+diff -Nur titan.svn/plugins/player/gmediarender/Makefile.am titan.svn.patched/plugins/player/gmediarender/Makefile.am
+--- titan.svn/plugins/player/gmediarender/Makefile.am	2022-06-27 22:22:40.178118000 +0200
++++ titan.svn.patched/plugins/player/gmediarender/Makefile.am	2023-05-11 09:43:33.438118509 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libgmediarender.la
++noinst_LTLIBRARIES = libgmediarender.la
+ libgmediarender_la_SOURCES = gmediarender.c
+ 
+diff -Nur titan.svn/plugins/player/hbbtv_arm/Makefile.am titan.svn.patched/plugins/player/hbbtv_arm/Makefile.am
+--- titan.svn/plugins/player/hbbtv_arm/Makefile.am	2022-06-27 22:22:40.462115000 +0200
++++ titan.svn.patched/plugins/player/hbbtv_arm/Makefile.am	2023-05-11 09:43:51.554013559 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libhbbtv.la
++noinst_LTLIBRARIES = libhbbtv.la
+ libhbbtv_la_SOURCES = hbbtv.c
+ 
+diff -Nur titan.svn/plugins/player/hbbtv_mipsel/Makefile.am titan.svn.patched/plugins/player/hbbtv_mipsel/Makefile.am
+--- titan.svn/plugins/player/hbbtv_mipsel/Makefile.am	2022-06-27 22:22:40.490115000 +0200
++++ titan.svn.patched/plugins/player/hbbtv_mipsel/Makefile.am	2023-05-11 09:44:09.109914526 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libhbbtv.la
++noinst_LTLIBRARIES = libhbbtv.la
+ libhbbtv_la_SOURCES = hbbtv.c
+ 
+diff -Nur titan.svn/plugins/player/hbbtv_sh4/Makefile.am titan.svn.patched/plugins/player/hbbtv_sh4/Makefile.am
+--- titan.svn/plugins/player/hbbtv_sh4/Makefile.am	2022-06-27 22:22:40.490115000 +0200
++++ titan.svn.patched/plugins/player/hbbtv_sh4/Makefile.am	2023-05-11 09:46:40.029159589 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libhbbtv.la
++noinst_LTLIBRARIES = libhbbtv.la
+ libhbbtv_la_SOURCES = hbbtv.c
+ 
+diff -Nur titan.svn/plugins/player/mc/Makefile.am titan.svn.patched/plugins/player/mc/Makefile.am
+--- titan.svn/plugins/player/mc/Makefile.am	2022-06-27 22:22:40.182118000 +0200
++++ titan.svn.patched/plugins/player/mc/Makefile.am	2023-05-11 09:46:59.989071178 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libmc.la
++noinst_LTLIBRARIES = libmc.la
+ libmc_la_SOURCES = mc.c
+ 
+diff -Nur titan.svn/plugins/player/mc/Makefile.am.mipsel titan.svn.patched/plugins/player/mc/Makefile.am.mipsel
+--- titan.svn/plugins/player/mc/Makefile.am.mipsel	2022-06-27 22:22:40.226118000 +0200
++++ titan.svn.patched/plugins/player/mc/Makefile.am.mipsel	2023-05-11 09:47:12.837015519 +0200
+@@ -1,4 +1,4 @@
+-lib_LTLIBRARIES = libmc.la
++noinst_LTLIBRARIES = libmc.la
+ libmc_la_SOURCES = mc.c
+ 
+ AM_CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+diff -Nur titan.svn/plugins/player/tithek/Makefile.am titan.svn.patched/plugins/player/tithek/Makefile.am
+--- titan.svn/plugins/player/tithek/Makefile.am	2022-06-27 22:22:40.322117000 +0200
++++ titan.svn.patched/plugins/player/tithek/Makefile.am	2023-05-11 09:47:32.912930442 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libtithek.la
++noinst_LTLIBRARIES = libtithek.la
+ libtithek_la_SOURCES = tithek.c
+ 
+diff -Nur titan.svn/plugins/player/tithek/Makefile.am.mipsel titan.svn.patched/plugins/player/tithek/Makefile.am.mipsel
+--- titan.svn/plugins/player/tithek/Makefile.am.mipsel	2022-06-27 22:22:40.330117000 +0200
++++ titan.svn.patched/plugins/player/tithek/Makefile.am.mipsel	2023-05-11 09:47:46.372874658 +0200
+@@ -1,4 +1,4 @@
+-lib_LTLIBRARIES = libtithek.la
++noinst_LTLIBRARIES = libtithek.la
+ libtithek_la_SOURCES = tithek.c
+ 
+ AM_CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+diff -Nur titan.svn/plugins/player/tmc/Makefile.am titan.svn.patched/plugins/player/tmc/Makefile.am
+--- titan.svn/plugins/player/tmc/Makefile.am	2022-06-27 22:22:40.458115000 +0200
++++ titan.svn.patched/plugins/player/tmc/Makefile.am	2023-05-11 09:48:08.392785494 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libtmc.la
++noinst_LTLIBRARIES = libtmc.la
+ libtmc_la_SOURCES = tmc.c
+ 
 diff -Nur titan.svn/plugins/tools/autotimer/autotimer.c titan.svn.patched/plugins/tools/autotimer/autotimer.c
 --- titan.svn/plugins/tools/autotimer/autotimer.c	2022-06-27 22:22:41.198107000 +0200
 +++ titan.svn.patched/plugins/tools/autotimer/autotimer.c	2023-05-07 20:29:20.465352252 +0200
@@ -243,6 +325,40 @@ diff -Nur titan.svn/plugins/tools/autotimer/autotimer.c titan.svn.patched/plugin
  
  char pluginname[] = "Auto Timer";
  char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/autotimer/Makefile.am titan.svn.patched/plugins/tools/autotimer/Makefile.am
+--- titan.svn/plugins/tools/autotimer/Makefile.am	2022-06-27 22:22:41.222107000 +0200
++++ titan.svn.patched/plugins/tools/autotimer/Makefile.am	2023-05-11 09:48:41.964654333 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libautotimer.la
++noinst_LTLIBRARIES = libautotimer.la
+ libautotimer_la_SOURCES = autotimer.c
+ 
+diff -Nur titan.svn/plugins/tools/autotimer/Makefile.am.mipsel titan.svn.patched/plugins/tools/autotimer/Makefile.am.mipsel
+--- titan.svn/plugins/tools/autotimer/Makefile.am.mipsel	2022-06-27 22:22:41.190107000 +0200
++++ titan.svn.patched/plugins/tools/autotimer/Makefile.am.mipsel	2023-05-11 09:48:55.004604878 +0200
+@@ -1,4 +1,4 @@
+-lib_LTLIBRARIES = libautotimer.la
++noinst_LTLIBRARIES = libautotimer.la
+ libautotimer_la_SOURCES = autotimer.c
+ 
+ AM_CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+diff -Nur titan.svn/plugins/tools/betarobot/Makefile.am titan.svn.patched/plugins/tools/betarobot/Makefile.am
+--- titan.svn/plugins/tools/betarobot/Makefile.am	2022-06-27 22:22:41.974098000 +0200
++++ titan.svn.patched/plugins/tools/betarobot/Makefile.am	2023-05-11 09:49:23.664498972 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libbetarobot.la
++noinst_LTLIBRARIES = libbetarobot.la
+ libbetarobot_la_SOURCES = betarobot.c
+ 
+diff -Nur titan.svn/plugins/tools/betarobot/Makefile.am.mipsel titan.svn.patched/plugins/tools/betarobot/Makefile.am.mipsel
+--- titan.svn/plugins/tools/betarobot/Makefile.am.mipsel	2022-06-27 22:22:41.982098000 +0200
++++ titan.svn.patched/plugins/tools/betarobot/Makefile.am.mipsel	2023-05-11 09:49:39.280442817 +0200
+@@ -1,4 +1,4 @@
+-lib_LTLIBRARIES = libbetarobot.la
++noinst_LTLIBRARIES = libbetarobot.la
+ libbetarobot_la_SOURCES = betarobot.c
+ 
+ AM_CPPFLAGS = -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
 diff -Nur titan.svn/plugins/tools/callmonitor1/callmonitor1.c titan.svn.patched/plugins/tools/callmonitor1/callmonitor1.c
 --- titan.svn/plugins/tools/callmonitor1/callmonitor1.c	2022-06-27 22:22:41.198107000 +0200
 +++ titan.svn.patched/plugins/tools/callmonitor1/callmonitor1.c	2023-05-07 20:39:40.927772900 +0200
@@ -255,6 +371,30 @@ diff -Nur titan.svn/plugins/tools/callmonitor1/callmonitor1.c titan.svn.patched/
 +#include "../titan/header.h"
  #include "callmon_main.h"
  
+ 
+diff -Nur titan.svn/plugins/tools/callmonitor1/Makefile.am titan.svn.patched/plugins/tools/callmonitor1/Makefile.am
+--- titan.svn/plugins/tools/callmonitor1/Makefile.am	2022-06-27 22:22:41.210107000 +0200
++++ titan.svn.patched/plugins/tools/callmonitor1/Makefile.am	2023-05-11 09:50:00.332368791 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libcallmonitor.la
++noinst_LTLIBRARIES = libcallmonitor.la
+ libcallmonitor_la_SOURCES = callmonitor1.c
+ 
+diff -Nur titan.svn/plugins/tools/filemanager/Makefile.am titan.svn.patched/plugins/tools/filemanager/Makefile.am
+--- titan.svn/plugins/tools/filemanager/Makefile.am	2022-06-27 22:22:41.190107000 +0200
++++ titan.svn.patched/plugins/tools/filemanager/Makefile.am	2023-05-11 09:50:30.960264348 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libfilemanager.la
++noinst_LTLIBRARIES = libfilemanager.la
+ libfilemanager_la_SOURCES = filemanager.c
+ 
+diff -Nur titan.svn/plugins/tools/hello/Makefile.am titan.svn.patched/plugins/tools/hello/Makefile.am
+--- titan.svn/plugins/tools/hello/Makefile.am	2022-06-27 22:22:41.974098000 +0200
++++ titan.svn.patched/plugins/tools/hello/Makefile.am	2023-05-11 09:50:46.900211448 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libhello.la
++noinst_LTLIBRARIES = libhello.la
+ libhello_la_SOURCES = hello.c
  
 diff -Nur titan.svn/plugins/tools/instar/instar.c titan.svn.patched/plugins/tools/instar/instar.c
 --- titan.svn/plugins/tools/instar/instar.c	2022-06-27 22:22:41.250106000 +0200
@@ -269,6 +409,14 @@ diff -Nur titan.svn/plugins/tools/instar/instar.c titan.svn.patched/plugins/tool
  
  #include "instar.h"
  
+diff -Nur titan.svn/plugins/tools/instar/Makefile.am titan.svn.patched/plugins/tools/instar/Makefile.am
+--- titan.svn/plugins/tools/instar/Makefile.am	2022-06-27 22:22:41.242106000 +0200
++++ titan.svn.patched/plugins/tools/instar/Makefile.am	2023-05-11 09:58:44.686964868 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libinstar.la
++noinst_LTLIBRARIES = libinstar.la
+ libinstar_la_SOURCES = instar.c
+ 
 diff -Nur titan.svn/plugins/tools/keylock/keylock.c titan.svn.patched/plugins/tools/keylock/keylock.c
 --- titan.svn/plugins/tools/keylock/keylock.c	2022-06-27 22:22:41.278106000 +0200
 +++ titan.svn.patched/plugins/tools/keylock/keylock.c	2023-05-07 20:40:31.471318690 +0200
@@ -282,6 +430,22 @@ diff -Nur titan.svn/plugins/tools/keylock/keylock.c titan.svn.patched/plugins/to
  
  char pluginname[] = "KeyLock";
  char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/keylock/Makefile.am titan.svn.patched/plugins/tools/keylock/Makefile.am
+--- titan.svn/plugins/tools/keylock/Makefile.am	2022-06-27 22:22:41.246106000 +0200
++++ titan.svn.patched/plugins/tools/keylock/Makefile.am	2023-05-11 09:58:58.150936579 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libkeylock.la
++noinst_LTLIBRARIES = libkeylock.la
+ libkeylock_la_SOURCES = keylock.c
+ 
+diff -Nur titan.svn/plugins/tools/kravencfg/Makefile.am titan.svn.patched/plugins/tools/kravencfg/Makefile.am
+--- titan.svn/plugins/tools/kravencfg/Makefile.am	2022-06-27 22:22:41.294106000 +0200
++++ titan.svn.patched/plugins/tools/kravencfg/Makefile.am	2023-05-11 09:59:13.246905179 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libkravencfg.la
++noinst_LTLIBRARIES = libkravencfg.la
+ libkravencfg_la_SOURCES = kravencfg.c
+ 
 diff -Nur titan.svn/plugins/tools/lcdpearl1/lcdpearl1.c titan.svn.patched/plugins/tools/lcdpearl1/lcdpearl1.c
 --- titan.svn/plugins/tools/lcdpearl1/lcdpearl1.c	2023-05-04 21:46:29.004212188 +0200
 +++ titan.svn.patched/plugins/tools/lcdpearl1/lcdpearl1.c	2023-05-07 20:41:00.375058971 +0200
@@ -294,6 +458,14 @@ diff -Nur titan.svn/plugins/tools/lcdpearl1/lcdpearl1.c titan.svn.patched/plugin
 +#include "../titan/header.h"
  
  #include "lcd_weather.h"
+ 
+diff -Nur titan.svn/plugins/tools/lcdpearl1/Makefile.am titan.svn.patched/plugins/tools/lcdpearl1/Makefile.am
+--- titan.svn/plugins/tools/lcdpearl1/Makefile.am	2022-06-27 22:22:41.418104000 +0200
++++ titan.svn.patched/plugins/tools/lcdpearl1/Makefile.am	2023-05-11 09:59:29.926870842 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = liblcdpearl.la
++noinst_LTLIBRARIES = liblcdpearl.la
+ liblcdpearl_la_SOURCES = lcdpearl1.c
  
 diff -Nur titan.svn/plugins/tools/lcdsamsung/lcdsamsung.c titan.svn.patched/plugins/tools/lcdsamsung/lcdsamsung.c
 --- titan.svn/plugins/tools/lcdsamsung/lcdsamsung.c	2023-05-04 21:46:28.984212214 +0200
@@ -317,6 +489,22 @@ diff -Nur titan.svn/plugins/tools/lcdsamsung/lcdsamsung.c titan.svn.patched/plug
  		if(status.infobaraktiv == 1)
  		{
  			if(ostrcmp(getconfig("write_fb_to_jpg", NULL), "yes") == 0) {
+diff -Nur titan.svn/plugins/tools/lcdsamsung/Makefile.am titan.svn.patched/plugins/tools/lcdsamsung/Makefile.am
+--- titan.svn/plugins/tools/lcdsamsung/Makefile.am	2022-06-27 22:22:41.630102000 +0200
++++ titan.svn.patched/plugins/tools/lcdsamsung/Makefile.am	2023-05-11 09:59:45.414839305 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = liblcdsamsung.la
++noinst_LTLIBRARIES = liblcdsamsung.la
+ liblcdsamsung_la_SOURCES = lcdsamsung.c
+ 
+diff -Nur titan.svn/plugins/tools/multiimage/Makefile.am titan.svn.patched/plugins/tools/multiimage/Makefile.am
+--- titan.svn/plugins/tools/multiimage/Makefile.am	2022-06-27 22:22:41.642102000 +0200
++++ titan.svn.patched/plugins/tools/multiimage/Makefile.am	2023-05-11 09:59:59.982809931 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libmultiimage.la
++noinst_LTLIBRARIES = libmultiimage.la
+ libmultiimage_la_SOURCES = MultiImage.c
+ 
 diff -Nur titan.svn/plugins/tools/multiimage/MultiImage.c titan.svn.patched/plugins/tools/multiimage/MultiImage.c
 --- titan.svn/plugins/tools/multiimage/MultiImage.c	2022-06-27 22:22:41.638102000 +0200
 +++ titan.svn.patched/plugins/tools/multiimage/MultiImage.c	2023-05-07 20:41:44.430663124 +0200
@@ -330,6 +518,30 @@ diff -Nur titan.svn/plugins/tools/multiimage/MultiImage.c titan.svn.patched/plug
  
  char pluginname[] = "MultiImage";
  char plugindesc[] = "Start Images from USB device";
+diff -Nur titan.svn/plugins/tools/optimize/Makefile.am titan.svn.patched/plugins/tools/optimize/Makefile.am
+--- titan.svn/plugins/tools/optimize/Makefile.am	2022-06-27 22:22:41.658102000 +0200
++++ titan.svn.patched/plugins/tools/optimize/Makefile.am	2023-05-11 10:00:14.874780187 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = liboptimize.la
++noinst_LTLIBRARIES = liboptimize.la
+ liboptimize_la_SOURCES = optimize.c
+ 
+diff -Nur titan.svn/plugins/tools/panel/Makefile.am titan.svn.patched/plugins/tools/panel/Makefile.am
+--- titan.svn/plugins/tools/panel/Makefile.am	2022-06-27 22:22:42.046097000 +0200
++++ titan.svn.patched/plugins/tools/panel/Makefile.am	2023-05-11 10:00:29.126751989 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libpanel.la
++noinst_LTLIBRARIES = libpanel.la
+ libpanel_la_SOURCES = panel.c
+ 
+diff -Nur titan.svn/plugins/tools/permtime/Makefile.am titan.svn.patched/plugins/tools/permtime/Makefile.am
+--- titan.svn/plugins/tools/permtime/Makefile.am	2022-06-27 22:22:41.698101000 +0200
++++ titan.svn.patched/plugins/tools/permtime/Makefile.am	2023-05-11 10:00:43.074724618 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libpermtime.la
++noinst_LTLIBRARIES = libpermtime.la
+ libpermtime_la_SOURCES = permtime.c
+ 
 diff -Nur titan.svn/plugins/tools/permtime/permtime.c titan.svn.patched/plugins/tools/permtime/permtime.c
 --- titan.svn/plugins/tools/permtime/permtime.c	2022-06-27 22:22:41.654102000 +0200
 +++ titan.svn.patched/plugins/tools/permtime/permtime.c	2023-05-07 20:42:13.282403890 +0200
@@ -350,6 +562,38 @@ diff -Nur titan.svn/plugins/tools/permtime/permtime.c titan.svn.patched/plugins/
 -}
 \ No newline at end of file
 +}
+diff -Nur titan.svn/plugins/tools/readerconfig/Makefile.am titan.svn.patched/plugins/tools/readerconfig/Makefile.am
+--- titan.svn/plugins/tools/readerconfig/Makefile.am	2022-06-27 22:22:42.046097000 +0200
++++ titan.svn.patched/plugins/tools/readerconfig/Makefile.am	2023-05-11 10:00:57.446696657 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libreaderconfig.la
++noinst_LTLIBRARIES = libreaderconfig.la
+ libreaderconfig_la_SOURCES = readerconfig.c
+ 
+diff -Nur titan.svn/plugins/tools/rgui/Makefile.am titan.svn.patched/plugins/tools/rgui/Makefile.am
+--- titan.svn/plugins/tools/rgui/Makefile.am	2022-06-27 22:22:41.746101000 +0200
++++ titan.svn.patched/plugins/tools/rgui/Makefile.am	2023-05-11 10:01:11.778669008 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = librgui.la
++noinst_LTLIBRARIES = librgui.la
+ librgui_la_SOURCES = rgui.c
+ 
+diff -Nur titan.svn/plugins/tools/scriptexec/Makefile.am titan.svn.patched/plugins/tools/scriptexec/Makefile.am
+--- titan.svn/plugins/tools/scriptexec/Makefile.am	2022-06-27 22:22:41.702101000 +0200
++++ titan.svn.patched/plugins/tools/scriptexec/Makefile.am	2023-05-11 10:01:25.542642673 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libscriptexec.la
++noinst_LTLIBRARIES = libscriptexec.la
+ libscriptexec_la_SOURCES = scriptexec.c
+ 
+diff -Nur titan.svn/plugins/tools/sispmctl/Makefile.am titan.svn.patched/plugins/tools/sispmctl/Makefile.am
+--- titan.svn/plugins/tools/sispmctl/Makefile.am	2022-06-27 22:22:41.754101000 +0200
++++ titan.svn.patched/plugins/tools/sispmctl/Makefile.am	2023-05-11 10:01:41.042613267 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libsispmctl.la
++noinst_LTLIBRARIES = libsispmctl.la
+ libsispmctl_la_SOURCES = sispmctl.c
+ 
 diff -Nur titan.svn/plugins/tools/sispmctl/sispmctl.c titan.svn.patched/plugins/tools/sispmctl/sispmctl.c
 --- titan.svn/plugins/tools/sispmctl/sispmctl.c	2022-06-27 22:22:41.726101000 +0200
 +++ titan.svn.patched/plugins/tools/sispmctl/sispmctl.c	2023-05-07 20:42:54.890030063 +0200
@@ -362,6 +606,14 @@ diff -Nur titan.svn/plugins/tools/sispmctl/sispmctl.c titan.svn.patched/plugins/
 +#include "../titan/header.h"
  
  #include "sispmctl.h"
+ 
+diff -Nur titan.svn/plugins/tools/stopifnotused/Makefile.am titan.svn.patched/plugins/tools/stopifnotused/Makefile.am
+--- titan.svn/plugins/tools/stopifnotused/Makefile.am	2022-06-27 22:22:41.726101000 +0200
++++ titan.svn.patched/plugins/tools/stopifnotused/Makefile.am	2023-05-11 10:02:00.818576113 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libstopifnotused.la
++noinst_LTLIBRARIES = libstopifnotused.la
+ libstopifnotused_la_SOURCES = stopifnotused.c
  
 diff -Nur titan.svn/plugins/tools/stopifnotused/stopifnotused.c titan.svn.patched/plugins/tools/stopifnotused/stopifnotused.c
 --- titan.svn/plugins/tools/stopifnotused/stopifnotused.c	2022-06-27 22:22:41.774100000 +0200
@@ -376,6 +628,30 @@ diff -Nur titan.svn/plugins/tools/stopifnotused/stopifnotused.c titan.svn.patche
  
  char pluginname[] = "Stop if not used";
  char plugindesc[] = "Auschalten der Box wenn in einem bestimmten Zeitraum keine Aktion erfolgte";
+diff -Nur titan.svn/plugins/tools/tiwakeup/Makefile.am titan.svn.patched/plugins/tools/tiwakeup/Makefile.am
+--- titan.svn/plugins/tools/tiwakeup/Makefile.am	2022-06-27 22:22:42.046097000 +0200
++++ titan.svn.patched/plugins/tools/tiwakeup/Makefile.am	2023-05-11 10:02:18.598543051 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libtiwakeup.la
++noinst_LTLIBRARIES = libtiwakeup.la
+ libtiwakeup_la_SOURCES = tiwakeup.c
+ 
+diff -Nur titan.svn/plugins/tools/TopfieldVFD/Makefile.am titan.svn.patched/plugins/tools/TopfieldVFD/Makefile.am
+--- titan.svn/plugins/tools/TopfieldVFD/Makefile.am	2022-06-27 22:22:41.974098000 +0200
++++ titan.svn.patched/plugins/tools/TopfieldVFD/Makefile.am	2023-05-11 10:02:31.718518853 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libtopfieldvfd.la
++noinst_LTLIBRARIES = libtopfieldvfd.la
+ libtopfieldvfd_la_SOURCES = TopfieldVFD.c
+ 
+diff -Nur titan.svn/plugins/tools/tsschnitt/Makefile.am titan.svn.patched/plugins/tools/tsschnitt/Makefile.am
+--- titan.svn/plugins/tools/tsschnitt/Makefile.am	2022-06-27 22:22:41.746101000 +0200
++++ titan.svn.patched/plugins/tools/tsschnitt/Makefile.am	2023-05-11 10:02:45.246494074 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libtsschnitt.la
++noinst_LTLIBRARIES = libtsschnitt.la
+ libtsschnitt_la_SOURCES = tsschnitt.c
+ 
 diff -Nur titan.svn/plugins/tools/tsschnitt/tsschnitt.c titan.svn.patched/plugins/tools/tsschnitt/tsschnitt.c
 --- titan.svn/plugins/tools/tsschnitt/tsschnitt.c	2023-05-04 21:46:28.828212421 +0200
 +++ titan.svn.patched/plugins/tools/tsschnitt/tsschnitt.c	2023-05-07 20:43:41.197614032 +0200
@@ -389,6 +665,22 @@ diff -Nur titan.svn/plugins/tools/tsschnitt/tsschnitt.c titan.svn.patched/plugin
  
  char pluginname[] = "Record cut";
  char plugindesc[] = "Extensions";
+diff -Nur titan.svn/plugins/tools/usbreset/Makefile.am titan.svn.patched/plugins/tools/usbreset/Makefile.am
+--- titan.svn/plugins/tools/usbreset/Makefile.am	2022-06-27 22:22:41.802100000 +0200
++++ titan.svn.patched/plugins/tools/usbreset/Makefile.am	2023-05-11 10:02:59.086468895 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libusbreset.la
++noinst_LTLIBRARIES = libusbreset.la
+ libusbreset_la_SOURCES = usbreset.c
+ 
+diff -Nur titan.svn/plugins/tools/wlandisplay/Makefile.am titan.svn.patched/plugins/tools/wlandisplay/Makefile.am
+--- titan.svn/plugins/tools/wlandisplay/Makefile.am	2022-06-27 22:22:41.970098000 +0200
++++ titan.svn.patched/plugins/tools/wlandisplay/Makefile.am	2023-05-11 10:03:13.106443574 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libwlandisplay.la
++noinst_LTLIBRARIES = libwlandisplay.la
+ libwlandisplay_la_SOURCES = wlandisplay.c
+ 
 diff -Nur titan.svn/plugins/tools/wlandisplay/wlandisplay.c titan.svn.patched/plugins/tools/wlandisplay/wlandisplay.c
 --- titan.svn/plugins/tools/wlandisplay/wlandisplay.c	2023-05-04 21:46:29.016212172 +0200
 +++ titan.svn.patched/plugins/tools/wlandisplay/wlandisplay.c	2023-05-07 20:44:07.081381496 +0200
@@ -411,6 +703,14 @@ diff -Nur titan.svn/plugins/tools/wlandisplay/wlandisplay.c titan.svn.patched/pl
  		if(status.infobaraktiv == 1)
  		{
  			if(ostrcmp(getconfig("write_fb_to_jpg", NULL), "yes") == 0) {
+diff -Nur titan.svn/plugins/tools/zapback/Makefile.am titan.svn.patched/plugins/tools/zapback/Makefile.am
+--- titan.svn/plugins/tools/zapback/Makefile.am	2022-06-27 22:22:41.970098000 +0200
++++ titan.svn.patched/plugins/tools/zapback/Makefile.am	2023-05-11 10:03:26.230420024 +0200
+@@ -1,3 +1,3 @@
+-lib_LTLIBRARIES = libzapback.la
++noinst_LTLIBRARIES = libzapback.la
+ libzapback_la_SOURCES = zapback.c
+ 
 diff -Nur titan.svn/plugins/tools/zapback/zapback.c titan.svn.patched/plugins/tools/zapback/zapback.c
 --- titan.svn/plugins/tools/zapback/zapback.c	2022-06-27 22:22:41.978098000 +0200
 +++ titan.svn.patched/plugins/tools/zapback/zapback.c	2023-05-07 20:44:22.373244119 +0200
@@ -508,7 +808,7 @@ diff -Nur titan.svn/titan/header.h titan.svn.patched/titan/header.h
  // ca.h
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-09 11:30:48.410304539 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-11 13:11:13.539216101 +0200
 @@ -1,18 +1,17 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
@@ -2914,7 +3214,7 @@ diff -Nur "titan.svn/titan/struct (copy 1).h" "titan.svn.patched/titan/struct (c
 +#endif
 diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
 --- titan.svn/titan/titan.c	2023-05-04 21:46:27.520214158 +0200
-+++ titan.svn.patched/titan/titan.c	2023-05-09 12:56:11.042431197 +0200
++++ titan.svn.patched/titan/titan.c	2023-05-11 12:31:57.801040313 +0200
 @@ -272,8 +272,10 @@
  #include "settings_overclocking.h"
  #include "settings_pluginbutton.h"
@@ -2944,6 +3244,23 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  			{
  				printf("error: 7\n");		
  //				destroy();
+@@ -922,14 +924,14 @@
+ 	setlang(getconfig("lang", NULL));
+ 	initlocale(getconfig("localepath", NULL));
+ 
+-//#ifdef MIPSEL
++#ifdef MIPSEL
+ #ifdef BCM_ACCEL
+ 	bcm_accel_init();
+ #endif
+ #ifdef HAVE_HISILICON_ACCEL
+ 	dinobot_accel_init();
+ #endif
+-//#endif
++#endif
+ 
+ 	fb = openfb(getconfig("fbdev", NULL), 0);
+ 	if(fb == NULL)
 @@ -947,7 +949,7 @@
  
  #ifdef MIPSEL

@@ -247,8 +247,7 @@ $(D)/titan-plugins: $(D)/titan-plugins.do_compile
 #
 titan-plugins-clean:
 	rm -f $(D)/titan-plugins.do_compile
-	cd $(SOURCE_DIR)/titan/plugins; \
-		$(MAKE) distclean
+	$(MAKE) -C $(SOURCE_DIR)/titan/plugins clean
 
 #
 #
@@ -260,6 +259,7 @@ titan-plugins-distclean:
 #
 # release-titan
 #
+LANGUAGES=de el en es fr it lt nl pl ru vi
 release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/var/etc/titan
@@ -292,9 +292,9 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 #
 # po
 #
-	LANGUAGES='de el en es fr it lt nl pl ru vi'
-	for lang in $$LANGUAGES; do \
+	for lang in $(LANGUAGES); do \
 		cd $(SOURCE_DIR)/titan/po/$$lang/LC_MESSAGES && msgfmt -o titan.mo titan.po_auto.po; \
+		install -m 0666 titan.mo $(RELEASE_DIR)/var/usr/local/share/titan/po/$$lang/LC_MESSAGES/titan.mo; \
 	done
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_TITAN $(RELEASE_DIR)/etc/init.d/rcS
 #
