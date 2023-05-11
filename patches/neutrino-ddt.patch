@@ -1,385 +1,47 @@
-diff --git a/configure.ac b/configure.ac
-index 4a8e78f5f..7d766b165 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -269,8 +269,7 @@ fi
+diff --git a/src/driver/audiodec/mp3dec.cpp b/src/driver/audiodec/mp3dec.cpp
+index 5f0df6c34..50b9b8199 100644
+--- a/src/driver/audiodec/mp3dec.cpp
++++ b/src/driver/audiodec/mp3dec.cpp
+@@ -59,6 +59,8 @@
+ #include <driver/display.h>
+ extern cAudio *audioDecoder;
  
- AC_ARG_ENABLE(lua,
- 	AS_HELP_STRING([--enable-lua], [enable Lua support @<:@default=yes@:>@]),
--	[enable_lua="$enableval"],
--	[enable_lua="yes"])
-+	[enable_lua="$enableval"])
++extern "C"
++{
+ //void id3_tag_addref(struct id3_tag *);
+ void my_id3_tag_delref(struct id3_tag *);
+ struct filetag
+diff --git a/src/gui/audio_setup.cpp b/src/gui/audio_setup.cpp
+index 75ed4cf49..fd4ec6e43 100644
+--- a/src/gui/audio_setup.cpp
++++ b/src/gui/audio_setup.cpp
+@@ -137,7 +137,7 @@ int CAudioSetup::showAudioSetup()
  
- if test "$enable_lua" = "yes"; then
- 	AC_DEFINE(ENABLE_LUA, 1, [include Lua support])
-diff --git a/src/driver/simple_display.cpp b/src/driver/simple_display.cpp
-index 0999a41c7..abcd1beef 100644
---- a/src/driver/simple_display.cpp
-+++ b/src/driver/simple_display.cpp
-@@ -79,8 +79,49 @@ static bool vol_active = false;
- static inline int dev_open()
- {
- 	int fd = open(DISPLAY_DEV, O_RDWR);
--	if (fd < 0)
--		fprintf(stderr, "[neutrino] simple_display: open " DISPLAY_DEV ": %m\n");
-+	
-+	//
-+	if(fd < 0)
-+	{
-+		// probe /dev/vfd
-+		fd = open("/dev/vfd", O_RDWR);
-+		
-+		if(fd < 0)
-+		{
-+			// probe /dev/display
-+			fd = open("/dev/display", O_RDWR);
-+			
-+			if(fd < 0)
-+			{
-+				// probe /dev/mcu
-+				fd = open("/dev/mcu", O_RDWR);
-+
-+				if(fd < 0)
-+				{
-+					// probe /proc/vfd
-+					fd = open("/proc/vfd", O_RDWR);
-+				
-+					if(fd < 0)
-+					{
-+						// probe /dev/dbox/fp
-+						fd = open("/dev/dbox/fp", O_RDWR);
-+		
-+						if(fd < 0) 
-+						{
-+							// probe /dev/oled0
-+							fd = open("/dev/oled0", O_RDWR);
-+						
-+							if(fd < 0)
-+							{
-+								fprintf(stderr, "[neutrino] simple_display: open " DISPLAY_DEV ": %m\n");
-+							}
-+						}
-+					}
-+				}
-+			}
-+		}
-+	}
-+	
- 	return fd;
- }
- 
-diff --git a/src/gui/movieplayer.cpp b/src/gui/movieplayer.cpp
-index 09c13ed79..20483865e 100644
---- a/src/gui/movieplayer.cpp
-+++ b/src/gui/movieplayer.cpp
-@@ -49,8 +49,10 @@
- #include <gui/plugins.h>
- #include <gui/videosettings.h>
- #include <gui/streaminfo.h>
-+#ifdef ENABLE_LUA
- #include <gui/lua/luainstance.h>
- #include <gui/lua/lua_video.h>
-+#endif
- #include <gui/screensaver.h>
- #include <driver/screenshot.h>
- #include <driver/volume.h>
-@@ -259,8 +261,10 @@ void CMoviePlayerGui::Init(void)
- 	vzap_it = filelist_it;
- 	fromInfoviewer = false;
- 	keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NORMAL;
-+#ifdef ENABLE_LUA
- 	isLuaPlay = false;
- 	haveLuaInfoFunc = false;
-+#endif
- 	blockedFromPlugin = false;
- 
- 	CScreenSaver::getInstance()->resetIdleTime();
-@@ -418,6 +422,7 @@ int CMoviePlayerGui::exec(CMenuTarget * parent, const std::string & actionKey)
- 		is_file_player = true;
- 		PlayFile();
- 	}
-+#ifdef ENABLE_LUA
- 	else if (actionKey == "http_lua") {
- 		isHTTP = true;
- 		isLuaPlay = true;
-@@ -425,6 +430,7 @@ int CMoviePlayerGui::exec(CMenuTarget * parent, const std::string & actionKey)
- 		PlayFile();
- 		haveLuaInfoFunc = false;
- 	}
-+#endif
- 	else {
- 		return menu_return::RETURN_REPAINT;
- 	}
-@@ -630,7 +636,9 @@ void CMoviePlayerGui::ClearFlags()
- 	isMovieBrowser = false;
- 	isBookmark = false;
- 	isHTTP = false;
-+#ifdef ENABLE_LUA
- 	isLuaPlay = false;
-+#endif
- 	isUPNP = false;
- 	isWebChannel = false;
- 	is_file_player = false;
-@@ -922,6 +930,7 @@ bool CMoviePlayerGui::sortStreamList(livestream_info_t info1, livestream_info_t
- 	return (info1.res1 < info2.res1);
- }
- 
-+#ifdef ENABLE_LUA
- bool CMoviePlayerGui::luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList)
- {
- 	CHintBox* box = new CHintBox(LOCALE_MESSAGEBOX_INFO, g_Locale->getText(LOCALE_LIVESTREAM_READ_DATA));
-@@ -1046,6 +1055,7 @@ bool CMoviePlayerGui::luaGetUrl(const std::string &script, const std::string &fi
- 
- 	return true;
- }
-+#endif
- 
- bool CMoviePlayerGui::selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info)
- {
-@@ -1114,6 +1124,7 @@ bool CMoviePlayerGui::getLiveUrl(const std::string &url, const std::string &scri
- 		}
- 		_script = _s;
- 	}
-+#ifdef ENABLE_LUA
- 	size_t pos = _script.find(".lua");
- 	if (!file_exists(_script.c_str()) || (pos == std::string::npos) || (_script.length()-pos != 4)) {
- 		printf(">>>>> [%s:%s:%d] script error\n", __file__, __func__, __LINE__);
-@@ -1123,6 +1134,7 @@ bool CMoviePlayerGui::getLiveUrl(const std::string &url, const std::string &scri
- 		printf(">>>>> [%s:%s:%d] lua script error\n", __file__, __func__, __LINE__);
- 		return false;
- 	}
-+#endif
- 
- 	if (!selectLivestream(liveStreamList, g_settings.livestreamResolution, &info)) {
- 		printf(">>>>> [%s:%s:%d] error selectLivestream\n", __file__, __func__, __LINE__);
-@@ -1275,8 +1287,10 @@ void CMoviePlayerGui::PlayFile(void)
- 	PlayFileStart();
- 	PlayFileLoop();
- 	bool repeat = (repeat_mode == REPEAT_OFF);
-+#ifdef ENABLE_LUA
- 	if (isLuaPlay)
- 		repeat = (!blockedFromPlugin);
-+#endif
- 	PlayFileEnd(repeat);
- }
- 
-@@ -1483,7 +1497,11 @@ void CMoviePlayerGui::quickZap(neutrino_msg_t msg)
- 	if ((msg == CRCInput::RC_right) || msg == (neutrino_msg_t) g_settings.key_quickzap_up)
- 	{
- 		//printf("CMoviePlayerGui::%s: CRCInput::RC_right or g_settings.key_quickzap_up\n", __func__);
--		if (isLuaPlay || isUPNP)
-+		if (
-+	#ifdef ENABLE_LUA
-+		isLuaPlay ||
-+	#endif
-+		 isUPNP)
+ 	CMenuOptionChooser *as_oj_dts = new CMenuOptionChooser(LOCALE_AUDIOMENU_DTS, &g_settings.dts_pass, OPTIONS_OFF0_ON1_OPTIONS, OPTIONS_OFF0_ON1_OPTION_COUNT, true, audioSetupNotifier);
+ 	as_oj_dts->setHint("", LOCALE_MENU_HINT_AUDIO_DTS);
+-#else
++#elif HAVE_SH4_HARDWARE
+ 	//dd via hdmi
+ 	CMenuOptionChooser *as_oj_dd_hdmi = NULL;
+ 	if (g_info.hw_caps->has_HDMI)
+@@ -195,7 +195,7 @@ int CAudioSetup::showAudioSetup()
+ #if HAVE_ARM_HARDWARE || HAVE_MIPS_HARDWARE
+ 	audioSettings->addItem(as_oj_ac3);
+ 	audioSettings->addItem(as_oj_dts);
+-#else
++#elif HAVE_SH4_HARDWARE
+ 	if (g_info.hw_caps->has_HDMI)
+ 		audioSettings->addItem(as_oj_dd_hdmi);
+ 	audioSettings->addItem(as_oj_dd_spdif);
+diff --git a/src/gui/webtv_setup.cpp b/src/gui/webtv_setup.cpp
+index 0d56625c0..3bcba42c5 100644
+--- a/src/gui/webtv_setup.cpp
++++ b/src/gui/webtv_setup.cpp
+@@ -116,6 +116,7 @@ int CWebTVSetup::exec(CMenuTarget* parent, const std::string & actionKey)
+ 		fileFilter.addFilter("xml");
+ 		fileFilter.addFilter("tv");
+ 		fileFilter.addFilter("m3u");
++		fileFilter.addFilter("m3u8");
+ 		fileBrowser.Filter = &fileFilter;
+ 		if (fileBrowser.exec(g_settings.last_webtv_dir.c_str()) == true)
  		{
- 			playstate = CMoviePlayerGui::STOPPED;
- 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_NEXT;
-@@ -1510,7 +1528,11 @@ void CMoviePlayerGui::quickZap(neutrino_msg_t msg)
- 	else if ((msg == CRCInput::RC_left) || msg == (neutrino_msg_t) g_settings.key_quickzap_down)
- 	{
- 		//printf("CMoviePlayerGui::%s: CRCInput::RC_left or g_settings.key_quickzap_down\n", __func__);
--		if (isLuaPlay || isUPNP)
-+		if (
-+		#ifdef ENABLE_LUA
-+		isLuaPlay ||
-+		#endif
-+		 isUPNP)
- 		{
- 			playstate = CMoviePlayerGui::STOPPED;
- 			keyPressed = CMoviePlayerGui::PLUGIN_PLAYSTATE_PREV;
-diff --git a/src/gui/movieplayer.h b/src/gui/movieplayer.h
-index ef347b32a..d4af4d7bc 100644
---- a/src/gui/movieplayer.h
-+++ b/src/gui/movieplayer.h
-@@ -53,11 +53,13 @@
- #include <OpenThreads/Thread>
- #include <OpenThreads/Condition>
- 
-+#ifdef ENABLE_LUA
- extern "C" {
- #include <lua.h>
- #include <lauxlib.h>
- #include <lualib.h>
- }
-+#endif
- 
- class CFrameBuffer;
- class CMoviePlayerGui : public CMenuTarget
-@@ -118,9 +120,11 @@ class CMoviePlayerGui : public CMenuTarget
- 	bool		time_forced;
- 	CMoviePlayerGui::state playstate;
- 	int keyPressed;
-+#ifdef ENABLE_LUA
- 	bool isLuaPlay;
- 	bool haveLuaInfoFunc;
- 	lua_State* luaState;
-+#endif
- 	bool blockedFromPlugin;
- 	int speed;
- 	int startposition;
-@@ -245,7 +249,9 @@ class CMoviePlayerGui : public CMenuTarget
- 	static void* bgPlayThread(void *arg);
- 	static bool sortStreamList(livestream_info_t info1, livestream_info_t info2);
- 	bool selectLivestream(std::vector<livestream_info_t> &streamList, int res, livestream_info_t* info);
-+#ifdef ENABLE_LUA
- 	bool luaGetUrl(const std::string &script, const std::string &file, std::vector<livestream_info_t> &streamList);
-+#endif
- 
- 	CMoviePlayerGui(const CMoviePlayerGui&) {};
- 	CMoviePlayerGui();
-@@ -299,7 +305,9 @@ class CMoviePlayerGui : public CMenuTarget
- 	void setFromInfoviewer(bool f) { fromInfoviewer = f; };
- 	void setBlockedFromPlugin(bool b) { blockedFromPlugin = b; };
- 	bool getBlockedFromPlugin() { return blockedFromPlugin; };
-+#ifdef ENABLE_LUA
- 	void setLuaInfoFunc(lua_State* L, bool func) { luaState = L; haveLuaInfoFunc = func; };
-+#endif
- 	void getLivestreamInfo(std::string *i1, std::string *i2) { *i1=livestreamInfo1; *i2=livestreamInfo2; };
- 	bool getLiveUrl(const std::string &url, const std::string &script, std::string &realUrl, std::string &_pretty_name, std::string &info1, std::string &info2, std::string &header, std::string &url2);
- 	bool IsAudioPlaying() { return is_audio_player; };
-diff --git a/src/gui/plugins.cpp b/src/gui/plugins.cpp
-index 79be18af4..e580e30f0 100644
---- a/src/gui/plugins.cpp
-+++ b/src/gui/plugins.cpp
-@@ -61,7 +61,9 @@ extern cVideo * videoDecoder;
- #include "plugins.h"
- 
- #include <daemonc/remotecontrol.h>
-+#ifdef ENABLE_LUA
- #include <gui/lua/luainstance.h>
-+#endif
- 
- extern CPlugins       * g_Plugins;    /* neutrino.cpp */
- extern CRemoteControl * g_RemoteControl; /* neutrino.cpp */
-diff --git a/src/gui/widget/menue.cpp b/src/gui/widget/menue.cpp
-index 3a868b5d3..af8411aa3 100644
---- a/src/gui/widget/menue.cpp
-+++ b/src/gui/widget/menue.cpp
-@@ -1869,12 +1869,15 @@ int CMenuOptionNumberChooser::exec(CMenuTarget *)
- 	}
- 
- 	bool wantsRepaint = false;
-+#ifdef ENABLE_LUA
- 	if (observ && !luaAction.empty())
- 	{
- 		// optionValue is int*
- 		wantsRepaint = observ->changeNotify(luaState, luaAction, luaId, (void *) to_string(*optionValue).c_str());
- 	}
--	else if (observ)
-+	else
-+#endif 
-+	if (observ)
- 		wantsRepaint = observ->changeNotify(name, optionValue);
- 
- 	// give the observer a chance to modify the value
-@@ -2197,12 +2200,15 @@ int CMenuOptionChooser::exec(CMenuTarget *)
- 	}
- 	paint(true);
- 	OnAfterChangeOption();
-+#ifdef ENABLE_LUA
- 	if (observ && !luaAction.empty())
- 	{
- 		if (optionValname)
- 			wantsRepaint = observ->changeNotify(luaState, luaAction, luaId, optionValname);
- 	}
--	else if (observ)
-+	else
-+#endif 
-+	if (observ)
- 		wantsRepaint = observ->changeNotify(name, optionValue);
- 
- 	if (wantsRepaint)
-@@ -2386,9 +2392,12 @@ int CMenuOptionStringChooser::exec(CMenuTarget *parent)
- 
- 		paint(true);
- 	}
-+#ifdef ENABLE_LUA
- 	if (observ && !luaAction.empty())
- 		wantsRepaint = observ->changeNotify(luaState, luaAction, luaId, (void *)(optionValuePtr ? optionValuePtr->c_str() : ""));
--	else if (observ)
-+	else 
-+#endif
-+	if (observ)
- 	{
- 		wantsRepaint = observ->changeNotify(name, (void *)(optionValuePtr ? optionValuePtr->c_str() : ""));
- 	}
-diff --git a/src/gui/widget/menue.h b/src/gui/widget/menue.h
-index a56fc15f9..a7612ba0c 100644
---- a/src/gui/widget/menue.h
-+++ b/src/gui/widget/menue.h
-@@ -46,11 +46,13 @@
- #include <vector>
- #include <neutrino_menue.h>
- #include "menue_target.h"
-+#ifdef ENABLE_LUA
- extern "C" {
- #include <lua.h>
- #include <lauxlib.h>
- #include <lualib.h>
- }
-+#endif
- 
- #define NO_WIDGET_ID -1
- 
-@@ -92,10 +94,12 @@ class CChangeObserver
- 		{
- 			return false;
- 		}
-+#ifdef ENABLE_LUA
- 		virtual bool changeNotify(lua_State * /*L*/, const std::string & /*luaId*/, const std::string & /*luaAction*/, void * /*Data*/)
- 		{
- 			return false;
- 		}
-+#endif
- };
- 
- class CActivateObserver
-@@ -117,9 +121,11 @@ class CMenuItem : public  CComponentsSignals
- 		fb_pixel_t item_color, item_bgcolor;
- 		bool initModeCondition(const int &stb_mode);
- 		void initItemColors(const bool select_mode);
-+#ifdef ENABLE_LUA
- 		lua_State	*luaState;
- 		std::string	luaAction;
- 		std::string	luaId;
-+#endif
- 		neutrino_locale_t name;
- 		std::string nameString;
- 		neutrino_locale_t desc;
-@@ -201,12 +207,14 @@ class CMenuItem : public  CComponentsSignals
- 			hintText = text;
- 		}
- 
-+#ifdef ENABLE_LUA
- 		void setLua(lua_State *_luaState, std::string &_luaAction, std::string &_luaId)
- 		{
- 			luaState = _luaState;
- 			luaAction = _luaAction;
- 			luaId = _luaId;
- 		};
-+#endif
- 		virtual const char *getName();
- 		virtual void setName(const std::string &text);
- 		virtual void setName(const neutrino_locale_t text);
-diff --git a/src/system/Makefile.am b/src/system/Makefile.am
-index 3839e1ee9..e9ab07af9 100644
---- a/src/system/Makefile.am
-+++ b/src/system/Makefile.am
-@@ -29,7 +29,6 @@ libneutrino_system_a_SOURCES = \
- 	hddstat.cpp \
- 	httptool.cpp \
- 	lastchannel.cpp \
--	luaserver.cpp \
- 	localize.cpp \
- 	helpers.cpp \
- 	ping.cpp \
-@@ -39,3 +38,7 @@ libneutrino_system_a_SOURCES = \
- 	sysload.cpp \
- 	setting_helpers.cpp
- #	safe_system.c
-+
-+if ENABLE_LUA
-+libneutrino_system_a_SOURCES += luaserver.cpp
-+endif
