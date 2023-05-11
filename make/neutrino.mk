@@ -198,7 +198,7 @@ libstb-hal-distclean:
 #
 # neutrino
 #
-NEUTRINO_PATCHES = neutrino-ddt.patch
+NEUTRINO_PATCHES =
 
 $(D)/neutrino.do_prepare: $(NEUTRINO_DEPS) $(D)/libstb-hal
 	$(START_BUILD)
