@@ -560,43 +560,7 @@ endif
 #
 # release-all
 #
-release-all: release-common release-$(BOXTYPE) $(D)/neutrino2 $(D)/neutrino2-plugins $(D)/neutrino $(NEUTRINO_PLUGINS) $(D)/titan $(D)/enigma2
-	# neutrino2
-	install -d $(RELEASE_DIR)/var/tuxbox
-	install -d $(RELEASE_DIR)/usr/share/iso-codes
-	install -d $(RELEASE_DIR)/usr/share/tuxbox
-	install -d $(RELEASE_DIR)/var/tuxbox
-	install -d $(RELEASE_DIR)/var/tuxbox/config/{webtv,zapit}
-	install -d $(RELEASE_DIR)/var/tuxbox/plugins
-	install -d $(RELEASE_DIR)/var/httpd
-	cp -af $(TARGET_DIR)/usr/bin/neutrino2 $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/backup.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/init_hdd.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/install.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
-	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino2 $(RELEASE_DIR)/usr/share/tuxbox
-	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
-	# neutrino
-	install -d $(RELEASE_DIR)/var/tuxbox
-	install -d $(RELEASE_DIR)/usr/share/iso-codes
-	install -d $(RELEASE_DIR)/usr/share/tuxbox
-	install -d $(RELEASE_DIR)/var/tuxbox
-	install -d $(RELEASE_DIR)/var/tuxbox/config/{webtv,zapit}
-	install -d $(RELEASE_DIR)/var/tuxbox/plugins
-	install -d $(RELEASE_DIR)/var/httpd
-	cp -af $(TARGET_DIR)/usr/bin/neutrino $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/backup.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/install.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/luaclient $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/pzapit $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/rcsim $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
-	cp -af $(TARGET_DIR)/usr/bin/sectionsdcontrol $(RELEASE_DIR)/usr/bin/
-	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
-	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
-	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share/
-	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
-	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
+release-all: release-common release-$(BOXTYPE) $(D)/titan $(D)/enigma2
 	# titan
 	install -d $(RELEASE_DIR)/var/etc/titan
 	install -d $(RELEASE_DIR)/var/etc/autostart

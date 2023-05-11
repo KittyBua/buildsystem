@@ -260,6 +260,14 @@ release-enigma2: release-common release-$(BOXTYPE) $(D)/enigma2
 #
 #
 #
+	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.pyc' -exec rm -f {} \;
+	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.pyo' -exec rm -f {} \;
+	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.a' -exec rm -f {} \;
+	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.o' -exec rm -f {} \;
+	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.la' -exec rm -f {} \;
+#
+#
+#
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)
