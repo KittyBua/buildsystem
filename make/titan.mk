@@ -281,7 +281,7 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	cp -af $(TARGET_DIR)/usr/bin/titan $(RELEASE_DIR)/usr/bin/
 	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
 	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
-	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
+	cp $(SKEL_ROOT)/var/etc/titan/rcconfig.$(BOXTYPE) $(RELEASE_DIR)/var/etc/titan/rcconfig
 	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
 	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
 	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
