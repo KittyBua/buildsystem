@@ -415,6 +415,7 @@ release-neutrino: release-common release-$(BOXTYPE) $(D)/neutrino $(NEUTRINO_PLU
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
 	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share/
+	cp -aR $(TARGET_DIR)/usr/share/iso-codes $(RELEASE_DIR)/usr/share/
 	cp -aR $(TARGET_DIR)/var/tuxbox/* $(RELEASE_DIR)/var/tuxbox
 	[ -d $(RELEASE_DIR)/var/tuxbox/locale/de/LC_MESSAGES/neutrino2.mo ] && rm -rf $(RELEASE_DIR)/var/tuxbox/locale || true
 	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
