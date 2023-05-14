@@ -558,69 +558,42 @@ endif
 	$(END_BUILD)
 	
 #
-# release-all
-#
-release-all: release-common release-$(BOXTYPE) $(D)/titan $(D)/enigma2
-	# titan
-	install -d $(RELEASE_DIR)/var/etc/titan
-	install -d $(RELEASE_DIR)/var/etc/autostart
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/{skin,po,web,plugins}
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/{de,el,en,es,fr,it,lt,nl,pl,ru,vi}
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/de/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/el/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/en/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/es/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/fr/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/it/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/lt/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/nl/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/pl/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/ru/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/local/share/titan/po/vi/LC_MESSAGES
-	install -d $(RELEASE_DIR)/var/usr/share/fonts
-	cp -af $(TARGET_DIR)/usr/bin/titan $(RELEASE_DIR)/usr/bin/
-	cp $(SKEL_ROOT)/var/etc/titan/titan.cfg $(RELEASE_DIR)/var/etc/titan/titan.cfg
-	cp $(SKEL_ROOT)/var/etc/titan/httpd.cfg $(RELEASE_DIR)/var/etc/titan/httpd.cfg
-	cp $(SKEL_ROOT)/var/etc/titan/rcconfig $(RELEASE_DIR)/var/etc/titan/rcconfig
-	cp $(SKEL_ROOT)/var/etc/titan/satellites $(RELEASE_DIR)/var/etc/titan/satellites
-	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
-	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
-	cp -af $(SKEL_ROOT)/var/usr/share/fonts $(RELEASE_DIR)/var/usr/share
-	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
-	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan
-	# enigma2
-	install -d $(RELEASE_DIR)/etc/enigma2
-	install -d $(RELEASE_DIR)/etc/tuxbox
-	install -d $(RELEASE_DIR)/usr/share/enigma2
-	cp -af $(TARGET_DIR)/usr/bin/enigma2 $(RELEASE_DIR)/usr/bin/enigma2
-	cp -aR $(TARGET_DIR)/usr/share/enigma2 $(RELEASE_DIR)/usr/share
-	cp -aR $(TARGET_DIR)/usr/share/keymaps $(RELEASE_DIR)/usr/share
-	cp -aR $(TARGET_DIR)/usr/share/meta $(RELEASE_DIR)/usr/share
-	cp -aR $(TARGET_DIR)/usr/share/fonts $(RELEASE_DIR)/usr/share
-	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
-	cp -Rf $(TARGET_DIR)/usr/share/enigma2/po/en $(RELEASE_DIR)/usr/share/enigma2/po
-	cp -Rf $(TARGET_DIR)/usr/share/enigma2/po/de $(RELEASE_DIR)/usr/share/enigma2/po
-	cp -aR $(SKEL_ROOT)/usr/share/enigma2/* $(RELEASE_DIR)/usr/share/enigma2
-	cp -aR $(SKEL_ROOT)/etc/tuxbox/* $(RELEASE_DIR)/etc/tuxbox/
-	cp -aR $(SKEL_ROOT)/etc/enigma2/* $(RELEASE_DIR)/etc/enigma2/
-	cp -aR $(TARGET_DIR)/usr/lib/enigma2 $(RELEASE_DIR)/usr/lib
-	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NONE $(RELEASE_DIR)/etc/init.d/rcS
-	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
-	rm -fr $(RELEASE_DIR)/etc
-	ln -sf /var/etc $(RELEASE_DIR)
-	$(TUXBOX_CUSTOMIZE)
-#
-# strip
-#	
-ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
-	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
-endif
-	$(END_BUILD)
-	
-
-#
 # release-clean
 #
 release-clean:
 	rm -rf $(RELEASE_DIR)
+
+#
+# image-none
+#
+image-none: release-none
+	$(START_BUILD)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), hl101)
+	$(MAKE) usb-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro))
+	$(MAKE) flash-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k h7 hd51 hd61 osmini4k osmio4k osmio4kplus e4hdultra))
+	$(MAKE) flash-image-$(BOXTYPE)-rootfs flash-image-$(BOXTYPE)-disk $(MAKE) flash-image-$(BOXTYPE)-online
+endif
+ifeq ($(BOXTYPE), hd60)
+	$(MAKE) flash-image-$(BOXTYPE)-multi-disk
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+	$(MAKE) flash-image-$(BOXTYPE)-rootfs flash-image-$(BOXTYPE)-disk $(MAKE) flash-image-$(BOXTYPE)-online
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k))
+	$(MAKE) flash-image-$(BOXTYPE)-rootfs flash-image-$(BOXTYPE)-multi-disk $(MAKE) flash-image-$(BOXTYPE)-online
+endif
+	$(END_BUILD)
+	
+#
+# image-clean
+#
+image-clean:
+	cd $(IMAGE_DIR) && rm -rf *
 

@@ -338,7 +338,6 @@ include make/enigma2.mk
 include make/titan.mk
 include make/neutrino.mk
 include make/release.mk
-include make/image.mk
 include make/packages.mk
 
 update:
