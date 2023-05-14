@@ -157,6 +157,9 @@ $(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(
 			--datarootdir=/.remove \
 			--enable-silent-rules \
 			--disable-valgrind \
+			--disable-aalib \
+			--disable-aalibtest \
+			--disable-cairo \
 			$(GST_PLUGIN_CONFIG_DEBUG) \
 			--disable-examples \
 			--disable-gtk-doc-html \
