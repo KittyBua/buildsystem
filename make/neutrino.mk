@@ -4,7 +4,7 @@
 LIBSTB_HAL = libstb-hal-ddt
 LIBSTB_HAL_URL = https://github.com/Duckbox-Developers/libstb-hal-ddt.git
 LIBSTB_HAL_BRANCH = master
-LIBSTB_HAL_PATCHES = libstb-hal-ddt.patch
+LIBSTB_HAL_PATCHES =
 NEUTRINO = neutrino-ddt
 NEUTRINO_URL = https://github.com/Duckbox-Developers/neutrino-ddt.git
 NEUTRINO_BRANCH = master
@@ -91,21 +91,20 @@ ifeq ($(BOXARCH), arm)
 NEUTRINO_CONFIG_OPTS += --enable-reschange
 endif
 
-# disable gstreamer till found a fix.
-ifeq ($(GSTREAMER), gstreamer)
-NEUTRINO_DEPS  += $(D)/gstreamer 
-NEUTRINO_DEPS  += $(D)/gst_plugins_base 
-NEUTRINO_DEPS  += $(D)/gst_plugins_good 
-NEUTRINO_DEPS  += $(D)/gst_plugins_bad 
-NEUTRINO_DEPS  += $(D)/gst_plugins_ugly 
-NEUTRINO_DEPS  += $(D)/gst_plugins_subsink
-NEUTRINO_DEPS  += $(D)/gst_plugins_dvbmediasink
-LH_CONFIG_OPTS += --enable-gstreamer_10
-NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
-NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
-NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
-NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
-endif
+#ifeq ($(GSTREAMER), gstreamer)
+#NEUTRINO_DEPS  += $(D)/gstreamer 
+#NEUTRINO_DEPS  += $(D)/gst_plugins_base 
+#NEUTRINO_DEPS  += $(D)/gst_plugins_good 
+#NEUTRINO_DEPS  += $(D)/gst_plugins_bad 
+#NEUTRINO_DEPS  += $(D)/gst_plugins_ugly 
+#NEUTRINO_DEPS  += $(D)/gst_plugins_subsink
+#NEUTRINO_DEPS  += $(D)/gst_plugins_dvbmediasink
+#LH_CONFIG_OPTS += --enable-gstreamer_10
+#NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
+#NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
+#NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
+#NEUTRINO_CPPFLAGS    += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
+#endif
 
 ifeq ($(GRAPHLCD), graphlcd)
 NEUTRINO_DEPS += $(D)/graphlcd
