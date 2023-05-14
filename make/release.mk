@@ -182,6 +182,7 @@ endif
 	cp -aR $(SKEL_ROOT)/etc/mdev_$(BOXARCH).conf $(RELEASE_DIR)/etc/mdev.conf
 	cp -aR $(SKEL_ROOT)/usr/share/udhcpc/* $(RELEASE_DIR)/usr/share/udhcpc/
 	cp -aR $(SKEL_ROOT)/usr/share/zoneinfo/* $(RELEASE_DIR)/usr/share/zoneinfo/
+	cp -aR $(SKEL_ROOT)/usr/share/fonts $(RELEASE_DIR)/usr/share/
 	cp -aR $(TARGET_DIR)/etc/init.d/* $(RELEASE_DIR)/etc/init.d/
 	install -m 0755 $(SKEL_ROOT)/etc/init.d/rcS.local $(RELEASE_DIR)/etc/init.d/rcS.local
 	cp -aR $(TARGET_DIR)/etc/* $(RELEASE_DIR)/etc/
@@ -307,12 +308,10 @@ endif
 # lua
 #
 ifeq ($(LUA), lua)
-#ifneq ($(GUI), ENIGMA2)
 	cp -R $(TARGET_DIR)/usr/lib/lua $(RELEASE_DIR)/usr/lib/
 	if [ -d $(TARGET_DIR)/usr/share/lua ]; then \
 		cp -aR $(TARGET_DIR)/usr/share/lua/* $(RELEASE_DIR)/usr/share/lua; \
 	fi
-#endif
 endif
 #
 # python
@@ -500,7 +499,6 @@ endif
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
 	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
 	rm -f $(RELEASE_DIR)/usr/share/meta/*
-	rm -rf $(RELEASE_DIR)/usr/share/fonts
 	rm -f $(RELEASE_DIR)/usr/share/enigma2/black.mvi
 	rm -f $(RELEASE_DIR)/usr/share/enigma2/hd-testcard.mvi
 	rm -f $(RELEASE_DIR)/usr/share/enigma2/otv_*
