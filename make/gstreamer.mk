@@ -28,7 +28,7 @@ $(D)/gstreamer: $(D)/bootstrap $(D)/libglib2 $(D)/libxml2 $(D)/glib_networking $
 	$(UNTAR)/$(GSTREAMER_SOURCE)
 	$(CHDIR)/gstreamer-$(GSTREAMER_VER); \
 		$(call apply_patches, $(GSTREAMER_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--libexecdir=/usr/lib \
@@ -82,7 +82,7 @@ $(D)/gst_plugins_base: $(D)/bootstrap $(D)/zlib $(D)/libglib2 $(D)/orc $(D)/gstr
 	$(UNTAR)/$(GST_PLUGINS_BASE_SOURCE)
 	$(CHDIR)/gst-plugins-base-$(GST_PLUGINS_BASE_VER); \
 		$(call apply_patches, $(GST_PLUGINS_BASE_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--datarootdir=/.remove \
@@ -149,7 +149,7 @@ $(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(
 	$(UNTAR)/$(GST_PLUGINS_GOOD_SOURCE)
 	$(CHDIR)/gst-plugins-good-$(GST_PLUGINS_GOOD_VER); \
 		$(call apply_patches, $(GST_PLUGINS_GOOD_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
@@ -190,7 +190,7 @@ $(D)/gst_plugins_bad: $(D)/bootstrap $(D)/libass $(D)/libcurl $(D)/libxml2 $(D)/
 	$(UNTAR)/$(GST_PLUGINS_BAD_SOURCE)
 	$(CHDIR)/gst-plugins-bad-$(GST_PLUGINS_BAD_VER); \
 		$(call apply_patches, $(GST_PLUGINS_BAD_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
@@ -247,7 +247,7 @@ $(D)/gst_plugins_ugly: $(D)/bootstrap $(D)/gstreamer $(D)/gst_plugins_base $(ARC
 	$(REMOVE)/gst-plugins-ugly-$(GST_PLUGINS_UGLY_VER)
 	$(UNTAR)/$(GST_PLUGINS_UGLY_SOURCE)
 	$(CHDIR)/gst-plugins-ugly-$(GST_PLUGINS_UGLY_VER); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--datarootdir=/.remove \
@@ -375,8 +375,14 @@ $(D)/gst_libav: $(D)/bootstrap $(D)/gstreamer $(D)/gst_plugins_base $(ARCHIVE)/$
 			--cross-prefix=$(TARGET)- \
 			\
 			--disable-everything \
-			--enable-decoder=wmalossless --enable-decoder=wmapro --enable-decoder=wmav1 --enable-decoder=wmav2 --enable-decoder=wmavoice \
-			--enable-decoder=truehd --enable-decoder=dca --enable-decoder=mlp" \
+			--enable-decoder=wmalossless \
+			--enable-decoder=wmapro \
+			--enable-decoder=wmav1 \
+			--enable-decoder=wmav2 \
+			--enable-decoder=wmavoice \
+			--enable-decoder=truehd \
+			--enable-decoder=dca \
+			--enable-decoder=mlp" \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
