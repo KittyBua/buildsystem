@@ -49,7 +49,10 @@ ENIGMA2_CPPFLAGS   += -I$(TARGET_DIR)/usr/include
 
 ENIGMA2_CONFIG_OPTS += PYTHON_CPPFLAGS="-I$(TARGET_DIR)/usr/include/python2.7" PYTHON_LIBS="-L$(TARGET_DIR)/usr/lib -lpython2.7" PYTHON_SITE_PKG="$(TARGET_DIR)/usr/lib/python2.7/site-packages"
 
-ENIGMA2_PATCHES = enigma2.patch
+ENIGMA2_PATCHES = enigma2-openhdf.patch
+ENIGMA2_URL = https://github.com/openhdf/enigma2.git
+ENIGMA2_BRANCH = master
+ENIGMA2 = enigma2-openhdf
 
 #
 # enigma2
@@ -57,17 +60,18 @@ ENIGMA2_PATCHES = enigma2.patch
 $(D)/enigma2.do_prepare: $(ENIGMA2_DEPS)
 	$(START_BUILD)
 	rm -rf $(SOURCE_DIR)/enigma2
-	[ -d "$(ARCHIVE)/enigma2.git" ] && \
-	(cd $(ARCHIVE)/enigma2.git; git pull;); \
-	[ -d "$(ARCHIVE)/enigma2.git" ] || \
-	git clone -b 6.4 https://github.com/openatv/enigma2.git $(ARCHIVE)/enigma2.git; \
-	cp -ra $(ARCHIVE)/enigma2.git $(SOURCE_DIR)/enigma2; \
+	[ -d "$(ARCHIVE)/$(ENIGMA2).git" ] && \
+	(cd $(ARCHIVE)/$(ENIGMA2).git; git pull;); \
+	[ -d "$(ARCHIVE)/$(ENIGMA2).git" ] || \
+	git clone -b $(ENIGMA2_BRANCH) $(ENIGMA2_URL) $(ARCHIVE)/$(ENIGMA2).git; \
+	cp -ra $(ARCHIVE)/$(ENIGMA2).git $(SOURCE_DIR)/enigma2; \
 	set -e; cd $(SOURCE_DIR)/enigma2; \
 		$(call apply_patches,$(ENIGMA2_PATCHES))
 	@touch $@
 
 $(D)/enigma2.config.status: $(D)/enigma2.do_prepare
 	cd $(SOURCE_DIR)/enigma2; \
+		chmod 755 autogen.sh; \
 		./autogen.sh; \
 		sed -e 's|#!/usr/bin/python|#!$(HOST_DIR)/bin/python|' -i po/xml2po.py; \
 		$(BUILDENV) \
