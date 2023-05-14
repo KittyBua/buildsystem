@@ -68,10 +68,10 @@ $(D)/enigma2.do_prepare: $(ENIGMA2_DEPS)
 
 $(D)/enigma2.config.status: $(D)/enigma2.do_prepare
 	cd $(SOURCE_DIR)/enigma2; \
-		./autogen.sh $(SILENT_OPT); \
+		./autogen.sh; \
 		sed -e 's|#!/usr/bin/python|#!$(HOST_DIR)/bin/python|' -i po/xml2po.py; \
 		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			$(ENIGMA2_CONFIG_OPTS) \
@@ -116,13 +116,13 @@ HOTPLUG_E2_PATCH = hotplug-e2-helper.patch
 $(D)/hotplug_e2_helper: $(D)/bootstrap
 	$(START_BUILD)
 	$(REMOVE)/hotplug-e2-helper
-	$(SET) -e; 
+	set -e; 
 	[ -d "$(ARCHIVE)/hotplug-e2-helper.git" ] && \
 	(cd $(ARCHIVE)/hotplug-e2-helper.git; git pull $(MINUS_Q);); \
 	[ -d "$(ARCHIVE)/hotplug-e2-helper.git" ] || \
 	git clone $(MINUS_Q) https://github.com/OpenPLi/hotplug-e2-helper.git hotplug-e2-helper.git; \
-	$(SILENT)cp -ra $(ARCHIVE)/hotplug-e2-helper.git $(BUILD_TMP)/hotplug-e2-helper
-	$(SET) -e; cd $(BUILD_TMP)/hotplug-e2-helper; \
+	cp -ra $(ARCHIVE)/hotplug-e2-helper.git $(BUILD_TMP)/hotplug-e2-helper
+	set -e; cd $(BUILD_TMP)/hotplug-e2-helper; \
 		$(call apply_patches,$(HOTPLUG_E2_PATCH)); \
 		$(CONFIGURE) \
 			--prefix=/usr \
@@ -173,15 +173,15 @@ $(D)/tuxtxtlib: $(D)/bootstrap $(D)/freetype
 	[ -d "$(ARCHIVE)/tuxtxt.git" ] || \
 	git clone $(MINUS_Q) https://github.com/OpenPLi/tuxtxt.git tuxtxt.git; \
 	cp -ra $(ARCHIVE)/tuxtxt.git/libtuxtxt $(BUILD_TMP)/tuxtxtlib
-	$(SILENT)cd $(BUILD_TMP)/tuxtxtlib; \
+	cd $(BUILD_TMP)/tuxtxtlib; \
 		$(call apply_patches,$(TUXTXTLIB_PATCH)); \
 		aclocal; \
 		autoheader; \
 		autoconf; \
-		libtoolize --force $(SILENT_OPT); \
+		libtoolize --force; \
 		automake --foreign --add-missing; \
 		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix=/usr \
@@ -205,16 +205,16 @@ TUXTXT32BPP_PATCH = tuxtxt32bpp-1.0-fix-dbox-headers.patch tuxtxt32bpp-fix-found
 $(D)/tuxtxt32bpp: $(D)/bootstrap $(D)/tuxtxtlib
 	$(START_BUILD)
 	$(REMOVE)/tuxtxt
-	$(SILENT)cp -ra $(ARCHIVE)/tuxtxt.git/tuxtxt $(BUILD_TMP)/tuxtxt
-	$(SET) -e; cd $(BUILD_TMP)/tuxtxt; \
+	cp -ra $(ARCHIVE)/tuxtxt.git/tuxtxt $(BUILD_TMP)/tuxtxt
+	set -e; cd $(BUILD_TMP)/tuxtxt; \
 		$(call apply_patches,$(TUXTXT32BPP_PATCH)); \
 		aclocal; \
 		autoheader; \
 		autoconf; \
-		libtoolize --force $(SILENT_OPT); \
+		libtoolize --force; \
 		automake --foreign --add-missing; \
 		$(BUILDENV) \
-		./configure $(SILENT_CONFIGURE) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix=/usr \
