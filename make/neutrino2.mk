@@ -168,7 +168,7 @@ $(D)/neutrino2-plugins.do_prepare: $(D)/neutrino2.do_prepare
 		$(call apply_patches, $(N2_PLUGINS_PATCHES))
 	@touch $@
 
-$(D)/neutrino2-plugins.config.status: neutrino2
+$(D)/neutrino2-plugins.config.status: $(D)/neutrino2-plugins.do_prepare
 	cd $(SOURCE_DIR)/neutrino2/plugins; \
 		./autogen.sh; \
 		$(BUILDENV) \

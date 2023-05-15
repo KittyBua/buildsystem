@@ -214,7 +214,7 @@ titan-distclean:
 #
 # titan-plugins
 #
-$(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan $(D)/python
+$(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan.do_prepare $(D)/python
 	$(START_BUILD)
 	cd $(SOURCE_DIR)/titan/plugins; \
 		./autogen.sh; \
