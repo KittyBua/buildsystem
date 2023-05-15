@@ -231,7 +231,9 @@ $(SOURCE_DIR)/titan/plugins/config.status: $(D)/titan.do_prepare $(D)/python
 			PKG_CONFIG=$(PKG_CONFIG) \
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
-
+#
+#
+#
 $(D)/titan-plugins.do_compile: $(SOURCE_DIR)/titan/plugins/config.status
 	cd $(SOURCE_DIR)/titan/plugins; \
 		$(MAKE) all
@@ -254,7 +256,7 @@ titan-plugins-clean:
 #
 titan-plugins-distclean:
 	rm -f $(D)/titan-plugins*
-	$(MAKE) -C $(SOURCE_DIR)/titan distclean
+	$(MAKE) -C $(SOURCE_DIR)/titan/plugins distclean
 		
 #
 # release-titan
