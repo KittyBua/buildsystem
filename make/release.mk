@@ -102,7 +102,7 @@ RELEASE_DEPS += $(D)/luaexpat
 RELEASE_DEPS += $(D)/luacurl 
 RELEASE_DEPS += $(D)/luasocket 
 RELEASE_DEPS += $(D)/luafeedparser 
-RELEASE_DEPS += $(D)/luasoap 
+#RELEASE_DEPS += $(D)/luasoap 
 RELEASE_DEPS += $(D)/luajson
 endif
 
