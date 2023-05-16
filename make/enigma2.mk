@@ -124,7 +124,7 @@ $(D)/hotplug_e2_helper: $(D)/bootstrap
 	[ -d "$(ARCHIVE)/hotplug-e2-helper.git" ] && \
 	(cd $(ARCHIVE)/hotplug-e2-helper.git; git pull $(MINUS_Q);); \
 	[ -d "$(ARCHIVE)/hotplug-e2-helper.git" ] || \
-	git clone $(MINUS_Q) https://github.com/OpenPLi/hotplug-e2-helper.git hotplug-e2-helper.git; \
+	git clone $(MINUS_Q) https://github.com/OpenPLi/hotplug-e2-helper.git $(ARCHIVE)/hotplug-e2-helper.git; \
 	cp -ra $(ARCHIVE)/hotplug-e2-helper.git $(BUILD_TMP)/hotplug-e2-helper
 	set -e; cd $(BUILD_TMP)/hotplug-e2-helper; \
 		$(call apply_patches,$(HOTPLUG_E2_PATCH)); \
@@ -175,7 +175,7 @@ $(D)/tuxtxtlib: $(D)/bootstrap $(D)/freetype
 	[ -d "$(ARCHIVE)/tuxtxt.git" ] && \
 	(cd $(ARCHIVE)/tuxtxt.git; git pull $(MINUS_Q);); \
 	[ -d "$(ARCHIVE)/tuxtxt.git" ] || \
-	git clone $(MINUS_Q) https://github.com/OpenPLi/tuxtxt.git tuxtxt.git; \
+	git clone $(MINUS_Q) https://github.com/OpenPLi/tuxtxt.git $(ARCHIVE)/tuxtxt.git; \
 	cp -ra $(ARCHIVE)/tuxtxt.git/libtuxtxt $(BUILD_TMP)/tuxtxtlib
 	cd $(BUILD_TMP)/tuxtxtlib; \
 		$(call apply_patches,$(TUXTXTLIB_PATCH)); \
