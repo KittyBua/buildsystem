@@ -207,7 +207,7 @@ init:
 	@echo "or"
 	@echo "  make image-neutrino"
 	@echo "  make image-titan"
-	@echo "  make image-enigma2 (exp)"
+	@echo "  make image-enigma2 (exp feel free to fix it)"
 	@echo ""
 	@echo ""
 	@echo "for more details:"

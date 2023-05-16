@@ -20,8 +20,8 @@ $:~ make
 ```bash
 $:~ make image-neutrino2
 $:~ make image-neutrino
-$:~ make image-enigma2  (experimental)
-$:~ make image-titan  (experimental)
+$:~ make image-titan
+$:~ make image-enigma2  (experimental feel free to fix it)
 ```
 
 **for more details:**

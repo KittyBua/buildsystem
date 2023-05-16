@@ -1,47 +1,15 @@
-diff --git a/src/driver/audiodec/mp3dec.cpp b/src/driver/audiodec/mp3dec.cpp
-index 5f0df6c34..50b9b8199 100644
---- a/src/driver/audiodec/mp3dec.cpp
-+++ b/src/driver/audiodec/mp3dec.cpp
-@@ -59,6 +59,8 @@
- #include <driver/display.h>
- extern cAudio *audioDecoder;
- 
-+extern "C"
-+{
- //void id3_tag_addref(struct id3_tag *);
- void my_id3_tag_delref(struct id3_tag *);
- struct filetag
-diff --git a/src/gui/audio_setup.cpp b/src/gui/audio_setup.cpp
-index 75ed4cf49..fd4ec6e43 100644
---- a/src/gui/audio_setup.cpp
-+++ b/src/gui/audio_setup.cpp
-@@ -137,7 +137,7 @@ int CAudioSetup::showAudioSetup()
- 
- 	CMenuOptionChooser *as_oj_dts = new CMenuOptionChooser(LOCALE_AUDIOMENU_DTS, &g_settings.dts_pass, OPTIONS_OFF0_ON1_OPTIONS, OPTIONS_OFF0_ON1_OPTION_COUNT, true, audioSetupNotifier);
- 	as_oj_dts->setHint("", LOCALE_MENU_HINT_AUDIO_DTS);
--#else
-+#elif HAVE_SH4_HARDWARE
- 	//dd via hdmi
- 	CMenuOptionChooser *as_oj_dd_hdmi = NULL;
- 	if (g_info.hw_caps->has_HDMI)
-@@ -195,7 +195,7 @@ int CAudioSetup::showAudioSetup()
- #if HAVE_ARM_HARDWARE || HAVE_MIPS_HARDWARE
- 	audioSettings->addItem(as_oj_ac3);
- 	audioSettings->addItem(as_oj_dts);
--#else
-+#elif HAVE_SH4_HARDWARE
- 	if (g_info.hw_caps->has_HDMI)
- 		audioSettings->addItem(as_oj_dd_hdmi);
- 	audioSettings->addItem(as_oj_dd_spdif);
-diff --git a/src/gui/webtv_setup.cpp b/src/gui/webtv_setup.cpp
-index 0d56625c0..3bcba42c5 100644
---- a/src/gui/webtv_setup.cpp
-+++ b/src/gui/webtv_setup.cpp
-@@ -116,6 +116,7 @@ int CWebTVSetup::exec(CMenuTarget* parent, const std::string & actionKey)
- 		fileFilter.addFilter("xml");
- 		fileFilter.addFilter("tv");
- 		fileFilter.addFilter("m3u");
-+		fileFilter.addFilter("m3u8");
- 		fileBrowser.Filter = &fileFilter;
- 		if (fileBrowser.exec(g_settings.last_webtv_dir.c_str()) == true)
- 		{
+diff --git a/src/system/setting_helpers.cpp b/src/system/setting_helpers.cpp
+index 0e47bb34d..d38ce0f44 100644
+--- a/src/system/setting_helpers.cpp
++++ b/src/system/setting_helpers.cpp
+@@ -328,8 +328,9 @@ bool CAudioSetupNotifier::changeNotify(const neutrino_locale_t OptionName, void
+ 	{
+ 		audioDecoder->SetSpdifDD(g_settings.dts_pass ? true : false);
+ 	}
++	else
+ #endif
+-	else if (ARE_LOCALES_EQUAL(OptionName, LOCALE_AUDIOMENU_AVSYNC))
++	if (ARE_LOCALES_EQUAL(OptionName, LOCALE_AUDIOMENU_AVSYNC))
+ 	{
+ 		videoDecoder->SetSyncMode((AVSYNC_TYPE)g_settings.avsync);
+ 		audioDecoder->SetSyncMode((AVSYNC_TYPE)g_settings.avsync);
