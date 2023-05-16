@@ -62,6 +62,13 @@ RELEASE_DEPS += $(D)/tools-ustslave
 RELEASE_DEPS += $(D)/tools-vfdctl
 RELEASE_DEPS += $(D)/tools-wait4button
 endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
+RELEASE_DEPS += $(D)/tools-initfb
+RELEASE_DEPS += $(D)/tools-turnoff_power
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
+RELEASE_DEPS += $(D)/tools-initfb
+endif
 RELEASE_DEPS += $(LIRC)
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop

@@ -29,6 +29,13 @@ endif
 	-$(MAKE) -C $(TOOLS_DIR)/vfdctl clean
 	-$(MAKE) -C $(TOOLS_DIR)/wait4button clean
 endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
+	-$(MAKE) -C $(TOOLS_DIR)/initfb clean
+	-$(MAKE) -C $(TOOLS_DIR)/turnoff_power clean
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
+	-$(MAKE) -C $(TOOLS_DIR)/initfb clean
+endif
 
 #
 # tools-distclean
@@ -60,6 +67,13 @@ endif
 	-$(MAKE) -C $(TOOLS_DIR)/ustslave distclean
 	-$(MAKE) -C $(TOOLS_DIR)/vfdctl distclean
 	-$(MAKE) -C $(TOOLS_DIR)/wait4button distclean
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
+	-$(MAKE) -C $(TOOLS_DIR)/initfb distclean
+	-$(MAKE) -C $(TOOLS_DIR)/turnoff_power distclean
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
+	-$(MAKE) -C $(TOOLS_DIR)/initfb distclean
 endif
 
 #
@@ -416,4 +430,20 @@ $(D)/tools-wait4button: $(D)/bootstrap
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(TOUCH)
+	
+#
+# turnoff_power
+#
+$(D)/tools-turnoff_power: $(D)/bootstrap
+	$(START_BUILD)
+	set -e; cd $(TOOLS_DIR)/turnoff_power; \
+		$(CONFIGURE_TOOLS) \
+			--prefix= \
+			--with-boxmodel=$(BOXTYPE) \
+			--with-boxtype=$(BOXTYPE) \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(TARGET_DIR)
+	$(TOUCH)
+
 

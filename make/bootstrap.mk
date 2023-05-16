@@ -66,7 +66,7 @@ HOST_MODULE_INIT_TOOLS_SOURCE = module-init-tools-$(HOST_MODULE_INIT_TOOLS_VER).
 HOST_MODULE_INIT_TOOLS_PATCH = module-init-tools-$(HOST_MODULE_INIT_TOOLS_VER).patch
 
 $(ARCHIVE)/$(HOST_MODULE_INIT_TOOLS_SOURCE):
-	$(WGET) ftp.europeonline.com/pub/linux/utils/kernel/module-init-tools/$(HOST_MODULE_INIT_TOOLS_SOURCE)
+	$(WGET) http://distro.ibiblio.org/fatdog/source/600/m/$(HOST_MODULE_INIT_TOOLS_SOURCE)
 
 $(D)/host_module_init_tools: $(D)/directories $(ARCHIVE)/$(HOST_MODULE_INIT_TOOLS_SOURCE)
 	$(START_BUILD)

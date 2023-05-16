@@ -66,9 +66,6 @@ MODULE_INIT_TOOLS_VER = 3.16
 MODULE_INIT_TOOLS_SOURCE = module-init-tools-$(MODULE_INIT_TOOLS_VER).tar.bz2
 MODULE_INIT_TOOLS_PATCH = module-init-tools-$(MODULE_INIT_TOOLS_VER).patch
 
-#$(ARCHIVE)/$(MODULE_INIT_TOOLS_SOURCE):
-#	$(WGET) ftp.europeonline.com/pub/linux/utils/kernel/module-init-tools/$(MODULE_INIT_TOOLS_SOURCE)
-
 $(D)/module_init_tools: $(D)/bootstrap $(D)/lsb $(ARCHIVE)/$(HOST_MODULE_INIT_TOOLS_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/module-init-tools-$(MODULE_INIT_TOOLS_VER)
@@ -1832,7 +1829,7 @@ $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 	[ -d "$(ARCHIVE)/dvb-apps.git" ] && \
 	(cd $(ARCHIVE)/dvb-apps.git; git pull;); \
 	[ -d "$(ARCHIVE)/dvb-apps.git" ] || \
-	git clone https://github.com/openpli-arm/dvb-apps.git dvb-apps.git $(ARCHIVE)/dvb-apps.git; \
+	git clone https://github.com/openpli-arm/dvb-apps.git $(ARCHIVE)/dvb-apps.git; \
 	cp -ra $(ARCHIVE)/dvb-apps.git $(BUILD_TMP)/dvb-apps
 	$(CHDIR)/dvb-apps; \
 		$(call apply_patches,$(DVB_APPS_PATCH)); \

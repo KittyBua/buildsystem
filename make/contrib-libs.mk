@@ -1797,7 +1797,7 @@ endif
 LIBUSB_PATCH += libusb-$(LIBUSB_VER)-automake-version.patch
 
 $(ARCHIVE)/$(LIBUSB_SOURCE):
-	$(WGET) https://sourceforge.net/projects/libusb/files/libusb-$(LIBUSB_VER_MAJOR)/libusb-$(LIBUSB_VER)/$(LIBUSB_SOURCE)
+	$(WGET) https://github.com//libusb/libusb/releases/download/v$(LIBUSB_VER)/libusb-$(LIBUSB_VER).tar.bz2
 
 $(D)/libusb: $(D)/bootstrap $(ARCHIVE)/$(LIBUSB_SOURCE)
 	$(START_BUILD)
