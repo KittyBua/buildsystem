@@ -42,9 +42,6 @@ MTD_UTILS_SOURCE = mtd-utils-$(MTD_UTILS_VER).tar.bz2
 MTD_UTILS_PATCH = host-mtd-utils-$(MTD_UTILS_VER).patch
 MTD_UTILS_PATCH += host-mtd-utils-$(MTD_UTILS_VER)-sysmacros.patch
 
-#$(ARCHIVE)/$(MTD_UTILS_SOURCE):
-#	$(WGET) ftp://ftp.infradead.org/pub/mtd-utils/$(MTD_UTILS_SOURCE)
-
 $(D)/mtd_utils: $(D)/bootstrap $(D)/zlib $(D)/lzo $(D)/e2fsprogs $(ARCHIVE)/$(HOST_MTD_UTILS_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/mtd-utils-$(MTD_UTILS_VER)
@@ -321,9 +318,6 @@ else
 E2FSPROGS_ARGS = --disable-resizer
 endif
 
-#$(ARCHIVE)/$(E2FSPROGS_SOURCE):
-#	$(WGET) https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v$(E2FSPROGS_VER)/$(E2FSPROGS_SOURCE)
-
 $(D)/e2fsprogs: $(D)/bootstrap $(D)/util_linux $(ARCHIVE)/$(HOST_E2FSPROGS_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/e2fsprogs-$(E2FSPROGS_VER)
@@ -494,13 +488,6 @@ $(D)/gptfdisk: $(D)/bootstrap $(D)/e2fsprogs $(D)/ncurses $(D)/libpopt $(ARCHIVE
 #
 # parted
 #
-#PARTED_VER = 3.2
-#PARTED_SOURCE = parted-$(PARTED_VER).tar.xz
-#PARTED_PATCH = parted-$(PARTED_VER)-device-mapper.patch
-
-#$(ARCHIVE)/$(PARTED_SOURCE):
-#	$(WGET) https://ftp.gnu.org/gnu/parted/$(PARTED_SOURCE)
-
 $(D)/parted: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(HOST_PARTED_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/parted-$(HOST_PARTED_VER)
