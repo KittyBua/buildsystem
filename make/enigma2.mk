@@ -68,10 +68,10 @@ endif
 
 ENIGMA2_CONFIG_OPTS += PYTHON_CPPFLAGS="-I$(TARGET_DIR)/usr/include/python2.7" PYTHON_LIBS="-L$(TARGET_DIR)/usr/lib -lpython2.7" PYTHON_SITE_PKG="$(TARGET_DIR)/usr/lib/python2.7/site-packages"
 
-ENIGMA2_PATCHES = enigma2-openhdf.patch
+ENIGMA2 = enigma2-openhdf
 ENIGMA2_URL = https://github.com/openhdf/enigma2.git
 ENIGMA2_BRANCH = master
-ENIGMA2 = enigma2-openhdf
+ENIGMA2_PATCHES = enigma2-openhdf.patch
 
 #
 # enigma2
