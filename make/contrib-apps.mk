@@ -1805,7 +1805,7 @@ $(D)/ofgwrite: $(D)/bootstrap $(ARCHIVE)/$(OFGWRITE_SOURCE)
 	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] && \
 	(cd $(ARCHIVE)/ofgwrite-ddt.git; git pull;); \
 	[ -d "$(ARCHIVE)/ofgwrite-ddt.git" ] || \
-	git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git ofgwrite-ddt.git $(ARCHIVE)/ofgwrite-ddt.git; \
+	git clone https://github.com/Duckbox-Developers/ofgwrite-ddt.git $(ARCHIVE)/ofgwrite-ddt.git; \
 	cp -ra $(ARCHIVE)/ofgwrite-ddt.git $(BUILD_TMP)/ofgwrite-ddt
 	$(CHDIR)/ofgwrite-ddt; \
 		$(call apply_patches,$(OFGWRITE_PATCH)); \
