@@ -494,19 +494,19 @@ $(D)/gptfdisk: $(D)/bootstrap $(D)/e2fsprogs $(D)/ncurses $(D)/libpopt $(ARCHIVE
 #
 # parted
 #
-PARTED_VER = 3.2
-PARTED_SOURCE = parted-$(PARTED_VER).tar.xz
-PARTED_PATCH = parted-$(PARTED_VER)-device-mapper.patch
+#PARTED_VER = 3.2
+#PARTED_SOURCE = parted-$(PARTED_VER).tar.xz
+#PARTED_PATCH = parted-$(PARTED_VER)-device-mapper.patch
 
-$(ARCHIVE)/$(PARTED_SOURCE):
-	$(WGET) https://ftp.gnu.org/gnu/parted/$(PARTED_SOURCE)
+#$(ARCHIVE)/$(PARTED_SOURCE):
+#	$(WGET) https://ftp.gnu.org/gnu/parted/$(PARTED_SOURCE)
 
-$(D)/parted: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(PARTED_SOURCE)
+$(D)/parted: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(HOST_PARTED_SOURCE)
 	$(START_BUILD)
-	$(REMOVE)/parted-$(PARTED_VER)
-	$(UNTAR)/$(PARTED_SOURCE)
-	$(CHDIR)/parted-$(PARTED_VER); \
-		$(call apply_patches, $(PARTED_PATCH)); \
+	$(REMOVE)/parted-$(HOST_PARTED_VER)
+	$(UNTAR)/$(HOST_PARTED_SOURCE)
+	$(CHDIR)/parted-$(HOST_PARTED_VER); \
+		$(call apply_patches, $(HOST_PARTED_PATCH)); \
 		$(CONFIGURE) \
 			--target=$(TARGET) \
 			--prefix=/usr \
@@ -524,7 +524,7 @@ $(D)/parted: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(PARTED_SOURCE)
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libparted.pc
 	$(REWRITE_LIBTOOL)/libparted.la
 	$(REWRITE_LIBTOOL)/libparted-fs-resize.la
-	$(REMOVE)/parted-$(PARTED_VER)
+	$(REMOVE)/parted-$(HOST_PARTED_VER)
 	$(TOUCH)
 
 #

@@ -212,6 +212,29 @@ $(D)/host_resize2fs: $(D)/directories $(ARCHIVE)/$(HOST_E2FSPROGS_SOURCE)
 	$(TOUCH)
 
 #
+# host_parted
+#
+HOST_PARTED_VER = $(PARTED_VER)
+HOST_PARTED_SOURCE = $(PARTED_SOURCE)
+HOST_PARTED_PATCH = $(PARTED_PATCH)
+
+$(D)/host_parted: $(D)/directories $(ARCHIVE)/$(HOST_PARTED_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/parted-$(HOST_PARTED_VER)
+	$(UNTAR)/$(HOST_PARTED_SOURCE)
+	$(CHDIR)/parted-$(HOST_PARTED_VER); \
+		$(call apply_patches,$(HOST_PARTED_PATCH)); \
+		./configure \
+			--prefix=$(HOST_DIR) \
+			--sbindir=$(HOST_DIR)/bin \
+			--disable-device-mapper \
+			--without-readline \
+		; \
+		$(MAKE) install
+	$(REMOVE)/parted-$(HOST_PARTED_VER)
+	$(TOUCH)
+	
+#
 # cortex-strings
 #
 CORTEX_STRINGS_VER = 48fd30c
@@ -239,6 +262,41 @@ $(D)/cortex_strings: $(D)/directories $(ARCHIVE)/$(CORTEX_STRINGS_SOURCE)
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(REWRITE_LIBTOOL)/libcortex-strings.la
 	$(REMOVE)/cortex-strings-git-$(CORTEX_STRINGS_VER)
+	$(TOUCH)
+	
+#
+# host dm buildimage
+#
+BUILDIMAGE_PATCH = buildimage.patch
+
+$(D)/buildimage: $(D)/bootstrap $(ARCHIVE)/$(BUILDIMAGE_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/buildimage
+	set -e; if [ -d $(ARCHIVE)/buildimage.git ]; \
+		then cd $(ARCHIVE)/buildimage.git; git pull; \
+		else cd $(ARCHIVE); git clone git://git.opendreambox.org/git/buildimage.git buildimage.git; \
+		fi
+	cp -ra $(ARCHIVE)/buildimage.git $(BUILD_TMP)/buildimage
+	$(CHDIR)/buildimage; \
+		$(call apply_patches,$(BUILDIMAGE_PATCH)); \
+		autoreconf -fi; \
+		./configure; \
+		$(MAKE); \
+	install -m 755 $(BUILD_TMP)/buildimage/src/buildimage $(HOST_DIR)/bin
+	$(REMOVE)/buildimage
+	$(TOUCH)
+
+#
+# dm8000 second stage loader #84
+#
+DM8000_2ND_SOURCE = secondstage-dm8000-84.bin
+DM8000_2ND_URL = http://sources.dreamboxupdate.com/download/7020/$(DM8000_2ND_SOURCE)
+
+$(ARCHIVE)/$(DM8000_2ND_SOURCE):
+	$(DOWNLOAD) $(DM8000_2ND_URL)
+
+$(D)/dm8000_2nd: $(ARCHIVE)/$(DM8000_2ND_SOURCE)
+	$(START_BUILD)
 	$(TOUCH)
 
 #
@@ -290,17 +348,17 @@ BOOTSTRAP += $(D)/ccache
 BOOTSTRAP += $(CROSSTOOL)
 BOOTSTRAP += $(TARGET_DIR)/lib/libc.so.6
 BOOTSTRAP += $(D)/host_pkgconfig
+ifeq ($(BOXARCH), sh4)
 BOOTSTRAP += $(D)/host_mtd_utils
 BOOTSTRAP += $(D)/host_module_init_tools
-ifeq ($(BOXARCH), sh4)
 BOOTSTRAP += $(D)/host_mkcramfs
 BOOTSTRAP += $(D)/host_mksquashfs_lzma
 BOOTSTRAP += host_u_boot_tools
 endif
 ifeq ($(BOXARCH), arm)
 BOOTSTRAP += $(D)/host_resize2fs
-BOOTSTRAP += $(D)/cortex_strings
-BOOTSTRAP += $(D)/host_atools
+#BOOTSTRAP += $(D)/cortex_strings
+#BOOTSTRAP += $(D)/host_atools
 endif
 
 $(D)/bootstrap: $(BOOTSTRAP)
