@@ -1826,6 +1826,11 @@ $(D)/dvb-apps: $(D)/bootstrap $(ARCHIVE)/$(DVB_APPS_SOURCE)
 	$(REMOVE)/dvb-apps
 	$(TOUCH)	
 
+#
+# ministaip
+#
+MINISATIP_PATCH = 
+
 $(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATIP_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/minisatip
@@ -1834,7 +1839,7 @@ $(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATI
 	(cd $(ARCHIVE)/minisatip.git; git pull;); \
 	[ -d "$(ARCHIVE)/minisatip.git" ] || \
 	git clone https://github.com/catalinii/minisatip.git $(ARCHIVE)/minisatip.git; \
-	cp -ra $(ARCHIVE)/minisatip $(BUILD_TMP)/minisatip
+	cp -ra $(ARCHIVE)/minisatip.git $(BUILD_TMP)/minisatip
 	$(CHDIR)/minisatip; \
 		$(call apply_patches,$(MINISATIP_PATCH)); \
 		$(BUILDENV) \

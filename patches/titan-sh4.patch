@@ -43,6 +43,20 @@ diff -Nur titan.svn/configure.ac titan.svn.patched/configure.ac
  AC_MSG_RESULT([
  summary:
  ----------------------------------------
+diff -Nur titan.svn/libdreamdvd/Makefile.am titan.svn.patched/libdreamdvd/Makefile.am
+--- titan.svn/libdreamdvd/Makefile.am	2022-06-27 22:22:53.877965000 +0200
++++ titan.svn.patched/libdreamdvd/Makefile.am	2023-05-18 15:42:11.948528767 +0200
+@@ -14,8 +14,8 @@
+ 
+ libdreamdvd_la_LDFLAGS = -ldvdnav
+ 
+-pkgincludedir = /usr/${includedir}/dreamdvd
++pkgincludedir = ${includedir}/dreamdvd
+ pkginclude_HEADERS = ddvdlib.h
+ 
+-pkgconfigdir = /usr/${libdir}/pkgconfig
++pkgconfigdir = ${libdir}/pkgconfig
+ pkgconfig_DATA = libdreamdvd.pc
 diff -Nur titan.svn/Makefile.am titan.svn.patched/Makefile.am
 --- titan.svn/Makefile.am	2022-06-27 22:22:53.917965000 +0200
 +++ titan.svn.patched/Makefile.am	2023-05-06 14:32:09.001581995 +0200
