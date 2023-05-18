@@ -6,6 +6,7 @@ OUTDIR=$3
 TMPROOTDIR=$4
 TMPKERNELDIR=$5
 FLAVOUR=$6
+DATETIME=_`date +%d.%m.%Y-%H.%M`
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -24,10 +25,8 @@ elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
 	BOXTYPE=`cat $TMPROOTDIR/var/etc/hostname`
 fi
 
-#. $CURDIR/../common/gitversion.sh $CURDIR $BOXTYPE
-gitversion="_$FLAVOUR$DATETIME"
-
-OUTFILE=$OUTDIR/$BOXTYPE$gitversion
+#
+OUTFILE=$OUTDIR/$BOXTYPE$FLAVOUR$DATETIME
 
 if [ ! -e $OUTDIR ]; then
 	mkdir $OUTDIR

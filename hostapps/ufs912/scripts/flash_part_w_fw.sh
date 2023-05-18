@@ -7,6 +7,7 @@ TMPROOTDIR=$4
 TMPKERNELDIR=$5
 TMPFWDIR=$6
 FLAVOUR=$7
+DATETIME=_`date +%d.%m.%Y-%H.%M`
 
 CREATEMULTI=$8
 
@@ -27,11 +28,9 @@ elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
 	BOXTYPE=`cat $TMPROOTDIR/var/etc/hostname`
 fi
 
-#. $CURDIR/../common/gitversion.sh $CURDIR $BOXTYPE
-gitversion="_$FLAVOUR$DATETIME"
-
+#
 OUTFILE=$OUTDIR/update_w_fw.img
-OUTFILE_Z=$OUTDIR/$BOXTYPE$gitversion
+OUTFILE_Z=$OUTDIR/$BOXTYPE$FLAVOUR$DATETIME
 
 if [ ! -e $OUTDIR ]; then
 	mkdir $OUTDIR

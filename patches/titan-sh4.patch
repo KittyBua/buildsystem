@@ -822,7 +822,7 @@ diff -Nur titan.svn/titan/header.h titan.svn.patched/titan/header.h
  // ca.h
 diff -Nur titan.svn/titan/Makefile.am titan.svn.patched/titan/Makefile.am
 --- titan.svn/titan/Makefile.am	2022-06-27 22:22:39.690124000 +0200
-+++ titan.svn.patched/titan/Makefile.am	2023-05-13 22:52:48.908792919 +0200
++++ titan.svn.patched/titan/Makefile.am	2023-05-18 17:35:16.526714697 +0200
 @@ -1,18 +1,17 @@
 -ALL_CFLAGS= -DSH4 -DEXTEPLAYER3 -DEPLAYER3 -DSH4 -DDVDPLAYER -Os -export-dynamic -Wall -Wno-unused-but-set-variable
 -
@@ -922,7 +922,7 @@ diff -Nur titan.svn/titan/security.h titan.svn.patched/titan/security.h
  		boxversion = status.boxtype;
 diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
 --- titan.svn/titan/titan.c	2023-05-04 21:46:27.520214158 +0200
-+++ titan.svn.patched/titan/titan.c	2023-05-13 22:38:56.423471686 +0200
++++ titan.svn.patched/titan/titan.c	2023-05-18 17:32:59.305146182 +0200
 @@ -272,8 +272,10 @@
  #include "settings_overclocking.h"
  #include "settings_pluginbutton.h"
@@ -934,7 +934,24 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  #include "settings_mediabutton.h"
  #include "oled.h"
  #ifdef MIPSEL
-@@ -706,7 +708,7 @@
+@@ -282,6 +284,8 @@
+ #endif
+ 
+ #define TIMECODE "1667234340"
++
++#ifdef MIPSEL
+ #if !defined(HAVE_HISILICON_ACCEL)
+ // mipsel start
+ /* Apparently, surfaces must be 64-byte aligned */
+@@ -293,6 +297,7 @@
+ //gAccel *gAccel::instance;
+ #define BCM_ACCEL
+ #endif
++#endif
+ 
+ #ifdef HAVE_HISILICON_ACCEL 
+ extern int  dinobot_accel_init(void);
+@@ -706,7 +711,7 @@
  	}
  
  	//setze groesse Framebuffer
@@ -943,7 +960,7 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  		setframebuffer(1280, 720, 1280, 1440, 32);
  	if(frameb1 == 1)
  	{
-@@ -922,14 +924,14 @@
+@@ -922,14 +927,14 @@
  	setlang(getconfig("lang", NULL));
  	initlocale(getconfig("localepath", NULL));
  
@@ -960,7 +977,7 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  
  	fb = openfb(getconfig("fbdev", NULL), 0);
  	if(fb == NULL)
-@@ -947,7 +949,7 @@
+@@ -947,7 +952,7 @@
  
  #ifdef MIPSEL
  	waitvsync();
@@ -969,7 +986,7 @@ diff -Nur titan.svn/titan/titan.c titan.svn.patched/titan/titan.c
  		setfbosd();
  	if(checkrealbox("HD51") == 1 || checkrealbox("HD60") == 1 || checkrealbox("HD61") == 1 || checkbox("SF4008") == 1 || checkchipset("HI3798MV200") == 1)
  	{
-@@ -984,14 +986,24 @@
+@@ -984,14 +989,24 @@
  		printf("[titan.c] fbsize = %i\n", ret);
  		if(ret > 0 && status.bcm == 1) 
  		{

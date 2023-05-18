@@ -8,6 +8,11 @@ TMPKERNELDIR=$5
 TMPVARDIR=$6
 FLAVOUR=$7
 DATETIME=_`date +%d.%m.%Y-%H.%M`
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	BOXTYPE=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPVARDIR/etc/hostname ]; then
+	BOXTYPE=`cat $TMPVARDIR/etc/hostname`
+fi
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -15,23 +20,18 @@ echo "OUTDIR       = $OUTDIR"
 echo "TMPROOTDIR   = $TMPROOTDIR"
 echo "TMPKERNELDIR = $TMPKERNELDIR"
 echo "TMPVARDIR    = $TMPVARDIR"
+echo "FLAVOUR      = $FLAVOUR"
+echo "DATETIME     = $DATETIME"
+echo "BOXTYPE      = $BOXTYPE"
 
 MKSQUASHFS=$TUFSBOXDIR/host/bin/mksquashfs
 MKFSJFFS2=$TUFSBOXDIR/host/bin/mkfs.jffs2
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$TUFSBOXDIR/host/bin/pad
 
-if [ -f $TMPROOTDIR/etc/hostname ]; then
-	BOXTYPE=`cat $TMPROOTDIR/etc/hostname`
-elif [ -f $TMPVARDIR/etc/hostname ]; then
-	BOXTYPE=`cat $TMPVARDIR/etc/hostname`
-fi
-
-#. $CURDIR/../common/gitversion.sh $CURDIR $BOXTYPE
-gitversion="_$FLAVOUR$DATETIME"
-
+#
 OUTFILE=$OUTDIR/miniFLASH.img
-OUTFILE_Z=$OUTDIR/$BOXTYPE$gitversion
+OUTFILE_Z=$OUTDIR/$BOXTYPE$FLAVOUR$DATETIME
 
 if [ ! -e $OUTDIR ]; then
 	mkdir $OUTDIR
