@@ -343,5 +343,3 @@ flash-image-osmio4kplus-online:
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
-
-

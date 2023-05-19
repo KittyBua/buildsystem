@@ -337,4 +337,3 @@ flash-image-$(BOXTYPE)-online:
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
-
