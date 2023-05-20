@@ -28,6 +28,9 @@ ENIGMA2_DEPS += $(D)/sdparm
 ENIGMA2_DEPS += $(D)/parted 
 endif
 
+ENIGMA2_CPPFLAGS =
+ENIGMA2_CONFIG_OPTS = 
+
 ifeq ($(GSTREAMER), gstreamer)
 ENIGMA2_DEPS  += $(D)/gstreamer 
 ENIGMA2_DEPS  += $(D)/gst_plugins_base 
@@ -42,8 +45,6 @@ ENIGMA2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.
 ENIGMA2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
 ENIGMA2_CONFIG_OPTS += --enable-gstreamer --with-gstversion=1.0
 endif
-
-ENIGMA2_CONFIG_OPTS =
 
 ifeq ($(GRAPHLCD), graphlcd)
 ENIGMA2_DEPS += $(D)/graphlcd

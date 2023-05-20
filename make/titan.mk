@@ -15,6 +15,8 @@ TITAN_DEPS += $(D)/tools-libmme_host
 TITAN_DEPS += $(D)/tools-libmme_image
 endif
 
+TITAN_CONFIG_OPTS =
+
 ifeq ($(GRAPHLCD), graphlcd)
 TITAN_DEPS += $(D)/graphlcd
 TITAN_CONFIG_OPTS += --with-graphlcd
@@ -29,7 +31,7 @@ ifeq ($(BOXARCH), sh4)
 TITAN_CONFIG_OPTS += --enable-multicom324
 endif
 
-TITAN_CPPFLAGS   += -DDVDPLAYER
+TITAN_CPPFLAGS   = -DDVDPLAYER
 TITAN_CPPFLAGS   += -Wno-unused-but-set-variable
 
 ifeq ($(BOXARCH), sh4)
