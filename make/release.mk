@@ -9,10 +9,8 @@ RELEASE_DEPS += $(D)/util_linux
 RELEASE_DEPS += $(D)/e2fsprogs
 RELEASE_DEPS += $(D)/hdidle
 RELEASE_DEPS += $(D)/portmap
-ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
 RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
-endif
 RELEASE_DEPS += $(D)/vsftpd
 RELEASE_DEPS += $(D)/autofs
 RELEASE_DEPS += $(D)/udpxy
@@ -21,18 +19,10 @@ ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), atevio7500 spark spark7162 ufs912 ufs913))
-	RELEASE_DEPS += $(D)/ntfs_3g
-ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910))
-	RELEASE_DEPS += $(D)/mtd_utils 
-	RELEASE_DEPS += $(D)/gptfdisk
-endif
-endif
-ifeq ($(BOXARCH), arm)
-	RELEASE_DEPS += $(D)/ntfs_3g 
-	RELEASE_DEPS += $(D)/gptfdisk
-	RELEASE_DEPS += $(D)/mc 
-endif
+RELEASE_DEPS += $(D)/ntfs_3g
+RELEASE_DEPS += $(D)/mtd_utils 
+RELEASE_DEPS += $(D)/gptfdisk
+RELEASE_DEPS += $(D)/opkg
 
 #
 # tools

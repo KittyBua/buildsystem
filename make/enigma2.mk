@@ -2,7 +2,6 @@
 # ENIGMA2
 #
 ENIGMA2_DEPS  = $(D)/bootstrap
-ENIGMA2_DEPS += $(D)/opkg
 ENIGMA2_DEPS += $(D)/ncurses
 ENIGMA2_DEPS += $(D)/libpng
 ENIGMA2_DEPS += $(D)/libjpeg
