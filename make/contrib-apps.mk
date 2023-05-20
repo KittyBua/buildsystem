@@ -114,90 +114,7 @@ endif
 	$(TOUCH)
 
 #
-# gdb-remote
-#
-GDB_VER = 7.8
-GDB_SOURCE = gdb-$(GDB_VER).tar.xz
-GDB_PATCH = gdb-$(GDB_VER)-remove-builddate.patch
-
-$(ARCHIVE)/$(GDB_SOURCE):
-	$(WGET) ftp://sourceware.org/pub/gdb/releases/$(GDB_SOURCE)
-
-# gdb-remote built for local-PC or target
-$(D)/gdb-remote: $(ARCHIVE)/$(GDB_SOURCE)
-	$(START_BUILD)
-	$(REMOVE)/gdb-$(GDB_VER)
-	$(UNTAR)/$(GDB_SOURCE)
-	$(CHDIR)/gdb-$(GDB_VER); \
-		./configure \
-			--nfp --disable-werror \
-			--prefix=$(HOST_DIR) \
-			--build=$(BUILD) \
-			--host=$(BUILD) \
-			--target=$(TARGET) \
-		; \
-		$(MAKE) all-gdb; \
-		$(MAKE) install-gdb
-	$(REMOVE)/gdb-$(GDB_VER)
-	$(TOUCH)
-
-#
-# gdb
-#
-# gdb built for target or local-PC
-$(D)/gdb: $(D)/bootstrap $(D)/ncurses $(D)/zlib $(ARCHIVE)/$(GDB_SOURCE)
-	$(START_BUILD)
-	$(REMOVE)/gdb-$(GDB_VER)
-	$(UNTAR)/$(GDB_SOURCE)
-	$(CHDIR)/gdb-$(GDB_VER); \
-		$(call apply_patches, $(GDB_PATCH)); \
-		./configure \
-			--host=$(BUILD) \
-			--build=$(BUILD) \
-			--target=$(TARGET) \
-			--prefix=/usr \
-			--includedir=$(TARGET_DIR)/usr/include \
-			--mandir=$(TARGET_DIR)/.remove \
-			--infodir=$(TARGET_DIR)/.remove \
-			--datarootdir=$(TARGET_DIR)/.remove \
-			--nfp \
-			--disable-werror \
-		; \
-		$(MAKE) all-gdb; \
-		$(MAKE) install-gdb prefix=$(TARGET_DIR)
-	$(REMOVE)/gdb-$(GDB_VER)
-	$(TOUCH)
-
-#
-# valgrind
-#
-VALGRIND_VER = 3.13.0
-VALGRIND_SOURCE = valgrind-$(VALGRIND_VER).tar.bz2
-
-$(ARCHIVE)/$(VALGRIND_SOURCE):
-	$(WGET) ftp://sourceware.org/pub/valgrind/$(VALGRIND_SOURCE)
-
-$(D)/valgrind: $(D)/bootstrap $(ARCHIVE)/$(VALGRIND_SOURCE)
-	$(START_BUILD)
-	$(REMOVE)/valgrind-$(VALGRIND_VER)
-	$(UNTAR)/$(VALGRIND_SOURCE)
-	$(CHDIR)/valgrind-$(VALGRIND_VER); \
-		$(CONFIGURE) \
-			--prefix=/usr \
-			--mandir=/.remove \
-			--datadir=/.remove \
-			-enable-only32bit \
-		; \
-		$(MAKE); \
-		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	rm -f $(addprefix $(TARGET_DIR)/usr/lib/valgrind/,*.a *.xml)
-	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,cg_* callgrind_* ms_print)
-	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/valgrind.pc
-	$(REMOVE)/valgrind-$(VALGRIND_VER)
-	$(TOUCH)
-
-#
-# host_opkg
+# opkg
 #
 OPKG_VER = 0.3.3
 OPKG_SOURCE = opkg-$(OPKG_VER).tar.gz
@@ -206,31 +123,8 @@ OPKG_HOST_PATCH = opkg-$(OPKG_VER).patch
 
 $(ARCHIVE)/$(OPKG_SOURCE):
 	$(WGET) https://git.yoctoproject.org/cgit/cgit.cgi/opkg/snapshot/$(OPKG_SOURCE)
-
-$(D)/host_opkg: directories $(D)/host_libarchive $(ARCHIVE)/$(OPKG_SOURCE)
-	$(START_BUILD)
-	$(REMOVE)/opkg-$(OPKG_VER)
-	$(UNTAR)/$(OPKG_SOURCE)
-	$(CHDIR)/opkg-$(OPKG_VER); \
-		$(call apply_patches, $(OPKG_HOST_PATCH)); \
-		./autogen.sh $(SILENT_OPT); \
-		CFLAGS="-I$(HOST_DIR)/include" \
-		LDFLAGS="-L$(HOST_DIR)/lib" \
-		./configure $(SILENT_OPT) \
-			PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig \
-			--prefix= \
-			--disable-curl \
-			--disable-gpg \
-		; \
-		$(MAKE) all; \
-		$(MAKE) install DESTDIR=$(HOST_DIR)
-	$(REMOVE)/opkg-$(OPKG_VER)
-	$(TOUCH)
-
-#
-# opkg
-#
-$(D)/opkg: $(D)/bootstrap $(D)/host_opkg $(D)/libarchive $(ARCHIVE)/$(OPKG_SOURCE)
+	
+$(D)/opkg: $(D)/bootstrap $(D)/libarchive $(ARCHIVE)/$(OPKG_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/opkg-$(OPKG_VER)
 	$(UNTAR)/$(OPKG_SOURCE)
@@ -1883,5 +1777,117 @@ $(D)/xupnpd: $(D)/bootstrap $(D)/openssl
 	install -m 755 $(SKEL_ROOT)/etc/init.d/xupnpd $(TARGET_DIR)/etc/init.d/
 	mkdir -p $(TARGET_DIR)/usr/share/xupnpd/config
 	$(REMOVE)/xupnpd
+	$(TOUCH)
+
+#
+# dev-apps
+#
+#
+# gdb-remote
+#
+GDB_VER = 7.8
+GDB_SOURCE = gdb-$(GDB_VER).tar.xz
+GDB_PATCH = gdb-$(GDB_VER)-remove-builddate.patch
+
+$(ARCHIVE)/$(GDB_SOURCE):
+	$(WGET) ftp://sourceware.org/pub/gdb/releases/$(GDB_SOURCE)
+
+# gdb-remote built for local-PC or target
+$(D)/gdb-remote: $(ARCHIVE)/$(GDB_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/gdb-$(GDB_VER)
+	$(UNTAR)/$(GDB_SOURCE)
+	$(CHDIR)/gdb-$(GDB_VER); \
+		./configure \
+			--nfp --disable-werror \
+			--prefix=$(HOST_DIR) \
+			--build=$(BUILD) \
+			--host=$(BUILD) \
+			--target=$(TARGET) \
+		; \
+		$(MAKE) all-gdb; \
+		$(MAKE) install-gdb
+	$(REMOVE)/gdb-$(GDB_VER)
+	$(TOUCH)
+
+#
+# gdb
+#
+# gdb built for target or local-PC
+$(D)/gdb: $(D)/bootstrap $(D)/ncurses $(D)/zlib $(ARCHIVE)/$(GDB_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/gdb-$(GDB_VER)
+	$(UNTAR)/$(GDB_SOURCE)
+	$(CHDIR)/gdb-$(GDB_VER); \
+		$(call apply_patches, $(GDB_PATCH)); \
+		./configure \
+			--host=$(BUILD) \
+			--build=$(BUILD) \
+			--target=$(TARGET) \
+			--prefix=/usr \
+			--includedir=$(TARGET_DIR)/usr/include \
+			--mandir=$(TARGET_DIR)/.remove \
+			--infodir=$(TARGET_DIR)/.remove \
+			--datarootdir=$(TARGET_DIR)/.remove \
+			--nfp \
+			--disable-werror \
+		; \
+		$(MAKE) all-gdb; \
+		$(MAKE) install-gdb prefix=$(TARGET_DIR)
+	$(REMOVE)/gdb-$(GDB_VER)
+	$(TOUCH)
+
+#
+# valgrind
+#
+VALGRIND_VER = 3.13.0
+VALGRIND_SOURCE = valgrind-$(VALGRIND_VER).tar.bz2
+
+$(ARCHIVE)/$(VALGRIND_SOURCE):
+	$(WGET) ftp://sourceware.org/pub/valgrind/$(VALGRIND_SOURCE)
+
+$(D)/valgrind: $(D)/bootstrap $(ARCHIVE)/$(VALGRIND_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/valgrind-$(VALGRIND_VER)
+	$(UNTAR)/$(VALGRIND_SOURCE)
+	$(CHDIR)/valgrind-$(VALGRIND_VER); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--mandir=/.remove \
+			--datadir=/.remove \
+			-enable-only32bit \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(TARGET_DIR)
+	rm -f $(addprefix $(TARGET_DIR)/usr/lib/valgrind/,*.a *.xml)
+	rm -f $(addprefix $(TARGET_DIR)/usr/bin/,cg_* callgrind_* ms_print)
+	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/valgrind.pc
+	$(REMOVE)/valgrind-$(VALGRIND_VER)
+	$(TOUCH)
+	
+#
+# host-apps
+#
+#
+# host_opkg
+#
+$(D)/host_opkg: directories $(D)/host_libarchive $(ARCHIVE)/$(OPKG_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/opkg-$(OPKG_VER)
+	$(UNTAR)/$(OPKG_SOURCE)
+	$(CHDIR)/opkg-$(OPKG_VER); \
+		$(call apply_patches, $(OPKG_HOST_PATCH)); \
+		./autogen.sh $(SILENT_OPT); \
+		CFLAGS="-I$(HOST_DIR)/include" \
+		LDFLAGS="-L$(HOST_DIR)/lib" \
+		./configure $(SILENT_OPT) \
+			PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig \
+			--prefix= \
+			--disable-curl \
+			--disable-gpg \
+		; \
+		$(MAKE) all; \
+		$(MAKE) install DESTDIR=$(HOST_DIR)
+	$(REMOVE)/opkg-$(OPKG_VER)
 	$(TOUCH)
 
