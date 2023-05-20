@@ -468,7 +468,6 @@ ifeq ($(PYTHON), python)
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
 endif
 ifeq ($(BOXARCH), sh4)
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2
 	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
@@ -489,18 +488,12 @@ endif
 	rm -f $(RELEASE_DIR)/usr/bin/easy_install*
 	rm -f $(RELEASE_DIR)/usr/bin/glib-*
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,dvdnav-config gio-querymodules gobject-query gtester gtester-report)
-	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole opkg-check-config opkg-cl)
+	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole)
 	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
 	rm -rf $(RELEASE_DIR)/usr/lib/gcc
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
-	rm -rf $(RELEASE_DIR)/usr/share/enigma2/po/*
 	rm -f $(RELEASE_DIR)/usr/share/meta/*
-	rm -f $(RELEASE_DIR)/usr/share/enigma2/black.mvi
-	rm -f $(RELEASE_DIR)/usr/share/enigma2/hd-testcard.mvi
-	rm -f $(RELEASE_DIR)/usr/share/enigma2/otv_*
-	rm -f $(RELEASE_DIR)/usr/share/enigma2/keymap.u80
-	rm -f $(RELEASE_DIR)/usr/bin/enigma2.sh
 	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -f $(RELEASE_DIR)/lib/libSegFault*
 	rm -f $(RELEASE_DIR)/lib/libstdc++.*-gdb.py
@@ -515,17 +508,11 @@ endif
 	rm -f $(RELEASE_DIR)/usr/lib/libfontconfig*
 	rm -f $(RELEASE_DIR)/usr/lib/libthread_db*
 	rm -f $(RELEASE_DIR)/usr/lib/libanl*
-	rm -f $(RELEASE_DIR)/usr/lib/libopkg*
 	rm -f $(RELEASE_DIR)/sbin/ldconfig
 	rm -f $(RELEASE_DIR)/usr/bin/{gdbus-codegen,glib-*,gtester-report}
-	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/services.xml
-	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/bouquets.xml
-	rm -f $(RELEASE_DIR)/var/tuxbox/config/zapit/ubouquets.xml
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/DVDBurn
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/TuxboxPlugins
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaScanner
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/MediaPlayer
-	rm -rf $(RELEASE_DIR)/usr/lib/enigma2/python/Plugins/Extensions/
+#
+#
+#
 	ln -s /tmp $(RELEASE_DIR)/var/lock
 	ln -s /tmp $(RELEASE_DIR)/var/log
 	ln -s /tmp $(RELEASE_DIR)/var/run

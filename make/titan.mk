@@ -288,7 +288,7 @@ release-titan: release-common release-$(BOXTYPE) $(D)/titan
 	cp $(SKEL_ROOT)/var/etc/titan/transponder $(RELEASE_DIR)/var/etc/titan/transponder
 	cp $(SKEL_ROOT)/var/etc/titan/provider $(RELEASE_DIR)/var/etc/titan/provider
 	cp -af $(SKEL_ROOT)/usr/share/fonts $(RELEASE_DIR)/var/usr/share
-	cp -aR $(SOURCE_DIR)/titan/skins/default $(RELEASE_DIR)/var/usr/local/share/titan/skin
+	cp -aR $(SOURCE_DIR)/titan/skins/* $(RELEASE_DIR)/var/usr/local/share/titan/skin/
 	cp -aR $(SOURCE_DIR)/titan/web $(RELEASE_DIR)/var/usr/local/share/titan	
 #
 # po
