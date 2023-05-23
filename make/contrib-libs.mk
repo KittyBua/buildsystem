@@ -1207,6 +1207,7 @@ $(D)/expat: $(D)/bootstrap $(ARCHIVE)/$(EXPAT_SOURCE)
 			--mandir=/.remove \
 			--bindir=/.remove \
 			--without-xmlwf \
+			--without-docbook \
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
