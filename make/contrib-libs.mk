@@ -89,7 +89,7 @@ $(D)/host_libffi: $(ARCHIVE)/$(LIBFFI_SOURCE)
 	$(REMOVE)/libffi-$(LIBFFI_VER)
 	$(UNTAR)/$(LIBFFI_SOURCE)
 	$(CHDIR)/libffi-$(LIBFFI_VER); \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--prefix=$(HOST_DIR) \
 			--disable-static \
 		; \
@@ -141,7 +141,7 @@ $(D)/host_libglib2_genmarshal: $(D)/bootstrap $(D)/host_libffi $(ARCHIVE)/$(LIBG
 	$(CHDIR)/glib-$(LIBGLIB2_VER); \
 		export PKG_CONFIG=/usr/bin/pkg-config; \
 		export PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig; \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--prefix=`pwd`/out \
 			--enable-static=yes \
 			--enable-shared=no \
@@ -175,7 +175,7 @@ $(D)/libglib2: $(D)/bootstrap $(D)/zlib $(D)/host_libglib2_genmarshal $(D)/libff
 		echo "glib_cv_uscore=no" >> config.cache; \
 		echo "ac_cv_path_GLIB_GENMARSHAL=$(HOST_DIR)/bin/glib-genmarshal" >> config.cache; \
 		$(call apply_patches, $(LIBGLIB2_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--enable-static \
@@ -262,7 +262,7 @@ $(D)/host_libarchive: $(D)/bootstrap $(ARCHIVE)/$(LIBARCHIVE_SOURCE)
 	$(REMOVE)/libarchive-$(LIBARCHIVE_VER)
 	$(UNTAR)/$(LIBARCHIVE_SOURCE)
 	$(CHDIR)/libarchive-$(LIBARCHIVE_VER); \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(BUILD) \
 			--prefix= \
@@ -355,7 +355,7 @@ $(D)/openssl: $(D)/bootstrap $(ARCHIVE)/$(OPENSSL_SOURCE)
 	$(CHDIR)/openssl-$(OPENSSL_VER); \
 		$(call apply_patches, $(OPENSSL_PATCH)); \
 		$(BUILDENV) \
-		./Configure $(SILENT_OPT) \
+		./Configure \
 			-DL_ENDIAN \
 			shared \
 			no-hw \
@@ -456,7 +456,7 @@ $(D)/zlib: $(D)/bootstrap $(ARCHIVE)/$(ZLIB_SOURCE)
 	$(CHDIR)/zlib-$(ZLIB_VER); \
 		$(call apply_patches, $(ZLIB_Patch)); \
 		CC=$(TARGET)-gcc mandir=$(TARGET_DIR)/.remove CFLAGS="$(TARGET_CFLAGS)" \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--prefix=/usr \
 			--shared \
 			--uname=Linux \
@@ -975,7 +975,7 @@ $(D)/libmad: $(D)/bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
 	$(CHDIR)/libmad-$(LIBMAD_VER); \
 		$(call apply_patches, $(LIBMAD_PATCH)); \
 		touch NEWS AUTHORS ChangeLog; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--disable-debugging \
@@ -1007,7 +1007,7 @@ $(D)/libid3tag: $(D)/bootstrap $(D)/zlib $(ARCHIVE)/$(LIBID3TAG_SOURCE)
 	$(CHDIR)/libid3tag-$(LIBID3TAG_VER); \
 		$(call apply_patches, $(LIBID3TAG_PATCH)); \
 		touch NEWS AUTHORS ChangeLog; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--enable-shared=yes \
@@ -1036,7 +1036,7 @@ $(D)/flac: $(D)/bootstrap $(ARCHIVE)/$(FLAC_SOURCE)
 	$(CHDIR)/flac-$(FLAC_VER); \
 		$(call apply_patches, $(FLAC_PATCH)); \
 		touch NEWS AUTHORS ChangeLog; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -1143,7 +1143,7 @@ $(D)/libvorbisidec: $(D)/bootstrap $(D)/libogg $(ARCHIVE)/$(LIBVORBISIDEC_SOURCE
 		$(call apply_patches, $(LIBVORBISIDEC_PATCH)); \
 		ACLOCAL_FLAGS="-I . -I $(TARGET_DIR)/usr/share/aclocal" \
 		$(BUILDENV) \
-		./autogen.sh $(SILENT_OPT) \
+		./autogen.sh \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
 			--prefix=/usr \
@@ -1466,7 +1466,7 @@ $(D)/libpsl: $(D)/bootstrap $(D)/host_python
 		then cd $(ARCHIVE)/libpsl.git; git pull $(MINUS_Q); \
 		else cd $(ARCHIVE); git clone https://github.com/rockdaboot/libpsl.git libpsl.git; \
 		fi
-	$(SILENT)cp -ra $(ARCHIVE)/libpsl.git $(BUILD_TMP)/libpsl
+	cp -ra $(ARCHIVE)/libpsl.git $(BUILD_TMP)/libpsl
 	$(CHDIR)/libpsl; \
 		$(call apply_patches, $(LIBPSL_PATCH)); \
 		$(BUILDENV) \
@@ -1505,7 +1505,7 @@ $(D)/libxml2: $(D)/bootstrap $(D)/zlib $(ARCHIVE)/$(LIBXML2_SOURCE)
 	$(UNTAR)/$(LIBXML2_SOURCE)
 	$(CHDIR)/libxml2-$(LIBXML2_VER); \
 		$(call apply_patches, $(LIBXML2_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--target=$(TARGET) \
 			--prefix=/usr \
@@ -1742,8 +1742,8 @@ $(D)/lcd4linux: $(D)/bootstrap $(D)/libusb_compat $(D)/gd $(D)/libusb $(D)/libdp
 	$(UNTAR)/$(LCD4LINUX_SOURCE)
 	$(CHDIR)/lcd4linux-git-$(LCD4LINUX_VER); \
 		$(call apply_patches, $(LCD4LINUX_PATCH)); \
-		$(BUILDENV) ./bootstrap $(SILENT_OPT); \
-		$(BUILDENV) ./configure $(CONFIGURE_OPTS) $(SILENT_OPT) \
+		$(BUILDENV) ./bootstrap; \
+		$(BUILDENV) ./configure $(CONFIGURE_OPTS) \
 			--prefix=/usr \
 			--with-drivers='DPF,SamsungSPF$(LCD4LINUX_DRV),PNG' \
 			--with-plugins='all,!apm,!asterisk,!dbus,!dvb,!gps,!hddtemp,!huawei,!imon,!isdn,!kvv,!mpd,!mpris_dbus,!mysql,!pop3,!ppp,!python,!qnaplog,!raspi,!sample,!seti,!w1retap,!wireless,!xmms' \
@@ -1910,7 +1910,7 @@ $(D)/alsa_utils: $(D)/bootstrap $(D)/alsa_lib $(ARCHIVE)/$(ALSA_UTILS_SOURCE)
 	$(UNTAR)/$(ALSA_UTILS_SOURCE)
 	$(CHDIR)/alsa-utils-$(ALSA_UTILS_VER); \
 		sed -ir -r "s/(alsamixer|amidi|aplay|iecset|speaker-test|seq|alsactl|alsaucm|topology)//g" Makefile.am ;\
-		autoreconf -fi -I $(TARGET_DIR)/usr/share/aclocal $(SILENT_OPT); \
+		autoreconf -fi -I $(TARGET_DIR)/usr/share/aclocal; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -2083,7 +2083,7 @@ $(D)/minidlna: $(D)/bootstrap $(D)/zlib $(D)/sqlite $(D)/libexif $(D)/libjpeg $(
 	$(UNTAR)/$(MINIDLNA_SOURCE)
 	$(CHDIR)/minidlna-$(MINIDLNA_VER); \
 		$(call apply_patches, $(MINIDLNA_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 		; \
@@ -2139,7 +2139,7 @@ $(D)/djmount: $(D)/bootstrap $(D)/fuse $(ARCHIVE)/$(DJMOUNT_SOURCE)
 	$(CHDIR)/djmount-$(DJMOUNT_VER); \
 		touch libupnp/config.aux/config.rpath; \
 		$(call apply_patches, $(DJMOUNT_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) -C \
 			--prefix=/usr \
 			--disable-debug \
@@ -2488,7 +2488,7 @@ $(D)/cairo: $(ARCHIVE)/$(CAIRO_SOURCE) $(D)/bootstrap $(D)/libglib2 $(D)/libpng 
 		$(call apply_patches, $(CAIRO_PATCH)); \
 		$(BUILDENV) \
 		ax_cv_c_float_words_bigendian="no" \
-		./configure $(SILENT_OPT) $(CONFIGURE_OPTS) \
+		./configure $(CONFIGURE_OPTS) \
 			--prefix=/usr \
 			--with-x=no \
 			--disable-xlib \
@@ -2536,7 +2536,7 @@ $(D)/harfbuzz: $(ARCHIVE)/$(HARFBUZZ_SOURCE) $(D)/bootstrap $(D)/libglib2 $(D)/c
 	$(UNTAR)/$(HARFBUZZ_SOURCE)
 	$(CHDIR)/harfbuzz-$(HARFBUZZ_VER); \
 		$(call apply_patches, $(HARFBUZZ_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--with-cairo \
@@ -2681,7 +2681,7 @@ $(D)/libdvbcsa: $(D)/bootstrap $(ARCHIVE)/$(LIBDVBCSA_SOURCE)
 		fi
 	cp -ra $(ARCHIVE)/libdvbcsa.git $(BUILD_TMP)/libdvbcsa
 	$(CHDIR)/libdvbcsa; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 		; \

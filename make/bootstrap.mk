@@ -45,7 +45,7 @@ $(D)/host_pkgconfig: $(D)/directories $(ARCHIVE)/$(HOST_PKGCONFIG_SOURCE)
 	$(REMOVE)/pkg-config-$(HOST_PKGCONFIG_VER)
 	$(UNTAR)/$(HOST_PKGCONFIG_SOURCE)
 	$(CHDIR)/pkg-config-$(HOST_PKGCONFIG_VER); \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--prefix=$(HOST_DIR) \
 			--program-prefix=$(TARGET)- \
 			--disable-host-tool \
@@ -74,8 +74,8 @@ $(D)/host_module_init_tools: $(D)/directories $(ARCHIVE)/$(HOST_MODULE_INIT_TOOL
 	$(UNTAR)/$(HOST_MODULE_INIT_TOOLS_SOURCE)
 	$(CHDIR)/module-init-tools-$(HOST_MODULE_INIT_TOOLS_VER); \
 		$(call apply_patches,$(HOST_MODULE_INIT_TOOLS_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
-		./configure $(SILENT_OPT) \
+		autoreconf -fi; \
+		./configure \
 			--prefix=$(HOST_DIR) \
 			--sbindir=$(HOST_DIR)/bin \
 		; \
@@ -195,7 +195,7 @@ $(D)/host_resize2fs: $(D)/directories $(ARCHIVE)/$(HOST_E2FSPROGS_SOURCE)
 	$(START_BUILD)
 	$(UNTAR)/$(HOST_E2FSPROGS_SOURCE)
 	$(CHDIR)/e2fsprogs-$(HOST_E2FSPROGS_VER); \
-		./configure $(SILENT_OPT); \
+		./configure; \
 		$(MAKE)
 	install -D -m 0755 $(BUILD_TMP)/e2fsprogs-$(HOST_E2FSPROGS_VER)/resize/resize2fs $(HOST_DIR)/bin/
 	install -D -m 0755 $(BUILD_TMP)/e2fsprogs-$(HOST_E2FSPROGS_VER)/misc/mke2fs $(HOST_DIR)/bin/
@@ -252,9 +252,9 @@ $(D)/cortex_strings: $(D)/directories $(ARCHIVE)/$(CORTEX_STRINGS_SOURCE)
 	$(REMOVE)/cortex-strings-git-$(CORTEX_STRINGS_VER)
 	$(UNTAR)/$(CORTEX_STRINGS_SOURCE)
 	$(CHDIR)/cortex-strings-git-$(CORTEX_STRINGS_VER); \
-		./autogen.sh  $(SILENT_OPT); \
+		./autogen.sh; \
 		$(MAKE_OPTS) \
-		./configure $(SILENT_OPT)\
+		./configure\
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix=/usr \
@@ -326,11 +326,11 @@ $(D)/host_atools: $(D)/directories $(ARCHIVE)/$(HAT_CORE_SOURCE) $(ARCHIVE)/$(HA
 	$(START_BUILD)
 	$(REMOVE)/hat
 	$(MKDIR)/hat/system/core
-	$(SILENT)tar --strip 1 -C $(BUILD_TMP)/hat/system/core -xf $(ARCHIVE)/$(HAT_CORE_SOURCE)
+	tar --strip 1 -C $(BUILD_TMP)/hat/system/core -xf $(ARCHIVE)/$(HAT_CORE_SOURCE)
 	$(MKDIR)/hat/system/extras
-	$(SILENT)tar --strip 1 -C $(BUILD_TMP)/hat/system/extras -xf $(ARCHIVE)/$(HAT_EXTRAS_SOURCE)
+	tar --strip 1 -C $(BUILD_TMP)/hat/system/extras -xf $(ARCHIVE)/$(HAT_EXTRAS_SOURCE)
 	$(MKDIR)/hat/external/libselinux
-	$(SILENT)tar --strip 1 -C $(BUILD_TMP)/hat/external/libselinux -xf $(ARCHIVE)/$(HAT_LIBSELINUX_SOURCE)
+	tar --strip 1 -C $(BUILD_TMP)/hat/external/libselinux -xf $(ARCHIVE)/$(HAT_LIBSELINUX_SOURCE)
 	cp $(PATCHES)/ext4_utils.mk $(BUILD_TMP)/hat
 	$(CHDIR)/hat; \
 		$(MAKE) --file=ext4_utils.mk SRCDIR=$(BUILD_TMP)/hat
@@ -360,8 +360,6 @@ BOOTSTRAP += host_u_boot_tools
 endif
 ifeq ($(BOXARCH), arm)
 BOOTSTRAP += $(D)/host_resize2fs
-#BOOTSTRAP += $(D)/cortex_strings
-#BOOTSTRAP += $(D)/host_atools
 endif
 
 $(D)/bootstrap: $(BOOTSTRAP)

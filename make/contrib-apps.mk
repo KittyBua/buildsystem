@@ -69,7 +69,7 @@ $(D)/module_init_tools: $(D)/bootstrap $(D)/lsb $(ARCHIVE)/$(HOST_MODULE_INIT_TO
 	$(UNTAR)/$(MODULE_INIT_TOOLS_SOURCE)
 	$(CHDIR)/module-init-tools-$(MODULE_INIT_TOOLS_VER); \
 		$(call apply_patches, $(MODULE_INIT_TOOLS_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--target=$(TARGET) \
 			--prefix= \
@@ -187,7 +187,7 @@ $(D)/portmap: $(D)/bootstrap $(D)/lsb $(ARCHIVE)/$(PORTMAP_SOURCE) $(ARCHIVE)/po
 	$(UNTAR)/$(PORTMAP_SOURCE)
 	$(CHDIR)/portmap-$(PORTMAP_VER); \
 		gunzip -cd $(lastword $^) | cat > debian.patch; \
-		patch -p1 $(SILENT_PATCH) <debian.patch && \
+		patch -p1 <debian.patch && \
 		sed -e 's/### BEGIN INIT INFO/# chkconfig: S 41 10\n### BEGIN INIT INFO/g' -i debian/init.d; \
 		$(call apply_patches, $(PORTMAP_PATCH)); \
 		$(BUILDENV) $(MAKE) NO_TCP_WRAPPER=1 DAEMON_UID=65534 DAEMON_GID=65535 CC="$(TARGET)-gcc"; \
@@ -424,7 +424,7 @@ $(D)/dosfstools: bootstrap $(ARCHIVE)/$(DOSFSTOOLS_SOURCE)
 	$(REMOVE)/dosfstools-$(DOSFSTOOLS_VER)
 	$(UNTAR)/$(DOSFSTOOLS_SOURCE)
 	$(CHDIR)/dosfstools-$(DOSFSTOOLS_VER); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix= \
 			--mandir=/.remove \
@@ -455,7 +455,7 @@ $(D)/jfsutils: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(JFSUTILS_SOURCE)
 	$(CHDIR)/jfsutils-$(JFSUTILS_VER); \
 		$(call apply_patches, $(JFSUTILS_PATCH)); \
 		sed "s@<unistd.h>@&\n#include <sys/types.h>@g" -i fscklog/extract.c; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix= \
 			--target=$(TARGET) \
@@ -518,7 +518,7 @@ $(D)/mc: $(D)/bootstrap $(D)/ncurses $(D)/libglib2 $(ARCHIVE)/$(MC_SOURCE)
 	$(UNTAR)/$(MC_SOURCE)
 	$(CHDIR)/mc-$(MC_VER); \
 		$(call apply_patches, $(MC_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -861,7 +861,7 @@ $(D)/shairport-sync: $(D)/bootstrap $(D)/libdaemon $(D)/libpopt $(D)/libconfig $
 		fi
 	cp -ra $(ARCHIVE)/shairport-sync.git $(BUILD_TMP)/shairport-sync
 	$(CHDIR)/shairport-sync; \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		PKG_CONFIG=$(PKG_CONFIG) \
 		$(BUILDENV) \
 		$(CONFIGURE) \
@@ -1088,11 +1088,11 @@ $(D)/nfs_utils: $(D)/bootstrap $(D)/e2fsprogs $(ARCHIVE)/$(NFS_UTILS_SOURCE)
 		; \
 		$(MAKE); \
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	$(SILENT)install -m 755 $(SKEL_ROOT)/etc/init.d/nfs-common $(TARGET_DIR)/etc/init.d/
-	$(SILENT)install -m 755 $(SKEL_ROOT)/etc/init.d/nfs-kernel-server $(TARGET_DIR)/etc/init.d/
-	$(SILENT)install -m 644 $(SKEL_ROOT)/etc/exports $(TARGET_DIR)/etc/
-	$(SILENT)rm -f $(addprefix $(TARGET_DIR)/sbin/,mount.nfs mount.nfs4 umount.nfs umount.nfs4 osd_login)
-	$(SILENT)rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,mountstats nfsiostat sm-notify start-statd)
+	install -m 755 $(SKEL_ROOT)/etc/init.d/nfs-common $(TARGET_DIR)/etc/init.d/
+	install -m 755 $(SKEL_ROOT)/etc/init.d/nfs-kernel-server $(TARGET_DIR)/etc/init.d/
+	install -m 644 $(SKEL_ROOT)/etc/exports $(TARGET_DIR)/etc/
+	rm -f $(addprefix $(TARGET_DIR)/sbin/,mount.nfs mount.nfs4 umount.nfs umount.nfs4 osd_login)
+	rm -f $(addprefix $(TARGET_DIR)/usr/sbin/,mountstats nfsiostat sm-notify start-statd)
 	$(REMOVE)/nfs-utils-$(NFS_UTILS_VER)
 	$(TOUCH)
 
@@ -1116,8 +1116,8 @@ $(D)/vsftpd: $(D)/bootstrap $(D)/openssl $(ARCHIVE)/$(VSFTPD_SOURCE)
 		$(MAKE) clean; \
 		$(MAKE) $(BUILDENV); \
 		$(MAKE) install PREFIX=$(TARGET_DIR)
-	$(SILENT)install -m 755 $(SKEL_ROOT)/etc/init.d/vsftpd $(TARGET_DIR)/etc/init.d/
-	$(SILENT)install -m 644 $(SKEL_ROOT)/etc/vsftpd.conf $(TARGET_DIR)/etc/
+	install -m 755 $(SKEL_ROOT)/etc/init.d/vsftpd $(TARGET_DIR)/etc/init.d/
+	install -m 644 $(SKEL_ROOT)/etc/vsftpd.conf $(TARGET_DIR)/etc/
 	$(REMOVE)/vsftpd-$(VSFTPD_VER)
 	$(TOUCH)
 
@@ -1164,7 +1164,7 @@ $(D)/htop: $(D)/bootstrap $(D)/ncurses $(ARCHIVE)/$(HTOP_SOURCE)
 	$(UNTAR)/$(HTOP_SOURCE)
 	$(CHDIR)/htop-$(HTOP_VER); \
 		$(call apply_patches, $(HTOP_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -1279,7 +1279,7 @@ $(D)/samba: $(D)/bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		ac_cv_path_PYTHON_CONFIG="" \
 		libreplace_cv_HAVE_GETADDRINFO=no \
 		libreplace_cv_READDIR_NEEDED=no \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix= \
@@ -1537,7 +1537,7 @@ $(D)/openssh: $(D)/bootstrap $(D)/zlib $(D)/openssl $(ARCHIVE)/$(OPENSSH_SOURCE)
 	$(UNTAR)/$(OPENSSH_SOURCE)
 	$(CHDIR)/openssh-$(OPENSSH_VER); \
 		CC=$(TARGET)-gcc; \
-		./configure $(SILENT_OPT) \
+		./configure \
 			$(CONFIGURE_OPTS) \
 			--prefix=/usr \
 			--mandir=/.remove \
@@ -1601,7 +1601,7 @@ $(D)/dropbearmulti: $(D)/bootstrap $(ARCHIVE)/$(DROPBEARMULTI_SOURCE)
 	$(UNTAR)/$(DROPBEARMULTI_SOURCE)
 	$(CHDIR)/dropbearmulti-git-$(DROPBEARMULTI_VER); \
 		$(BUILDENV) \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--disable-syslog \
@@ -1877,10 +1877,10 @@ $(D)/host_opkg: directories $(D)/host_libarchive $(ARCHIVE)/$(OPKG_SOURCE)
 	$(UNTAR)/$(OPKG_SOURCE)
 	$(CHDIR)/opkg-$(OPKG_VER); \
 		$(call apply_patches, $(OPKG_HOST_PATCH)); \
-		./autogen.sh $(SILENT_OPT); \
+		./autogen.sh; \
 		CFLAGS="-I$(HOST_DIR)/include" \
 		LDFLAGS="-L$(HOST_DIR)/lib" \
-		./configure $(SILENT_OPT) \
+		./configure \
 			PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig \
 			--prefix= \
 			--disable-curl \

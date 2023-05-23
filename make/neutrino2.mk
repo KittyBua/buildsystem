@@ -172,7 +172,7 @@ $(D)/neutrino2-plugins.config.status: $(D)/neutrino2-plugins.do_prepare
 	cd $(SOURCE_DIR)/neutrino2/plugins; \
 		./autogen.sh; \
 		$(BUILDENV) \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--host=$(TARGET) \
 			--build=$(BUILD) \
 			--enable-silent-rules \

@@ -37,7 +37,7 @@ minidlna-ipk: $(D)/bootstrap $(D)/zlib $(D)/sqlite $(D)/libexif $(D)/libjpeg $(D
 	$(UNTAR)/$(MINIDLNA_SOURCE)
 	$(CHDIR)/minidlna-$(MINIDLNA_VER); \
 		$(call apply_patches, $(MINIDLNA_PATCH)); \
-		autoreconf -fi $(SILENT_OPT); \
+		autoreconf -fi; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 		; \
@@ -118,7 +118,7 @@ samba-ipk: $(D)/bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		ac_cv_path_PYTHON_CONFIG="" \
 		libreplace_cv_HAVE_GETADDRINFO=no \
 		libreplace_cv_READDIR_NEEDED=no \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--prefix= \
@@ -301,8 +301,8 @@ lcd4linux-ipk: $(D)/bootstrap $(D)/libusb_compat $(D)/gd $(D)/libusb $(D)/libdpf
 	$(UNTAR)/$(LCD4LINUX_SOURCE)
 	$(CHDIR)/lcd4linux-git-$(LCD4LINUX_VER); \
 		$(call apply_patches, $(LCD4LINUX_PATCH)); \
-		$(BUILDENV) ./bootstrap $(SILENT_OPT); \
-		$(BUILDENV) ./configure $(CONFIGURE_OPTS) $(SILENT_OPT) \
+		$(BUILDENV) ./bootstrap; \
+		$(BUILDENV) ./configure $(CONFIGURE_OPTS) \
 			--prefix=/usr \
 			--with-drivers='DPF,SamsungSPF$(LCD4LINUX_DRV),PNG' \
 			--with-plugins='all,!apm,!asterisk,!dbus,!dvb,!gps,!hddtemp,!huawei,!imon,!isdn,!kvv,!mpd,!mpris_dbus,!mysql,!pop3,!ppp,!python,!qnaplog,!raspi,!sample,!seti,!w1retap,!wireless,!xmms' \
@@ -334,7 +334,7 @@ gstreamer-ipk: $(D)/bootstrap $(D)/libglib2 $(D)/libxml2 $(D)/glib_networking $(
 	$(UNTAR)/$(GSTREAMER_SOURCE)
 	$(CHDIR)/gstreamer-$(GSTREAMER_VER); \
 		$(call apply_patches, $(GSTREAMER_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--libexecdir=/usr/lib \
@@ -377,7 +377,7 @@ gst_plugins_base-ipk: $(D)/bootstrap $(D)/zlib $(D)/libglib2 $(D)/orc $(D)/gstre
 	$(UNTAR)/$(GST_PLUGINS_BASE_SOURCE)
 	$(CHDIR)/gst-plugins-base-$(GST_PLUGINS_BASE_VER); \
 		$(call apply_patches, $(GST_PLUGINS_BASE_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--datarootdir=/.remove \
@@ -412,7 +412,7 @@ gst_plugins_good-ipk: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(D
 	$(UNTAR)/$(GST_PLUGINS_GOOD_SOURCE)
 	$(CHDIR)/gst-plugins-good-$(GST_PLUGINS_GOOD_VER); \
 		$(call apply_patches, $(GST_PLUGINS_GOOD_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
@@ -448,7 +448,7 @@ gst_plugins_bad-ipk: $(D)/bootstrap $(D)/libass $(D)/libcurl $(D)/libxml2 $(D)/o
 	$(UNTAR)/$(GST_PLUGINS_BAD_SOURCE)
 	$(CHDIR)/gst-plugins-bad-$(GST_PLUGINS_BAD_VER); \
 		$(call apply_patches, $(GST_PLUGINS_BAD_PATCH)); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
@@ -484,7 +484,7 @@ gst_plugins_ugly-ipk: $(D)/bootstrap $(D)/gstreamer $(D)/gst_plugins_base $(ARCH
 	$(REMOVE)/gst-plugins-ugly-$(GST_PLUGINS_UGLY_VER)
 	$(UNTAR)/$(GST_PLUGINS_UGLY_SOURCE)
 	$(CHDIR)/gst-plugins-ugly-$(GST_PLUGINS_UGLY_VER); \
-		./autogen.sh --noconfigure $(SILENT_OPT); \
+		./autogen.sh --noconfigure; \
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--datarootdir=/.remove \
@@ -601,7 +601,7 @@ ffmpeg-ipk: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/libass $(D
 	$(UNTAR)/$(FFMPEG_SOURCE)
 	$(CHDIR)/ffmpeg-$(FFMPEG_VER); \
 		$(call apply_patches, $(FFMPEG_PATCH)); \
-		./configure $(SILENT_OPT) \
+		./configure \
 			--disable-ffplay \
 			--disable-ffprobe \
 			\
@@ -1100,8 +1100,8 @@ python-ipk: $(D)/bootstrap $(D)/host_python $(D)/ncurses $(D)/zlib $(D)/openssl 
 		CONFIG_SITE= \
 		$(BUILDENV) \
 		autoreconf -fiv Modules/_ctypes/libffi; \
-		autoconf $(SILENT_OPT); \
-		./configure $(SILENT_OPT) \
+		autoconf; \
+		./configure \
 			--build=$(BUILD) \
 			--host=$(TARGET) \
 			--target=$(TARGET) \

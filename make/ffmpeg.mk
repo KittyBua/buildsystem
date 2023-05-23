@@ -355,7 +355,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib 
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libavformat.pc
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libavutil.pc
 	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/libswresample.pc
-	$(SILENT)test -e $(PKG_CONFIG_PATH)/libswscale.pc && $(REWRITE_PKGCONF_NQ) $(PKG_CONFIG_PATH)/libswscale.pc || true
+	test -e $(PKG_CONFIG_PATH)/libswscale.pc && $(REWRITE_PKGCONF_NQ) $(PKG_CONFIG_PATH)/libswscale.pc || true
 	$(REMOVE)/ffmpeg-$(FFMPEG_VER)
 	$(TOUCH)
 
