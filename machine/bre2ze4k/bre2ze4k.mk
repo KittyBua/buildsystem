@@ -18,7 +18,7 @@ KERNELNAME             = zImage
 
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
-KERNEL_PATCHES_ARM     = \
+KERNEL_PATCHES_ARM = \
 		TBS-fixes-for-4.10-kernel.patch \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
@@ -133,14 +133,10 @@ $(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
 # release
 #
 release-bre2ze4k:
-#	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
-#	cp $(TARGET_DIR)/boot/zImage.dtb $(RELEASE_DIR)/boot/
-#	cp $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER) $(RELEASE_DIR)/boot/System.map
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(SKEL_ROOT)/etc/init.d/mmcblk-by-name $(RELEASE_DIR)/etc/init.d/mmcblk-by-name
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
-#	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_$(GUI) $(RELEASE_DIR)/etc/init.d/rcS
 
 #
 # flashimage

@@ -183,16 +183,12 @@ $(D)/vmlinuz_initrd: $(D)/bootstrap $(ARCHIVE)/$(INITRD_SRC)
 # release
 #
 release-vuduo4k:
-#	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
-#	cp $(TARGET_DIR)/boot/vmlinuz-initrd-7278b1 $(RELEASE_DIR)/boot/
-#	cp $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER) $(RELEASE_DIR)/boot/System.map
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	rm -f $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)/extra/fpga_directc.ko
 	cp -f $(SKEL_ROOT)/usr/bin/bp3flash.sh $(RELEASE_DIR)/usr/bin
 	cp -f $(SKEL_ROOT)/usr/bin/nvram $(RELEASE_DIR)/usr/bin
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
-#	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_$(GUI) $(RELEASE_DIR)/etc/init.d/rcS
 
 #
 # flashimage
