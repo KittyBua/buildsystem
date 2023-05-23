@@ -75,19 +75,19 @@ BUILD                ?= $(shell /usr/share/libtool/config.guess 2>/dev/null || /
 ifeq ($(BOXARCH), sh4)
 TARGET               ?= sh4-linux
 TARGET_MARCH_CFLAGS   =
-CORTEX_STRINGS        =
+#CORTEX_STRINGS        =
 endif
 
 ifeq ($(BOXARCH), arm)
 TARGET               ?= arm-cortex-linux-gnueabihf
 TARGET_MARCH_CFLAGS   = -march=armv7ve -mtune=cortex-a15 -mfpu=neon-vfpv4 -mfloat-abi=hard
-CORTEX_STRINGS        = -lcortex-strings
+#CORTEX_STRINGS        = -lcortex-strings
 endif
 
 ifeq ($(BOXARCH), mips)
 TARGET		     ?= mipsel-unknown-linux-gnu
 TARGET_MARCH_CFLAGS   = -march=mips32 -mtune=mips32
-CORTEX_STRINGS        =
+#CORTEX_STRINGS        =
 endif
 
 OPTIMIZATIONS        ?= size
@@ -118,7 +118,7 @@ TARGET_INCLUDE_DIR    = $(TARGET_DIR)/usr/include
 TARGET_CFLAGS         = -pipe $(TARGET_O_CFLAGS) $(TARGET_MARCH_CFLAGS) $(TARGET_EXTRA_CFLAGS) -I$(TARGET_INCLUDE_DIR)
 TARGET_CPPFLAGS       = $(TARGET_CFLAGS)
 TARGET_CXXFLAGS       = $(TARGET_CFLAGS)
-TARGET_LDFLAGS        = $(CORTEX_STRINGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(TARGET_LIB_DIR) -L$(TARGET_LIB_DIR) -L$(TARGET_DIR)/lib $(TARGET_EXTRA_LDFLAGS)
+TARGET_LDFLAGS        = -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(TARGET_LIB_DIR) -L$(TARGET_LIB_DIR) -L$(TARGET_DIR)/lib $(TARGET_EXTRA_LDFLAGS)
 LD_FLAGS              = $(TARGET_LDFLAGS)
 PKG_CONFIG            = $(HOST_DIR)/bin/$(TARGET)-pkg-config
 PKG_CONFIG_PATH       = $(TARGET_LIB_DIR)/pkgconfig
