@@ -15,7 +15,7 @@ RELEASE_DEPS += $(D)/vsftpd
 RELEASE_DEPS += $(D)/autofs
 RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/fbshot
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 endif
@@ -391,7 +391,7 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
 	rm -f $(RELEASE_DIR)/sbin/ffmpeg
 	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
 endif
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	rm -rf $(RELEASE_DIR)/dev.static
 	rm -rf $(RELEASE_DIR)/ram
 	rm -rf $(RELEASE_DIR)/root

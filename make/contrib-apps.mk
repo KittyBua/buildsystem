@@ -206,7 +206,7 @@ E2FSPROGS_VER = 1.45.6
 E2FSPROGS_SOURCE = e2fsprogs-$(E2FSPROGS_VER).tar.gz
 E2FSPROGS_PATCH = e2fsprogs-$(E2FSPROGS_VER).patch
 
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 E2FSPROGS_ARGS = --enable-resizer
 else
 E2FSPROGS_ARGS = --disable-resizer
@@ -803,7 +803,7 @@ AUTOFS_PATCH = autofs-$(AUTOFS_VER).patch
 $(ARCHIVE)/$(AUTOFS_SOURCE):
 	$(WGET) https://www.kernel.org/pub/linux/daemons/autofs/v4/$(AUTOFS_SOURCE)
 
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 AUTOFS_LIBNSL = $(D)/libnsl
 endif
 

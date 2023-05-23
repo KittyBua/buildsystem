@@ -1,4 +1,4 @@
-BOXARCH = mipsel
+BOXARCH = mips
 CICAM = ci-cam
 SCART = scart
 LCD = tftlcd
@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPSEL = \
+KERNEL_PATCHES_MIPS = \
 		kernel-add-support-for-gcc5.patch \
 		kernel-add-support-for-gcc6.patch \
 		kernel-add-support-for-gcc7.patch \
@@ -60,7 +60,7 @@ KERNEL_PATCHES_MIPSEL = \
 		mm-Move-__vma_address-to-internal.h-to-be-inlined-in-huge_memory.c.patch \
 		compile-with-gcc9.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPSEL)
+KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

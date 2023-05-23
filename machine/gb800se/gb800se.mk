@@ -1,4 +1,4 @@
-BOXARCH = mipsel
+BOXARCH = mips
 CICAM = ci-cam
 SCART = scart
 LCD = 4-digits
@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPSEL  = \
+KERNEL_PATCHES_MIPS  = \
 		nor-maps-gb800solo.patch \
        		add-dmx-source-timecode.patch \
     		af9015-output-full-range-SNR.patch \
@@ -54,7 +54,7 @@ KERNEL_PATCHES_MIPSEL  = \
     		0002-cp1emu-do-not-use-bools-for-arithmetic.patch \
     		0003-log2-give-up-on-gcc-constant-optimizations.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPSEL)
+KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

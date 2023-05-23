@@ -25,12 +25,7 @@ ifeq ($(BOXARCH), arm)
 FFMPEG_CONF_OPTS  += --cpu=cortex-a15
 endif
 
-ARCH=$(BOXARCH)
-ifeq ($(BOXARCH), mipsel)
-ARCH=mips
-endif
-
-ifeq ($(BOXARCH), $(filter $(BOXARCH), mipsel sh4))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), mips sh4))
 FFMPEG_CONF_OPTS  += --cpu=generic
 endif
 
@@ -339,7 +334,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib 
 			--cross-prefix=$(TARGET)- \
 			--extra-cflags="$(TARGET_CFLAGS) $(FFMPEG_EXTRA_CFLAGS)" \
 			--extra-ldflags="$(TARGET_LDFLAGS) -lrt" \
-			--arch=$(ARCH) \
+			--arch=$(BOXARCH) \
 			--target-os=linux \
 			--prefix=/usr \
 			--bindir=/sbin \

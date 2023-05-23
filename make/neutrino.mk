@@ -105,7 +105,7 @@ MACHINE = $(BOXTYPE)
 ifeq ($(BOXARCH), arm)
 MACHINE = armbox
 endif
-ifeq ($(BOXARCH), mipsel)
+ifeq ($(BOXARCH), mips)
 MACHINE = mipsbox
 endif
 
@@ -283,7 +283,7 @@ $(D)/neutrino-plugins.do_prepare:
 	cp -ra $(ARCHIVE)/$(NEUTRINO_PLUGINS).git $(SOURCE_DIR)/neutrino-plugins
 	set -e; cd $(SOURCE_DIR)/neutrino-plugins; \
 		$(call apply_patches, $(NEUTRINO_PLUGINS_PATCHES))
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mipsel))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	sed -i -e 's#shellexec fx2#shellexec#g' $(SOURCE_DIR)/neutrino-plugins/Makefile.am
 endif
 	@touch $@

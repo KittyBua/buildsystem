@@ -1,4 +1,4 @@
-BOXARCH = mipsel
+BOXARCH = mips
 CICAM = ci-cam
 SCART =
 LCD = 4-digits
@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPSEL  = \
+KERNEL_PATCHES_MIPS  = \
 			0001-regmap-add-regmap_write_bits.patch \
 			0002-af9035-fix-device-order-in-ID-list.patch \
 			0003-Add-support-for-dvb-usb-stick-Hauppauge-WinTV-soloHD.patch \
@@ -49,7 +49,7 @@ KERNEL_PATCHES_MIPSEL  = \
 			0002-log2-give-up-on-gcc-constant-optimizations.patch \
 			move-default-dialect-to-SMB3.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPSEL)
+KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

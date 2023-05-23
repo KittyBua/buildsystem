@@ -1,4 +1,4 @@
-BOXARCH = mipsel
+BOXARCH = mips
 CICAM = ci-cam
 SCART = scart
 LCD = 4-digits
@@ -15,7 +15,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPSEL  = \
+KERNEL_PATCHES_MIPS = \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
 		0001-STV-Add-PLS-support.patch \
@@ -27,7 +27,7 @@ KERNEL_PATCHES_MIPSEL  = \
 		move-default-dialect-to-SMB3.patch \
 		makefile-silence-warnings.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPSEL)
+KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
