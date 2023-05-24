@@ -25,7 +25,7 @@ ENIGMA2_DEPS += $(D)/libusb
 ENIGMA2_DEPS += $(D)/libid3tag
 ENIGMA2_DEPS += $(D)/minidlna
 ENIGMA2_DEPS += $(D)/sdparm
-ENIGMA2_DEPS += $(D)/parted 
+ENIGMA2_DEPS += $(D)/parted
 endif
 
 ENIGMA2_CPPFLAGS =

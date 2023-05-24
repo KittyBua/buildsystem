@@ -106,7 +106,7 @@ if [ -e /var/etc/rcS.local ]; then
 	/var/etc/rcS.local
 fi
 
-echo "[rcS] starting neutrino2 ->"
+echo "starting neutrino2 ->"
 
 until false
 do
@@ -132,5 +132,4 @@ do
 			;;
 	esac
 done
-
 
