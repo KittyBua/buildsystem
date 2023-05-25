@@ -155,6 +155,7 @@ $(D)/driver: $(D)/bootstrap $(D)/kernel
 #
 release-ufs912:
 	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 #
 # player
 #

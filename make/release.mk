@@ -197,11 +197,14 @@ ifeq ($(WLAN), wlandriver)
 	cp -aR $(SKEL_ROOT)/lib/firmware/*.bin $(RELEASE_DIR)/lib/firmware/
 endif
 #
-# lib usr/lib
+# lib
 #
 	cp -R $(TARGET_DIR)/lib/* $(RELEASE_DIR)/lib/
 	rm -f $(RELEASE_DIR)/lib/*.{a,o,la}
 	chmod 755 $(RELEASE_DIR)/lib/*
+#
+# usr/lib
+#
 	cp -R $(TARGET_DIR)/usr/lib/* $(RELEASE_DIR)/usr/lib/
 	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio}
 	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
@@ -261,7 +264,6 @@ endif
 		cp $(TARGET_DIR)/usr/share/alsa/cards/aliases.conf $(RELEASE_DIR)/usr/share/alsa/cards/; \
 		cp $(TARGET_DIR)/usr/share/alsa/pcm/default.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
 		cp $(TARGET_DIR)/usr/share/alsa/pcm/dmix.conf $(RELEASE_DIR)/usr/share/alsa/pcm/; \
-#		cp $(TARGET_DIR)/usr/bin/amixer $(RELEASE_DIR)/usr/bin/; \
 	fi
 #
 # nfs-utils
@@ -278,7 +280,6 @@ endif
 ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
 	if [ -d $(RELEASE_DIR)/usr/lib/autofs ]; then \
 		cp -f $(TARGET_DIR)/usr/sbin/automount $(RELEASE_DIR)/usr/sbin/; \
-#		ln -s /usr/sbin/automount $(RELEASE_DIR)/sbin/automount; \
 	fi
 endif
 #
@@ -378,9 +379,6 @@ ifeq ($(PYTHON), python)
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.py' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
-endif
-ifeq ($(BOXARCH), sh4)
-	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
 	rm -f $(RELEASE_DIR)/sbin/jfs_fsck

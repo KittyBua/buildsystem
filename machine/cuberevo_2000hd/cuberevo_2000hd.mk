@@ -155,6 +155,7 @@ $(D)/driver: $(D)/bootstrap $(D)/kernel
 #
 release-cuberevo_2000hd:
 	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
+	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 #
 # player
 #
