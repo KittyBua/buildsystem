@@ -67,6 +67,9 @@ init:
 	@echo "   90)  Zgemma h7"
 	@echo "  AXAS"
 	@echo "   100)  AXAS E4HD 4K Ultra"
+	@echo ""
+	@echo "  Dream Media"
+	@echo "   110 dm8000"
 	@read -p "Select target (1-90)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
@@ -102,6 +105,7 @@ init:
 		81) BOXTYPE="bre2zet2c";; \
 		90) BOXTYPE="h7";; \
 		100) BOXTYPE="e4hdultra";; \
+		110) BOXTYPE="dm8000";; \
 		*) BOXTYPE="gb800se";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config
