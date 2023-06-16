@@ -264,7 +264,7 @@ titan-plugins-distclean:
 # release-titan
 #
 LANGUAGES=de el en es fr it lt nl pl ru vi
-release-titan: release-common release-$(BOXTYPE) $(D)/titan
+release-titan: $(RELEASE_DEPS) $(D)/titan release-common release-$(BOXTYPE)
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/var/etc/titan
 	install -d $(RELEASE_DIR)/var/etc/autostart

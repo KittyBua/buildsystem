@@ -20,8 +20,10 @@ RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 endif
 RELEASE_DEPS += $(D)/ntfs_3g
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/mtd_utils 
 RELEASE_DEPS += $(D)/gptfdisk
+endif
 RELEASE_DEPS += $(D)/opkg
 
 #
@@ -29,7 +31,9 @@ RELEASE_DEPS += $(D)/opkg
 #
 RELEASE_DEPS += $(D)/tools-aio-grab
 RELEASE_DEPS += $(D)/tools-satfind
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/tools-showiframe
+endif
 ifeq ($(BOXARCH), sh4)
 RELEASE_DEPS += $(D)/tools-devinit
 RELEASE_DEPS += $(D)/tools-evremote2
@@ -60,8 +64,10 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
 RELEASE_DEPS += $(D)/tools-initfb
 endif
 RELEASE_DEPS += $(LIRC)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
+endif
 
 #
 # diverse-tools

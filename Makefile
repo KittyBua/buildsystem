@@ -340,11 +340,11 @@ include make/python.mk
 include make/lua.mk
 include make/tools.mk
 include make/cleantargets.mk
+include make/release.mk
 include make/neutrino2.mk
 include make/enigma2.mk
 include make/titan.mk
 include make/neutrino.mk
-include make/release.mk
 include make/packages.mk
 
 update:

@@ -206,7 +206,7 @@ neutrino2-plugins-distclean:
 #
 # release-neutrino2
 #
-release-neutrino2: release-common release-$(BOXTYPE) $(D)/neutrino2 $(D)/neutrino2-plugins
+release-neutrino2: $(RELEASE_DEPS) $(D)/neutrino2 $(D)/neutrino2-plugins release-common release-$(BOXTYPE)
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/var/tuxbox
 	install -d $(RELEASE_DIR)/usr/share/iso-codes

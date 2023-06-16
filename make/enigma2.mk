@@ -256,7 +256,7 @@ $(D)/tuxtxt32bpp: $(D)/bootstrap $(D)/tuxtxtlib
 #
 # release-enigma2
 #
-release-enigma2: release-common release-$(BOXTYPE) $(D)/enigma2
+release-enigma2: $(RELEASE_DEPS) $(D)/enigma2 release-common release-$(BOXTYPE)
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/etc/enigma2
 	install -d $(RELEASE_DIR)/etc/tuxbox
