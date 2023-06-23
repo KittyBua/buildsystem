@@ -223,6 +223,10 @@ release-neutrino2: $(RELEASE_DEPS) $(D)/neutrino2 $(D)/neutrino2-plugins release
 #
 #
 #
+	rm -rf $(RELEASE_DIR)/usr/share/zoneinfo
+#
+#
+#
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)

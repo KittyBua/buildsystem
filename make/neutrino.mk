@@ -416,6 +416,11 @@ release-neutrino: $(RELEASE_DEPS) $(D)/neutrino $(N_PLUGINS) release-common rele
 #
 #
 #
+	rm -rf $(RELEASE_DIR)/usr/lib/locale
+	rm -rf $(RELEASE_DIR)/usr/share/zoneinfo
+#
+#
+#
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)

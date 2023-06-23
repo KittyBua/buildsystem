@@ -12,15 +12,16 @@ RELEASE_DEPS += $(D)/portmap
 RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/vsftpd
-RELEASE_DEPS += $(D)/autofs
+#RELEASE_DEPS += $(D)/autofs
 RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/fbshot
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 endif
-RELEASE_DEPS += $(D)/ntfs_3g
+#RELEASE_DEPS += $(D)/ntfs_3g
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
+RELEASE_DEPS += $(D)/ntfs_3g
 RELEASE_DEPS += $(D)/mtd_utils 
 RELEASE_DEPS += $(D)/gptfdisk
 endif
@@ -166,6 +167,9 @@ endif
 	ln -s ../init.d/umountfs $(RELEASE_DIR)/etc/rc.d/rc6.d/S40umountfs
 	ln -s ../init.d/reboot $(RELEASE_DIR)/etc/rc.d/rc6.d/S90reboot
 	touch $(RELEASE_DIR)/var/etc/.firstboot
+#
+# bin/sbin/usr/bin/usr/sbin
+#
 	cp -a $(TARGET_DIR)/bin/* $(RELEASE_DIR)/bin/
 	cp -a $(TARGET_DIR)/usr/bin/* $(RELEASE_DIR)/usr/bin/
 	cp -a $(TARGET_DIR)/sbin/* $(RELEASE_DIR)/sbin/
@@ -363,7 +367,7 @@ ifeq ($(PYTHON), python)
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
 	find $(RELEASE_DIR)/$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs910 ufs922))
+ifeq ($(BOXARCH), sh4)
 	rm -f $(RELEASE_DIR)/sbin/jfs_fsck
 	rm -f $(RELEASE_DIR)/sbin/fsck.jfs
 	rm -f $(RELEASE_DIR)/sbin/jfs_mkfs
@@ -382,12 +386,10 @@ endif
 	rm -f $(RELEASE_DIR)/usr/bin/glib-*
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,dvdnav-config gio-querymodules gobject-query gtester gtester-report)
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole)
-	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
 	rm -rf $(RELEASE_DIR)/usr/lib/gcc
 	rm -f $(RELEASE_DIR)/usr/lib/libc.so
 	rm -f $(RELEASE_DIR)/usr/share/meta/*
-	rm -rf $(RELEASE_DIR)/lib/autofs
 	rm -f $(RELEASE_DIR)/lib/libSegFault*
 	rm -f $(RELEASE_DIR)/lib/libstdc++.*-gdb.py
 	rm -f $(RELEASE_DIR)/lib/libthread_db*
