@@ -99,16 +99,6 @@ ifeq ($(FKEYS), fkeys)
 NEUTRINO2_CONFIG_OPTS += --enable-functionkeys
 endif
 
-ifeq ($(GRAPHLCD), graphlcd)
-NEUTRINO2_DEPS += $(D)/graphlcd
-NEUTRINO2_CONFIG_OPTS += --with-graphlcd
-endif
-
-ifeq ($(LCD4LINUX), lcd4linux)
-NEUTRINO2_DEPS += $(D)/lcd4linux
-NEUTRINO2_CONFIG_OPTS += --with-lcd4linux
-endif
-
 NEUTRINO2_PATCHES =
 
 $(D)/neutrino2.do_prepare: $(NEUTRINO2_DEPS)

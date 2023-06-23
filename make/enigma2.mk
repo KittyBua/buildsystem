@@ -47,12 +47,10 @@ ENIGMA2_CONFIG_OPTS += --enable-gstreamer --with-gstversion=1.0
 endif
 
 ifeq ($(GRAPHLCD), graphlcd)
-ENIGMA2_DEPS += $(D)/graphlcd
 ENIGMA2_CONFIG_OPTS += --with-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
-ENIGMA2_DEPS += $(D)/lcd4linux
 ENIGMA2_CONFIG_OPTS += --with-lcd4linux
 endif
 

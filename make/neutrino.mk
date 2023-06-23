@@ -92,12 +92,10 @@ NEUTRINO_CONFIG_OPTS += --enable-reschange
 endif
 
 ifeq ($(GRAPHLCD), graphlcd)
-NEUTRINO_DEPS += $(D)/graphlcd
 NEUTRINO_CONFIG_OPTS += --with-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
-NEUTRINO_DEPS += $(D)/lcd4linux
 NEUTRINO_CONFIG_OPTS += --with-lcd4linux
 endif
 

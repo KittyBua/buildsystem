@@ -18,12 +18,10 @@ endif
 TITAN_CONFIG_OPTS =
 
 ifeq ($(GRAPHLCD), graphlcd)
-TITAN_DEPS += $(D)/graphlcd
 TITAN_CONFIG_OPTS += --with-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
-TITAN_DEPS += $(D)/lcd4linux
 TITAN_CONFIG_OPTS += --with-lcd4linux
 endif
 
