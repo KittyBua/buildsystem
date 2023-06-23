@@ -39,9 +39,6 @@ RELEASE_DEPS += $(D)/tools-devinit
 RELEASE_DEPS += $(D)/tools-evremote2
 RELEASE_DEPS += $(D)/tools-fp_control
 RELEASE_DEPS += $(D)/tools-flashtool-fup
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
-RELEASE_DEPS += $(D)/tools_flashtool_mup
-endif
 RELEASE_DEPS += $(D)/tools-flashtool-mup
 RELEASE_DEPS += $(D)/tools-flashtool-pad
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ipbox55 ipbox99 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd cuberevo_3000hd))
@@ -216,7 +213,7 @@ endif
 	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
 	chmod 755 $(RELEASE_DIR)/usr/lib/*
 #
-#gstreamer
+# gstreamer
 #
 ifeq ($(GSTREAMER), gstreamer)
 	cp -aR $(TARGET_DIR)/usr/lib/gstreamer-1.0 $(RELEASE_DIR)/usr/lib
@@ -251,9 +248,6 @@ endif
 # shairport
 #
 	if [ -e $(TARGET_DIR)/usr/bin/shairport ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/shairport $(RELEASE_DIR)/usr/bin; \
-		cp -f $(TARGET_DIR)/usr/bin/mDNSPublish $(RELEASE_DIR)/usr/bin; \
-		cp -f $(TARGET_DIR)/usr/bin/mDNSResponder $(RELEASE_DIR)/usr/bin; \
 		cp -f $(SKEL_ROOT)/etc/init.d/shairport $(RELEASE_DIR)/etc/init.d/shairport; \
 		chmod 755 $(RELEASE_DIR)/etc/init.d/shairport; \
 		cp -f $(TARGET_DIR)/usr/lib/libhowl.so* $(RELEASE_DIR)/usr/lib; \
@@ -281,14 +275,6 @@ endif
 		cp -f $(TARGET_DIR)/usr/sbin/rpc.statd $(RELEASE_DIR)/usr/sbin/; \
 	fi
 #
-# autofs
-#
-ifneq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
-	if [ -d $(RELEASE_DIR)/usr/lib/autofs ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/automount $(RELEASE_DIR)/usr/sbin/; \
-	fi
-endif
-#
 # graphlcd
 #
 	if [ -e $(RELEASE_DIR)/usr/lib/libglcddrivers.so ]; then \
@@ -304,30 +290,21 @@ endif
 		cp -a $(TARGET_DIR)/etc/lcd4linux.conf $(RELEASE_DIR)/etc/; \
 	fi
 #
-# minidlna
-#
-	if [ -e $(TARGET_DIR)/usr/sbin/minidlnad ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/minidlnad $(RELEASE_DIR)/usr/sbin/; \
-	fi
-#
 # openvpn
 #
 	if [ -e $(TARGET_DIR)/usr/sbin/openvpn ]; then \
-		cp -f $(TARGET_DIR)/usr/sbin/openvpn $(RELEASE_DIR)/usr/sbin; \
 		install -d $(RELEASE_DIR)/etc/openvpn; \
 	fi
 #
 # udpxy
 #
 	if [ -e $(TARGET_DIR)/usr/bin/udpxy ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/udpxy $(RELEASE_DIR)/usr/bin; \
 		cp -a $(TARGET_DIR)/usr/bin/udpxrec $(RELEASE_DIR)/usr/bin; \
 	fi
 #
 # xupnpd
 #
 	if [ -e $(TARGET_DIR)/usr/bin/xupnpd ]; then \
-		cp -f $(TARGET_DIR)/usr/bin/xupnpd $(RELEASE_DIR)/usr/bin; \
 		cp -aR $(TARGET_DIR)/usr/share/xupnpd $(RELEASE_DIR)/usr/share; \
 		mkdir -p $(RELEASE_DIR)/usr/share/xupnpd/playlists; \
 	fi
