@@ -193,7 +193,7 @@ SWAP_PARTITION_OFFSET_NL = $(shell expr $(FOURTH_KERNEL_PARTITION_OFFSET_NL) \+ 
 MULTI_ROOTFS_PARTITION_OFFSET = $(shell expr $(SWAP_PARTITION_OFFSET_NL) \+ $(SWAP_PARTITION_SIZE))
 STORAGE_PARTITION_OFFSET_NL = $(shell expr $(MULTI_ROOTFS_PARTITION_OFFSET) \+ $(MULTI_ROOTFS_PARTITION_SIZE))
 
-flash-image-$(BOXTYPE)-multi-disk: $(D)/host_resize2fs
+flash-image-bre2ze4k-multi-disk: $(D)/host_resize2fs
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
@@ -244,7 +244,7 @@ flash-image-$(BOXTYPE)-multi-disk: $(D)/host_resize2fs
 #
 # disk
 #
-flash-image-$(BOXTYPE)-disk: $(D)/host_resize2fs
+flash-image-bre2ze4k-disk: $(D)/host_resize2fs
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
@@ -296,12 +296,12 @@ flash-image-$(BOXTYPE)-disk: $(D)/host_resize2fs
 #
 # multi-rootfs
 #
-flash-image-$(BOXTYPE)-multi-rootfs:
+flash-image-bre2ze4k-multi-rootfs:
 
 #
 # rootfs
 #
-flash-image-$(BOXTYPE)-rootfs:
+flash-image-bre2ze4k-rootfs:
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
 	cp $(TARGET_DIR)/boot/zImage.dtb $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel.bin
@@ -317,7 +317,7 @@ flash-image-$(BOXTYPE)-rootfs:
 #
 # online
 #
-flash-image-$(BOXTYPE)-online:
+flash-image-bre2ze4k-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)

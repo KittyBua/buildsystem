@@ -328,7 +328,7 @@ flash-image-osmio4k-rootfs:
 #
 # online
 #
-flash-image-$(BOXTYPE)-online:
+flash-image-osmio4k-online:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
