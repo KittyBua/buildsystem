@@ -446,4 +446,3 @@ $(D)/tools-turnoff_power: $(D)/bootstrap
 		$(MAKE) install DESTDIR=$(TARGET_DIR)
 	$(TOUCH)
 
-
