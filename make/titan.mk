@@ -50,14 +50,10 @@ TITAN_CPPFLAGS   += -L$(SOURCE_DIR)/titan/libipkg
 TITAN_CPPFLAGS   += -DOEBUILD -DOVBUILD
 TITAN_CPPFLAGS   += -I$(SOURCE_DIR)
 
-TITAN_LIBEPLAYER3 =
-ifeq ($(EXTEPLAYER3), exteplayer3)
-TITAN_LIBEPLAYER3 = $(D)/titan-libeplayer3
 TITAN_CONFIG_OPTS += --enable-eplayer3
 TITAN_CPPFLAGS   += -DEPLAYER3
 TITAN_CPPFLAGS   += -DEXTEPLAYER3
 TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
-endif
 
 ifeq ($(GSTREAMER), gstreamer)
 TITAN_DEPS  += $(D)/gstreamer 
@@ -124,7 +120,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(TITAN_LIBEPLAYER3)
+$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
 	cd $(SOURCE_DIR)/titan/titan; \
 		$(MAKE) all
 	@touch $@
