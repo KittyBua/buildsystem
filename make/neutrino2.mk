@@ -223,7 +223,13 @@ release-neutrino2: $(RELEASE_DEPS) $(D)/neutrino2 $(D)/neutrino2-plugins release
 #
 #
 #
+ifeq ($(BOXARCH), sh4)
 	rm -rf $(RELEASE_DIR)/usr/share/zoneinfo
+	rm -rf $(RELEASE_DIR)/usr/share/fonts
+	rm -rf $(RELEASE_DIR)/usr/share/iso-codes
+	[ -e $(RELEASE_DIR)/usr/bin/exteplayer3 ] && rm -rf $(RELEASE_DIR)/usr/bin/exteplayer3 \
+	&& rm -rf $(RELEASE_DIR)/usr/lib/libexteplayer3*
+endif
 #
 #
 #

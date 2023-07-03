@@ -12,29 +12,26 @@ RELEASE_DEPS += $(D)/portmap
 RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/vsftpd
-#RELEASE_DEPS += $(D)/autofs
 RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/fbshot
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
-endif
-#RELEASE_DEPS += $(D)/ntfs_3g
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ntfs_3g
 RELEASE_DEPS += $(D)/mtd_utils 
 RELEASE_DEPS += $(D)/gptfdisk
 endif
 RELEASE_DEPS += $(D)/opkg
+RELEASE_DEPS += $(D)/autofs
 
 #
 # tools
 #
 RELEASE_DEPS += $(D)/tools-aio-grab
 RELEASE_DEPS += $(D)/tools-satfind
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
+#ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/tools-showiframe
-endif
+#endif
 ifeq ($(BOXARCH), sh4)
 RELEASE_DEPS += $(D)/tools-devinit
 RELEASE_DEPS += $(D)/tools-evremote2
