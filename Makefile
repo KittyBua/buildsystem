@@ -284,10 +284,10 @@ endif
 
 help:
 	@echo "main target (image):"
-	@echo " make image-neutrino2			- build neutrino2 image"
-	@echo " make image-neutrino			- build neutrino image"
-	@echo " make image-titan			- build titan image"
-	@echo " make image-enigma2			- build enigma2 image (exp)"
+	@echo " make image-neutrino2		- build neutrino2 image"
+	@echo " make image-neutrino		- build neutrino image"
+	@echo " make image-titan		- build titan image"
+	@echo " make image-enigma2		- build enigma2 image (exp)"
 	@echo ""
 	@echo "show board configuration:"
 	@echo " make printenv			- show board build configuration"
