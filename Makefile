@@ -110,22 +110,6 @@ init:
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config
 	@echo ""		
-# kernel debug	
-	@echo -e "\nOptimization:"
-	@echo -e "   \033[01;32m1)  optimization for size\033[00m"
-	@echo "   2)  optimization normal"
-	@echo "   3)  Kernel debug"
-	@echo "   4)  debug (includes Kernel debug)"
-	@read -p "Select optimization (1-4)?" OPTIMIZATIONS; \
-	OPTIMIZATIONS=$${OPTIMIZATIONS}; \
-	case "$$OPTIMIZATIONS" in \
-		1) echo "OPTIMIZATIONS=size" >> config;; \
-		2) echo "OPTIMIZATIONS=normal" >> config;; \
-		3) echo "OPTIMIZATIONS=kerneldebug" >> config;;\
-		4) echo "OPTIMIZATIONS=debug" >> config;; \
-		*) echo "OPTIMIZATIONS=size" >> config;; \
-	esac;
-	@echo;
 # WLAN driver
 	@echo -e "\nDo you want to build WLAN drivers and tools"
 	@echo "   1) yes (includes WLAN drivers and tools)"
