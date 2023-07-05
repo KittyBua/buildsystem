@@ -22,7 +22,6 @@ RELEASE_DEPS += $(D)/mtd_utils
 RELEASE_DEPS += $(D)/gptfdisk
 endif
 RELEASE_DEPS += $(D)/opkg
-RELEASE_DEPS += $(D)/autofs
 
 #
 # tools
@@ -60,6 +59,7 @@ RELEASE_DEPS += $(LIRC)
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
+RELEASE_DEPS += $(D)/tools-exteplayer3
 endif
 
 #
@@ -93,13 +93,6 @@ RELEASE_DEPS += $(D)/luasocket
 RELEASE_DEPS += $(D)/luafeedparser 
 #RELEASE_DEPS += $(D)/luasoap 
 RELEASE_DEPS += $(D)/luajson
-endif
-
-#
-# exteplayer3
-#
-ifeq ($(EXTEPLAYER3), exteplayer3)
-RELEASE_DEPS += $(D)/tools-exteplayer3
 endif
 
 #
