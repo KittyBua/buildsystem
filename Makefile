@@ -250,9 +250,9 @@ ifeq ($(MAINTAINER),)
 	@echo "##########################################################################"
 	@echo
 endif
-	@if ! test -e $(BASE_DIR)/config; then \
-		echo;echo "If you want to create or modify the configuration, run 'make init or make'"; \
-		echo; fi
+	@echo
+	@echo "If you want to create or modify the configuration, run 'make init or make'"
+	@echo
 
 help:
 	@echo "main target (image):"
