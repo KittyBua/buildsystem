@@ -22,6 +22,7 @@ PACKAGES	      = $(BASE_DIR)/packages
 
 # BOXTYPE
 -include $(BASE_DIR)/config
+BOXTYPE ?= gb800se
 
 #
 TUFSBOX_DIR           = $(BASE_DIR)/tufsbox/$(BOXTYPE)
@@ -276,6 +277,7 @@ DEPMOD = $(HOST_DIR)/bin/depmod
 #
 #
 #
+WLAN ?= wlandriver
 ifeq ($(BOXARCH), sh4)
 ifeq ($(WLAN), wlandriver)
 WLANDRIVER = WLANDRIVER=wlandriver

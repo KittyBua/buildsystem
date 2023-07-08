@@ -1,3 +1,5 @@
+LUA ?= lua
+
 #
 # lua
 #

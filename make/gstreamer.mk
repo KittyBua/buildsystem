@@ -11,6 +11,7 @@ else
   GST_PLUGIN_CONFIG_DEBUG = --disable-debug
 endif
 
+GSTREAMER ?= gstreamer
 #
 # gstreamer
 #
