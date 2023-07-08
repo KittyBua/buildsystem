@@ -55,25 +55,25 @@ TITAN_CPPFLAGS   += -DEPLAYER3
 TITAN_CPPFLAGS   += -DEXTEPLAYER3
 TITAN_CPPFLAGS   += -I$(SOURCE_DIR)/titan/libeplayer3/include
 
-ifeq ($(GSTREAMER), gstreamer)
-TITAN_DEPS  += $(D)/gstreamer 
-TITAN_DEPS  += $(D)/gst_plugins_base 
-TITAN_DEPS  += $(D)/gst_plugins_good 
-TITAN_DEPS  += $(D)/gst_plugins_bad 
-TITAN_DEPS  += $(D)/gst_plugins_ugly 
-TITAN_DEPS  += $(D)/gst_plugins_subsink
-TITAN_DEPS  += $(D)/gst_plugins_dvbmediasink
-TITAN_CONFIG_OPTS += --enable-gstreamer
-TITAN_CPPFLAGS   += -DEPLAYER4
-TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/gstreamer-1.0
-TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/glib-2.0
-TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/libxml2
-TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/lib/gstreamer-1.0/include
-TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
-TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
-TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
-TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
-endif
+#ifeq ($(GSTREAMER), gstreamer)
+#TITAN_DEPS  += $(D)/gstreamer 
+#TITAN_DEPS  += $(D)/gst_plugins_base 
+#TITAN_DEPS  += $(D)/gst_plugins_good 
+#TITAN_DEPS  += $(D)/gst_plugins_bad 
+#TITAN_DEPS  += $(D)/gst_plugins_ugly 
+#TITAN_DEPS  += $(D)/gst_plugins_subsink
+#TITAN_DEPS  += $(D)/gst_plugins_dvbmediasink
+#TITAN_CONFIG_OPTS += --enable-gstreamer
+#TITAN_CPPFLAGS   += -DEPLAYER4
+#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/gstreamer-1.0
+#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/glib-2.0
+#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/include/libxml2
+#TITAN_CPPFLAGS   += -I$(TARGET_DIR)/usr/lib/gstreamer-1.0/include
+#TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
+#TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
+#TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
+#TITAN_CPPFLAGS   += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
+#endif
 
 ifeq ($(BOXARCH), sh4)
 TITAN_CPPFLAGS   += -DSH4
