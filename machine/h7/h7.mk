@@ -17,7 +17,7 @@ KERNEL_DTB_VER         = bcm7445-bcm97445svmb.dtb
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_H7 = \
 		TBS-fixes-for-4.10-kernel.patch \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
@@ -33,7 +33,7 @@ KERNEL_PATCHES_ARM = \
 		dvbs2x.patch \
 		fix-multiple-defs-yyloc.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_H7)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -89,6 +89,7 @@ LIBGLES_URL = http://downloads.mutant-digital.net/v3ddriver
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

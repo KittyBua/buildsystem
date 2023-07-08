@@ -35,4 +35,25 @@ distclean:
 %-clean:
 	( cd $(D) && find . -name $(subst -clean,,$@) -delete )
 
+#
+# driver-clean
+#
+driver-clean:
+ifeq ($(BOXARCH), sh4)
+	$(MAKE) -C $(DRIVER_DIR) ARCH=sh KERNEL_LOCATION=$(KERNEL_DIR) distclean
+else
+	rm -f $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/*
+endif
+	rm -f $(D)/driver
+
+#
+# kernel-clean
+#
+kernel-clean:
+	-$(MAKE) -C $(KERNEL_DIR) clean
+	rm -f $(D)/kernel
+	rm -f $(D)/kernel.do_compile
+	rm -f $(D)/kernel.do_prepare
+	rm -f $(TARGET_DIR)/boot/$(KERNELNAME)
+	rm -f $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 

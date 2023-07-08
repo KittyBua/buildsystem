@@ -17,7 +17,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_VUDUO4K = \
 		4_1_linux_dvb_adapter.patch \
 		4_1_linux_dvb-core.patch \
 		4_1_linux_4_1_45_dvbs2x.patch \
@@ -56,7 +56,7 @@ KERNEL_PATCHES_ARM = \
 		4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
 		4_1_0003-uaccess-dont-mark-register-as-const.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_VUDUO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -110,6 +110,7 @@ DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-proxy
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

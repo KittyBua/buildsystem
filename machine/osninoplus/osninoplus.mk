@@ -15,7 +15,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPS  = \
+KERNEL_PATCHES_OSNINOPLUS  = \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
 		0001-STV-Add-PLS-support.patch \
@@ -27,7 +27,7 @@ KERNEL_PATCHES_MIPS  = \
 		move-default-dialect-to-SMB3.patch \
 		makefile-silence-warnings.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
+KERNEL_PATCHES = $(KERNEL_PATCHES_OSNINOPLUS)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -76,6 +76,7 @@ DRIVER_URL = http://source.mynonpublic.com/edision
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

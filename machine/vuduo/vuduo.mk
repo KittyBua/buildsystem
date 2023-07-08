@@ -15,7 +15,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPS = \
+KERNEL_PATCHES_VUDUO = \
 		add-dmx-source-timecode.patch \
 		af9015-output-full-range-SNR.patch \
 		af9033-output-full-range-SNR.patch \
@@ -57,7 +57,7 @@ KERNEL_PATCHES_MIPS = \
 		CONFIG_DVB_SP2.patch \
 		dvbsky-t330.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
+KERNEL_PATCHES = $(KERNEL_PATCHES_VUDUO)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -106,7 +106,8 @@ DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-modules
 
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
-	
+
+driver: $(D)/driver	
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

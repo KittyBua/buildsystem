@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPS  = \
+KERNEL_PATCHES_GB800SE  = \
 		nor-maps-gb800solo.patch \
        		add-dmx-source-timecode.patch \
     		af9015-output-full-range-SNR.patch \
@@ -54,7 +54,7 @@ KERNEL_PATCHES_MIPS  = \
     		0002-cp1emu-do-not-use-bools-for-arithmetic.patch \
     		0003-log2-give-up-on-gcc-constant-optimizations.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
+KERNEL_PATCHES = $(KERNEL_PATCHES_GB800SE)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -104,6 +104,7 @@ DRIVER_URL = http://source.mynonpublic.com/gigablue/drivers
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

@@ -20,7 +20,7 @@ CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 #KERNEL_INITRD          = vmlinuz-initrd-7439b0
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_VUUNO4KSE = \
 		4_1_linux_dvb_adapter.patch \
 		4_1_linux_dvb-core.patch \
 		4_1_linux_4_1_45_dvbs2x.patch \
@@ -62,7 +62,7 @@ KERNEL_PATCHES_ARM = \
 		linux_rpmb_not_alloc.patch \
 		fix-multiple-defs-yyloc.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_VUUNO4KSE)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -115,6 +115,7 @@ DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-proxy
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

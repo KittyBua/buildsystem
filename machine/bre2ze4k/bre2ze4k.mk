@@ -18,7 +18,7 @@ KERNELNAME             = zImage
 
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_BRE2ZE4K = \
 		TBS-fixes-for-4.10-kernel.patch \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
@@ -34,7 +34,7 @@ KERNEL_PATCHES_ARM = \
 		dvbs2x.patch \
 		fix-multiple-defs-yyloc.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_BRE2ZE4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -96,6 +96,7 @@ $(ARCHIVE)/$(LIBGLES_SRC):
 $(ARCHIVE)/$(LIBGLES_HEADERS):
 	$(WGET) $(LIBGLES_URL)/$(LIBGLES_HEADERS)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

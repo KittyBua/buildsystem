@@ -20,7 +20,7 @@ CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 #KERNEL_INITRD          = vmlinuz-initrd-7439b0
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_VUUNO4K = \
 		3_14_bcm_genet_disable_warn.patch \
 		3_14_linux_dvb-core.patch \
 		3_14_dvbs2x.patch \
@@ -53,7 +53,7 @@ KERNEL_PATCHES_ARM = \
 		bcmsysport_3.14.28-1.12.patch \
 		linux_prevent_usb_dma_from_bmem.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_VUUNO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -106,6 +106,7 @@ DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-proxy
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

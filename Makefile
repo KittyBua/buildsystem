@@ -301,8 +301,6 @@ ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 include make/crosstool.mk
 endif
 include make/bootstrap.mk
-include make/linux-kernel.mk
-include make/driver.mk
 include make/contrib-libs.mk
 include make/contrib-apps.mk
 include make/ffmpeg.mk

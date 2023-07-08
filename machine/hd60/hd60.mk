@@ -18,7 +18,7 @@ KERNELNAME             = uImage
 
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
-KERNEL_PATCHES_ARM     = \
+KERNEL_PATCHES_HD60 = \
 		0002-log2-give-up-on-gcc-constant-optimizations.patch \
 		0003-dont-mark-register-as-const.patch \
 		0001-remote.patch \
@@ -37,7 +37,7 @@ KERNEL_PATCHES_ARM     = \
 		mn88472_reset_stream_ID_reg_if_no_PLP_given.patch \
 		fix-multiple-defs-yyloc.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_HD60)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -110,6 +110,7 @@ $(ARCHIVE)/$(EXTRA_MALILIB_SRC):
 $(ARCHIVE)/$(EXTRA_MALI_MODULE_SRC):
 	$(WGET) $(EXTRA_MALI_MODULE_URL)/$(EXTRA_MALI_MODULE_SRC);name=driver
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

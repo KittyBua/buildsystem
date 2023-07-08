@@ -16,11 +16,11 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-brcmstb-$(KERNEL_SRC_VER)
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_ARM     = \
+KERNEL_PATCHES_OSMIO4K = \
 		0001-scripts-Use-fixed-input-and-output-files-instead-of-.patch \
 		0002-kbuild-install_headers.sh-Strip-_UAPI-from-if-define.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_OSMIO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -80,6 +80,7 @@ $(ARCHIVE)/$(DRIVER_SRC):
 $(ARCHIVE)/$(LIBGLES_SRC):
 	$(WGET) $(LIBGLES_URL)/$(LIBGLES_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

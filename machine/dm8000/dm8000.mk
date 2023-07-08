@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_MIPS = \
+KERNEL_PATCHES_DM8000 = \
 		kernel-fake-3.2.patch \
 		linux-dreambox-3.2-3c7230bc0819495db75407c365f4d1db70008044.patch \
 		unionfs-2.6_for_3.2.62.patch \
@@ -59,7 +59,7 @@ KERNEL_PATCHES_MIPS = \
 		0015-fcrypt-fix-bitoperation-for-gcc.patch \
 		fix-multiple-defs-yyloc.patch
 		
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
+KERNEL_PATCHES = $(KERNEL_PATCHES_DM8000)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -114,7 +114,8 @@ DRIVER_SRC = dreambox-dvb-modules-$(BOXTYPE)-$(DRIVER_VER)-$(BOXTYPE)-$(DRIVER_D
 
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) https://sources.dreamboxupdate.com/download/opendreambox/2.0.0/dreambox-dvb-modules/$(DRIVER_SRC)
-	
+
+driver: $(D)/driver	
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

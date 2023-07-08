@@ -25,7 +25,7 @@ KERNELNAME         = uImage
 #
 # Patches Kernel 24
 #
-COMMON_PATCHES_24 = \
+ATEVIO7500_PATCHES_24 = \
 		linux-sh4-makefile_stm24.patch \
 		linux-stm-gpio-fix-build-CONFIG_BUG.patch \
 		linux-kbuild-generate-modules-builtin_stm24_$(KERNEL_LABEL).patch \
@@ -44,9 +44,7 @@ COMMON_PATCHES_24 = \
 		linux-sh4-permit_gcc_command_line_sections_stm24.patch \
 		linux-sh4-mmap_stm24.patch \
 		linux-defined_is_deprecated_timeconst.pl_stm24_$(KERNEL_LABEL).patch \
-		linux-patch_swap_notify_core_support_stm24_$(KERNEL_LABEL).patch
-
-ATEVIO7500_PATCHES_24 = $(COMMON_PATCHES_24) \
+		linux-patch_swap_notify_core_support_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-lmb_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-atevio7500_setup_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-stmmac_stm24_$(KERNEL_LABEL).patch
@@ -124,6 +122,7 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #
 # driver
 #
+driver: $(D)/driver
 $(D)/driver: $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh CONFIG_DEBUG_SECTION_MISMATCH=y \

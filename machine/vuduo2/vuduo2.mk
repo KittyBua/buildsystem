@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_MIPS = \
+KERNEL_PATCHES_VUDUO2 = \
 		kernel-add-support-for-gcc5.patch \
 		kernel-add-support-for-gcc6.patch \
 		kernel-add-support-for-gcc7.patch \
@@ -60,7 +60,7 @@ KERNEL_PATCHES_MIPS = \
 		mm-Move-__vma_address-to-internal.h-to-be-inlined-in-huge_memory.c.patch \
 		compile-with-gcc9.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_MIPS)
+KERNEL_PATCHES = $(KERNEL_PATCHES_VUDUO2)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -111,6 +111,7 @@ DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-proxy
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
+driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

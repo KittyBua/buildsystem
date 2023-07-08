@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
-KERNEL_PATCHES_ARM = \
+KERNEL_PATCHES_E4HDULTRA = \
 		TBS-fixes-for-4.10-kernel.patch \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
@@ -40,7 +40,7 @@ KERNEL_PATCHES_ARM = \
 		0005-xbox-one-tuner-4.10.patch \
 		0006-dvb-media-tda18250-support-for-new-silicon-tuner.patch
 		
-KERNEL_PATCHES = $(KERNEL_PATCHES_ARM)
+KERNEL_PATCHES = $(KERNEL_PATCHES_E4HDULTRA)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -90,7 +90,8 @@ DRIVER_URL = http://source.mynonpublic.com/ceryon
 
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
-	
+
+driver: $(D)/driver	
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra

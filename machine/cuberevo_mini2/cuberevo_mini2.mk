@@ -26,7 +26,7 @@ KERNELNAME         = uImage
 #
 # Patches Kernel 24
 #
-COMMON_PATCHES_24 = \
+CUBEREVO_MINI2_PATCHES_24 = \
 		linux-sh4-makefile_stm24.patch \
 		linux-stm-gpio-fix-build-CONFIG_BUG.patch \
 		linux-kbuild-generate-modules-builtin_stm24_$(KERNEL_LABEL).patch \
@@ -45,9 +45,7 @@ COMMON_PATCHES_24 = \
 		linux-sh4-permit_gcc_command_line_sections_stm24.patch \
 		linux-sh4-mmap_stm24.patch \
 		linux-defined_is_deprecated_timeconst.pl_stm24_$(KERNEL_LABEL).patch \
-		linux-patch_swap_notify_core_support_stm24_$(KERNEL_LABEL).patch
-
-CUBEREVO_MINI2_PATCHES_24 = $(COMMON_PATCHES_24) \
+		linux-patch_swap_notify_core_support_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-cuberevo_mini2_setup_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-cuberevo_rtl8201_stm24_$(KERNEL_LABEL).patch
@@ -125,6 +123,7 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #
 # driver
 #
+driver: $(D)/driver
 $(D)/driver: $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh CONFIG_DEBUG_SECTION_MISMATCH=y \
