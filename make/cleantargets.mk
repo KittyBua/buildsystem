@@ -6,10 +6,14 @@ clean: depsclean
 	@-$(MAKE) kernel-clean
 	@-$(MAKE) driver-clean
 	@-$(MAKE) tools-clean
+	@-rm -rf $(IMAGE_DIR)
+	@-rm -rf $(PKGS_DIR)
 	@-rm -rf $(RELEASE_DIR)
 	@-rm -rf $(TARGET_DIR)
 	@-rm -rf $(SOURCE_DIR)
+	@-rm -rf $(BUILD_TMP)
 	@-rm -rf $(BOOT_DIR)
+	@-rm -rf $(HOST_DIR)
 	@-rm -rf $(D)/*.do_compile
 	@-rm -rf $(D)/*.do_prepare
 	@-rm -rf $(D)/*.config.status
