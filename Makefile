@@ -352,7 +352,7 @@ print-boards:
 .print-phony:
 	@echo $(PHONY)
 
-PHONY += everything print-targets
+PHONY += print-targets
 PHONY += all printenv .print-phony
 PHONY += update
 .PHONY: $(PHONY)

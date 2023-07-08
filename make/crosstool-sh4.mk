@@ -44,7 +44,9 @@ $(ARCHIVE)/stlinux24-sh4-libstdc++-dev-$(LIBGCC_VER).sh4.rpm
 	touch $(D)/$(notdir $@)
 
 CROSSTOOL = crosstool
-crosstool: $(D)/directories driver-symlink crosstool-rpminstall
+crosstool: $(D)/directories crosstool-rpminstall
+	cp $(DRIVER_DIR)/stgfb/stmfb/linux/drivers/video/stmfb.h $(TARGET_DIR)/usr/include/linux
+	cp $(DRIVER_DIR)/player2/linux/include/linux/dvb/stm_ioctls.h $(TARGET_DIR)/usr/include/linux/dvb
 	@touch $(D)/$(notdir $@)
 
 $(TARGET_DIR)/lib/libc.so.6:
@@ -83,6 +85,5 @@ $(ARCHIVE)/stlinux24-host-u-boot-tools-$(HOST_U_BOOT_TOOLS_VER).i386.rpm
 	$(SCRIPTS_DIR)/unpack-rpm.sh $(BUILD_TMP) $(STM_RELOCATE)/host/bin $(HOST_DIR)/bin \
 		$^
 	@touch $(D)/$(notdir $@)
-	@echo -e "Build of $(TERM_GREEN_BOLD)$@$(PKG_VER) $(TERM_NORMAL)completed."; echo
-
+	$(END_BUILD)
 
