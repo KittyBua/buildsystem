@@ -194,6 +194,24 @@ neutrino2-plugins-distclean:
 	rm -f $(SOURCE_DIR)/neutrino2/plugins/config.status
 	
 #
+# neutrino2-ipk
+#
+neutrino2-ipk: $(D)/neutrino2.do_compile
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	$(MAKE) -C $(SOURCE_DIR)/neutrino2/neutrino2 install DESTDIR=$(PKGPREFIX)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
+	cd $(PACKAGES)/neutrino2 && tar -cvzf $(PKGS_DIR)/control.tar.gz *
+	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/neutrino2_$(BOXARCH)_$(BOXTYPE).tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PKGPREFIX)
+	$(END_BUILD)
+	
+#
 # release-neutrino2
 #
 release-neutrino2: $(RELEASE_DEPS) $(D)/neutrino2 $(D)/neutrino2-plugins release-common release-$(BOXTYPE)

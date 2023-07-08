@@ -253,6 +253,24 @@ titan-plugins-clean:
 titan-plugins-distclean:
 	rm -f $(D)/titan-plugins*
 	$(MAKE) -C $(SOURCE_DIR)/titan/plugins distclean
+	
+#
+# titan-ipk
+#
+titan-ipk: $(D)/titan.do_compile
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	$(MAKE) -C $(SOURCE_DIR)/titan/titan install DESTDIR=$(PKGPREFIX)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
+	cd $(PACKAGES)/titan && tar -cvzf $(PKGS_DIR)/control.tar.gz *
+	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/titan_$(BOXARCH)_$(BOXTYPE).tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PKGPREFIX)
+	$(END_BUILD)
 		
 #
 # release-titan

@@ -380,6 +380,37 @@ $(D)/neutrino-plugins-mediathek:
 	$(TOUCH)
 	
 #
+# neutrino-ipk
+#
+$(PKGPREFIX)/.version:
+	echo "distro=$(MAINTAINER)" > $@
+	echo "imagename=`sed -n 's/\#define PACKAGE_NAME "//p' $(N_OBJDIR)/config.h | sed 's/"//'`" >> $@
+	echo "imageversion=`sed -n 's/\#define PACKAGE_VERSION "//p' $(N_OBJDIR)/config.h | sed 's/"//'`" >> $@
+	echo "homepage=https://github.com/Duckbox-Developers" >> $@
+	echo "creator=$(MAINTAINER)" >> $@
+	echo "docs=https://github.com/Duckbox-Developers" >> $@
+	echo "forum=https://github.com/Duckbox-Developers/neutrino-ddt" >> $@
+	echo "version=0200`date +%Y%m%d%H%M`" >> $@
+	echo "git=`git log | grep "^commit" | wc -l`" >> $@
+	
+$(D)/neutrino-ipk: $(D)/neutrino.do_prepare $(D)/neutrino.do_compile
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(PKGPREFIX); \
+	rm -f $(PKGPREFIX)/.version
+	make $(PKGPREFIX)/.version
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
+	cd $(PACKAGES)/neutrino && tar -cvzf $(PKGS_DIR)/control.tar.gz *
+	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/neutrino_$(BOXARCH)_$(BOXTYPE).tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PKGPREFIX)
+	$(END_BUILD)
+	
+#
 # release-neutrino
 #
 release-neutrino: $(RELEASE_DEPS) $(D)/neutrino $(N_PLUGINS) release-common release-$(BOXTYPE)
