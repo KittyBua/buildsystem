@@ -214,7 +214,7 @@ printenv:
 	@echo "ARCHIVE_DIR      : $(ARCHIVE)"
 	@echo "BASE_DIR         : $(BASE_DIR)"
 	@echo "CUSTOM_DIR       : $(CUSTOM_DIR)"
-	@echo "APPS_DIR         : $(APPS_DIR)"
+	@echo "TOOLS_DIR         : $(TOOLS_DIR)"
 	@echo "DRIVER_DIR       : $(DRIVER_DIR)"
 	@echo "IMAGE_DIR        : $(IMAGE_DIR)"
 	@echo "CROSS_DIR        : $(CROSS_DIR)"
