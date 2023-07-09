@@ -31,6 +31,7 @@ endif
 ENIGMA2_CPPFLAGS =
 ENIGMA2_CONFIG_OPTS = 
 
+GSTREAMER ?= gstreamer
 ifeq ($(GSTREAMER), gstreamer)
 ENIGMA2_DEPS  += $(D)/gstreamer 
 ENIGMA2_DEPS  += $(D)/gst_plugins_base 
