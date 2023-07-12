@@ -322,6 +322,11 @@ endif
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
+ifeq ($(BOXARCH), sh4)
+	rm -rf $(RELEASE_DIR)/usr/lib/lua
+	rm -rf $(RELEASE_DIR)/usr/share/lua
+	rm -rf $(RELEASE_DIR)/usr/share/fonts
+endif
 #
 #
 #
