@@ -223,6 +223,7 @@ printenv:
 	@echo "TOOLS_DIR        : $(TOOLS_DIR)"
 	@echo "DRIVER_DIR       : $(DRIVER_DIR)"
 	@echo "IMAGE_DIR        : $(IMAGE_DIR)"
+	@echo "PKGS_DIR         : $(PKGS_DIR)"
 	@echo "CROSS_DIR        : $(CROSS_DIR)"
 	@echo "RELEASE_DIR      : $(RELEASE_DIR)"
 	@echo "HOST_DIR         : $(HOST_DIR)"

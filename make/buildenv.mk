@@ -11,7 +11,7 @@ export LD_LIBRARY_PATH
 BASE_DIR             := $(shell pwd)
 
 ARCHIVE               = $(HOME)/Archive
-TOOLS_DIR              = $(BASE_DIR)/tools
+TOOLS_DIR             = $(BASE_DIR)/tools
 DRIVER_DIR            = $(BASE_DIR)/driver
 HOSTAPPS_DIR          = $(BASE_DIR)/hostapps
 CUSTOM_DIR            = $(BASE_DIR)/custom
