@@ -30,7 +30,6 @@ endif
 ENIGMA2_CPPFLAGS =
 ENIGMA2_CONFIG_OPTS = 
 
-GSTREAMER ?= gstreamer
 ifeq ($(GSTREAMER), gstreamer)
 ENIGMA2_DEPS  += $(D)/gstreamer 
 ENIGMA2_DEPS  += $(D)/gst_plugins_base 
@@ -60,7 +59,6 @@ ENIGMA2_CPPFLAGS   += -I$(DRIVER_DIR)/include
 endif
 ENIGMA2_CPPFLAGS   += -I$(TARGET_DIR)/usr/include
 
-PYTHON ?= python
 ifeq ($(PYTHON), python)
 ENIGMA2_DEPS += $(D)/python
 endif

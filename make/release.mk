@@ -78,6 +78,7 @@ endif
 #
 # python
 #
+PYTHON ?= python
 ifeq ($(PYTHON), python)
 RELEASE_DEPS += $(D)/python
 endif
@@ -85,6 +86,7 @@ endif
 #
 # lua
 #
+LUA ?= lua
 ifeq ($(LUA), lua)
 RELEASE_DEPS += $(D)/lua 
 RELEASE_DEPS += $(D)/luaexpat 
@@ -98,6 +100,7 @@ endif
 #
 # gstreamer
 #
+GSTREAMER ?= gstreamer
 ifeq ($(GSTREAMER), gstreamer)
 RELEASE_DEPS  += $(D)/gstreamer 
 RELEASE_DEPS  += $(D)/gst_plugins_base 
@@ -111,6 +114,7 @@ endif
 #
 # graphlcd
 #
+GRAPHLCD ?= graphlcd
 ifeq ($(GRAPHLCD), graphlcd)
 RELEASE_DEPS += $(D)/graphlcd
 endif
@@ -118,6 +122,7 @@ endif
 #
 # lcd4linux
 #
+LCD4LINUX ?= lcd4linux
 ifeq ($(LCD4LINUX), lcd4linux)
 RELEASE_DEPS += $(D)/lcd4linux
 endif

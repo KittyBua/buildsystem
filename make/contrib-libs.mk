@@ -1667,8 +1667,6 @@ $(D)/pugixml: $(D)/bootstrap $(ARCHIVE)/$(PUGIXML_SOURCE)
 #
 # graphlcd
 #
-GRAPHLCD ?= graphlcd
-
 GRAPHLCD_VER = 55d4bd8
 GRAPHLCD_SOURCE = graphlcd-git-$(GRAPHLCD_VER).tar.bz2
 #GRAPHLCD_URL = https://projects.vdr-developer.org/git/graphlcd-base.git
@@ -1727,8 +1725,6 @@ $(D)/libdpf: $(D)/bootstrap $(D)/libusb_compat $(ARCHIVE)/$(LIBDPF_SOURCE)
 #
 # lcd4linux
 #
-LCD4LINUX ?= lcd4linux
-
 LCD4LINUX_VER = 07ef2dd
 LCD4LINUX_SOURCE = lcd4linux-git-$(LCD4LINUX_VER).tar.bz2
 LCD4LINUX_URL = https://github.com/TangoCash/lcd4linux.git

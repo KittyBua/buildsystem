@@ -1,5 +1,3 @@
-LUA ?= lua
-
 #
 # lua
 #
