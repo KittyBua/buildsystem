@@ -290,19 +290,6 @@ $(D)/buildimage: $(D)/bootstrap $(ARCHIVE)/$(BUILDIMAGE_SOURCE)
 	$(TOUCH)
 
 #
-# dm8000 second stage loader #84
-#
-DM8000_2ND_SOURCE = secondstage-dm8000-84.bin
-DM8000_2ND_URL = http://sources.dreamboxupdate.com/download/7020/$(DM8000_2ND_SOURCE)
-
-$(ARCHIVE)/$(DM8000_2ND_SOURCE):
-	$(DOWNLOAD) $(DM8000_2ND_URL)
-
-$(D)/dm8000_2nd: $(ARCHIVE)/$(DM8000_2ND_SOURCE)
-	$(START_BUILD)
-	$(TOUCH)
-
-#
 # android tools
 #
 ANDROID_MIRROR = https://android.googlesource.com

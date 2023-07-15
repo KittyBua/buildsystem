@@ -125,6 +125,19 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(TOUCH)
 	
 #
+# dm8000 second stage loader #84
+#
+DM8000_2ND_SOURCE = secondstage-dm8000-84.bin
+DM8000_2ND_URL = http://sources.dreamboxupdate.com/download/7020/$(DM8000_2ND_SOURCE)
+
+$(ARCHIVE)/$(DM8000_2ND_SOURCE):
+	$(WGET) $(DM8000_2ND_URL)
+
+$(D)/dm8000_2nd: $(ARCHIVE)/$(DM8000_2ND_SOURCE)
+	$(START_BUILD)
+	$(TOUCH)
+	
+#
 # release-dm8000
 #
 release-dm8000:
