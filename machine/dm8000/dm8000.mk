@@ -152,6 +152,8 @@ flash-image-dm8000: $(D)/dm8000_2nd
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
 	#
+	cp -f $(ARCHIVE)/$(DM8000_2ND_SOURCE) $(IMAGE_BUILD_DIR)/$(BOXTYPE)/
+	#
 	mkfs.jffs2 --root=$(RELEASE_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
 	#
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
@@ -168,5 +170,9 @@ flash-image-dm8000: $(D)/dm8000_2nd
 	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/imageversion
 	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
 	buildimage -a dm8000 -e 0x20000 -f 0x4000000 -s 2048 -b 0x100000:secondstage-dm8000-84.bin -d 0x700000:boot.jffs2 -d 0xF800000:rootfs.ubi > $(BOXTYPE).nfi
+	cd $(IMAGE_BUILD_DIR) && \
+	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE)/$(BOXTYPE).nfi $(BOXTYPE)/imageversion
+	# cleanup
+	rm -rf $(IMAGE_BUILD_DIR)
 	
 
