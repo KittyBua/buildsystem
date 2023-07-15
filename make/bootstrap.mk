@@ -346,6 +346,9 @@ BOOTSTRAP += $(D)/host_mkcramfs
 BOOTSTRAP += $(D)/host_mksquashfs_lzma
 BOOTSTRAP += host_u_boot_tools
 endif
+ifeq ($(BOXTYPE), dm8000)
+BOOTSTRAP += $(D)/buildimage
+endif
 
 $(D)/bootstrap: $(BOOTSTRAP)
 	@touch $@
