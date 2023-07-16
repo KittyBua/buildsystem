@@ -1874,23 +1874,23 @@ $(D)/valgrind: $(D)/bootstrap $(ARCHIVE)/$(VALGRIND_SOURCE)
 #
 # host_opkg
 #
-$(D)/host_opkg: directories $(D)/host_libarchive $(ARCHIVE)/$(OPKG_SOURCE)
-	$(START_BUILD)
-	$(REMOVE)/opkg-$(OPKG_VER)
-	$(UNTAR)/$(OPKG_SOURCE)
-	$(CHDIR)/opkg-$(OPKG_VER); \
-		$(call apply_patches, $(OPKG_HOST_PATCH)); \
-		./autogen.sh; \
-		CFLAGS="-I$(HOST_DIR)/include" \
-		LDFLAGS="-L$(HOST_DIR)/lib" \
-		./configure \
-			PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig \
-			--prefix= \
-			--disable-curl \
-			--disable-gpg \
-		; \
-		$(MAKE) all; \
-		$(MAKE) install DESTDIR=$(HOST_DIR)
-	$(REMOVE)/opkg-$(OPKG_VER)
-	$(TOUCH)
+#$(D)/host_opkg: directories $(D)/host_libarchive $(ARCHIVE)/$(OPKG_SOURCE)
+#	$(START_BUILD)
+#	$(REMOVE)/opkg-$(OPKG_VER)
+#	$(UNTAR)/$(OPKG_SOURCE)
+#	$(CHDIR)/opkg-$(OPKG_VER); \
+#		$(call apply_patches, $(OPKG_HOST_PATCH)); \
+#		./autogen.sh; \
+#		CFLAGS="-I$(HOST_DIR)/include" \
+#		LDFLAGS="-L$(HOST_DIR)/lib" \
+#		./configure \
+#			PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig \
+#			--prefix= \
+#			--disable-curl \
+#			--disable-gpg \
+#		; \
+#		$(MAKE) all; \
+#		$(MAKE) install DESTDIR=$(HOST_DIR)
+#	$(REMOVE)/opkg-$(OPKG_VER)
+#	$(TOUCH)
 
