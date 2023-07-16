@@ -75,7 +75,7 @@ $(D)/gmp: $(D)/bootstrap $(ARCHIVE)/$(GMP_SOURCE)
 	$(TOUCH)
 
 #
-# host_libffi
+# libffi
 #
 LIBFFI_VER = 3.2.1
 LIBFFI_SOURCE = libffi-$(LIBFFI_VER).tar.gz
@@ -84,23 +84,6 @@ LIBFFI_PATCH = libffi-$(LIBFFI_VER).patch
 $(ARCHIVE)/$(LIBFFI_SOURCE):
 	$(WGET) ftp://sourceware.org/pub/libffi/$(LIBFFI_SOURCE)
 
-#$(D)/host_libffi: $(ARCHIVE)/$(LIBFFI_SOURCE)
-#	$(START_BUILD)
-#	$(REMOVE)/libffi-$(LIBFFI_VER)
-#	$(UNTAR)/$(LIBFFI_SOURCE)
-#	$(CHDIR)/libffi-$(LIBFFI_VER); \
-#		./configure \
-#			--prefix=$(HOST_DIR) \
-#			--disable-static \
-#		; \
-#		$(MAKE); \
-#		$(MAKE) install
-#	$(REMOVE)/libffi-$(LIBFFI_VER)
-#	$(TOUCH)
-
-#
-# libffi
-#
 $(D)/libffi: $(D)/bootstrap $(ARCHIVE)/$(LIBFFI_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/libffi-$(LIBFFI_VER)
@@ -123,7 +106,7 @@ $(D)/libffi: $(D)/bootstrap $(ARCHIVE)/$(LIBFFI_SOURCE)
 	$(TOUCH)
 
 #
-# host_libglib2_genmarshal
+# libglib2_genmarshal
 #
 LIBGLIB2_VER_MAJOR = 2
 LIBGLIB2_VER_MINOR = 57
@@ -134,30 +117,6 @@ LIBGLIB2_SOURCE = glib-$(LIBGLIB2_VER).tar.xz
 $(ARCHIVE)/$(LIBGLIB2_SOURCE):
 	$(WGET) https://ftp.gnome.org/pub/gnome/sources/glib/$(LIBGLIB2_VER_MAJOR).$(LIBGLIB2_VER_MINOR)/$(LIBGLIB2_SOURCE)
 
-#$(D)/host_libglib2_genmarshal: $(D)/bootstrap $(D)/host_libffi $(ARCHIVE)/$(LIBGLIB2_SOURCE)
-#	$(START_BUILD)
-#	$(REMOVE)/glib-$(LIBGLIB2_VER)
-#	$(UNTAR)/$(LIBGLIB2_SOURCE)
-#	$(CHDIR)/glib-$(LIBGLIB2_VER); \
-#		export PKG_CONFIG=/usr/bin/pkg-config; \
-#		export PKG_CONFIG_PATH=$(HOST_DIR)/lib/pkgconfig; \
-#		./configure \
-#			--prefix=`pwd`/out \
-#			--enable-static=yes \
-#			--enable-shared=no \
-#			--disable-fam \
-#			--disable-libmount \
-#			--with-pcre=internal \
-#			--disable-compile-warnings \
-#		; \
-#		$(MAKE) install; \
-#		cp -a out/bin/glib-* $(HOST_DIR)/bin
-#	$(REMOVE)/glib-$(LIBGLIB2_VER)
-#	$(TOUCH)
-
-#
-# libglib2
-#
 LIBGLIB2_PATCH  = libglib2-$(LIBGLIB2_VER)-disable-tests.patch
 LIBGLIB2_PATCH += libglib2-$(LIBGLIB2_VER)-fix-gio-linking.patch
 
@@ -249,7 +208,7 @@ $(D)/libpcre: $(D)/bootstrap $(ARCHIVE)/$(LIBPCRE_SOURCE)
 	$(TOUCH)
 
 #
-# host_libarchive
+# libarchive
 #
 LIBARCHIVE_VER = 3.1.2
 LIBARCHIVE_SOURCE = libarchive-$(LIBARCHIVE_VER).tar.gz
@@ -257,25 +216,6 @@ LIBARCHIVE_SOURCE = libarchive-$(LIBARCHIVE_VER).tar.gz
 $(ARCHIVE)/$(LIBARCHIVE_SOURCE):
 	$(WGET) https://www.libarchive.org/downloads/$(LIBARCHIVE_SOURCE)
 
-#$(D)/host_libarchive: $(D)/bootstrap $(ARCHIVE)/$(LIBARCHIVE_SOURCE)
-#	$(START_BUILD)
-#	$(REMOVE)/libarchive-$(LIBARCHIVE_VER)
-#	$(UNTAR)/$(LIBARCHIVE_SOURCE)
-#	$(CHDIR)/libarchive-$(LIBARCHIVE_VER); \
-#		./configure \
-#			--build=$(BUILD) \
-#			--host=$(BUILD) \
-#			--prefix= \
-#			--without-xml2 \
-#		; \
-#		$(MAKE); \
-#		$(MAKE) install DESTDIR=$(HOST_DIR)
-#	$(REMOVE)/libarchive-$(LIBARCHIVE_VER)
-#	$(TOUCH)
-
-#
-# libarchive
-#
 $(D)/libarchive: $(D)/bootstrap $(ARCHIVE)/$(LIBARCHIVE_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/libarchive-$(LIBARCHIVE_VER)
