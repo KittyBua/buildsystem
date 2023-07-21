@@ -2,7 +2,6 @@
 # TITAN
 #
 TITAN_DEPS  = $(D)/bootstrap
-TITAN_DEPS += $(D)/libopenthreads
 TITAN_DEPS += $(D)/libpng
 TITAN_DEPS += $(D)/freetype
 TITAN_DEPS += $(D)/libjpeg

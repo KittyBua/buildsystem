@@ -15,17 +15,7 @@ ENIGMA2_DEPS += $(D)/tuxtxt32bpp
 ENIGMA2_DEPS += $(D)/hotplug_e2_helper
 ENIGMA2_DEPS += $(D)/avahi
 ENIGMA2_DEPS  += $(D)/libsigc
-ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), size))
-ENIGMA2_DEPS += $(D)/ethtool
-ENIGMA2_DEPS += $(D)/alsa_utils
 ENIGMA2_DEPS += $(D)/libdreamdvd
-ENIGMA2_DEPS += $(D)/libmad
-ENIGMA2_DEPS += $(D)/libusb
-ENIGMA2_DEPS += $(D)/libid3tag
-ENIGMA2_DEPS += $(D)/minidlna
-ENIGMA2_DEPS += $(D)/sdparm
-ENIGMA2_DEPS += $(D)/parted
-endif
 
 ENIGMA2_CPPFLAGS =
 ENIGMA2_CONFIG_OPTS = 
