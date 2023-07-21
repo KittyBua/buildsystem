@@ -27,7 +27,6 @@ RELEASE_DEPS += $(D)/opkg
 # tools
 #
 RELEASE_DEPS += $(D)/tools-aio-grab
-RELEASE_DEPS += $(D)/tools-satfind
 RELEASE_DEPS += $(D)/tools-showiframe
 ifeq ($(BOXARCH), sh4)
 RELEASE_DEPS += $(D)/tools-devinit

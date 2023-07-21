@@ -5,7 +5,6 @@ tools-clean:
 	rm -f $(D)/tools-*
 	-$(MAKE) -C $(TOOLS_DIR)/aio-grab-$(BOXARCH) clean
 	-$(MAKE) -C $(TOOLS_DIR)/showiframe-$(BOXARCH) clean
-	-$(MAKE) -C $(TOOLS_DIR)/satfind clean
 ifeq ($(BOXARCH), sh4)
 	-$(MAKE) -C $(TOOLS_DIR)/devinit clean
 	-$(MAKE) -C $(TOOLS_DIR)/evremote2 clean
@@ -40,7 +39,6 @@ tools-distclean:
 	rm -f $(D)/tools-*
 	-$(MAKE) -C $(TOOLS_DIR)/aio-grab-$(BOXARCH) distclean
 	-$(MAKE) -C $(TOOLS_DIR)/showiframe-$(BOXARCH) distclean
-	-$(MAKE) -C $(TOOLS_DIR)/satfind distclean
 ifeq ($(BOXARCH), sh4)
 	-$(MAKE) -C $(TOOLS_DIR)/devinit distclean
 	-$(MAKE) -C $(TOOLS_DIR)/evremote2 distclean
