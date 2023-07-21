@@ -21,7 +21,6 @@ $:~ make
 $:~ make image-neutrino2
 $:~ make image-neutrino
 $:~ make image-titan
-$:~ make image-enigma2
 ```
 
 **for more details:**
