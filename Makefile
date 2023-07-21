@@ -112,26 +112,26 @@ init:
 	@echo ""		
 # WLAN driver
 	@echo -e "\nDo you want to build WLAN drivers and tools"
-	@echo -e "   \033[01;32m1) yes (includes WLAN drivers and tools)\033[00m"
-	@echo "   2) no"
+	@echo -e "   \033[01;32m1) no\033[00m"
+	@echo "   2) yes (includes WLAN drivers and tools)"
 	@read -p "Select to build (1-2)?" WLAN; \
 	WLAN=$${WLAN}; \
 	case "$$WLAN" in \
-		1) echo "WLAN=wlandriver" >> config;; \
-		2) echo "WLAN=" >> config;; \
-		*) echo "WLAN=wlandriver" >> config;; \
+		1) echo "WLAN=" >> config;; \
+		2) echo "WLAN=wlandriver" >> config;; \
+		*) echo "WLAN=" >> config;; \
 	esac; \
 	echo ""
 # Gstreamer
 	@echo -e "\nGstreamer:"
-	@echo -e "   \033[01;32m1) yes\033[00m"
-	@echo "   2) no"
+	@echo -e "   \033[01;32m1) no\033[00m"
+	@echo "   2) yes"
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
 	GSTREAMER=$${GSTREAMER}; \
 	case "$$GSTREAMER" in \
-		1) echo "GSTREAMER=gstreamer" >> config;; \
-		2) echo "GSTREAMER=" >> config;; \
-		*) echo "GSTREAMER=gstreamer" >> config;; \
+		1) echo "GSTREAMER=" >> config;; \
+		2) echo "GSTREAMER=gstreamer" >> config;; \
+		*) echo "GSTREAMER=" >> config;; \
 	esac; \
 	echo ""
 # lua
@@ -148,14 +148,14 @@ init:
 	echo ""
 # python
 	@echo -e "\npython support ?:"
-	@echo -e "   \033[01;32m1)  yes\033[00m"
-	@echo "   2)  no"
+	@echo -e "   \033[01;32m1)  no\033[00m"
+	@echo "   2)  yes"
 	@read -p "Select python support (1-2)?" PYTHON; \
 	PYTHON=$${PYTHON}; \
 	case "$$PYTHON" in \
-		1) echo "PYTHON=python" >> config;; \
-		2) echo "PYTHON=" >> config;; \
-		*) echo "PYTHON=python" >> config;; \
+		1) echo "PYTHON=" >> config;; \
+		2) echo "PYTHON=python" >> config;; \
+		*) echo "PYTHON=" >> config;; \
 	esac; \
 	echo ""
 # GraphLCD

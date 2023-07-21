@@ -44,20 +44,20 @@ endif
 
 NEUTRINO2_CONFIG_OPTS =
 
-#ifeq ($(GSTREAMER), gstreamer)
-#NEUTRINO2_DEPS  += $(D)/gstreamer 
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_base 
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_good 
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_bad 
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_ugly 
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_subsink
-#NEUTRINO2_DEPS  += $(D)/gst_plugins_dvbmediasink
-#NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
-#NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
-#NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
-#NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
-#NEUTRINO2_CONFIG_OPTS += --enable-gstreamer --with-gstversion=1.0
-#endif
+ifeq ($(GSTREAMER), gstreamer)
+NEUTRINO2_DEPS  += $(D)/gstreamer 
+NEUTRINO2_DEPS  += $(D)/gst_plugins_base 
+NEUTRINO2_DEPS  += $(D)/gst_plugins_good 
+NEUTRINO2_DEPS  += $(D)/gst_plugins_bad 
+NEUTRINO2_DEPS  += $(D)/gst_plugins_ugly 
+NEUTRINO2_DEPS  += $(D)/gst_plugins_subsink
+NEUTRINO2_DEPS  += $(D)/gst_plugins_dvbmediasink
+NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
+NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.0)
+NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
+NEUTRINO2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
+NEUTRINO2_CONFIG_OPTS += --enable-gstreamer --with-gstversion=1.0
+endif
 
 ifeq ($(PYTHON), python)
 NEUTRINO2_DEPS += $(D)/python
