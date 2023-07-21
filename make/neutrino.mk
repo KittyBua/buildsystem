@@ -41,7 +41,6 @@ NEUTRINO_DEPS += $(D)/ffmpeg
 NEUTRINO_DEPS += $(D)/libfribidi 
 NEUTRINO_DEPS += $(D)/libsigc 
 NEUTRINO_DEPS += $(D)/libdvbsi 
-NEUTRINO_DEPS += $(D)/libusb
 NEUTRINO_DEPS += $(D)/pugixml 
 NEUTRINO_DEPS += $(D)/libopenthreads
 NEUTRINO_DEPS += $(D)/libid3tag

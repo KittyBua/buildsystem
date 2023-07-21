@@ -7,20 +7,16 @@ tools-clean:
 	-$(MAKE) -C $(TOOLS_DIR)/showiframe-$(BOXARCH) clean
 	-$(MAKE) -C $(TOOLS_DIR)/satfind clean
 ifeq ($(BOXARCH), sh4)
-	-$(MAKE) -C $(TOOLS_DIR)/spf_tool clean
 	-$(MAKE) -C $(TOOLS_DIR)/devinit clean
 	-$(MAKE) -C $(TOOLS_DIR)/evremote2 clean
 	-$(MAKE) -C $(TOOLS_DIR)/fp_control clean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-fup clean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-mup clean
-	-$(MAKE) -C $(TOOLS_DIR)/flashtool_mup clean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-pad clean
-	-$(MAKE) -C $(TOOLS_DIR)/hotplug clean
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ipbox55 ipbox99 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd cuberevo_3000hd))
 	-$(MAKE) -C $(TOOLS_DIR)/ipbox_eeprom clean
 endif
 	-$(MAKE) -C $(TOOLS_DIR)/stfbcontrol clean
-	-$(MAKE) -C $(TOOLS_DIR)/streamproxy clean
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), tf7700))
 	-$(MAKE) -C $(TOOLS_DIR)/tfd2mtd clean
 	-$(MAKE) -C $(TOOLS_DIR)/tffpctl clean
@@ -46,20 +42,16 @@ tools-distclean:
 	-$(MAKE) -C $(TOOLS_DIR)/showiframe-$(BOXARCH) distclean
 	-$(MAKE) -C $(TOOLS_DIR)/satfind distclean
 ifeq ($(BOXARCH), sh4)
-	-$(MAKE) -C $(TOOLS_DIR)/spf_tool distclean
 	-$(MAKE) -C $(TOOLS_DIR)/devinit distclean
 	-$(MAKE) -C $(TOOLS_DIR)/evremote2 distclean
 	-$(MAKE) -C $(TOOLS_DIR)/fp_control distclean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-fup distclean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-mup distclean
-	-$(MAKE) -C $(TOOLS_DIR)/flashtool_mup distclean
 	-$(MAKE) -C $(TOOLS_DIR)/flashtool-pad distclean
-	-$(MAKE) -C $(TOOLS_DIR)/hotplug distclean
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ipbox55 ipbox99 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd cuberevo_3000hd))
 	-$(MAKE) -C $(TOOLS_DIR)/ipbox_eeprom distclean
 endif
 	-$(MAKE) -C $(TOOLS_DIR)/stfbcontrol distclean
-	-$(MAKE) -C $(TOOLS_DIR)/streamproxy distclean
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), tf7700))
 	-$(MAKE) -C $(TOOLS_DIR)/tfd2mtd distclean
 	-$(MAKE) -C $(TOOLS_DIR)/tffpctl distclean
