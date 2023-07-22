@@ -54,7 +54,8 @@ KERNEL_PATCHES_VUDUO4K = \
 		4_1_blindscan2.patch \
 		4_1_0001-stv090x-optimized-TS-sync-control.patch \
 		4_1_0002-log2-give-up-on-gcc-constant-optimizations.patch \
-		4_1_0003-uaccess-dont-mark-register-as-const.patch
+		4_1_0003-uaccess-dont-mark-register-as-const.patch \
+		fix-multiple-defs-yyloc.patch
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_VUDUO4K)
 
@@ -197,9 +198,9 @@ release-vuduo4k:
 FLASHIMAGE_PREFIX = vuplus/duo4k
 
 #
-# multi-disk
+# multi-rootfs
 #
-flash-image-vuduo4k-disk:
+flash-image-vuduo4k-multi-rootfs:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
@@ -222,7 +223,7 @@ flash-image-vuduo4k-disk:
 	echo Dummy for update. > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar.bz2
 	echo $(BOXTYPE)_$(GUI)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion
 	cd $(IMAGE_BUILD_DIR) && \
-	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_recovery_emmc_multi.zip $(FLASHIMAGE_PREFIX)/rootfs*.tar.bz2 $(FLASHIMAGE_PREFIX)/initrd_auto.bin $(FLASHIMAGE_PREFIX)/kernel*_auto.bin $(FLASHIMAGE_PREFIX)/*.update $(FLASHIMAGE_PREFIX)/imageversion
+	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_multi_usb.zip $(FLASHIMAGE_PREFIX)/rootfs*.tar.bz2 $(FLASHIMAGE_PREFIX)/initrd_auto.bin $(FLASHIMAGE_PREFIX)/kernel*_auto.bin $(FLASHIMAGE_PREFIX)/*.update $(FLASHIMAGE_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 	

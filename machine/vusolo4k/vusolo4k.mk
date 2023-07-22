@@ -219,7 +219,7 @@ SWAP_DATA_PARTITION_OFFSET = $(shell expr $(FOURTH_ROOTFS_PARTITION_OFFSET) \+ $
 SWAP_PARTITION_OFFSET = $(shell expr $(SWAP_DATA_PARTITION_OFFSET) \+ $(SWAP_DATA_PARTITION_SIZE))
 	
 #
-# disk
+# multi-disk
 #
 flash-image-vusolo4k-disk: $(D)/host_resize2fs
 	rm -rf $(IMAGE_BUILD_DIR)
@@ -250,6 +250,12 @@ flash-image-vusolo4k-disk: $(D)/host_resize2fs
 	# Truncate on purpose
 	dd if=$(IMAGE_BUILD_DIR)/$(VUSOLO4K_IMAGE_LINK) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(ROOTFS_PARTITION_OFFSET) \* $(BLOCK_SECTOR)) count=$(shell expr $(VUSOLO4K_IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR))
 	mv $(IMAGE_BUILD_DIR)/disk.img $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/
+	#
+	echo $(BOXTYPE)_$(GUI)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion
+	cd $(IMAGE_BUILD_DIR) && \
+	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_recovery_emmc.zip $(FLASHIMAGE_PREFIX)/$(VUSOLO4K_IMAGE_NAME).img $(FLASHIMAGE_PREFIX)/imageversion
+	# cleanup
+	rm -rf $(IMAGE_BUILD_DIR)
 
 #
 # rootfs
