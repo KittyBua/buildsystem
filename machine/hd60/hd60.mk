@@ -201,9 +201,9 @@ $(ARCHIVE)/$(HD60_PARTITONS_SRC):
 	$(WGET) http://source.mynonpublic.com/gfutures/$(HD60_PARTITONS_SRC)
 
 #
-# multi-disk
+# disk
 #
-flash-image-hd60-multi-disk: $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$(HD60_PARTITONS_SRC)
+flash-image-hd60-disk: $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$(HD60_PARTITONS_SRC)
 	# Create image
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
@@ -235,24 +235,4 @@ flash-image-hd60-multi-disk: $(ARCHIVE)/$(HD60_BOOTARGS_SRC) $(ARCHIVE)/$(HD60_P
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_recovery_emmc_multi.zip *
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
-
-#
-# disk
-#
-flash-image-hd60-disk:
-
-#
-# multi-rootfs
-#
-flash-image-hd60-multi-rootfs:
-
-#
-# rootfs
-#
-flash-image-hd60-rootfs:
-
-#
-# online
-#
-flash-image-hd60-online:
 

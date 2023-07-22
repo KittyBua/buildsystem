@@ -38,6 +38,8 @@ endif
 #
 RELEASE_DEPS += $(D)/tools-aio-grab
 RELEASE_DEPS += $(D)/tools-showiframe
+RELEASE_DEPS += $(LIRC)
+RELEASE_DEPS += $(D)/tools-exteplayer3
 ifeq ($(BOXARCH), sh4)
 RELEASE_DEPS += $(D)/tools-devinit
 RELEASE_DEPS += $(D)/tools-evremote2
@@ -60,8 +62,6 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
 RELEASE_DEPS += $(D)/tools-initfb
 endif
-RELEASE_DEPS += $(LIRC)
-RELEASE_DEPS += $(D)/tools-exteplayer3
 
 #
 # wlan
@@ -406,6 +406,7 @@ endif
 # release-none
 #
 $(D)/release-none: release-common release-$(BOXTYPE)
+	$(START_BUILD)
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NONE $(RELEASE_DIR)/etc/init.d/rcS
 	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true

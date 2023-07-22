@@ -199,7 +199,7 @@ FLASHIMAGE_PREFIX = vuplus/duo4k
 #
 # multi-disk
 #
-flash-image-vuduo4k-multi-disk:
+flash-image-vuduo4k-disk:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
@@ -225,16 +225,6 @@ flash-image-vuduo4k-multi-disk:
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_recovery_emmc_multi.zip $(FLASHIMAGE_PREFIX)/rootfs*.tar.bz2 $(FLASHIMAGE_PREFIX)/initrd_auto.bin $(FLASHIMAGE_PREFIX)/kernel*_auto.bin $(FLASHIMAGE_PREFIX)/*.update $(FLASHIMAGE_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
-
-#
-# disk
-#
-flash-image-vuduo4k-disk:
-
-#
-# multi-rootfs
-#
-flash-image-vuduo4k-multi-rootfs:
 	
 #
 # rootfs
