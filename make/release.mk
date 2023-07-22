@@ -13,15 +13,25 @@ RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/vsftpd
 RELEASE_DEPS += $(D)/udpxy
-RELEASE_DEPS += $(D)/fbshot
+
+#
+# etc
+#
+RELEASE_DEPS += $(D)/diverse-tools
+
+#
+#
+#
+RELEASE_DEPS += $(D)/opkg
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 RELEASE_DEPS += $(D)/ntfs_3g
 RELEASE_DEPS += $(D)/mtd_utils 
 RELEASE_DEPS += $(D)/gptfdisk
+RELEASE_DEPS += $(D)/dvb-apps
+RELEASE_DEPS += $(D)/dvbsnoop
 endif
-RELEASE_DEPS += $(D)/opkg
 
 #
 # tools
@@ -35,17 +45,13 @@ RELEASE_DEPS += $(D)/tools-fp_control
 RELEASE_DEPS += $(D)/tools-flashtool-fup
 RELEASE_DEPS += $(D)/tools-flashtool-mup
 RELEASE_DEPS += $(D)/tools-flashtool-pad
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ipbox55 ipbox99 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd cuberevo_3000hd))
-RELEASE_DEPS += $(D)/tools-ipbox_eeprom
-endif
 RELEASE_DEPS += $(D)/tools-stfbcontrol
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), tf7700))
-RELEASE_DEPS += $(D)/tools-tfd2mtd
-RELEASE_DEPS += $(D)/tools-tffpctl
-endif
 RELEASE_DEPS += $(D)/tools-ustslave
 RELEASE_DEPS += $(D)/tools-vfdctl
 RELEASE_DEPS += $(D)/tools-wait4button
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), cuberevo cuberevo_mini cuberevo_mini2 cuberevo_2000hd))
+RELEASE_DEPS += $(D)/tools-ipbox_eeprom
+endif
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
 RELEASE_DEPS += $(D)/tools-initfb
@@ -55,16 +61,7 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
 RELEASE_DEPS += $(D)/tools-initfb
 endif
 RELEASE_DEPS += $(LIRC)
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
-RELEASE_DEPS += $(D)/dvb-apps
-RELEASE_DEPS += $(D)/dvbsnoop
 RELEASE_DEPS += $(D)/tools-exteplayer3
-endif
-
-#
-# diverse-tools
-#
-RELEASE_DEPS += $(D)/diverse-tools
 
 #
 # wlan

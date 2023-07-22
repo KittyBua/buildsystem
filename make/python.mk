@@ -1,8 +1,6 @@
 #
 #
 #
-#PYTHON ?= python
-
 PYTHON_VER_MAJOR = 2.7
 PYTHON_VER_MINOR = 18
 
