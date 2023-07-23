@@ -349,6 +349,9 @@ endif
 ifeq ($(BOXTYPE), dm8000)
 BOOTSTRAP += $(D)/buildimage
 endif
+ifeq ($(BOXTYPE), hd60)
+BOOTSTRAP += $(D)/host_atools
+endif
 
 $(D)/bootstrap: $(BOOTSTRAP)
 	@touch $@

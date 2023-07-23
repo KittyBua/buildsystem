@@ -116,6 +116,7 @@ PACKAGES="\
 	${UBUNTU:+mtools}                                                                                             \
 	${UBUNTU:+u-boot-tools}                                                                                       \
 	${UBUNTU:+android-sdk-libsparse-utils}                                                                        \
+	${UBUNTU:+libpcre3-dev}											      \
 ";
 
 if [ "$UBUNTU" == 1 ]; then
