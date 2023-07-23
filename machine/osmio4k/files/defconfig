@@ -2,10 +2,10 @@
 # Automatically generated file; DO NOT EDIT.
 # Linux/arm 5.9.0 Kernel Configuration
 #
-CONFIG_CC_VERSION_TEXT="arm-linux-gnueabihf-gcc (GCC) 10.2.0"
+CONFIG_CC_VERSION_TEXT="arm-cortex-linux-gnueabihf-gcc (crosstool-NG UNKNOWN) 8.5.0"
 CONFIG_CC_IS_GCC=y
-CONFIG_GCC_VERSION=100200
-CONFIG_LD_VERSION=235010000
+CONFIG_GCC_VERSION=80500
+CONFIG_LD_VERSION=233010000
 CONFIG_CLANG_VERSION=0
 CONFIG_CC_CAN_LINK=y
 CONFIG_CC_CAN_LINK_STATIC=y
@@ -653,7 +653,6 @@ CONFIG_ARCH_HAS_GCOV_PROFILE_ALL=y
 # end of GCOV-based kernel profiling
 
 CONFIG_HAVE_GCC_PLUGINS=y
-# CONFIG_GCC_PLUGINS is not set
 # end of General architecture-dependent options
 
 CONFIG_RT_MUTEXES=y
@@ -5549,7 +5548,7 @@ CONFIG_SBITMAP=y
 #
 # printk and dmesg options
 #
-# CONFIG_PRINTK_TIME is not set
+CONFIG_PRINTK_TIME=y
 # CONFIG_PRINTK_CALLER is not set
 CONFIG_CONSOLE_LOGLEVEL_DEFAULT=7
 CONFIG_CONSOLE_LOGLEVEL_QUIET=4
@@ -5783,4 +5782,3 @@ CONFIG_RUNTIME_TESTING_MENU=y
 # CONFIG_MEMTEST is not set
 # end of Kernel Testing and Coverage
 # end of Kernel hacking
-

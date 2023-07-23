@@ -15,7 +15,7 @@ RELEASE_DEPS += $(D)/vsftpd
 RELEASE_DEPS += $(D)/udpxy
 
 #
-# etc
+# root-etc
 #
 RELEASE_DEPS += $(D)/diverse-tools
 
@@ -435,7 +435,7 @@ release-clean:
 #
 image-none: release-none
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 ipbox55 ipbox9900 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 tf7700 ufs910 ufs912 ufs913 ufs922))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 ufs912))
 	$(MAKE) flash-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), hl101)
@@ -450,14 +450,8 @@ endif
 ifeq ($(BOXTYPE), hd60)
 	$(MAKE) flash-image-$(BOXTYPE)-disk
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuultimo4k vuuno4k vuuno4kse vuzero4k))
-	$(MAKE) flash-image-$(BOXTYPE)-multi-rootfs
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k))
-	$(MAKE) flash-image-$(BOXTYPE)-multi-rootfs flash-image-$(BOXTYPE)-rootfs
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vusolo4k))
-	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
+	$(MAKE) flash-image-$(BOXTYPE)-rootfs
 endif
 	$(END_BUILD)
 	

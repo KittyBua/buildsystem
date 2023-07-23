@@ -228,6 +228,31 @@ flash-image-vuzero4k-multi-rootfs:
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_multi_usb.zip $(FLASHIMAGE_PREFIX)/rootfs*.tar.bz2 $(FLASHIMAGE_PREFIX)/initrd_auto.bin $(FLASHIMAGE_PREFIX)/kernel*_auto.bin $(FLASHIMAGE_PREFIX)/*.update $(FLASHIMAGE_PREFIX)/imageversion
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
+	
+#
+# rootfs
+#
+flash-image-vuzero4k-rootfs:
+	# Create final USB-image
+	rm -rf $(IMAGE_BUILD_DIR) || true
+	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
+	mkdir -p $(IMAGE_DIR)
+	#
+	cp $(TARGET_DIR)/boot/vmlinuz-initrd-7260a0 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/initrd_auto.bin
+	cp $(TARGET_DIR)/boot/zImage $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_auto.bin
+	#
+	cd $(RELEASE_DIR); \
+	tar -cvf $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar --exclude=zImage* --exclude=vmlinuz-initrd* . > /dev/null 2>&1; \
+	bzip2 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar
+	#
+	echo This file forces the update. > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/force.update
+	echo This file forces creating partitions. > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/mkpart.update
+	echo $(BOXTYPE)_$(GUI)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion
+	#
+	cd $(IMAGE_BUILD_DIR) && \
+	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(FLASHIMAGE_PREFIX)/rootfs.tar.bz2 $(FLASHIMAGE_PREFIX)/initrd_auto.bin $(FLASHIMAGE_PREFIX)/kernel_auto.bin $(FLASHIMAGE_PREFIX)/*.update $(FLASHIMAGE_PREFIX)/imageversion
+	# cleanup
+	rm -rf $(IMAGE_BUILD_DIR)
 
 #
 # online
