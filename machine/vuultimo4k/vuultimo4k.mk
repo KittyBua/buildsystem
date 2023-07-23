@@ -50,7 +50,8 @@ KERNEL_PATCHES_VUULTIMO4K = \
 		3_14_0006-makefile-disable-warnings.patch \
 		3_14_linux_dvb_adapter.patch \
 		bcmsysport_3.14.28-1.12.patch \
-		linux_prevent_usb_dma_from_bmem.patch
+		linux_prevent_usb_dma_from_bmem.patch \
+		fix-multiple-defs-yyloc.patch
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_VUULTIMO4K)
 
