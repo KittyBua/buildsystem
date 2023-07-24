@@ -140,25 +140,3 @@ else
    fi
 fi
 
-echo "[rcS] Starting neutrino ->"
-
-until false
-do
-   /usr/bin/neutrino
-   rtv=$?
-   echo "neutrino ended <- RTV: " $rtv
-   case "$rtv" in
-		0)
-		   echo "SHUTDOWN"
-		   init 0;;
-		1)
-		   echo "REBOOT"
-		   init 6;;
-		3)
-		   echo "RESTART";;
-		*)
-		   echo "ERROR"
-		   init 6;;
-      	esac
-done
-

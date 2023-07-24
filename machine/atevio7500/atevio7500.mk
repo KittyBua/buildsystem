@@ -257,7 +257,7 @@ endif
 # flashimage
 #
 flash-image-atevio7500:
-	mkdir -p $(image_DIR)
+	mkdir -p $(IMAGE_DIR)
 	cd $(HOSTAPPS_DIR)/atevio7500 && $(SUDOCMD) ./atevio7500.sh $(MAINTAINER) $(GUI)
 
 #
