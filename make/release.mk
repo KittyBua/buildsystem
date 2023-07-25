@@ -364,6 +364,18 @@ ifeq ($(BOXARCH), sh4)
 	rm -f $(RELEASE_DIR)/sbin/jfs_tune
 	rm -f $(RELEASE_DIR)/sbin/ffmpeg
 	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
+ifneq ($(GSTREAMER), gstreamer)
+	rm -f $(RELEASE_DIR)/usr/bin/gst*
+	rm -f $(RELEASE_DIR)/usr/bin/gapplication
+	rm -f $(RELEASE_DIR)/usr/bin/gio
+	rm -f $(RELEASE_DIR)/usr/bin/gresource
+	rm -f $(RELEASE_DIR)/usr/bin/gsettings
+	rm -f $(RELEASE_DIR)/usr/bin/gdbus
+	rm -f $(RELEASE_DIR)/usr/bin/dbus*
+endif
+ifneq ($(PYTHON), python)
+	rm -f $(RELEASE_DIR)/usr/bin/python*
+endif
 endif
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	rm -rf $(RELEASE_DIR)/dev.static
