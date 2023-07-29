@@ -10,14 +10,11 @@ FKEYS =
 KERNEL_VER             = 3.14.28-1.12
 KERNEL_SRC_VER         = 3.14-1.12
 KERNEL_SRC             = stblinux-${KERNEL_SRC_VER}.tar.bz2
-#KERNEL_URL             = http://archive.vuplus.com/download/kernel
 KERNEL_URL		= http://code.vuplus.com/download/release/kernel
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
-
-#KERNEL_INITRD          = vmlinuz-initrd-7445d0
 
 KERNEL_PATCHES_VUULTIMO4K = \
 		3_14_bcm_genet_disable_warn.patch \
@@ -100,7 +97,6 @@ DRIVER_VER = 3.14.28
 DRIVER_DATE = 20190424
 DRIVER_REV = r0
 DRIVER_SRC = vuplus-dvb-proxy-vuultimo4k-$(DRIVER_VER)-$(DRIVER_DATE).$(DRIVER_REV).tar.gz
-#DRIVER_URL = http://archive.vuplus.com/download/build_support/vuplus
 DRIVER_URL = http://code.vuplus.com/download/release/vuplus-dvb-proxy
 
 $(ARCHIVE)/$(DRIVER_SRC):
@@ -124,7 +120,6 @@ UTIL_VER = 17.1
 UTIL_DATE = $(DRIVER_DATE)
 UTIL_REV = r0
 UTIL_SRC = platform-util-vuultimo4k-$(UTIL_VER)-$(UTIL_DATE).$(UTIL_REV).tar.gz
-#UTIL_URL = http://archive.vuplus.com/download/build_support/vuplus
 UTIL_URL = http://code.vuplus.com/download/release/platform-util
 
 $(ARCHIVE)/$(UTIL_SRC):
@@ -144,7 +139,6 @@ GLES_VER = 17.1
 GLES_DATE = $(DRIVER_DATE)
 GLES_REV = r0
 GLES_SRC = libgles-vuultimo4k-$(GLES_VER)-$(GLES_DATE).$(GLES_REV).tar.gz
-#GLES_URL = http://archive.vuplus.com/download/build_support/vuplus
 GLES_URL = http://code.vuplus.com/download/release/libgles
 
 $(ARCHIVE)/$(GLES_SRC):
@@ -165,7 +159,6 @@ $(D)/libgles: $(D)/bootstrap $(ARCHIVE)/$(GLES_SRC)
 #
 INITRD_DATE = 20170209
 INITRD_SRC = vmlinuz-initrd_vuultimo4k_$(INITRD_DATE).tar.gz
-#INITRD_URL = http://archive.vuplus.com/download/kernel
 INITRD_URL = http://code.vuplus.com/download/release/kernel
 
 $(ARCHIVE)/$(INITRD_SRC):

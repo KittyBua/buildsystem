@@ -15,7 +15,6 @@ KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNEL_DTB_VER         = bcm7445-bcm97445svmb.dtb
 KERNELNAME             = zImage
-
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
 KERNEL_PATCHES_BRE2ZE4K = \
