@@ -101,6 +101,7 @@ $(D)/sysvinit: $(D)/bootstrap $(ARCHIVE)/$(SYSVINIT_SOURCE)
 	$(REMOVE)/sysvinit-$(SYSVINIT_VER)
 	$(UNTAR)/$(SYSVINIT_SOURCE)
 	$(CHDIR)/sysvinit-$(SYSVINIT_VER); \
+		$(call apply_patches, $(SYSVINIT_PATCH)); \
 		sed -i -e 's/\ sulogin[^ ]*//' -e 's/pidof\.8//' -e '/ln .*pidof/d' \
 		-e '/bootlogd/d' -e '/utmpdump/d' -e '/mountpoint/d' -e '/mesg/d' src/Makefile; \
 		$(BUILDENV) \
