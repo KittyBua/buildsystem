@@ -194,6 +194,7 @@ static int Write(void *_context, void *data)
     out = (SubtitleOut_t*) data;
 
     context->manager->subtitle->Command(context, MANAGER_GET, &curtrackid);
+    
     if (curtrackid != out->trackId)
     {
         if (g_subWriter)
