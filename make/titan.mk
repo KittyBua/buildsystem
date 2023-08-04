@@ -322,9 +322,12 @@ endif
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
 ifeq ($(BOXARCH), sh4)
+	[ -e $(RELEASE_DIR)/sbin/sfdisk ] && rm -rf $(RELEASE_DIR)/sbin/sfdisk || true
 	rm -rf $(RELEASE_DIR)/usr/lib/lua
 	rm -rf $(RELEASE_DIR)/usr/share/lua
 	rm -rf $(RELEASE_DIR)/usr/share/fonts
+	rm -rf $(RELEASE_DIR)/usr/bin/hotplug_e2_helper
+	rm -rf $(RELEASE_DIR)/usr/lib/libavahi*
 endif
 #
 #

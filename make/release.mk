@@ -67,14 +67,14 @@ endif
 # wlan
 #
 ifeq ($(WLAN), wlandriver)	
-	RELEASE_DEPS += $(D)/wpa_supplicant 
-	RELEASE_DEPS += $(D)/wireless_tools
+RELEASE_DEPS += $(D)/wpa_supplicant 
+RELEASE_DEPS += $(D)/wireless_tools
 endif
 
 #
 # python
 #
-PYTHON ?= python
+#PYTHON ?= python
 ifeq ($(PYTHON), python)
 RELEASE_DEPS += $(D)/python
 endif
@@ -96,7 +96,7 @@ endif
 #
 # gstreamer
 #
-GSTREAMER ?= gstreamer
+#GSTREAMER ?= gstreamer
 ifeq ($(GSTREAMER), gstreamer)
 RELEASE_DEPS  += $(D)/gstreamer 
 RELEASE_DEPS  += $(D)/gst_plugins_base 

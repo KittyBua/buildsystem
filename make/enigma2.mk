@@ -20,8 +20,6 @@ ENIGMA2_DEPS += $(D)/libdreamdvd
 ENIGMA2_CPPFLAGS =
 ENIGMA2_CONFIG_OPTS = 
 
-GSTREAMER ?= gstreamer
-ifeq ($(GSTREAMER), gstreamer)
 ENIGMA2_DEPS  += $(D)/gstreamer 
 ENIGMA2_DEPS  += $(D)/gst_plugins_base 
 ENIGMA2_DEPS  += $(D)/gst_plugins_good 
@@ -34,7 +32,6 @@ ENIGMA2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-audio-1.
 ENIGMA2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs gstreamer-video-1.0)
 ENIGMA2_CPPFLAGS     += $(shell $(PKG_CONFIG) --cflags --libs glib-2.0)
 ENIGMA2_CONFIG_OPTS += --enable-gstreamer --with-gstversion=1.0
-endif
 
 ifeq ($(GRAPHLCD), graphlcd)
 ENIGMA2_CONFIG_OPTS += --with-graphlcd
@@ -50,10 +47,7 @@ ENIGMA2_CPPFLAGS   += -I$(DRIVER_DIR)/include
 endif
 ENIGMA2_CPPFLAGS   += -I$(TARGET_DIR)/usr/include
 
-PYTHON ?= python
-ifeq ($(PYTHON), python)
 ENIGMA2_DEPS += $(D)/python
-endif
 
 ENIGMA2_CONFIG_OPTS += PYTHON_CPPFLAGS="-I$(TARGET_DIR)/usr/include/python2.7" PYTHON_LIBS="-L$(TARGET_DIR)/usr/lib -lpython2.7" PYTHON_SITE_PKG="$(TARGET_DIR)/usr/lib/python2.7/site-packages"
 
