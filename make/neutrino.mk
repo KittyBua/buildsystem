@@ -383,8 +383,8 @@ $(D)/neutrino-plugins-mediathek:
 #
 $(PKGPREFIX)/.version:
 	echo "distro=$(MAINTAINER)" > $@
-	echo "imagename=`sed -n 's/\#define PACKAGE_NAME "//p' $(N_OBJDIR)/config.h | sed 's/"//'`" >> $@
-	echo "imageversion=`sed -n 's/\#define PACKAGE_VERSION "//p' $(N_OBJDIR)/config.h | sed 's/"//'`" >> $@
+	echo "imagename=`sed -n 's/\#define PACKAGE_NAME "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`" >> $@
+	echo "imageversion=`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`" >> $@
 	echo "homepage=https://github.com/Duckbox-Developers" >> $@
 	echo "creator=$(MAINTAINER)" >> $@
 	echo "docs=https://github.com/Duckbox-Developers" >> $@
@@ -392,12 +392,12 @@ $(PKGPREFIX)/.version:
 	echo "version=0200`date +%Y%m%d%H%M`" >> $@
 	echo "git=`git log | grep "^commit" | wc -l`" >> $@
 	
-$(D)/neutrino-ipk: $(D)/neutrino.do_prepare $(D)/neutrino.do_compile
+$(D)/neutrino-ipk: $(D)/neutrino.do_compile
 	$(START_BUILD)
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
-	$(MAKE) -C $(N_OBJDIR) install DESTDIR=$(PKGPREFIX); \
+	$(MAKE) -C $(BUILD_TMP)/neutrino install DESTDIR=$(PKGPREFIX); \
 	rm -f $(PKGPREFIX)/.version
 	make $(PKGPREFIX)/.version
 ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
