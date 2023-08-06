@@ -449,6 +449,7 @@ endif
 #
 #
 #
+ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/usr/bin/amixer ] && rm -rf $(RELEASE_DIR)/usr/bin/amixer || true
 	[ -e $(RELEASE_DIR)/usr/bin/eplayer3 ] && rm -rf $(RELEASE_DIR)/usr/bin/eplayer3 || true
 	[ -e $(RELEASE_DIR)/usr/bin/satip_client ] && rm -rf $(RELEASE_DIR)/usr/bin/satip* || true
@@ -458,6 +459,7 @@ endif
 	[ -e $(RELEASE_DIR)/usr/lib/libipkg.so ] && rm -rf $(RELEASE_DIR)/usr/lib/libipkg* || true
 	rm -rf $(RELEASE_DIR)/usr/lib/locale
 	rm -rf $(RELEASE_DIR)/usr/share/zoneinfo
+endif
 #
 #
 #
