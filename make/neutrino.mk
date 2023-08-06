@@ -409,6 +409,21 @@ endif
 	rm -rf $(PKGPREFIX)
 	$(END_BUILD)
 	
+$(D)/neutrino-plugins-ipk: $(D)/neutrino-plugins.do_compile
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	$(MAKE) -C $(BUILD_TMP)/neutrino-plugins install DESTDIR=$(PKGPREFIX)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
+	cd $(PACKAGES)/neutrino && tar -cvzf $(PKGS_DIR)/control.tar.gz *
+	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/neutrino_plugins_$(BOXARCH)_$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M').tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PKGPREFIX)
+	$(END_BUILD)
+	
 #
 # release-neutrino
 #
