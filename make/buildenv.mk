@@ -277,7 +277,7 @@ DEPMOD = $(HOST_DIR)/bin/depmod
 #
 #
 #
-WLAN ?= wlandriver
+#WLAN ?= wlandriver
 ifeq ($(BOXARCH), sh4)
 ifeq ($(WLAN), wlandriver)
 WLANDRIVER = WLANDRIVER=wlandriver
