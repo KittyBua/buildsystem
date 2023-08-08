@@ -13,7 +13,7 @@ RELEASE_DEPS += $(D)/vsftpd
 RELEASE_DEPS += $(D)/diverse-tools
 
 #
-#
+# misc 
 #
 RELEASE_DEPS += $(D)/util_linux
 RELEASE_DEPS += $(D)/e2fsprogs
@@ -25,7 +25,7 @@ RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
 
 #
-#
+# misc
 #
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
