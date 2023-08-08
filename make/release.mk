@@ -5,14 +5,7 @@ RELEASE_DEPS = $(D)/kernel
 RELEASE_DEPS += $(D)/driver
 RELEASE_DEPS += $(D)/busybox
 RELEASE_DEPS += $(D)/sysvinit
-RELEASE_DEPS += $(D)/util_linux
-RELEASE_DEPS += $(D)/e2fsprogs
-RELEASE_DEPS += $(D)/hdidle
-RELEASE_DEPS += $(D)/portmap
-RELEASE_DEPS += $(D)/jfsutils
-RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/vsftpd
-RELEASE_DEPS += $(D)/udpxy
 
 #
 # root-etc
@@ -22,7 +15,18 @@ RELEASE_DEPS += $(D)/diverse-tools
 #
 #
 #
+RELEASE_DEPS += $(D)/util_linux
+RELEASE_DEPS += $(D)/e2fsprogs
+RELEASE_DEPS += $(D)/hdidle
+RELEASE_DEPS += $(D)/portmap
+RELEASE_DEPS += $(D)/jfsutils
+RELEASE_DEPS += $(D)/nfs_utils
+RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
+
+#
+#
+#
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
@@ -55,12 +59,9 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), cuberevo cuberevo_mini cuberevo_mini2 cub
 RELEASE_DEPS += $(D)/tools-ipbox_eeprom
 endif
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k e4hdultra))
 RELEASE_DEPS += $(D)/tools-initfb
 RELEASE_DEPS += $(D)/tools-turnoff_power
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
-RELEASE_DEPS += $(D)/tools-initfb
 endif
 
 #
@@ -74,7 +75,6 @@ endif
 #
 # python
 #
-#PYTHON ?= python
 ifeq ($(PYTHON), python)
 RELEASE_DEPS += $(D)/python
 endif
@@ -96,7 +96,6 @@ endif
 #
 # gstreamer
 #
-#GSTREAMER ?= gstreamer
 ifeq ($(GSTREAMER), gstreamer)
 RELEASE_DEPS  += $(D)/gstreamer 
 RELEASE_DEPS  += $(D)/gst_plugins_base 
