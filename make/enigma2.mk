@@ -258,6 +258,8 @@ ifeq ($(BOXARCH), sh4)
 	rm -rf $(RELEASE_DIR)/usr/lib/lua
 	rm -rf $(RELEASE_DIR)/usr/share/lua
 endif
+	[ -e $(RELEASE_DIR)/usr/bin/ipkg-cl ] && rm -rf $(RELEASE_DIR)/usr/bin/ipkg* || true
+	[ -e $(RELEASE_DIR)/usr/lib/libipkg.so ] && rm -rf $(RELEASE_DIR)/usr/lib/libipkg* || true
 #
 #
 #

@@ -55,11 +55,9 @@ RELEASE_DEPS += $(D)/tools-stfbcontrol
 RELEASE_DEPS += $(D)/tools-ustslave
 RELEASE_DEPS += $(D)/tools-vfdctl
 RELEASE_DEPS += $(D)/tools-wait4button
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), cuberevo cuberevo_mini cuberevo_mini2 cuberevo_2000hd))
 RELEASE_DEPS += $(D)/tools-ipbox_eeprom
 endif
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k e4hdultra))
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/tools-initfb
 RELEASE_DEPS += $(D)/tools-turnoff_power
 endif

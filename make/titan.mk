@@ -329,6 +329,8 @@ ifeq ($(BOXARCH), sh4)
 	rm -rf $(RELEASE_DIR)/usr/bin/hotplug_e2_helper
 	rm -rf $(RELEASE_DIR)/usr/lib/libavahi*
 endif
+	[ -e $(RELEASE_DIR)/usr/bin/opkg-cl ] && rm -rf $(RELEASE_DIR)/usr/bin/opkg* || true
+	[ -e $(RELEASE_DIR)/usr/lib/libopkg.so ] && rm -rf $(RELEASE_DIR)/usr/lib/libopkg* || true
 #
 #
 #
