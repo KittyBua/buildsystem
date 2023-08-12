@@ -257,9 +257,9 @@ release-enigma2: $(RELEASE_DEPS) $(D)/enigma2 release-common release-$(BOXTYPE)
 ifeq ($(BOXARCH), sh4)
 	rm -rf $(RELEASE_DIR)/usr/lib/lua
 	rm -rf $(RELEASE_DIR)/usr/share/lua
-endif
 	[ -e $(RELEASE_DIR)/usr/bin/ipkg-cl ] && rm -rf $(RELEASE_DIR)/usr/bin/ipkg* || true
 	[ -e $(RELEASE_DIR)/usr/lib/libipkg.so ] && rm -rf $(RELEASE_DIR)/usr/lib/libipkg* || true
+endif
 #
 #
 #
@@ -269,7 +269,7 @@ endif
 	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.o' -exec rm -f {} \;
 	find $(RELEASE_DIR)/usr/lib/enigma2/ -name '*.la' -exec rm -f {} \;
 #
-#
+# imigrate /etc to /var/etc
 #
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc

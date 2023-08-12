@@ -332,7 +332,7 @@ endif
 	[ -e $(RELEASE_DIR)/usr/bin/opkg-cl ] && rm -rf $(RELEASE_DIR)/usr/bin/opkg* || true
 	[ -e $(RELEASE_DIR)/usr/lib/libopkg.so ] && rm -rf $(RELEASE_DIR)/usr/lib/libopkg* || true
 #
-#
+# imigrate /etc to /var/etc
 #
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc

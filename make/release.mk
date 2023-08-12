@@ -198,7 +198,7 @@ endif
 # usr/lib
 #
 	cp -R $(TARGET_DIR)/usr/lib/* $(RELEASE_DIR)/usr/lib/
-	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio}
+	rm -rf $(RELEASE_DIR)/usr/lib/{engines,gconv,libxslt-plugins,pkgconfig,lua,python$(PYTHON_VER_MAJOR),enigma2,gstreamer-1.0,gio,dbus-1.0}
 	rm -f $(RELEASE_DIR)/usr/lib/*.{a,o,la}
 	chmod 755 $(RELEASE_DIR)/usr/lib/*
 #
@@ -420,6 +420,9 @@ $(D)/release-none: release-common release-$(BOXTYPE)
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2 || true
+#
+# imigrate /etc to /var/etc
+#
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)
