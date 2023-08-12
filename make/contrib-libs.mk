@@ -1769,7 +1769,7 @@ $(D)/libusb: $(D)/bootstrap $(ARCHIVE)/$(LIBUSB_SOURCE)
 	$(TOUCH)
 
 #
-# libus_bcompat
+# libusb_compat
 #
 LIBUSB_COMPAT_VER = 0.1.5
 LIBUSB_COMPAT_SOURCE = libusb-compat-$(LIBUSB_COMPAT_VER).tar.bz2
