@@ -54,6 +54,10 @@
 #define cERR_LINUXDVB_NO_ERROR      0
 #define cERR_LINUXDVB_ERROR        -1
 
+#ifndef AUDIO_GET_PTS
+#define AUDIO_GET_PTS              _IOR('o', 19, __u64)
+#endif
+
 static const char VIDEODEV[] 	= "/dev/dvb/adapter0/video0";
 static const char AUDIODEV[] 	= "/dev/dvb/adapter0/audio0";
 
