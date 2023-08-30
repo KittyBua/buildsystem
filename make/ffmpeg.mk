@@ -16,6 +16,7 @@ FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-add_dash_demux.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-chunked_transfer_fix_eof.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-sh4.patch
 
+FFMPEG_CONF_OPTS = --enable-librtmp
 #FFMPEG_CONF_OPTS  = --enable-libxml2
 FFMPEG_CONF_OPTS  += --enable-libfreetype
 #FFMPEG_CONF_OPTS  += --disable-x86asm
@@ -35,7 +36,7 @@ FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VER).tar.xz
 $(ARCHIVE)/$(FFMPEG_SOURCE):
 	$(WGET) http://www.ffmpeg.org/releases/$(FFMPEG_SOURCE)
 
-$(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib $(D)/libass $(D)/libxml2 $(D)/libroxml $(FFMPEG_DEPS) $(ARCHIVE)/$(FFMPEG_SOURCE)
+$(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib $(D)/libass $(D)/libxml2 $(D)/libroxml $(D)/librtmp $(ARCHIVE)/$(FFMPEG_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/ffmpeg-$(FFMPEG_VER)
 	$(UNTAR)/$(FFMPEG_SOURCE)
