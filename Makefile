@@ -340,7 +340,7 @@ all:
 # print all present targets...
 print-targets:
 	@sed -n 's/^\$$.D.\/\(.*\):.*/\1/p' \
-		`ls -1 make/*.mk|grep -v make/buildenv.mk|grep -v make/release.mk` | \
+		`ls -1 make/*.mk|grep -v make/buildenv.mk|grep -v make/bare-os.mk` | \
 		sort -u | fold -s -w 65
 		
 # print all supported boards ...
