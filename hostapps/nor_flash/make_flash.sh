@@ -8,7 +8,6 @@ fi
 BOXTYPE=$2
 CURDIR=`pwd`
 BASEDIR=$CURDIR/../..
-FLAVOUR=$3
 
 TUFSBOXDIR=$BASEDIR/tufsbox/$BOXTYPE
 SCRIPTDIR=$CURDIR/scripts
@@ -40,7 +39,7 @@ echo "Or insert your changes into scripts/customize.sh"
 $SCRIPTDIR/customize.sh $CURDIR $TMPROOTDIR $TMPKERNELDIR $TMPSTORAGEDIR
 echo "-----------------------------------------------------------------------"
 echo "Creating flash image..."
-$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPROOTDIR $TMPKERNELDIR $TMPSTORAGEDIR $FLAVOUR
+$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPROOTDIR $TMPKERNELDIR $TMPSTORAGEDIR
 echo "-----------------------------------------------------------------------"
 
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/lib/firmware/audio.elf`

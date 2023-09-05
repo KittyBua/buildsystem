@@ -25,11 +25,7 @@ endif
 	-$(MAKE) -C $(TOOLS_DIR)/wait4button clean
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
-	-$(MAKE) -C $(TOOLS_DIR)/initfb clean
 	-$(MAKE) -C $(TOOLS_DIR)/turnoff_power clean
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
-	-$(MAKE) -C $(TOOLS_DIR)/initfb clean
 endif
 
 #
@@ -59,11 +55,7 @@ endif
 	-$(MAKE) -C $(TOOLS_DIR)/wait4button distclean
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 vuduo4k vuduo4kse vuuno4kse vuzero4k vuultimo4k vuuno4k vusolo4k))
-	-$(MAKE) -C $(TOOLS_DIR)/initfb distclean
 	-$(MAKE) -C $(TOOLS_DIR)/turnoff_power distclean
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
-	-$(MAKE) -C $(TOOLS_DIR)/initfb distclean
 endif
 
 #
@@ -179,19 +171,6 @@ $(D)/tools-flashtool-pad: $(D)/directories
 $(D)/tools-hotplug: $(D)/bootstrap
 	$(START_BUILD)
 	set -e; cd $(TOOLS_DIR)/hotplug; \
-		$(CONFIGURE_TOOLS) \
-			--prefix= \
-		; \
-		$(MAKE); \
-		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	$(TOUCH)
-
-#
-# initfb
-#
-$(D)/tools-initfb: $(D)/bootstrap
-	$(START_BUILD)
-	set -e; cd $(TOOLS_DIR)/initfb; \
 		$(CONFIGURE_TOOLS) \
 			--prefix= \
 		; \

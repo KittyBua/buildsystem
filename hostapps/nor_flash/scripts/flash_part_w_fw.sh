@@ -6,8 +6,9 @@ OUTDIR=$3
 TMPROOTDIR=$4
 TMPKERNELDIR=$5
 TMPVARDIR=$6
-FLAVOUR=$7
+
 DATETIME=_`date +%d.%m.%Y-%H.%M`
+
 if [ -f $TMPROOTDIR/etc/hostname ]; then
 	BOXTYPE=`cat $TMPROOTDIR/etc/hostname`
 elif [ -f $TMPVARDIR/etc/hostname ]; then
@@ -20,7 +21,6 @@ echo "OUTDIR       = $OUTDIR"
 echo "TMPROOTDIR   = $TMPROOTDIR"
 echo "TMPKERNELDIR = $TMPKERNELDIR"
 echo "TMPVARDIR    = $TMPVARDIR"
-echo "FLAVOUR      = $FLAVOUR"
 echo "DATETIME     = $DATETIME"
 echo "BOXTYPE      = $BOXTYPE"
 
@@ -31,7 +31,7 @@ PAD=$TUFSBOXDIR/host/bin/pad
 
 #
 OUTFILE=$OUTDIR/miniFLASH.img
-OUTFILE_Z=$OUTDIR/$BOXTYPE$FLAVOUR$DATETIME
+OUTFILE_Z=$OUTDIR/$BOXTYPE$DATETIME
 
 if [ ! -e $OUTDIR ]; then
 	mkdir $OUTDIR

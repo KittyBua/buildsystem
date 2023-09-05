@@ -7,7 +7,6 @@ fi
 
 CURDIR=`pwd`
 BASEDIR=$CURDIR/../..
-FLAVOUR=$2
 
 TUFSBOXDIR=$BASEDIR/tufsbox/ufs912
 SCRIPTDIR=$CURDIR/scripts
@@ -35,7 +34,7 @@ $SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPKERNELDIR
 echo "Root prepared"
 echo "-----------------------------------------------------------------------"
 echo "Creating flash image..."
-$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPROOTDIR $TMPKERNELDIR $TMPFWDIR $FLAVOUR
+$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPROOTDIR $TMPKERNELDIR $TMPFWDIR
 echo "-----------------------------------------------------------------------"
 
 AUDIOELFSIZE=`stat -c %s $TMPFWDIR/audio.elf`

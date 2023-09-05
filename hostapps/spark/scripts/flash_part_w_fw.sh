@@ -5,7 +5,7 @@ TUFSBOXDIR=$2
 OUTDIR=$3
 TMPROOTDIR=$4
 TMPKERNELDIR=$5
-FLAVOUR=$6
+
 DATETIME=_`date +%d.%m.%Y-%H.%M`
 
 echo "CURDIR       = $CURDIR"
@@ -26,7 +26,7 @@ elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
 fi
 
 #
-OUTFILE=$OUTDIR/$BOXTYPE$FLAVOUR$DATETIME
+OUTFILE=$OUTDIR/$BOXTYPE$DATETIME
 
 if [ ! -e $OUTDIR ]; then
 	mkdir $OUTDIR

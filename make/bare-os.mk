@@ -54,7 +54,6 @@ RELEASE_DEPS += $(D)/tools-wait4button
 RELEASE_DEPS += $(D)/tools-ipbox_eeprom
 endif
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
-RELEASE_DEPS += $(D)/tools-initfb
 RELEASE_DEPS += $(D)/tools-turnoff_power
 endif
 
