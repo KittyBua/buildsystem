@@ -259,7 +259,7 @@ endif
 #
 flash-image-spark7162:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/spark && $(SUDOCMD) ./spark.sh $(MAINTAINER) spark7162 $(GUI)
+	cd $(HOSTAPPS_DIR)/spark && $(SUDOCMD) ./spark.sh $(MAINTAINER) spark7162
 
 #
 # usbimage
@@ -267,5 +267,5 @@ flash-image-spark7162:
 usb-image-$(BOXTYPE):
 	mkdir -p $(IMAGE_DIR)
 	cd $(RELEASE_DIR) && \
-	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)/out/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
+	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)/out/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
 

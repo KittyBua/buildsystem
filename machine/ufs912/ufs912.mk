@@ -256,7 +256,7 @@ endif
 #
 flash-image-ufs912:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/ufs912 && $(SUDOCMD) ./ufs912.sh $(MAINTAINER) $(GUI)
+	cd $(HOSTAPPS_DIR)/ufs912 && $(SUDOCMD) ./ufs912.sh $(MAINTAINER)
 
 #
 # usbimage
@@ -264,7 +264,7 @@ flash-image-ufs912:
 usb-image-$(BOXTYPE):
 	mkdir -p $(IMAGE_DIR)
 	cd $(RELEASE_DIR) && \
-	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)_$(GUI)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
+	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
 
 
 
