@@ -176,7 +176,7 @@ $(D)/neutrino2-plugins.config.status: $(D)/neutrino2-plugins.do_prepare
 
 $(D)/neutrino2-plugins.do_compile: $(D)/neutrino2-plugins.config.status
 	cd $(SOURCE_DIR)/neutrino2/plugins; \
-	$(MAKE) top_srcdir=$(SOURCE_DIR)/neutrino2/neutrino2
+	$(MAKE)
 	@touch $@
 
 $(D)/neutrino2-plugins: $(D)/neutrino2-plugins.do_compile
