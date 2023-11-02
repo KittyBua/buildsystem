@@ -119,6 +119,7 @@ PACKAGES="\
 	${UBUNTU:+libpcre3-dev}											      \
 	${UBUNTU:+lua5.2}                                                                                             \
 	${UBUNTU:+liblua5.2-dev}                                                                                      \
+	${UBUNTU:+libcap-dev}											      \	
 ";
 
 if [ "$UBUNTU" == 1 ]; then

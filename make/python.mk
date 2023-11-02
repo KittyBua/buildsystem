@@ -810,7 +810,7 @@ $(D)/python_zope_interface_small: $(D)/bootstrap $(D)/python_small $(D)/python_s
 	$(TOUCH)
 
 #
-#
+# python_all
 #
 PYTHON_DEPS  = $(D)/host_python
 PYTHON_DEPS += $(D)/python
