@@ -189,6 +189,7 @@ init:
 	@echo "  make image-neutrino2"
 	@echo "or"
 	@echo "  make image-neutrino"
+	@echo "or"
 	@echo "  make image-titan"
 	@echo ""
 	@echo ""
