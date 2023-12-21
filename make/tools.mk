@@ -192,23 +192,6 @@ $(D)/tools-ipbox_eeprom: $(D)/bootstrap
 	$(TOUCH)
 	
 #
-# exteplayer3
-#
-TOOLS_EXTEPLAYER3 := exteplayer3
-ifeq ($(BOXARCH), sh4)
-TOOLS_EXTEPLAYER3 := exteplayer3-sh4
-endif
-$(D)/tools-exteplayer3: $(D)/bootstrap $(D)/ffmpeg $(D)/libass
-	$(START_BUILD)
-	set -e; cd $(TOOLS_DIR)/$(TOOLS_EXTEPLAYER3); \
-		$(CONFIGURE_TOOLS) \
-			--prefix=/usr \
-		; \
-		$(MAKE); \
-		$(MAKE) install DESTDIR=$(TARGET_DIR)
-	$(TOUCH)
-	
-#
 # eplayer4
 #
 EPLAYER4_CPPFLAGS     = $(shell $(PKG_CONFIG) --cflags --libs gstreamer-1.0)
