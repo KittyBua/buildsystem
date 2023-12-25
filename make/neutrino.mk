@@ -392,7 +392,7 @@ $(PKGPREFIX)/.version:
 	echo "version=0200`date +%Y%m%d%H%M`" >> $@
 	echo "git=`git log | grep "^commit" | wc -l`" >> $@
 	
-$(D)/neutrino-ipk: $(D)/neutrino.do_compile
+neutrino-ipk: $(D)/neutrino.do_compile
 	$(START_BUILD)
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
@@ -409,7 +409,7 @@ endif
 	rm -rf $(PKGPREFIX)
 	$(END_BUILD)
 	
-$(D)/neutrino-plugins-ipk: $(D)/neutrino-plugins.do_compile
+neutrino-plugins-ipk: $(D)/neutrino-plugins.do_compile
 	$(START_BUILD)
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
