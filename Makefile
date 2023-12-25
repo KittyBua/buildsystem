@@ -266,7 +266,6 @@ help:
 	@echo " make image-neutrino2		- build neutrino2 image"
 	@echo " make image-neutrino		- build neutrino image"
 	@echo " make image-titan		- build titan image"
-	@echo " make image-enigma2		- build enigma2 image (exp)"
 	@echo ""
 	@echo "show board configuration:"
 	@echo " make printenv			- show board build configuration"
@@ -285,13 +284,11 @@ help:
 	@echo " make release-neutrino2		- build neutrino2 release  with full release dir"
 	@echo " make release-neutrino		- build neutrino release  with full release dir"
 	@echo " make release-titan		- build titan release  with full release dir"
-	@echo " make release-enigma2		- build enigma2 release  with full release dir"
 	@echo ""
 	@echo "GUI:"
 	@echo " make neutrino2			- build neutrino2"
 	@echo " make neutrino			- build neutrino"
 	@echo " make titan			- build titan"
-	@echo " make enigma2			- build enigma2"
 	@echo ""
 	@echo "cleantargets:"
 	@echo " make clean			- clears everything except toolchain."
@@ -319,7 +316,6 @@ include make/tools.mk
 include make/cleantargets.mk
 include make/bare-os.mk
 include make/neutrino2.mk
-include make/enigma2.mk
 include make/titan.mk
 include make/neutrino.mk
 include make/packages.mk
