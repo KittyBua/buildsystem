@@ -127,6 +127,7 @@ NEUTRINO_CONFIG_OPTS += \
 	--with-webtvdir=/share/tuxbox/neutrino/webtv \
 	--with-webtvdir_var=/var/tuxbox/plugins/webtv \
 	--with-controldir=/var/tuxbox/control \
+	--without-debug \
 	PKG_CONFIG=$(PKG_CONFIG) \
 	PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) \
 	CFLAGS="$(NEUTRINO_CFLAGS)" CXXFLAGS="$(NEUTRINO_CFLAGS)" CPPFLAGS="$(NEUTRINO_CPPFLAGS)"
