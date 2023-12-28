@@ -7,8 +7,8 @@ FKEYS =
 #
 # kernel
 #
-KERNEL_VER             = 5.9.0
-KERNEL_SRC_VER         = 5.9
+KERNEL_VER             = 5.15.0
+KERNEL_SRC_VER         = 5.15
 KERNEL_SRC             = linux-edision-$(KERNEL_SRC_VER).tar.gz
 KERNEL_URL             = http://source.mynonpublic.com/edision
 KERNEL_CONFIG          = defconfig
@@ -63,8 +63,8 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #
 # driver
 #
-DRIVER_VER = 5.9.0
-DRIVER_DATE = 20201013
+DRIVER_VER = 5.15.0
+DRIVER_DATE = 20211228
 DRIVER_REV =
 DRIVER_SRC = $(BOXTYPE)-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
 DRIVER_URL = http://source.mynonpublic.com/edision
