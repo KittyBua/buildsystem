@@ -335,7 +335,7 @@ $(D)/host_atools: $(D)/directories $(ARCHIVE)/$(HAT_CORE_SOURCE) $(ARCHIVE)/$(HA
 #
 BOOTSTRAP  = $(D)/directories
 BOOTSTRAP += $(D)/ccache
-BOOTSTRAP += crosstool #$(CROSSTOOL)
+BOOTSTRAP += $(CROSSTOOL)
 BOOTSTRAP += $(D)/host_pkgconfig
 BOOTSTRAP += $(D)/host_module_init_tools
 BOOTSTRAP += $(D)/host_mtd_utils
