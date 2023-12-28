@@ -1,6 +1,6 @@
 BOXARCH = sh4
 CICAM = ci-cam
-SCART =
+SCART = scart
 LCD = vfd
 FKEYS =
 

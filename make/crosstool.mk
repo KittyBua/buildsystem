@@ -1,5 +1,5 @@
 #
-# crosstool-ng
+# crosstool
 #
 CROSSTOOL_NG_VER = 6737cfa
 GCC_VER = 8.5.0
@@ -32,7 +32,14 @@ crosstool: $(D)/directories $(ARCHIVE)/$(KERNEL_SRC) $(ARCHIVE)/$(CROSSTOOL_NG_S
 			make crosstool-backup; \
 		fi; \
 	fi
-
+	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
+		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
+	else \
+		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
+	fi
+#
+# crosstool-ng
+#
 crosstool-ng: $(D)/directories $(ARCHIVE)/$(KERNEL_SRC) $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE) kernel.do_prepare
 	make $(BUILD_TMP)
 	if [ ! -e $(CROSS_DIR) ]; then \
@@ -107,14 +114,4 @@ crossmenuconfig: $(D)/directories $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
 		MAKELEVEL=0 make; \
 		chmod 0755 ct-ng; \
 		./ct-ng menuconfig
-
-#
-# libc
-#
-$(TARGET_DIR)/lib/libc.so.6:
-	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
-		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
-	else \
-		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
-	fi
 	
