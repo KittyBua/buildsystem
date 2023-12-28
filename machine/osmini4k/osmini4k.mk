@@ -16,9 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-brcmstb-$(KERNEL_SRC_VER)
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_OSMINI4K = \
-		0001-scripts-Use-fixed-input-and-output-files-instead-of-.patch \
-		0002-kbuild-install_headers.sh-Strip-_UAPI-from-if-define.patch
+KERNEL_PATCHES_OSMINI4K =
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_OSMINI4K)
 
