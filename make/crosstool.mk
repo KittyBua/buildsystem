@@ -32,11 +32,7 @@ crosstool: $(D)/directories $(ARCHIVE)/$(KERNEL_SRC) $(ARCHIVE)/$(CROSSTOOL_NG_S
 			make crosstool-backup; \
 		fi; \
 	fi
-	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
-		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
-	else \
-		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
-	fi
+
 #
 # crosstool-ng
 #
@@ -115,3 +111,13 @@ crossmenuconfig: $(D)/directories $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
 		chmod 0755 ct-ng; \
 		./ct-ng menuconfig
 	
+#
+# libc
+#
+$(TARGET_DIR)/lib/libc.so.6:
+	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
+		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
+	else \
+		cp -a $(CROSS_DIR)/$(TARGET)/lib/*so* $(TARGET_DIR)/lib; \
+	fi
+
