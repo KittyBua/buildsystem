@@ -87,7 +87,7 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 		echo $$i >> $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/modules.default; \
 	done
 	$(MAKE) install-v3ddriver
-	$(MAKE) wlan-qcom
+#	$(MAKE) wlan-qcom
 	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
 	$(TOUCH)
 
@@ -106,10 +106,10 @@ $(D)/install-v3ddriver: $(ARCHIVE)/$(LIBGLES_SRC)
 #
 # wlan-qcom osmio4k | osmio4kplus | osmini4
 #
-WLAN_QCOM_VER    = 4.5.25.46
+WLAN_QCOM_VER    = 4.5.25.55
 WLAN_QCOM_DIR    = qcacld-2.0-$(WLAN_QCOM_VER)
 WLAN_QCOM_SOURCE = qcacld-2.0-$(WLAN_QCOM_VER).tar.gz
-WLAN_QCOM_URL    = https://www.codeaurora.org/cgit/external/wlan/qcacld-2.0/snapshot
+WLAN_QCOM_URL    = https://source.codeaurora.org/external/wlan/qcacld-2.0/snapshot
 
 $(ARCHIVE)/$(WLAN_QCOM_SOURCE):
 	$(WGET) $(WLAN_QCOM_URL)/$(WLAN_QCOM_SOURCE)
@@ -131,7 +131,7 @@ $(D)/wlan-qcom: $(D)/bootstrap $(D)/kernel $(D)/wlan-qcom-firmware $(ARCHIVE)/$(
 #
 # wlan-qcom-firmware
 #
-WLAN_QCOM_FIRMWARE_VER    = qca6174
+WLAN_QCOM_FIRMWARE_VER    = qca6174_v2
 WLAN_QCOM_FIRMWARE_DIR    = firmware-$(WLAN_QCOM_FIRMWARE_VER)
 WLAN_QCOM_FIRMWARE_SOURCE = firmware-$(WLAN_QCOM_FIRMWARE_VER).zip
 WLAN_QCOM_FIRMWARE_URL    = http://source.mynonpublic.com/edision
