@@ -1,8 +1,7 @@
 #
 # release-common
 #
-RELEASE_DEPS = $(TARGET_DIR)/lib/libc.so.6
-RELEASE_DEPS += $(D)/kernel
+RELEASE_DEPS = $(D)/kernel
 RELEASE_DEPS += $(D)/driver
 RELEASE_DEPS += $(D)/busybox
 RELEASE_DEPS += $(D)/sysvinit
