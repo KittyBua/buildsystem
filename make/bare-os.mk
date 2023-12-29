@@ -1,17 +1,16 @@
 #
 # release-common
 #
-RELEASE_DEPS = $(D)/kernel
+RELEASE_DEPS = $(TARGET_DIR)/lib/libc.so.6
+RELEASE_DEPS += $(D)/kernel
 RELEASE_DEPS += $(D)/driver
 RELEASE_DEPS += $(D)/busybox
 RELEASE_DEPS += $(D)/sysvinit
 RELEASE_DEPS += $(D)/vsftpd
-
 #
 # root-etc
 #
 RELEASE_DEPS += $(D)/diverse-tools
-
 #
 # misc 
 #
@@ -32,7 +31,6 @@ RELEASE_DEPS += $(D)/gptfdisk
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
 endif
-
 #
 # tools
 #
@@ -55,7 +53,6 @@ endif
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/tools-turnoff_power
 endif
-
 #
 # wlan
 #
@@ -63,14 +60,12 @@ ifeq ($(WLAN), wlandriver)
 RELEASE_DEPS += $(D)/wpa_supplicant 
 RELEASE_DEPS += $(D)/wireless_tools
 endif
-
 #
 # python
 #
 ifeq ($(PYTHON), python)
 RELEASE_DEPS += $(D)/python
 endif
-
 #
 # lua
 #
@@ -84,7 +79,6 @@ RELEASE_DEPS += $(D)/luafeedparser
 #RELEASE_DEPS += $(D)/luasoap 
 RELEASE_DEPS += $(D)/luajson
 endif
-
 #
 # gstreamer
 #
@@ -97,7 +91,6 @@ RELEASE_DEPS  += $(D)/gst_plugins_ugly
 RELEASE_DEPS  += $(D)/gst_plugins_subsink
 RELEASE_DEPS  += $(D)/gst_plugins_dvbmediasink
 endif
-
 #
 # graphlcd
 #
@@ -105,7 +98,6 @@ GRAPHLCD ?= graphlcd
 ifeq ($(GRAPHLCD), graphlcd)
 RELEASE_DEPS += $(D)/graphlcd
 endif
-
 #
 # lcd4linux
 #
