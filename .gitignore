@@ -5,3 +5,4 @@ tufsbox/
 Makefile.local
 config
 tools/
+/buildlogs/make_gb800se.log
