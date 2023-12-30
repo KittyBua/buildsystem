@@ -319,12 +319,19 @@ $(D)/gst_plugins_dvbmediasink: $(D)/bootstrap $(D)/gstreamer $(D)/gst_plugins_ba
 		$(CONFIGURE) \
 			--prefix=/usr \
 			--enable-silent-rules \
+			--with-amr \
 			--with-wma \
 			--with-wmv \
+			--with-mp3 \
 			--with-pcm \
 			--with-dts \
+			--with-dtsdownmix \
 			--with-eac3 \
+			--with-mpeg4 \
+			--with-mpeg4v2 \
 			--with-h265 \
+			--with-h264 \
+			--with-h263 \
 			--with-vb6 \
 			--with-vb8 \
 			--with-vb9 \
