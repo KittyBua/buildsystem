@@ -114,7 +114,7 @@ crossmenuconfig: $(D)/directories $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
 #
 # libc
 #
-$(TARGET_DIR)/lib/libc.so.6: $(D)/bootstrap
+$(TARGET_DIR)/lib/libc.so.6:
 	if test -e $(CROSS_DIR)/$(TARGET)/sys-root/lib; then \
 		cp -a $(CROSS_DIR)/$(TARGET)/sys-root/lib/*so* $(TARGET_DIR)/lib; \
 	else \

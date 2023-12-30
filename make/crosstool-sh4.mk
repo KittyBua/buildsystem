@@ -49,7 +49,7 @@ crosstool: $(D)/directories crosstool-rpminstall
 	cp $(DRIVER_DIR)/player2/linux/include/linux/dvb/stm_ioctls.h $(TARGET_DIR)/usr/include/linux/dvb
 	@touch $(D)/$(notdir $@)
 
-$(TARGET_DIR)/lib/libc.so.6: $(D)/bootstrap
+$(TARGET_DIR)/lib/libc.so.6:
 	set -e; cd $(CROSS_DIR); rm -f sh4-linux/sys-root; ln -s ../target sh4-linux/sys-root; \
 	if [ -e $(CROSS_DIR)/target/usr/lib/libstdc++.la ]; then \
 		sed -i "s,^libdir=.*,libdir='$(CROSS_DIR)/target/usr/lib'," $(CROSS_DIR)/target/usr/lib/lib{std,sup}c++.la; \

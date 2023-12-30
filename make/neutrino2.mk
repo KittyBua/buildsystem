@@ -249,9 +249,11 @@ release-neutrino2: $(RELEASE_DEPS) $(D)/neutrino2 $(D)/neutrino2-plugins release
 #
 # delete unnecessary files
 #
+ifneq ($(BOXTYPE), bre2zet2c)
 	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
+endif
 ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/sbin/sfdisk ] && rm -rf $(RELEASE_DIR)/sbin/sfdisk || true
 	[ -e $(RELEASE_DIR)/usr/bin/ipkg-cl ] && rm -rf $(RELEASE_DIR)/usr/bin/ipkg-cl || true

@@ -3,6 +3,13 @@ CICAM = ci-cam
 SCART =
 LCD = 4-digits
 FKEYS =
+#
+# to fit rootfs
+#
+PYTHON = python
+GSTREAMER = gstreamer
+WLAN = wlandriver
+OPTIMIZATIONS = debug
 
 #
 # kernel
@@ -109,15 +116,11 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 #
 # release: fit rootfs more than 95 mb
 #
-PYTHON ?= python
-GSTREAMER ?= gstreamer
-WLAN ?= wlandriver
-OPTIMIZATIONS ?= debug
-
 release-bre2zet2c: $(D)/module_init_tools $(D)/lsb $(D)/dosfstools $(D)/mc $(D)/nano $(D)/fuse $(D)/curlftpfs \
 	$(D)/sdparm $(D)/hdparm $(D)/hdidle $(D)/fbshot $(D)/autofs $(D)/dbus $(D)/avahi $(D)/coreutils \
 	$(D)/smartmontools $(D)/procps_ng $(D)/htop $(D)/ethtool $(D)/ntp $(D)/openvpn $(D)/openssh $(D)/dropbear \
-	$(D)/dropbearmulti $(D)/minisatip $(D)/xupnpd 
+	$(D)/dropbearmulti $(D)/minisatip $(D)/xupnpd $(D)/neutrino $(N_PLUGINS) $(D)/libbluray $(D)/boost \
+	$(D)/libvorbisidec $(D)/libdvdcss $(D)/minidlna $(D)/libupnp
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
