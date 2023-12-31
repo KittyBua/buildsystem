@@ -9,7 +9,6 @@ FKEYS =
 PYTHON = python
 GSTREAMER = gstreamer
 WLAN = wlandriver
-OPTIMIZATIONS = debug
 
 #
 # kernel
