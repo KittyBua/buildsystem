@@ -6,3 +6,4 @@ Makefile.local
 config
 tools/
 /buildlogs/make_gb800se.log
+/buildlogs/make_bre2zet2c.log
