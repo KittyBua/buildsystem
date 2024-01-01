@@ -45,6 +45,8 @@ KERNEL_PATCHES_GB800SE  = \
     		kernel-add-support-for-gcc7.patch \
     		kernel-add-support-for-gcc8.patch \
     		kernel-add-support-for-gcc9.patch \
+    		kernel-add-support-for-gcc10.patch \
+		kernel-add-support-for-gcc11.patch \
 		0001-Support-TBS-USB-drivers-3.9.patch \
     		0001-STV-Add-PLS-support.patch \
     		0001-STV-Add-SNR-Signal-report-parameters.patch \

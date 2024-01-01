@@ -2,7 +2,7 @@
 # crosstool
 #
 CROSSTOOL_NG_VER = 6737cfa
-GCC_VER = 11.2.0
+GCC_VER = 8.5.0
 CROSSTOOL_NG_PATCH =
 
 CROSSTOOL_NG_SOURCE = crosstool-ng-git-$(CROSSTOOL_NG_VER).tar.bz2

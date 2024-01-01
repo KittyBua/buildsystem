@@ -46,6 +46,7 @@ KERNEL_PATCHES_BRE2ZET2C  = \
 			kernel-add-support-for-gcc9.patch \
 			kernel-add-support-for-gcc10.patch \
 			kernel-add-support-for-gcc11.patch \
+			kernel-add-support-for-gcc12.patch \
 			0001-Support-TBS-USB-drivers-for-4.1-kernel.patch \
 			0001-TBS-fixes-for-4.1-kernel.patch \
 			0001-STV-Add-PLS-support.patch \
@@ -53,7 +54,8 @@ KERNEL_PATCHES_BRE2ZET2C  = \
 			blindscan2.patch \
 			0001-stv090x-optimized-TS-sync-control.patch \
 			0002-log2-give-up-on-gcc-constant-optimizations.patch \
-			move-default-dialect-to-SMB3.patch
+			move-default-dialect-to-SMB3.patch \
+			fix-never-be-null_outside-array-bounds-gcc-12.patch
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_BRE2ZET2C)
 
@@ -81,9 +83,9 @@ endif
 
 $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	set -e; cd $(KERNEL_DIR); \
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips oldconfig
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- $(KERNELNAME) modules
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
+		$(MAKE) EXTRA_CFLAGS=-Wno-attribute-alias -C $(KERNEL_DIR) ARCH=mips oldconfig
+		$(MAKE) EXTRA_CFLAGS=-Wno-attribute-alias -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- $(KERNELNAME) modules
+		$(MAKE) EXTRA_CFLAGS=-Wno-attribute-alias -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
