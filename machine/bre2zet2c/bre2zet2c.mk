@@ -118,7 +118,7 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 # release: fit rootfs more than 95 mb
 #
 release-bre2zet2c: $(D)/module_init_tools $(D)/lsb $(D)/dosfstools $(D)/mc $(D)/nano $(D)/fuse $(D)/curlftpfs \
-	$(D)/sdparm $(D)/hdparm $(D)/hdidle $(D)/fbshot $(D)/autofs $(D)/dbus $(D)/avahi $(D)/coreutils \
+	$(D)/sdparm $(D)/hdidle $(D)/fbshot $(D)/autofs $(D)/dbus $(D)/avahi \
 	$(D)/smartmontools $(D)/procps_ng $(D)/htop $(D)/ethtool $(D)/ntp $(D)/openvpn $(D)/openssh $(D)/dropbear \
 	$(D)/dropbearmulti $(D)/minisatip $(D)/xupnpd $(D)/neutrino $(N_PLUGINS) $(D)/libbluray $(D)/boost \
 	$(D)/libvorbisidec $(D)/libdvdcss $(D)/minidlna $(D)/libupnp
