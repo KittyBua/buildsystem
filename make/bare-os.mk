@@ -415,7 +415,6 @@ endif
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)
-	$(TUXBOX_CUSTOMIZE)
 #
 # strip
 #	

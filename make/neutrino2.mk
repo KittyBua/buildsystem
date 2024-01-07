@@ -178,7 +178,6 @@ $(D)/neutrino2-plugins.do_compile: $(D)/neutrino2-plugins.config.status
 $(D)/neutrino2-plugins: $(D)/neutrino2-plugins.do_compile
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/plugins install DESTDIR=$(TARGET_DIR)
 	touch $(D)/$(notdir $@)
-	$(TUXBOX_CUSTOMIZE)
 
 neutrino2-plugins-clean:
 	rm -f $(D)/neutrino2-plugins.do_compile
@@ -282,7 +281,6 @@ endif
 	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
 	rm -fr $(RELEASE_DIR)/etc
 	ln -sf /var/etc $(RELEASE_DIR)
-	$(TUXBOX_CUSTOMIZE)
 #
 # strip
 #	
