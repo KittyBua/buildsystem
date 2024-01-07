@@ -447,6 +447,7 @@ $(D)/dosfstools: bootstrap $(ARCHIVE)/$(DOSFSTOOLS_SOURCE)
 JFSUTILS_VER = 1.1.15
 JFSUTILS_SOURCE = jfsutils-$(JFSUTILS_VER).tar.gz
 JFSUTILS_PATCH = jfsutils-$(JFSUTILS_VER).patch
+JFSUTILS_PATCH += jfsutils-$(JFSUTILS_VER)-gcc10_fix.patch
 
 $(ARCHIVE)/$(JFSUTILS_SOURCE):
 	$(WGET) http://jfs.sourceforge.net/project/pub/$(JFSUTILS_SOURCE)
@@ -1469,6 +1470,8 @@ UDPXY_VER = 612d227
 UDPXY_SOURCE = udpxy-git-$(UDPXY_VER).tar.bz2
 UDPXY_URL = https://github.com/pcherenkov/udpxy.git
 UDPXY_PATCH = udpxy-git-$(UDPXY_VER).patch
+UDPXY_PATCH += udpxy-git-$(UDPXY_VER)-fix-build-with-gcc8.patch
+UDPXY_PATCH += udpxy-git-$(UDPXY_VER)-fix-build-with-gcc9.patch
 
 $(ARCHIVE)/$(UDPXY_SOURCE):
 	$(SCRIPTS_DIR)/get-git-archive.sh $(UDPXY_URL) $(UDPXY_VER) $(notdir $@) $(ARCHIVE)

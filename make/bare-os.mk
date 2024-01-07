@@ -19,7 +19,7 @@ RELEASE_DEPS += $(D)/hdidle
 RELEASE_DEPS += $(D)/portmap
 RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
-RELEASE_DEPS += $(D)/udpxy
+#RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
@@ -403,10 +403,12 @@ endif
 $(D)/release-none: release-common release-$(BOXTYPE)
 	$(START_BUILD)
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NONE $(RELEASE_DIR)/etc/init.d/rcS
+ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2 || true
+endif
 #
 # imigrate /etc to /var/etc
 #

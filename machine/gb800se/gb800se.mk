@@ -47,6 +47,8 @@ KERNEL_PATCHES_GB800SE  = \
     		kernel-add-support-for-gcc9.patch \
     		kernel-add-support-for-gcc10.patch \
 		kernel-add-support-for-gcc11.patch \
+		kernel-add-support-for-gcc12.patch \
+		build-with-gcc12-fixes.patch \
 		0001-Support-TBS-USB-drivers-3.9.patch \
     		0001-STV-Add-PLS-support.patch \
     		0001-STV-Add-SNR-Signal-report-parameters.patch \
@@ -54,7 +56,10 @@ KERNEL_PATCHES_GB800SE  = \
     		blindscan2.patch \
     		genksyms_fix_typeof_handling.patch \
     		0002-cp1emu-do-not-use-bools-for-arithmetic.patch \
-    		0003-log2-give-up-on-gcc-constant-optimizations.patch
+    		0003-log2-give-up-on-gcc-constant-optimizations.patch \
+    		add-attributes-fix-modules-compile.patch \
+    		makefile-silence-warnings.patch \
+    		move-default-dialect-to-SMB2.patch
 
 KERNEL_PATCHES = $(KERNEL_PATCHES_GB800SE)
 

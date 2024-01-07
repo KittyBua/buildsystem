@@ -318,10 +318,10 @@ endif
 #
 # delete unnecessary files
 #
+ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
 	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
-ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/sbin/sfdisk ] && rm -rf $(RELEASE_DIR)/sbin/sfdisk || true
 	[ -e $(RELEASE_DIR)/usr/bin/eplayer3 ] && rm -rf $(RELEASE_DIR)/usr/bin/eplayer3 || true
 	[ -e $(RELEASE_DIR)/usr/bin/exteplayer3 ] && rm -rf $(RELEASE_DIR)/usr/bin/exteplayer3 || true
