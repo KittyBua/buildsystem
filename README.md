@@ -35,7 +35,7 @@ $:~ make print-boards
 
 * backed image can be found into ~/buildsystem/tufsbox/$(machine)/image.
 
-* tested with:
+**tested with:**
 -  debian 8 Jessie, 9 Stretch, 11 Bullseye and 12 Bookworm
 -  linuxmint 20.1 Ulyssa, 20.2 Uma, 20.3 Una, 21 Vanessa, 21.1 Vera, 21.2 Victoria, LMDE 5 Elsie and LMDE 6 Faye
 -  Ubuntu 20.04 Focal Fossa, 22.04 Jammy Jellyfish, 22.10 Kinetic Kudu, 23.04 lunar lobster and 23.10 Mantic Minotaur
