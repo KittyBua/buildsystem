@@ -219,7 +219,6 @@ printenv:
 	@echo "PATH             : `type -p fmt>/dev/null&&echo $(PATH)|sed 's/:/ /g' |fmt -65|sed 's/ /:/g; 2,$$s/^/                 : /;'||echo $(PATH)`"
 	@echo "ARCHIVE_DIR      : $(ARCHIVE)"
 	@echo "BASE_DIR         : $(BASE_DIR)"
-	@echo "CUSTOM_DIR       : $(CUSTOM_DIR)"
 	@echo "TOOLS_DIR        : $(TOOLS_DIR)"
 	@echo "DRIVER_DIR       : $(DRIVER_DIR)"
 	@echo "IMAGE_DIR        : $(IMAGE_DIR)"
