@@ -121,6 +121,7 @@ TARGET_CPPFLAGS       = $(TARGET_CFLAGS)
 TARGET_CXXFLAGS       = $(TARGET_CFLAGS)
 TARGET_LDFLAGS        = -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(TARGET_LIB_DIR) -L$(TARGET_LIB_DIR) -L$(TARGET_DIR)/lib $(TARGET_EXTRA_LDFLAGS)
 LD_FLAGS              = $(TARGET_LDFLAGS)
+
 PKG_CONFIG            = $(HOST_DIR)/bin/$(TARGET)-pkg-config
 PKG_CONFIG_PATH       = $(TARGET_LIB_DIR)/pkgconfig
 
@@ -150,6 +151,7 @@ UNTAR                 = tar -C $(BUILD_TMP) -xf $(ARCHIVE)
 UNTARGZ               = tar -C $(BUILD_TMP) -xzf $(ARCHIVE)
 REMOVE                = rm -rf $(BUILD_TMP)
 
+#
 CHDIR                 = set -e; cd $(BUILD_TMP)
 MKDIR                 = mkdir -p $(BUILD_TMP)
 STRIP                 = $(TARGET)-strip
@@ -160,6 +162,7 @@ INSTALL_CONF          = $(INSTALL) -m 0600
 INSTALL_DATA          = $(INSTALL) -m 0644
 INSTALL_EXEC          = $(INSTALL) -m 0755
 
+#
 GET-GIT-ARCHIVE       = $(SCRIPTS_DIR)/get-git-archive.sh
 GET-GIT-SOURCE        = $(SCRIPTS_DIR)/get-git-source.sh
 
