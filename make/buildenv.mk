@@ -8,9 +8,13 @@ export CONFIG_SITE
 LD_LIBRARY_PATH =
 export LD_LIBRARY_PATH
 
+#
 BASE_DIR             := $(shell pwd)
 
+#
 ARCHIVE               = $(HOME)/Archive
+
+#
 TOOLS_DIR             = $(BASE_DIR)/tools
 DRIVER_DIR            = $(BASE_DIR)/driver
 HOSTAPPS_DIR          = $(BASE_DIR)/hostapps
@@ -36,10 +40,10 @@ HOST_DIR              = $(TUFSBOX_DIR)/host
 RELEASE_DIR           = $(TUFSBOX_DIR)/release
 IMAGE_DIR             = $(TUFSBOX_DIR)/image
 PKGS_DIR	      = $(TUFSBOX_DIR)/pkgs
-PKGPREFIX	      = $(BUILD_TMP)/pkg
 D                     = $(TUFSBOX_DIR)/.deps
 
 #
+PKGPREFIX	      = $(BUILD_TMP)/pkg
 IMAGE_BUILD_DIR       = $(BUILD_TMP)/image-build
 
 # 
