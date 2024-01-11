@@ -49,12 +49,9 @@ SPARK_PATCHES_24 = \
 		linux-sh4-stmmac_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-lmb_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-spark_setup_stm24_$(KERNEL_LABEL).patch \
-		$(if $(P0209),linux-sh4-linux_yaffs2_stm24_0209.patch) \
 		linux-sh4-lirc_stm_stm24_$(KERNEL_LABEL).patch
 
-KERNEL_PATCHES_24  = $(SPARK_PATCHES_24)
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_24)
+KERNEL_PATCHES = $(SPARK_PATCHES_24)
 KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config
 
 $(D)/kernel.do_prepare: $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)

@@ -50,9 +50,7 @@ CUBEREVO_MINI_PATCHES_24 = \
 		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-cuberevo_rtl8201_stm24_$(KERNEL_LABEL).patch
 
-KERNEL_PATCHES_24  = $(CUBEREVO_MINI_PATCHES_24)
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_24)
+KERNEL_PATCHES = $(CUBEREVO_MINI_PATCHES_24)
 KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config
 
 $(D)/kernel.do_prepare: $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)

@@ -52,9 +52,7 @@ FORTIS_HDBOX_PATCHES_24 = \
 		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch \
 		$(if $(P0209),linux-sh4-fortis_hdbox_i2c_st40_stm24_$(KERNEL_LABEL).patch)
 
-KERNEL_PATCHES_24  = $(FORTIS_HDBOX_PATCHES_24)
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_24)
+KERNEL_PATCHES = $(FORTIS_HDBOX_PATCHES_24)
 KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config
 
 $(D)/kernel.do_prepare: $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)

@@ -113,7 +113,7 @@ DRIVER_DATE = 20140604a
 DRIVER_SRC = dreambox-dvb-modules-$(BOXTYPE)-$(DRIVER_VER)-$(BOXTYPE)-$(DRIVER_DATE).tar.bz2
 
 $(ARCHIVE)/$(DRIVER_SRC):
-	$(WGET) https://sources.dreamboxupdate.com/download/opendreambox/2.0.0/dreambox-dvb-modules/$(DRIVER_SRC)
+	$(WGET) https://github.com/oe-mirrors/dreambox/raw/main/$(DRIVER_SRC)
 
 driver: $(D)/driver	
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
