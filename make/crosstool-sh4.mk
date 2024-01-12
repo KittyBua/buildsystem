@@ -22,10 +22,11 @@ $(ARCHIVE)/stlinux24-sh4-%.noarch.rpm:
 #
 # install the RPMs
 #
-BINUTILS_VER = 2.24.51.0.3-77
-GCC_VER      = 4.8.4-139
-LIBGCC_VER   = 4.8.4-149
-GLIBC_VER    = 2.14.1-59
+BINUTILS_VER 		= 2.24.51.0.3-77
+GCC_VER      		= 4.8.4-139
+LIBGCC_VER   		= 4.8.4-149
+GLIBC_VER    		= 2.14.1-59
+STM_KERNEL_HEADERS_VER 	= 2.6.32.46-48
 
 crosstool-rpminstall: \
 $(ARCHIVE)/stlinux24-cross-sh4-binutils-$(BINUTILS_VER).i386.rpm \

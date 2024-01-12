@@ -7,18 +7,13 @@ FKEYS =
 #
 # kernel
 #
-KERNEL_STM ?= p0217
-
 KERNEL_VER             = 2.6.32.71_stm24_0217
 KERNEL_REVISION        = 3ec500f4212f9e4b4d2537c8be5ea32ebf68c43b
-STM_KERNEL_HEADERS_VER = 2.6.32.46-48
-P0217                  = p0217
 
 split_version=$(subst _, ,$(1))
 KERNEL_UPSTREAM    =$(word 1,$(call split_version,$(KERNEL_VER)))
 KERNEL_STM        :=$(word 2,$(call split_version,$(KERNEL_VER)))
 KERNEL_LABEL      :=$(word 3,$(call split_version,$(KERNEL_VER)))
-KERNEL_RELEASE    :=$(subst ^0,,^$(KERNEL_LABEL))
 KERNEL_STM_LABEL  :=_$(KERNEL_STM)_$(KERNEL_LABEL)
 KERNEL_DIR         =$(BUILD_TMP)/linux-sh4-$(KERNEL_VER)
 KERNELNAME         = uImage
@@ -56,12 +51,12 @@ KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config
 $(D)/kernel.do_prepare: $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)
 	$(START_BUILD)
 	rm -rf $(KERNEL_DIR)
-	REPO=https://github.com/Duckbox-Developers/linux-sh4-2.6.32.71.git;protocol=https;branch=stmicro; \
-	[ -d "$(ARCHIVE)/linux-sh4-2.6.32.71.git" ] && \
-	(echo "Updating STlinux kernel source"; cd $(ARCHIVE)/linux-sh4-2.6.32.71.git; git pull;); \
-	[ -d "$(ARCHIVE)/linux-sh4-2.6.32.71.git" ] || \
-	(echo "Getting STlinux kernel source"; git clone -n $$REPO $(ARCHIVE)/linux-sh4-2.6.32.71.git); \
-	(echo "Copying kernel source code to build environment"; cp -ra $(ARCHIVE)/linux-sh4-2.6.32.71.git $(KERNEL_DIR)); \
+	REPO=https://github.com/Duckbox-Developers/linux-sh4-$(KERNEL_UPSTREAM).git;protocol=https;branch=stmicro; \
+	[ -d "$(ARCHIVE)/linux-sh4-$(KERNEL_UPSTREAM).git" ] && \
+	(echo "Updating STlinux kernel source"; cd $(ARCHIVE)/linux-sh4-$(KERNEL_UPSTREAM).git; git pull;); \
+	[ -d "$(ARCHIVE)/linux-sh4-$(KERNEL_UPSTREAM).git" ] || \
+	(echo "Getting STlinux kernel source"; git clone -n $$REPO $(ARCHIVE)/linux-sh4-$(KERNEL_UPSTREAM).git); \
+	(echo "Copying kernel source code to build environment"; cp -ra $(ARCHIVE)/linux-sh4-$(KERNEL_UPSTREAM).git $(KERNEL_DIR)); \
 	(echo "Applying patch level P$(KERNEL_LABEL)"; cd $(KERNEL_DIR); git checkout -q $(KERNEL_REVISION))
 	set -e; cd $(KERNEL_DIR); \
 		for i in $(KERNEL_PATCHES); do \

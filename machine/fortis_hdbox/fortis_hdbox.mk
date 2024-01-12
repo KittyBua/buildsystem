@@ -7,18 +7,13 @@ FKEYS =
 #
 # kernel
 #
-KERNEL_STM ?= p0217
-
 KERNEL_VER             = 2.6.32.71_stm24_0217
 KERNEL_REVISION        = 3ec500f4212f9e4b4d2537c8be5ea32ebf68c43b
-STM_KERNEL_HEADERS_VER = 2.6.32.46-48
-P0217                  = p0217
 
 split_version=$(subst _, ,$(1))
 KERNEL_UPSTREAM    =$(word 1,$(call split_version,$(KERNEL_VER)))
 KERNEL_STM        :=$(word 2,$(call split_version,$(KERNEL_VER)))
 KERNEL_LABEL      :=$(word 3,$(call split_version,$(KERNEL_VER)))
-KERNEL_RELEASE    :=$(subst ^0,,^$(KERNEL_LABEL))
 KERNEL_STM_LABEL  :=_$(KERNEL_STM)_$(KERNEL_LABEL)
 KERNEL_DIR         =$(BUILD_TMP)/linux-sh4-$(KERNEL_VER)
 KERNELNAME         = uImage
@@ -49,8 +44,7 @@ FORTIS_HDBOX_PATCHES_24 = \
 		linux-sh4-fortis_hdbox_setup_stm24_$(KERNEL_LABEL).patch \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-stmmac_stm24_$(KERNEL_LABEL).patch \
-		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch \
-		$(if $(P0209),linux-sh4-fortis_hdbox_i2c_st40_stm24_$(KERNEL_LABEL).patch)
+		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch
 
 KERNEL_PATCHES = $(FORTIS_HDBOX_PATCHES_24)
 KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config

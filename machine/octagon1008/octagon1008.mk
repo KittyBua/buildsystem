@@ -7,18 +7,13 @@ FKEYS =
 #
 # kernel
 #
-KERNEL_STM ?= p0217
-
 KERNEL_VER             = 2.6.32.71_stm24_0217
 KERNEL_REVISION        = 3ec500f4212f9e4b4d2537c8be5ea32ebf68c43b
-STM_KERNEL_HEADERS_VER = 2.6.32.46-48
-P0217                  = p0217
 
 split_version=$(subst _, ,$(1))
 KERNEL_UPSTREAM    =$(word 1,$(call split_version,$(KERNEL_VER)))
 KERNEL_STM        :=$(word 2,$(call split_version,$(KERNEL_VER)))
 KERNEL_LABEL      :=$(word 3,$(call split_version,$(KERNEL_VER)))
-KERNEL_RELEASE    :=$(subst ^0,,^$(KERNEL_LABEL))
 KERNEL_STM_LABEL  :=_$(KERNEL_STM)_$(KERNEL_LABEL)
 KERNEL_DIR         =$(BUILD_TMP)/linux-sh4-$(KERNEL_VER)
 KERNELNAME         = uImage
