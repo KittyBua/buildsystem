@@ -220,7 +220,9 @@ printenv:
 	@echo "ARCHIVE_DIR      : $(ARCHIVE)"
 	@echo "BASE_DIR         : $(BASE_DIR)"
 	@echo "TOOLS_DIR        : $(TOOLS_DIR)"
+ifeq ($(BOXARCH), sh4)
 	@echo "DRIVER_DIR       : $(DRIVER_DIR)"
+endif
 	@echo "IMAGE_DIR        : $(IMAGE_DIR)"
 	@echo "PKGS_DIR         : $(PKGS_DIR)"
 	@echo "CROSS_DIR        : $(CROSS_DIR)"

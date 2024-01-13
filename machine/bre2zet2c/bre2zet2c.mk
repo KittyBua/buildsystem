@@ -12,7 +12,7 @@ WLAN = wlandriver
 LUA = lua
 GRAPHLCD=graphlcd
 LCD4LINUX=lcd4linux
-
+OPTIMIZATIONS=debug
 
 #
 # kernel
@@ -125,12 +125,13 @@ release-bre2zet2c: $(D)/module_init_tools $(D)/lsb $(D)/dosfstools $(D)/mc $(D)/
 	$(D)/sdparm $(D)/hdidle $(D)/fbshot $(D)/autofs $(D)/dbus $(D)/avahi \
 	$(D)/smartmontools $(D)/procps_ng $(D)/htop $(D)/ethtool $(D)/ntp $(D)/openvpn $(D)/openssh $(D)/dropbear \
 	$(D)/dropbearmulti $(D)/minisatip $(D)/xupnpd $(D)/neutrino $(N_PLUGINS) $(D)/libbluray $(D)/boost \
-	$(D)/libvorbisidec $(D)/libdvdcss $(D)/minidlna $(D)/libupnp
+	$(D)/libvorbisidec $(D)/libdvdcss $(D)/minidlna $(D)/libupnp $(D)/tools-satfind $(D)/tools-devinit $(D)/tools-eplayer4 \
+	$(D)/tools-hotplug $(D)/tools-streamproxy $(D)/wget
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
 
-#
+#de
 # flashimage
 #
 FLASHIMAGE_PREFIX = bre2ze_t2c
@@ -153,7 +154,7 @@ flash-image-bre2zet2c:
 	echo 'vol_id=0' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
 	echo 'vol_type=dynamic' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
 	echo 'vol_name=rootfs' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'vol_size=96MiB' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg 
+#	echo 'vol_size=96MiB' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg 
 	echo 'vol_flags=autoresize' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
 	ubinize -o $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.bin -m 2048 -p 128KiB $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
 	rm -f $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.ubi
