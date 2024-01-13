@@ -128,7 +128,7 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 # dm8000 second stage loader #84
 #
 DM8000_2ND_SOURCE = secondstage-dm8000-84.bin
-DM8000_2ND_URL = http://sources.dreamboxupdate.com/download/7020/$(DM8000_2ND_SOURCE)
+DM8000_2ND_URL = https://github.com/oe-mirrors/dreambox/raw/main/$(DM8000_2ND_SOURCE)
 
 $(ARCHIVE)/$(DM8000_2ND_SOURCE):
 	$(WGET) $(DM8000_2ND_URL)
@@ -148,7 +148,7 @@ release-dm8000:
 #
 # flashimage
 #
-flash-image-dm8000: $(D)/dm8000_2nd
+flash-image-dm8000: $(D)/dm8000_2nd $(D)/buildimage
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
