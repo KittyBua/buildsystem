@@ -1522,7 +1522,8 @@ LIBPOPT_VER = 1.16
 LIBPOPT_SOURCE = popt-$(LIBPOPT_VER).tar.gz
 
 $(ARCHIVE)/$(LIBPOPT_SOURCE):
-	$(WGET) ftp://anduin.linuxfromscratch.org/BLFS/popt/$(LIBPOPT_SOURCE)
+#	$(WGET) ftp://anduin.linuxfromscratch.org/BLFS/popt/$(LIBPOPT_SOURCE)
+	$(WGET) http://ftp.lip6.fr/pub/linux/rpm/mirror/popt/$(LIBPOPT_SOURCE)
 
 $(D)/libpopt: $(D)/bootstrap $(ARCHIVE)/$(LIBPOPT_SOURCE)
 	$(START_BUILD)
