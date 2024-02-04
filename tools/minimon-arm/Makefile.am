@@ -5,4 +5,4 @@ AM_CFLAGS = -Wall -g -DHAVE_LIBJPEG_TURBO
 
 minimon_SOURCES = minimon.c jpg.c
 
-SUBDIRS = virtual_fb
+#SUBDIRS = virtual_fb

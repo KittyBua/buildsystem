@@ -777,11 +777,11 @@ $(D)/fbshot: $(D)/bootstrap $(D)/libpng $(ARCHIVE)/$(FBSHOT_SOURCE)
 #
 # sysstat
 #
-SYSSTAT_VER = 11.5.7
-SYSSTAT_SOURCE = sysstat-$(SYSSTAT_VER).tar.bz2
+SYSSTAT_VER = 12.6.1
+SYSSTAT_SOURCE = sysstat-$(SYSSTAT_VER).tar.xz
 
 $(ARCHIVE)/$(SYSSTAT_SOURCE):
-	$(WGET) http://pagesperso-orange.fr/sebastien.godard/$(SYSSTAT_SOURCE)
+	$(WGET) https://ftp.wrz.de/pub/BLFS/conglomeration/sysstat/$(SYSSTAT_SOURCE)
 
 $(D)/sysstat: $(D)/bootstrap $(ARCHIVE)/$(SYSSTAT_SOURCE)
 	$(START_BUILD)
