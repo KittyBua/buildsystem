@@ -72,8 +72,9 @@ NEUTRINO_CONFIG_OPTS = --enable-freesatepg
 NEUTRINO_CONFIG_OPTS += --enable-giflib
 NEUTRINO_CONFIG_OPTS += --with-tremor
 NEUTRINO_CONFIG_OPTS += --enable-ffmpegdec
-#NEUTRINO_CONFIG_OPTS += --enable-pip
 NEUTRINO_CONFIG_OPTS += --enable-pugixml
+#NEUTRINO_CONFIG_OPTS += --enable-pip
+#NEUTRINO_CONFIG_OPTS += --enable-dynamicdemux
 
 ifeq ($(LUA), lua)
 NEUTRINO_DEPS += $(D)/lua 

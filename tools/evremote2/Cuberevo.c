@@ -293,8 +293,8 @@ static int pRead(Context_t *context)
 					break;
 				}
 
-//               if (vCurrentCode == 0xffff) /* key release */
-//                  vCurrentCode = 0x0000;
+//               		if (vCurrentCode == 0xffff) /* key release */
+//                  			vCurrentCode = 0x0000;
 			}
 		}
 	}
