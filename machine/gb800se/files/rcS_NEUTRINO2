@@ -17,8 +17,8 @@ fi
 mount -t proc proc /proc
 mount -t sysfs sys /sys
 mount -t tmpfs tmp /tmp
-mount -t tmpfs media /media
-mount -t tmpfs mnt /mnt
+#mount -t tmpfs media /media
+#mount -t tmpfs mnt /mnt
 #mkdir -p /media/hdd
 mkdir -p /dev/pts
 mount -t devpts devpts /dev/pts

@@ -18,10 +18,16 @@ FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-FFmpeg-devel-amfenc-Add-support-for-pict_ty
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-INT64-fix.patch
 FFMPEG_PATCH += ffmpeg-$(FFMPEG_VER)-remove_diagnostics-color=auto.patch
 
+FFMPEG_DEPS = $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib $(D)/libass $(D)/libxml2 $(D)/libroxml $(D)/librtmp
+
 FFMPEG_CONF_OPTS = --enable-librtmp
 FFMPEG_CONF_OPTS  += --enable-libxml2
 FFMPEG_CONF_OPTS  += --enable-libfreetype
 FFMPEG_CONF_OPTS  += --disable-x86asm
+
+FFMPEG_CONF_OPTS  += --enable-libzvbi
+FFMPEG_CONF_OPTS  += --enable-decoder=libzvbi_teletext
+FFMPEG_DEPS 	  += $(D)/libzvbi
 
 ifeq ($(BOXARCH), arm)
 FFMPEG_CONF_OPTS  += --cpu=cortex-a15
@@ -38,7 +44,7 @@ FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VER).tar.xz
 $(ARCHIVE)/$(FFMPEG_SOURCE):
 	$(WGET) http://www.ffmpeg.org/releases/$(FFMPEG_SOURCE)
 
-$(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib $(D)/libass $(D)/libxml2 $(D)/libroxml $(D)/librtmp $(ARCHIVE)/$(FFMPEG_SOURCE)
+$(D)/ffmpeg: $(D)/bootstrap $(FFMPEG_DEPS) $(ARCHIVE)/$(FFMPEG_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/ffmpeg-$(FFMPEG_VER)
 	$(UNTAR)/$(FFMPEG_SOURCE)
@@ -259,6 +265,7 @@ $(D)/ffmpeg: $(D)/bootstrap $(D)/openssl $(D)/bzip2 $(D)/freetype $(D)/alsa_lib 
 			--enable-decoder=wmavoice \
 			--enable-decoder=wavpack \
 			--enable-decoder=xsub \
+			--enable-decoder=libzvbi_teletext \
 			\
 			--disable-demuxers \
 			--enable-demuxer=aac \

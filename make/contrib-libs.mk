@@ -2732,3 +2732,28 @@ $(D)/libdca: $(D)/bootstrap $(ARCHIVE)/$(LIBDCA_SOURCE)
 	$(REMOVE)/libdca-$(LIBDCA_VER)
 	$(TOUCH)
 
+#
+# libzvbi
+#
+LIBZVBI_VER = 0.2.35
+LIBZVBI_SOURCE = zvbi-$(LIBZVBI_VER).tar.bz2
+
+$(ARCHIVE)/$(LIBZVBI_SOURCE):
+	$(WGET) https://sourceforge.net/projects/zapping/files/zvbi/$(LIBZVBI_VER)/$(LIBZVBI_SOURCE)
+
+$(D)/libzvbi: $(D)/bootstrap $(ARCHIVE)/$(LIBZVBI_SOURCE)
+	$(START_BUILD)
+	$(REMOVE)/zvbi-$(LIBZVBI_VER)
+	$(UNTAR)/$(LIBZVBI_SOURCE)
+	$(CHDIR)/zvbi-$(LIBZVBI_VER); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--bindir=/.remove \
+		; \
+		$(MAKE) all; \
+		$(MAKE) install DESTDIR=$(TARGET_DIR)
+	$(REWRITE_LIBTOOL)/libzvbi.la
+	$(REWRITE_LIBTOOL)/libzvbi-chains.la
+	$(REMOVE)/zvbi-$(LIBZVBI_VER)
+	$(TOUCH)
+	
