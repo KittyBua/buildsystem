@@ -62,14 +62,12 @@ endif
 #
 # python
 #
-ifeq ($(PYTHON), python)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/python
 endif
 #
 # lua
 #
-LUA ?= lua
-ifeq ($(LUA), lua)
 RELEASE_DEPS += $(D)/lua 
 RELEASE_DEPS += $(D)/luaexpat 
 RELEASE_DEPS += $(D)/luacurl 
@@ -77,11 +75,10 @@ RELEASE_DEPS += $(D)/luasocket
 RELEASE_DEPS += $(D)/luafeedparser 
 #RELEASE_DEPS += $(D)/luasoap 
 RELEASE_DEPS += $(D)/luajson
-endif
 #
 # gstreamer
 #
-ifeq ($(GSTREAMER), gstreamer)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS  += $(D)/gstreamer 
 RELEASE_DEPS  += $(D)/gst_plugins_base 
 RELEASE_DEPS  += $(D)/gst_plugins_good 
@@ -126,9 +123,7 @@ endif
 	install -d $(RELEASE_DIR)/usr/share/{udhcpc,zoneinfo,fonts}
 	install -d $(RELEASE_DIR)/var/{bin,etc,lib,net}
 	install -d $(RELEASE_DIR)/var/lib/{nfs,modules,opkg}
-ifeq ($(LUA), lua)
-	install -d $(RELEASE_DIR)/usr/share/lua/5.2
-endif	
+	install -d $(RELEASE_DIR)/usr/share/lua/5.2	
 	mkdir -p $(RELEASE_DIR)/etc/rc.d/rc0.d
 	ln -s ../init.d/sendsigs $(RELEASE_DIR)/etc/rc.d/rc0.d/S20sendsigs
 	ln -s ../init.d/halt $(RELEASE_DIR)/etc/rc.d/rc0.d/S90halt
@@ -191,23 +186,21 @@ endif
 #
 # gstreamer
 #
-ifeq ($(GSTREAMER), gstreamer)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	cp -aR $(TARGET_DIR)/usr/lib/gstreamer-1.0 $(RELEASE_DIR)/usr/lib
 	cp -aR $(TARGET_DIR)/usr/lib/gio $(RELEASE_DIR)/usr/lib
 endif
 #
 # lua
 #
-ifeq ($(LUA), lua)
 	cp -R $(TARGET_DIR)/usr/lib/lua $(RELEASE_DIR)/usr/lib/
 	if [ -d $(TARGET_DIR)/usr/share/lua ]; then \
 		cp -aR $(TARGET_DIR)/usr/share/lua/* $(RELEASE_DIR)/usr/share/lua; \
 	fi
-endif
 #
 # python
 #
-ifeq ($(PYTHON), python)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	install -d $(RELEASE_DIR)/$(PYTHON_DIR)
 	cp -R $(TARGET_DIR)/$(PYTHON_DIR)/* $(RELEASE_DIR)/$(PYTHON_DIR)/
 	install -d $(RELEASE_DIR)/$(PYTHON_INCLUDE_DIR)
@@ -291,9 +284,9 @@ endif
 		cp -aR $(TARGET_DIR)/usr/share/minisatip $(RELEASE_DIR)/usr/share; \
 	fi
 #
-# delete unnecessary files
+# delete unnecessary python files
 #
-ifeq ($(PYTHON), python)
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/{bsddb,compiler,curses,lib-old,lib-tk,plat-linux3,test,sqlite3,pydoc_data,multiprocessing,hotshot,distutils,email,unitest,ensurepip,wsgiref,lib2to3,logging,idlelib}
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/pdb.doc
 	rm -rf $(RELEASE_DIR)/$(PYTHON_DIR)/ctypes/test
@@ -347,7 +340,6 @@ ifeq ($(BOXARCH), sh4)
 	rm -f $(RELEASE_DIR)/sbin/jfs_tune
 	rm -f $(RELEASE_DIR)/sbin/ffmpeg
 	rm -f $(RELEASE_DIR)/etc/ssl/certs/ca-certificates.crt
-ifneq ($(GSTREAMER), gstreamer)
 	rm -f $(RELEASE_DIR)/usr/bin/gst*
 	rm -f $(RELEASE_DIR)/usr/bin/gapplication
 	rm -f $(RELEASE_DIR)/usr/bin/gio
@@ -355,10 +347,7 @@ ifneq ($(GSTREAMER), gstreamer)
 	rm -f $(RELEASE_DIR)/usr/bin/gsettings
 	rm -f $(RELEASE_DIR)/usr/bin/gdbus
 	rm -f $(RELEASE_DIR)/usr/bin/dbus*
-endif
-ifneq ($(PYTHON), python)
 	rm -f $(RELEASE_DIR)/usr/bin/python*
-endif
 endif
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	rm -rf $(RELEASE_DIR)/dev.static

@@ -3,16 +3,6 @@ CICAM = ci-cam
 SCART =
 LCD = 4-digits
 FKEYS =
-#
-# to fit rootfs
-#
-PYTHON = python
-GSTREAMER = gstreamer
-WLAN = wlandriver
-LUA = lua
-GRAPHLCD=graphlcd
-LCD4LINUX=lcd4linux
-OPTIMIZATIONS=debug
 
 #
 # kernel

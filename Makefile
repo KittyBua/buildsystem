@@ -123,7 +123,7 @@ init:
 	esac; \
 	echo ""
 # Gstreamer
-	@echo -e "\nGstreamer:"
+	@echo -e "\nGstreamer as mediaplayer for neutrino2 / titan (only for mipsel / arm)"
 	@echo -e "   \033[01;32m1) no\033[00m"
 	@echo "   2) yes"
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
@@ -135,7 +135,7 @@ init:
 	esac; \
 	echo ""
 # lua
-	@echo -e "\nlua support ?:"
+	@echo -e "\nlua support for neutrino / neutrino2 ?:"
 	@echo -e "   \033[01;32m1)  yes\033[00m"
 	@echo "   2)  no"
 	@read -p "Select lua support (1-2)?" LUA; \
@@ -147,7 +147,7 @@ init:
 	esac; \
 	echo ""
 # python
-	@echo -e "\npython support ?:"
+	@echo -e "\npython plugins support in neutrino2 (experimental and only for mipsel / arm)?:"
 	@echo -e "   \033[01;32m1)  no\033[00m"
 	@echo "   2)  yes"
 	@read -p "Select python support (1-2)?" PYTHON; \
