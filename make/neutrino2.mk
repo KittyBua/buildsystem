@@ -12,7 +12,6 @@ NEUTRINO2_DEPS += $(D)/freetype
 NEUTRINO2_DEPS += $(D)/ffmpeg
 NEUTRINO2_DEPS += $(D)/libfribidi
 NEUTRINO2_DEPS += $(D)/libopenthreads
-NEUTRINO2_DEPS += $(D)/libass
 NEUTRINO2_DEPS += $(D)/openssl
 
 #
