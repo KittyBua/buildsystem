@@ -79,9 +79,9 @@ endif
 # titan
 #
 ifeq ($(BOXARCH), sh4)
-TITAN_PATCH = titan-sh4.patch
+#TITAN_PATCH = titan-sh4.patch
 else
-TITAN_PATCH = titan.patch
+#TITAN_PATCH = titan.patch
 endif
 
 $(D)/titan.do_prepare: $(TITAN_DEPS)
@@ -114,7 +114,7 @@ $(D)/titan.config.status: $(D)/titan.do_prepare
 			CPPFLAGS="$(TITAN_CPPFLAGS)"
 	@touch $@
 
-$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
+$(D)/titan.do_compile: $(D)/titan.config.status $(D)/titan-libipkg $(D)/libdreamdvd $(D)/titan-libdreamdvd $(D)/titan-libeplayer3
 	cd $(SOURCE_DIR)/titan/titan; \
 		$(MAKE) all
 	@touch $@

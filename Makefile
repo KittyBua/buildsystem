@@ -123,7 +123,7 @@ init:
 	esac; \
 	echo ""
 # Gstreamer
-	@echo -e "\nGstreamer as mediaplayer for neutrino2 / titan (only for mipsel / arm)"
+	@echo -e "\nGstreamer as mediaplayer for neutrino2 (only for mipsel / arm)"
 	@echo -e "   \033[01;32m1) no\033[00m"
 	@echo "   2) yes"
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
@@ -189,8 +189,6 @@ init:
 	@echo "  make image-neutrino2"
 	@echo "or"
 	@echo "  make image-neutrino"
-	@echo "or"
-	@echo "  make image-titan"
 	@echo ""
 	@echo ""
 	@echo "for more details:"
@@ -266,7 +264,6 @@ help:
 	@echo "main target (image):"
 	@echo " make image-neutrino2		- build neutrino2 image"
 	@echo " make image-neutrino		- build neutrino image"
-	@echo " make image-titan		- build titan image"
 	@echo ""
 	@echo "show board configuration:"
 	@echo " make printenv			- show board build configuration"
@@ -284,12 +281,10 @@ help:
 	@echo "release:"
 	@echo " make release-neutrino2		- build neutrino2 release  with full release dir"
 	@echo " make release-neutrino		- build neutrino release  with full release dir"
-	@echo " make release-titan		- build titan release  with full release dir"
 	@echo ""
 	@echo "GUI:"
 	@echo " make neutrino2			- build neutrino2"
 	@echo " make neutrino			- build neutrino"
-	@echo " make titan			- build titan"
 	@echo ""
 	@echo "cleantargets:"
 	@echo " make clean			- clears everything except toolchain."

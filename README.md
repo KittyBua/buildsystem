@@ -20,7 +20,6 @@ $:~ make
 ```bash
 $:~ make image-neutrino2
 $:~ make image-neutrino
-$:~ make image-titan
 ```
 
 **for more details:**
