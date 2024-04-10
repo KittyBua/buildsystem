@@ -100,3 +100,16 @@ config
 /tools/devinit/aclocal.m4
 /tools/devinit/autom4te.cache/output.0
 /tools/devinit/autom4te.cache/output.1
+/tools/devinit/autom4te.cache/output.2
+/tools/devinit/autom4te.cache/output.3
+/tools/devinit/autom4te.cache/requests
+/tools/devinit/autom4te.cache/traces.0
+/tools/devinit/autom4te.cache/traces.1
+/tools/devinit/autom4te.cache/traces.2
+/tools/devinit/autom4te.cache/traces.3
+/tools/devinit/compile
+/tools/devinit/config.guess
+/tools/devinit/config.h
+/tools/devinit/config.h.in
+/tools/devinit/config.h.in~
+/tools/devinit/config.log
