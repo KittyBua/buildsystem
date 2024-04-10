@@ -113,3 +113,17 @@ config
 /tools/devinit/config.h.in
 /tools/devinit/config.h.in~
 /tools/devinit/config.log
+/tools/devinit/config.status
+/tools/devinit/config.sub
+/tools/devinit/configure
+/tools/devinit/configure~
+/tools/devinit/depcomp
+/tools/devinit/devinit
+/tools/devinit/devinit.o
+/tools/devinit/install-sh
+/tools/devinit/libtool
+/tools/devinit/ltmain.sh
+/tools/devinit/m4/libtool.m4
+/tools/devinit/m4/ltoptions.m4
+/tools/devinit/m4/ltsugar.m4
+/tools/devinit/m4/ltversion.m4
