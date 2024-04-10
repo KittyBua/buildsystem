@@ -8,7 +8,7 @@ cd buildsystem
 
 **for first use:**
 ```bash
-$:~ sudo ./prepare-for-bs.sh
+$:~ sudo bash prepare-for-bs.sh
 ```
 **machine configuration:**
 ```bash
