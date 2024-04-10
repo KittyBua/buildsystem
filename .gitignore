@@ -87,3 +87,16 @@ config
 /tools/wait4button/stamp-h1
 /tools/wait4button/wait4button
 /tools/wait4button/wait4button.o
+/tools/aio-grab-sh4/m4/ltoptions.m4
+/tools/aio-grab-sh4/m4/ltsugar.m4
+/tools/aio-grab-sh4/m4/ltversion.m4
+/tools/aio-grab-sh4/m4/lt~obsolete.m4
+/tools/aio-grab-sh4/main.o
+/tools/aio-grab-sh4/missing
+/tools/aio-grab-sh4/stamp-h1
+/tools/devinit/.deps/devinit.Po
+/tools/devinit/Makefile
+/tools/devinit/Makefile.in
+/tools/devinit/aclocal.m4
+/tools/devinit/autom4te.cache/output.0
+/tools/devinit/autom4te.cache/output.1
