@@ -331,3 +331,4 @@ config
 /tools/flashtool-pad/pad
 /tools/flashtool-pad/pad.o
 /tools/flashtool-pad/stamp-h1
+/tools/libmme_host/m4/ltoptions.m4
