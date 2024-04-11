@@ -55,7 +55,7 @@ endif
 #
 # wlan
 #
-ifeq ($(WLAN), wlandriver)	
+ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))	
 RELEASE_DEPS += $(D)/wpa_supplicant 
 RELEASE_DEPS += $(D)/wireless_tools
 endif
@@ -164,12 +164,10 @@ endif
 #
 # wlan firmware
 #
-ifeq ($(WLAN), wlandriver)
 	install -d $(RELEASE_DIR)/etc/Wireless
 	cp -aR $(SKEL_ROOT)/lib/firmware/Wireless/* $(RELEASE_DIR)/etc/Wireless/
 	cp -aR $(SKEL_ROOT)/lib/firmware/rtlwifi $(RELEASE_DIR)/lib/firmware/
 	cp -aR $(SKEL_ROOT)/lib/firmware/*.bin $(RELEASE_DIR)/lib/firmware/
-endif
 #
 # lib
 #
