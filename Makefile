@@ -110,18 +110,6 @@ init:
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config
 	@echo ""		
-# WLAN driver
-	@echo -e "\nDo you want to build WLAN drivers and tools"
-	@echo -e "   \033[01;32m1) no\033[00m"
-	@echo "   2) yes (includes WLAN drivers and tools)"
-	@read -p "Select to build (1-2)?" WLAN; \
-	WLAN=$${WLAN}; \
-	case "$$WLAN" in \
-		1) echo "WLAN=" >> config;; \
-		2) echo "WLAN=wlandriver" >> config;; \
-		*) echo "WLAN=" >> config;; \
-	esac; \
-	echo ""
 # Gstreamer
 	@echo -e "\nGstreamer as mediaplayer for neutrino2 (only for mipsel / arm)"
 	@echo -e "   \033[01;32m1) no\033[00m"
@@ -236,7 +224,6 @@ endif
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
-	@echo "WLAN             : $(WLAN)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
 	@echo "LUA              : $(LUA)"
 	@echo "PYTHON           : $(PYTHON)"
