@@ -184,15 +184,15 @@ obj-y += bpamem/
 
 ifdef HL101
 obj-y += smartcard/
-obj-y += dvbt/as102/
+obj-y += frontends/dvbt/as102/
 endif
 
 ifdef ADB_BOX
 obj-y += smartcard/
 obj-y += adb_box_fan/
 obj-y += cec_adb_box/
-obj-y += dvbt/as102/
-obj-y += dvbt/siano/
+obj-y += frontends/dvbt/as102/
+obj-y += frontends/dvbt/siano/
 endif
 
 ifndef VIP2_V1
@@ -280,8 +280,8 @@ ifdef SPARK7162
 obj-y += smartcard/
 obj-y += i2c_spi/
 obj-y += cec/
-obj-y += dvbt/as102/
-obj-y += dvbt/siano/
+obj-y += frontends/dvbt/as102/
+obj-y += frontends/dvbt/siano/
 endif
 
 ifdef OCTAGON1008
@@ -297,20 +297,20 @@ obj-y += siinfo/
 obj-y += rmu/
 obj-y += ipbox99xx_fan/
 obj-y += smartcard/
-obj-y += dvbt/as102/
+obj-y += frontends/dvbt/as102/
 endif
 
 ifdef IPBOX99
 obj-y += siinfo/
 obj-y += ipbox99xx_fan/
 obj-y += smartcard/
-obj-y += dvbt/as102/
+obj-y += frontends/dvbt/as102/
 endif
 
 ifdef IPBOX55
 obj-y += siinfo/
 obj-y += smartcard/
-obj-y += dvbt/as102/
+obj-y += frontends/dvbt/as102/
 endif
 
 ifdef CUBEREVO
@@ -342,15 +342,15 @@ obj-y += cec/
 obj-y += smartcard/
 obj-y += sagemcomtype/
 obj-y += fan_sagemcom88/
-obj-y += dvbt/as102/
-obj-y += dvbt/siano/
+obj-y += frontends/dvbt/as102/
+obj-y += frontends/dvbt/siano/
 endif
 
 ifdef ARIVALINK200
 obj-y += smartcard/
 obj-y += cec_adb_box/
-obj-y += dvbt/as102/
-obj-y += dvbt/siano/
+obj-y += frontends/dvbt/as102/
+obj-y += frontends/dvbt/siano/
 endif
 
 ifdef PACE7241
