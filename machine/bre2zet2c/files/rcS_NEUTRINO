@@ -75,7 +75,7 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/$(uname -r)/extra/linuxtv.ko
+modprobe --force linuxtv
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000

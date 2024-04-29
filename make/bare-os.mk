@@ -19,9 +19,10 @@ RELEASE_DEPS += $(D)/hdidle
 RELEASE_DEPS += $(D)/portmap
 RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
-#RELEASE_DEPS += $(D)/udpxy
+RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
+RELEASE_DEPS += $(D)/module_init_tools
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 RELEASE_DEPS += $(D)/ntfs_3g
