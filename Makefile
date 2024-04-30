@@ -306,7 +306,7 @@ include make/packages.mk
 update:
 	@if test -d $(BASE_DIR); then \
 		cd $(BASE_DIR)/; \
-		git stash && git stash show -p > ./pull-stash-cdk.patch || true && git pull && git stash pop || true; \
+		git stash && git stash show -p > ./pull-stash-cdk.patch || true && git pull || true; \
 	fi
 	@echo;
 
