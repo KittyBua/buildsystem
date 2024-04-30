@@ -299,7 +299,6 @@ include make/tools.mk
 include make/cleantargets.mk
 include make/bare-os.mk
 include make/neutrino2.mk
-include make/titan.mk
 include make/neutrino.mk
 include make/packages.mk
 
