@@ -13,7 +13,7 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
 # Don't shut down drives if we're using RAID.
 hddown="-h"
-if grep -qs '^md.*active' /proc/mdstat
+if grep -qs '^md.*active' /proc/mdstat 
 then
 	hddown=""
 fi
