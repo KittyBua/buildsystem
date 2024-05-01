@@ -251,7 +251,7 @@ static int pRead(Context_t *context)
 				vNextKey = ((vCurrentCode != lastCode) ? vNextKey + 1 : vNextKey) % 0x100;
 				lastCode = vCurrentCode;
 
-//               printf("nextFlag %d\n", vNextKey);
+//               		printf("nextFlag %d\n", vNextKey);
 
 				vCurrentCode += (vNextKey << 16);
 
@@ -271,7 +271,7 @@ static int pRead(Context_t *context)
 			{
 				front_key |= vData[1];
 
-				printf("front_key = 0x%04x\n", front_key);
+//				printf("front_key = 0x%04x\n", front_key);
 
 				/* 12 dot, 12 and 14 segs */
 				if ((version == 0) || (version == 2))
@@ -286,7 +286,7 @@ static int pRead(Context_t *context)
 					vNextKey = ((vCurrentCode != lastCode) ? vNextKey + 1 : vNextKey) % 0x100;
 					lastCode = vCurrentCode;
 
-					//             printf("nextFlag %d\n", vNextKey);
+					//printf("nextFlag %d\n", vNextKey);
 
 					vCurrentCode += (vNextKey << 16);
 
@@ -306,7 +306,6 @@ static int pRead(Context_t *context)
 
 static int pNotification(Context_t *context, const int cOn)
 {
-
 	return 0;
 }
 

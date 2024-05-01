@@ -263,7 +263,7 @@ static tButton cButtonsSparkRc12[] =
 	{"MENU"           , "DD", KEY_MENU},
 	{"Tms"            , "BD", KEY_T},
 	{"INFO"           , "FF", KEY_INFO},
-	{"UP"	      , "5D", KEY_UP},
+	{"UP"	      	  , "5D", KEY_UP},
 	{"DOWN"           , "55", KEY_DOWN},
 	{"LEFT"           , "1F", KEY_LEFT},
 	{"RIGHT"          , "7F", KEY_RIGHT},
