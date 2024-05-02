@@ -252,7 +252,7 @@ endif
 #
 flash-image-cuberevo_2000hd:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) cuberevo_2000hd
+	cd $(SCRIPTS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) cuberevo_2000hd
 
 #
 # usbimage

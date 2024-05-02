@@ -251,7 +251,7 @@ endif
 #
 flash-image-octagon1008:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) octagon1008
+	cd $(SCRIPTS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) octagon1008
 	
 #
 # usbimage

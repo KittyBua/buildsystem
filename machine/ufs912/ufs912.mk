@@ -249,7 +249,7 @@ endif
 #
 flash-image-ufs912:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/ufs912 && $(SUDOCMD) ./ufs912.sh $(MAINTAINER)
+	cd $(SCRIPTS_DIR)/ufs912 && $(SUDOCMD) ./ufs912.sh $(MAINTAINER)
 
 #
 # usbimage

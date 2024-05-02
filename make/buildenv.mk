@@ -17,7 +17,6 @@ ARCHIVE               = $(HOME)/Archive
 #
 TOOLS_DIR             = $(BASE_DIR)/tools
 DRIVER_DIR            = $(BASE_DIR)/driver
-HOSTAPPS_DIR          = $(BASE_DIR)/hostapps
 PATCHES               = $(BASE_DIR)/patches
 SCRIPTS_DIR           = $(BASE_DIR)/scripts
 SKEL_ROOT             = $(BASE_DIR)/root

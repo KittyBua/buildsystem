@@ -249,7 +249,7 @@ endif
 #
 flash-image-fortis_hdbox:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) fortis_hdbox
+	cd $(SCRIPTS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) fortis_hdbox
 
 #
 # usbimage

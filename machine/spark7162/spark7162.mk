@@ -252,7 +252,7 @@ endif
 #
 flash-image-spark7162:
 	mkdir -p $(IMAGE_DIR)
-	cd $(HOSTAPPS_DIR)/spark && $(SUDOCMD) ./spark.sh $(MAINTAINER) spark7162
+	cd $(SCRIPTS_DIR)/spark && $(SUDOCMD) ./spark.sh $(MAINTAINER) spark7162
 
 #
 # usbimage
