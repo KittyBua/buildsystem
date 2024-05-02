@@ -346,9 +346,11 @@ int main(int argc, char **argv)
 
 	memset(bit, 0, sizeof(bit));
 	ioctl(fd, EVIOCGBIT(0, EV_MAX), bit[0]);
+	
 	printf("Supported events:\n");
 
 	for (i = 0; i < EV_MAX; i++)
+	{
 		if (test_bit(i, bit[0]))
 		{
 			printf("  Event type %d (%s)\n", i, events[i] ? events[i] : "?");
@@ -372,7 +374,7 @@ int main(int argc, char **argv)
 					}
 				}
 		}
-
+	}
 
 	printf("Testing ... (interrupt to exit)\n");
 
@@ -388,7 +390,7 @@ int main(int argc, char **argv)
 		}
 
 		for (i = 0; i < rd / sizeof(struct input_event); i++)
-
+		{
 			if (ev[i].type == EV_SYN)
 			{
 				printf("Event: time %ld.%06ld, -------------- %s ------------\n",
@@ -412,7 +414,7 @@ int main(int argc, char **argv)
 				       names[ev[i].type] ? (names[ev[i].type][ev[i].code] ? names[ev[i].type][ev[i].code] : "?") : "?",
 				       ev[i].value);
 			}
-
+		}
 	}
 }
 
