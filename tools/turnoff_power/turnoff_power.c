@@ -25,6 +25,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+
 #define DEEPSTANDBY 0x123456 // 0x34 0x56 0x12 to send
 
 int g_oledFd = -1;
@@ -33,6 +34,7 @@ char g_oledDevice[] = "/dev/oled0";
 int main(int argc, char **argv)
 {
 	g_oledFd = open(g_oledDevice, O_RDWR);
+	
 	if (ioctl(g_oledFd, DEEPSTANDBY) < 0)
 		perror("DEEPSTANDBY");
 
@@ -40,6 +42,8 @@ int main(int argc, char **argv)
 	{
 		close(g_oledFd);
 		g_oledFd = -1;
-	} else
+	} 
+	else
 		perror("Error: Oled not available!\n");
 }
+

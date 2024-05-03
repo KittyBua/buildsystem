@@ -5,6 +5,7 @@ RELEASE_DEPS = $(D)/kernel
 RELEASE_DEPS += $(D)/driver
 RELEASE_DEPS += $(D)/busybox
 RELEASE_DEPS += $(D)/sysvinit
+RELEASE_DEPS += $(D)/module_init_tools
 RELEASE_DEPS += $(D)/vsftpd
 #
 # root-etc
@@ -22,7 +23,6 @@ RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
-RELEASE_DEPS += $(D)/module_init_tools
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
 RELEASE_DEPS += $(D)/ntfs_3g
