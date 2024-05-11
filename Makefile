@@ -57,11 +57,11 @@ init:
 	@echo "   65)  osmini4k"  
 	@echo ""
 	@echo "  Giga Blue"
-	@echo -e "\033[01;32m   70)  gb800se\033[00m"
+	@echo "   70)  gb800se"
 	@echo ""
 	@echo "  WWIO"
 	@echo "   80)  WWIO BRE2ZE 4K"
-	@echo "   81)  WWIO BRE2ZE T2C"
+	@echo -e "\033[01;32m   81)  WWIO BRE2ZE T2C\033[00m"
 	@echo ""
 	@echo "  Air Digital"
 	@echo "   90)  Zgemma h7"
@@ -106,7 +106,7 @@ init:
 		90) BOXTYPE="h7";; \
 		100) BOXTYPE="e4hdultra";; \
 		110) BOXTYPE="dm8000";; \
-		*) BOXTYPE="gb800se";; \
+		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config
 	@echo ""		
