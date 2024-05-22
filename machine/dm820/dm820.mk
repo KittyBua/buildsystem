@@ -105,7 +105,7 @@ release-dm820:
 #
 # flashimage
 #
-flash-image-dm820: $(D)/buildimage
+flash-image-dm820:
 #	rm -rf $(IMAGE_BUILD_DIR) || true
 #	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)

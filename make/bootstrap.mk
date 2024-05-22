@@ -276,8 +276,8 @@ $(D)/buildimage: $(D)/bootstrap $(ARCHIVE)/$(BUILDIMAGE_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/buildimage
 	set -e; if [ -d $(ARCHIVE)/buildimage.git ]; \
-		then cd $(ARCHIVE)/buildimage.git; git pull; \
-		else cd $(ARCHIVE); git clone https://github.com/oe-mirrors/buildimage.git buildimage.git; \
+		then cd $(ARCHIVE)/buildimage.git; #git pull; \
+#		else cd $(ARCHIVE); git clone https://github.com/oe-mirrors/buildimage.git buildimage.git; \
 		fi
 	cp -ra $(ARCHIVE)/buildimage.git $(BUILD_TMP)/buildimage
 	$(CHDIR)/buildimage; \
