@@ -245,9 +245,6 @@ endif
 	@echo ""
 	@echo "for more details:"
 	@echo "  make help"
-	@echo "to check your build enviroment:"
-	@echo "  make printenv"
-	@echo ""
 
 help:
 	@echo "main target (image):"
