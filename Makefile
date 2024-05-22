@@ -18,10 +18,10 @@ init:
 	@echo "  Kathrein"
 	@echo "    1)  UFS-912"
 	@echo ""
-	@echo "  Fortis / Divers"
-	@echo "    10)  FS9000 / FS9200 (formerly Fortis HDbox)"
-	@echo "    11)  HS9510          (formerly Octagon SF1008P)"
-	@echo "    12)  HS8200          (formerly Atevio AV7500)"
+	@echo "  Fortis"
+	@echo "    10)  Fortis HDbox / FS9000 / FS9200"
+	@echo "    11)  Octagon SF1008P / HS9510"
+	@echo "    12)  Atevio AV7500 / HS8200"
 	@echo "    13)  Hl101"
 	@echo ""
 	@echo "  AB IPBox/cuberevo/Xsarius"
@@ -70,7 +70,8 @@ init:
 	@echo ""
 	@echo "  Dream Media"
 	@echo "   110 dm8000"
-	@read -p "Select target (1-90)? " BOXTYPE; \
+	@echo "   111 dm820"
+	@read -p "Select target (1-111)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
 		1) BOXTYPE="ufs912";; \
@@ -106,6 +107,7 @@ init:
 		90) BOXTYPE="h7";; \
 		100) BOXTYPE="e4hdultra";; \
 		110) BOXTYPE="dm8000";; \
+		111) BOXTYPE="dm820";; \
 		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config
@@ -297,7 +299,7 @@ include make/python.mk
 include make/lua.mk
 include make/tools.mk
 include make/cleantargets.mk
-include make/bare-os.mk
+include make/release.mk
 include make/neutrino2.mk
 include make/neutrino.mk
 include make/packages.mk

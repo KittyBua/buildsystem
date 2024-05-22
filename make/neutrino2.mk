@@ -91,7 +91,7 @@ $(D)/neutrino2.do_prepare: $(NEUTRINO2_DEPS)
 	[ -d "$(ARCHIVE)/neutrino2.git" ] && \
 	(cd $(ARCHIVE)/neutrino2.git; git pull;); \
 	[ -d "$(ARCHIVE)/neutrino2.git" ] || \
-	git clone https://github.com/mohousch/neutrino2.git $(ARCHIVE)/neutrino2.git; \
+	git clone -b develop https://github.com/mohousch/neutrino2.git $(ARCHIVE)/neutrino2.git; \
 	cp -ra $(ARCHIVE)/neutrino2.git $(SOURCE_DIR)/neutrino2; \
 	set -e; cd $(SOURCE_DIR)/neutrino2/neutrino2; \
 		$(call apply_patches,$(NEUTRINO2_PATCHES))
@@ -288,7 +288,7 @@ endif
 ifeq ($(BOXTYPE), hl101)
 	$(MAKE) usb-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro dm8000))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro dm8000 dm820))
 	$(MAKE) flash-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k h7 hd51 hd60 osmini4k osmio4k osmio4kplus e4hdultra))
