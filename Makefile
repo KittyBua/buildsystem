@@ -175,18 +175,7 @@ init:
 #	
 	@echo ""
 	@make printenv
-	@echo "Your next step could be:"
-	@echo "  make image-neutrino2"
-	@echo "or"
-	@echo "  make image-neutrino"
-	@echo ""
-	@echo ""
-	@echo "for more details:"
-	@echo "  make help"
-	@echo "to check your build enviroment:"
-	@echo "  make printenv"
-	@echo ""
-	
+
 init-clean:
 	rm -f config
 
@@ -248,6 +237,17 @@ endif
 	@echo
 	@echo "If you want to create or modify the configuration, run 'make init or make'"
 	@echo
+	@echo "Your next step could be:"
+	@echo "  make image-neutrino2"
+	@echo "or"
+	@echo "  make image-neutrino"
+	@echo ""
+	@echo ""
+	@echo "for more details:"
+	@echo "  make help"
+	@echo "to check your build enviroment:"
+	@echo "  make printenv"
+	@echo ""
 
 help:
 	@echo "main target (image):"
