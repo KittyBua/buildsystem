@@ -97,8 +97,8 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 #	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 #
-#	gzip -9c < "$(KERNEL_DIR)/vmlinux" > "$(KERNEL_DIR)/vmlinux-3.2-dm8000.gz"
-#	install -m 644 $(KERNEL_DIR)/vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/	ln -sf vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/vmlinux
+#	gzip -9c < "$(KERNEL_DIR)/$(KERNELNAME)" > "$(KERNEL_DIR)/$(KERNELNAME)-3.2-dm8000.gz"
+#	install -m 644 $(KERNEL_DIR)/$(KERNELNAME)-3.2-dm8000.gz $(TARGET_DIR)/boot/	ln -sf $(KERNELNAME)-3.2-dm8000.gz $(TARGET_DIR)/boot/$(KERNELNAME)
 #	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true

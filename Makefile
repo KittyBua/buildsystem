@@ -71,6 +71,9 @@ init:
 	@echo "  Dream Media"
 	@echo "   110 dm8000"
 	@echo "   111 dm820"
+	@echo ""
+	@echo "  Maxytec"
+	@echo "   120 multiboxse"
 	@read -p "Select target (1-111)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
@@ -108,6 +111,7 @@ init:
 		100) BOXTYPE="e4hdultra";; \
 		110) BOXTYPE="dm8000";; \
 		111) BOXTYPE="dm820";; \
+		120) BOXTYPE="multiboxse";; \
 		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config

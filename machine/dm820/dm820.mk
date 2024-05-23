@@ -130,7 +130,7 @@ flash-image-dm820:
 #	cd $(IMAGE_BUILD_DIR) && \
 #	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE)/$(BOXTYPE).nfi $(BOXTYPE)/imageversion
 	cd $(RELEASE_DIR) && \
-	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_flash_$(shell date '+%d.%m.%Y-%H.%M').tar.xz --exclude=vmlinux.gz* . > /dev/null 2>&1
+	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_flash_$(shell date '+%d.%m.%Y-%H.%M').tar.xz --exclude=$(KERNELNAME).gz* . > /dev/null 2>&1
 	# cleanup
 #	rm -rf $(IMAGE_BUILD_DIR)
 

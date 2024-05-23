@@ -137,7 +137,7 @@ flash-image-vuduo:
 	cp $(SKEL_ROOT)/boot/splash.bin $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	echo "This file forces a reboot after the update." > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/reboot.update;
 	# kernel
-	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_cfe_auto.bin"
+	gzip -9c < "$(TARGET_DIR)/boot/$(KERNELNAME)" > "$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_cfe_auto.bin"
 	# rootfs
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.ubi -m 2048 -e 126976 -c 4096 -F
 	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg

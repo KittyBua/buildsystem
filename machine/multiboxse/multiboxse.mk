@@ -7,33 +7,36 @@ FKEYS =
 #
 # kernel
 #
-KERNEL_VER             = 4.10.12
-KERNEL_DATE            = 20180424
-KERNEL_SRC             = linux-$(KERNEL_VER)-arm.tar.gz
-KERNEL_URL             = http://source.mynonpublic.com/gfutures
+KERNEL_VER             = 4.4.35
+KERNEL_DATE            = 20200219
+KERNEL_SRC             = linux-$(KERNEL_VER)-$(KERNEL_DATE)-arm.tar.gz
+KERNEL_URL             = http://source.mynonpublic.com/maxytec
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-KERNEL_DTB_VER         = bcm7445-bcm97445svmb.dtb
-KERNELNAME             = zImage
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
+KERNEL_DTB_VER         = hi3798mv200.dtb
+KERNELNAME             = uImage
+CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
-KERNEL_PATCHES_BRE2ZE4K = \
-		TBS-fixes-for-4.10-kernel.patch \
-		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
-		0001-TBS-fixes-for-4.6-kernel.patch \
-		0001-STV-Add-PLS-support.patch \
-		0001-STV-Add-SNR-Signal-report-parameters.patch \
-		blindscan2.patch \
-		0001-stv090x-optimized-TS-sync-control.patch \
-		reserve_dvb_adapter_0.patch \
-		blacklist_mmc0.patch \
-		export_pmpoweroffprepare.patch \
-		t230c2.patch \
-		add-more-devices-rtl8xxxu.patch \
-		dvbs2x.patch \
-		fix-multiple-defs-yyloc.patch
+KERNEL_PATCHES_MULTIBOXSE = \
+		0002-log2-give-up-on-gcc-constant-optimizations.patch \
+		0003-dont-mark-register-as-const.patch \
+		0001-remote.patch \
+		HauppaugeWinTV-dualHD.patch \
+		dib7000-linux_4.4.179.patch \
+		dvb-usb-linux_4.4.179.patch \
+		wifi-linux_4.4.183.patch \
+		move-default-dialect-to-SMB3.patch \
+		0004-linux-fix-buffer-size-warning-error.patch \
+		modules_mark__inittest__exittest_as__maybe_unused.patch \
+		includelinuxmodule_h_copy__init__exit_attrs_to_initcleanup_module.patch \
+		Backport_minimal_compiler_attributes_h_to_support_GCC_9.patch \
+		0005-xbox-one-tuner-4.4.patch \
+		0006-dvb-media-tda18250-support-for-new-silicon-tuner.patch \
+		0007-dvb-mn88472-staging.patch \
+		mn88472_reset_stream_ID_reg_if_no_PLP_given.patch \
+		4.4.35_fix-multiple-defs-yyloc.patch
 
-KERNEL_PATCHES = $(KERNEL_PATCHES_BRE2ZE4K)
+KERNEL_PATCHES = $(KERNEL_PATCHES_MULTIBOXSE)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
@@ -67,8 +70,8 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/vmlinux-arm-$(KERNEL_VER)
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
-	cp $(KERNEL_DIR)/arch/arm/boot/$(KERNELNAME) $(TARGET_DIR)/boot/
-	cat $(KERNEL_DIR)/arch/arm/boot/$(KERNELNAME) $(KERNEL_DIR)/arch/arm/boot/dts/$(KERNEL_DTB_VER) > $(TARGET_DIR)/boot/$(KERNELNAME).dtb
+	cp $(KERNEL_DIR)/arch/arm/boot/zImage $(TARGET_DIR)/boot/
+	cat $(KERNEL_DIR)/arch/arm/boot/zImage $(KERNEL_DIR)/arch/arm/boot/dts/$(KERNEL_DTB_VER) > $(TARGET_DIR)/boot/zImage.dtb
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 	$(TOUCH)
@@ -76,63 +79,181 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #
 # driver
 #
-DRIVER_VER = 4.10.12
-DRIVER_DATE = 20191120
-DRIVER_SRC = bre2ze4k-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
-DRIVER_URL = http://source.mynonpublic.com/gfutures
+DRIVER_VER = 4.4.35
+#DRIVER_DATE = 20191120
+#DRIVER_SRC = bre2ze4k-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
+#DRIVER_URL = http://source.mynonpublic.com/gfutures
+DRIVER_DATE    = 20211129
+PLAYERLIB_DATE = 20200622
+LIBGLES_DATE   = 20190104
 
-LIBGLES_DATE = 20191101
-LIBGLES_SRC = bre2ze4k-v3ddriver-$(LIBGLES_DATE).zip
-LIBGLES_HEADERS = hd-v3ddriver-headers.tar.gz
-LIBGLES_URL = http://downloads.mutant-digital.net/v3ddriver
+#LIBGLES_DATE = 20191101
+#LIBGLES_SRC = bre2ze4k-v3ddriver-$(LIBGLES_DATE).zip
+#LIBGLES_HEADERS = hd-v3ddriver-headers.tar.gz
+#LIBGLES_URL = http://downloads.mutant-digital.net/v3ddriver
 
 $(ARCHIVE)/$(DRIVER_SRC):
 	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
 
-$(ARCHIVE)/$(LIBGLES_SRC):
-	$(WGET) $(LIBGLES_URL)/$(LIBGLES_SRC)
+#$(ARCHIVE)/$(LIBGLES_SRC):
+#	$(WGET) $(LIBGLES_URL)/$(LIBGLES_SRC)
+#
+#$(ARCHIVE)/$(LIBGLES_HEADERS):
+#	$(WGET) $(LIBGLES_URL)/$(LIBGLES_HEADERS)
 
-$(ARCHIVE)/$(LIBGLES_HEADERS):
-	$(WGET) $(LIBGLES_URL)/$(LIBGLES_HEADERS)
+#driver: $(D)/driver
+#$(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
+#	$(START_BUILD)
+#	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
+#	unzip -o $(ARCHIVE)/$(DRIVER_SRC) -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
+#	ls $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra | sed s/.ko//g > $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/modules.default
+#	$(MAKE) install-v3ddriver
+#	$(MAKE) install-v3ddriver-header
+#	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
+#	$(TOUCH)
+
+#
+# v3drivers
+#
+#$(D)/install-v3ddriver: $(ARCHIVE)/$(LIBGLES_SRC)
+#	install -d $(TARGET_LIB_DIR)
+#	unzip -o $(ARCHIVE)/$(LIBGLES_SRC) -d $(TARGET_LIB_DIR)
+	#patchelf --set-soname libv3ddriver.so $(TARGET_LIB_DIR)/libv3ddriver.so
+#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libEGL.so.1.4
+#	ln -sf libEGL.so.1.4 $(TARGET_LIB_DIR)/libEGL.so.1
+#	ln -sf libEGL.so.1 $(TARGET_LIB_DIR)/libEGL.so
+#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv1_CM.so.1.1
+#	ln -sf libGLESv1_CM.so.1.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so.1
+#	ln -sf libGLESv1_CM.so.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so
+#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv2.so.2.0
+#	ln -sf libGLESv2.so.2.0 $(TARGET_LIB_DIR)/libGLESv2.so.2
+#	ln -sf libGLESv2.so.2 $(TARGET_LIB_DIR)/libGLESv2.so
+#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libgbm.so.1
+#	ln -sf libgbm.so.1 $(TARGET_LIB_DIR)/libgbm.so
+
+#$(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
+#	install -d $(TARGET_INCLUDE_DIR)
+#	tar -xf $(ARCHIVE)/$(LIBGLES_HEADERS) -C $(TARGET_INCLUDE_DIR)
+
+DRIVER_SRC = multiboxse-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
+
+PLAYERLIB_SRC = maxytec-libs-3798mv200-$(PLAYERLIB_DATE).zip
+
+LIBGLES_SRC = multiboxse-mali-$(LIBGLES_DATE).zip
+LIBGLES_HEADERS = libgles-mali-utgard-headers.zip
+
+MALI_MODULE_VER = DX910-SW-99002-r7p0-00rel0
+MALI_MODULE_SRC = $(MALI_MODULE_VER).tgz
+MALI_MODULE_PATCH = 0001-hi3798mv200-support.patch
+
+$(ARCHIVE)/$(DRIVER_SRC):
+	$(WGET) http://source.mynonpublic.com/maxytec/$(DRIVER_SRC)
+
+$(ARCHIVE)/$(PLAYERLIB_SRC):
+	$(WGET) http://source.mynonpublic.com/maxytec/$(PLAYERLIB_SRC)
+
+$(ARCHIVE)/$(LIBGLES_SRC):
+	$(WGET) http://downloads.mutant-digital.net/$(KERNEL_TYPE)/$(LIBGLES_SRC)
+
+$(ARCHIVE)/$(MALI_MODULE_SRC):
+	$(WGET) https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/$(MALI_MODULE_SRC);name=driver
+
+
+#driver-clean:
+#	rm -f $(D)/driver $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/$(KERNEL_TYPE)*
 
 driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
 	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
 	unzip -o $(ARCHIVE)/$(DRIVER_SRC) -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
+	install -d $(TARGET_DIR)/bin
+	mv $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/turnoff_power $(TARGET_DIR)/bin
 	ls $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra | sed s/.ko//g > $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/modules.default
-	$(MAKE) install-v3ddriver
-	$(MAKE) install-v3ddriver-header
-	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
+	#$(MAKE) install-v3ddriver
+	#$(MAKE) install-v3ddriver-header
+	#$(MAKE) install-hisiplayer-preq
+	#$(MAKE) install-hisiplayer-libs
+	#$(MAKE) mali-gpu-modul
 	$(TOUCH)
 
-#
-# v3drivers
-#
 $(D)/install-v3ddriver: $(ARCHIVE)/$(LIBGLES_SRC)
 	install -d $(TARGET_LIB_DIR)
 	unzip -o $(ARCHIVE)/$(LIBGLES_SRC) -d $(TARGET_LIB_DIR)
-	#patchelf --set-soname libv3ddriver.so $(TARGET_LIB_DIR)/libv3ddriver.so
-	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libEGL.so.1.4
+	ln -sf libMali.so $(TARGET_LIB_DIR)/libmali.so
+	ln -sf libMali.so $(TARGET_LIB_DIR)/libEGL.so.1.4
 	ln -sf libEGL.so.1.4 $(TARGET_LIB_DIR)/libEGL.so.1
 	ln -sf libEGL.so.1 $(TARGET_LIB_DIR)/libEGL.so
-	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv1_CM.so.1.1
+	ln -sf libMali.so $(TARGET_LIB_DIR)/libGLESv1_CM.so.1.1
 	ln -sf libGLESv1_CM.so.1.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so.1
 	ln -sf libGLESv1_CM.so.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so
-	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv2.so.2.0
+	ln -sf libMali.so $(TARGET_LIB_DIR)/libGLESv2.so.2.0
 	ln -sf libGLESv2.so.2.0 $(TARGET_LIB_DIR)/libGLESv2.so.2
 	ln -sf libGLESv2.so.2 $(TARGET_LIB_DIR)/libGLESv2.so
-	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libgbm.so.1
-	ln -sf libgbm.so.1 $(TARGET_LIB_DIR)/libgbm.so
+	ln -sf libMali.so $(TARGET_LIB_DIR)/libgbm.so
 
 $(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
 	install -d $(TARGET_INCLUDE_DIR)
-	tar -xf $(ARCHIVE)/$(LIBGLES_HEADERS) -C $(TARGET_INCLUDE_DIR)
+	unzip -o $(PATCHES)/$(LIBGLES_HEADERS) -d $(TARGET_INCLUDE_DIR)
+	install -d $(TARGET_LIB_DIR)/pkgconfig
+	cp $(PATCHES)/glesv2.pc $(TARGET_LIB_DIR)/pkgconfig
+	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/glesv2.pc
+	cp $(PATCHES)/glesv1_cm.pc $(TARGET_LIB_DIR)/pkgconfig
+	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/glesv1_cm.pc
+	cp $(PATCHES)/egl.pc $(TARGET_LIB_DIR)/pkgconfig
+	$(REWRITE_PKGCONF) $(PKG_CONFIG_PATH)/egl.pc
+
+$(D)/install-hisiplayer-libs: $(ARCHIVE)/$(PLAYERLIB_SRC)
+	install -d $(BUILD_TMP)/hiplay
+	unzip -o $(ARCHIVE)/$(PLAYERLIB_SRC) -d $(BUILD_TMP)/hiplay
+	install -d $(TARGET_LIB_DIR)/hisilicon
+	install -m 0755 $(BUILD_TMP)/hiplay/hisilicon/* $(TARGET_LIB_DIR)/hisilicon
+	install -m 0755 $(BUILD_TMP)/hiplay/ffmpeg/* $(TARGET_LIB_DIR)/hisilicon
+	#install -m 0755 $(BUILD_TMP)/hiplay/glibc/* $(TARGET_LIB_DIR)/hisilicon
+	ln -sf /lib/ld-linux-armhf.so.3 $(TARGET_LIB_DIR)/hisilicon/ld-linux.so
+	$(REMOVE)/hiplay
+
+$(D)/install-hisiplayer-preq: $(D)/zlib $(D)/libpng $(D)/freetype $(D)/libcurl $(D)/libxml2 $(D)/libjpeg_turbo2 $(D)/harfbuzz
+
+$(D)/mali-gpu-modul: $(ARCHIVE)/$(MALI_MODULE_SRC) $(D)/bootstrap $(D)/kernel
+	$(START_BUILD)
+	$(REMOVE)/$(MALI_MODULE_VER)
+	$(UNTAR)/$(MALI_MODULE_SRC)
+	$(CHDIR)/$(MALI_MODULE_VER); \
+		$(call apply_patches, $(MALI_MODULE_PATCH)); \
+		$(MAKE) -C $(KERNEL_DIR) ARCH=arm CROSS_COMPILE=$(TARGET)- \
+		M=$(BUILD_TMP)/$(MALI_MODULE_VER)/driver/src/devicedrv/mali \
+		EXTRA_CFLAGS="-DCONFIG_MALI_SHARED_INTERRUPTS=y \
+		-DCONFIG_MALI400=m \
+		-DCONFIG_MALI450=y \
+		-DCONFIG_MALI_DVFS=y \
+		-DCONFIG_GPU_AVS_ENABLE=y" \
+		CONFIG_MALI_SHARED_INTERRUPTS=y \
+		CONFIG_MALI400=m \
+		CONFIG_MALI450=y \
+		CONFIG_MALI_DVFS=y \
+		CONFIG_GPU_AVS_ENABLE=y ; \
+		$(MAKE) -C $(KERNEL_DIR) ARCH=arm CROSS_COMPILE=$(TARGET)- \
+		M=$(BUILD_TMP)/$(MALI_MODULE_VER)/driver/src/devicedrv/mali \
+		EXTRA_CFLAGS="-DCONFIG_MALI_SHARED_INTERRUPTS=y \
+		-DCONFIG_MALI400=m \
+		-DCONFIG_MALI450=y \
+		-DCONFIG_MALI_DVFS=y \
+		-DCONFIG_GPU_AVS_ENABLE=y" \
+		CONFIG_MALI_SHARED_INTERRUPTS=y \
+		CONFIG_MALI400=m \
+		CONFIG_MALI450=y \
+		CONFIG_MALI_DVFS=y \
+		CONFIG_GPU_AVS_ENABLE=y \
+		DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
+	ls $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra | sed s/.ko//g > $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/modules.default
+	$(REMOVE)/$(MALI_MODULE_VER)
+	$(TOUCH)
 
 #
 # release
 #
-release-bre2ze4k:
+release-multiboxse:
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(SKEL_ROOT)/etc/init.d/mmcblk-by-name $(RELEASE_DIR)/etc/init.d/mmcblk-by-name
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
@@ -141,7 +262,7 @@ release-bre2ze4k:
 #
 # flashimage
 #
-FLASHIMAGE_PREFIX = bre2ze4k
+FLASHIMAGE_PREFIX = multiboxse
 
 # general
 FLASH_IMAGE_NAME = disk
@@ -191,12 +312,12 @@ STORAGE_PARTITION_OFFSET = $(shell expr $(SWAP_PARTITION_OFFSET) \+ $(SWAP_PARTI
 #
 # disk
 #
-flash-image-bre2ze4k-disk:
+flash-image-multiboxse-disk:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
 	# kernel
-	cp $(TARGET_DIR)/boot/$(KERNELNAME)* $(IMAGE_BUILD_DIR)/
+	cp $(TARGET_DIR)/boot/zImage* $(IMAGE_BUILD_DIR)/
 	# Create a sparse image block
 	dd if=/dev/zero of=$(IMAGE_BUILD_DIR)/$(FLASH_IMAGE_LINK) seek=$(shell expr $(FLASH_IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR)) count=0 bs=$(BLOCK_SIZE)
 	$(HOST_DIR)/bin/mkfs.ext4 -F $(IMAGE_BUILD_DIR)/$(FLASH_IMAGE_LINK) -d $(RELEASE_DIR)
@@ -228,7 +349,7 @@ flash-image-bre2ze4k-disk:
 	mcopy -i $(IMAGE_BUILD_DIR)/$(FLASH_BOOT_IMAGE) -v $(IMAGE_BUILD_DIR)/STARTUP_3 ::
 	mcopy -i $(IMAGE_BUILD_DIR)/$(FLASH_BOOT_IMAGE) -v $(IMAGE_BUILD_DIR)/STARTUP_4 ::
 	dd conv=notrunc if=$(IMAGE_BUILD_DIR)/$(FLASH_BOOT_IMAGE) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(IMAGE_ROOTFS_ALIGNMENT) \* $(BLOCK_SECTOR))
-	dd conv=notrunc if=$(TARGET_DIR)/boot/$(KERNELNAME).dtb of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(KERNEL_PARTITION_OFFSET) \* $(BLOCK_SECTOR))
+	dd conv=notrunc if=$(TARGET_DIR)/boot/zImage.dtb of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(KERNEL_PARTITION_OFFSET) \* $(BLOCK_SECTOR))
 	$(HOST_DIR)/bin/resize2fs $(IMAGE_BUILD_DIR)/$(FLASH_IMAGE_LINK) $(ROOTFS_PARTITION_SINGLE_SIZE)k
 	# Truncate on purpose
 	dd if=$(IMAGE_BUILD_DIR)/$(FLASH_IMAGE_LINK) of=$(EMMC_IMAGE) bs=$(BLOCK_SIZE) seek=$(shell expr $(ROOTFS_PARTITION_OFFSET) \* $(BLOCK_SECTOR)) count=$(shell expr $(FLASH_IMAGE_ROOTFS_SIZE) \* $(BLOCK_SECTOR))
@@ -244,15 +365,15 @@ flash-image-bre2ze4k-disk:
 #
 # rootfs
 #
-flash-image-bre2ze4k-rootfs:
+flash-image-multiboxse-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
 	#
-	cp $(TARGET_DIR)/boot/$(KERNELNAME).dtb $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel.bin
+	cp $(TARGET_DIR)/boot/zImage.dtb $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel.bin
 	#
 	cd $(RELEASE_DIR); \
-	tar -cvf $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar --exclude=$(KERNELNAME)* . > /dev/null 2>&1; \
+	tar -cvf $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar --exclude=zImage* . > /dev/null 2>&1; \
 	bzip2 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar
 	#
 	echo $(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion
@@ -265,15 +386,15 @@ flash-image-bre2ze4k-rootfs:
 #
 # online
 #
-flash-image-bre2ze4k-online:
+flash-image-multiboxse-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
 	#
-	cp $(TARGET_DIR)/boot/$(KERNELNAME).dtb $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel.bin
+	cp $(TARGET_DIR)/boot/zImage.dtb $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel.bin
 	#
 	cd $(RELEASE_DIR); \
-	tar -cvf $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar --exclude=$(KERNELNAME)* . > /dev/null 2>&1; \
+	tar -cvf $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar --exclude=zImage* . > /dev/null 2>&1; \
 	bzip2 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/rootfs.tar
 	#
 	echo $(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion

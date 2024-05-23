@@ -173,7 +173,7 @@ flash-image-vuduo2:
 	touch $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/reboot.update
 	cp $(SKEL_ROOT)/boot/splash.bin $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/splash_cfe_auto.bin
 	# kernel
-	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_cfe_auto.bin"
+	gzip -9c < "$(TARGET_DIR)/boot/$(KERNELNAME)" > "$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_cfe_auto.bin"
 	cp $(TARGET_DIR)/boot/vmlinuz-initrd-7425b0 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/initrd_cfe_auto.bin
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.ubi -m 2048 -e 126976 -c 8192
 	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
