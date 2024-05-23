@@ -132,7 +132,7 @@ $(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
 #
 # release
 #
-release-h7:
+release-$(BOXTYPE):
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(SKEL_ROOT)/etc/init.d/mmcblk-by-name $(RELEASE_DIR)/etc/init.d/mmcblk-by-name
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
@@ -141,7 +141,7 @@ release-h7:
 #
 # flashimage
 #
-FLASHIMAGE_PREFIX = zgemma/h7
+FLASHIMAGE_PREFIX = zgemma/$(BOXTYPE)
 
 # general
 FLASH_IMAGE_NAME = disk
@@ -191,7 +191,7 @@ STORAGE_PARTITION_OFFSET = $(shell expr $(SWAP_PARTITION_OFFSET) \+ $(SWAP_PARTI
 #
 # disk
 #
-flash-image-h7-disk:
+flash-image-$(BOXTYPE)-disk:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
@@ -243,7 +243,7 @@ flash-image-h7-disk:
 #
 # rootfs
 #
-flash-image-h7-rootfs:
+flash-image-$(BOXTYPE)-rootfs:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
@@ -264,7 +264,7 @@ flash-image-h7-rootfs:
 #
 # online
 #
-flash-image-h7-online:
+flash-image-$(BOXTYPE)-online:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
