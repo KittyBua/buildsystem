@@ -422,7 +422,7 @@ endif
 #
 # release-neutrino
 #
-release-neutrino: $(RELEASE_DEPS) $(D)/neutrino $(N_PLUGINS) release-common release-$(BOXTYPE)
+release-neutrino: release-common release-$(BOXTYPE) $(D)/neutrino $(N_PLUGINS)
 	$(START_BUILD)
 	install -d $(RELEASE_DIR)/var/tuxbox
 	install -d $(RELEASE_DIR)/usr/share/iso-codes

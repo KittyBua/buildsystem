@@ -385,60 +385,12 @@ endif
 	ln -s /tmp $(RELEASE_DIR)/var/log
 	ln -s /tmp $(RELEASE_DIR)/var/run
 	ln -s /tmp $(RELEASE_DIR)/var/tmp
-	
-#
-# release-none
-#
-$(D)/release-none: release-common release-$(BOXTYPE)
-	$(START_BUILD)
-	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/rcS_NONE $(RELEASE_DIR)/etc/init.d/rcS
-ifeq ($(BOXARCH), sh4)
-	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan || true
-	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
-	[ -e $(RELEASE_DIR)/usr/bin/neutrino ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino || true
-	[ -e $(RELEASE_DIR)/usr/bin/neutrino2 ] && rm -rf $(RELEASE_DIR)/usr/bin/neutrino2 || true
-endif
-#
-# imigrate /etc to /var/etc
-#
-	cp -dpfr $(RELEASE_DIR)/etc $(RELEASE_DIR)/var
-	rm -fr $(RELEASE_DIR)/etc
-	ln -sf /var/etc $(RELEASE_DIR)
-#
-# strip
-#	
-ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
-	find $(RELEASE_DIR)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
-endif
-	$(END_BUILD)
-	
+		
 #
 # release-clean
 #
 release-clean:
 	rm -rf $(RELEASE_DIR)
-
-#
-# image-none
-#
-image-none: release-none
-	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_250hd cuberevo_2000hd spark spark7162 atevio7500 ufs912))
-	$(MAKE) flash-image-$(BOXTYPE)
-endif
-ifeq ($(BOXTYPE), hl101)
-	$(MAKE) usb-image-$(BOXTYPE)
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se bre2zet2c osnino osninoplus osninopro dm8000 dm820))
-	$(MAKE) flash-image-$(BOXTYPE)
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k h7 hd51 hd60 osmini4k osmio4k osmio4kplus e4hdultra multiboxse))
-	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
-endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
-	$(MAKE) flash-image-$(BOXTYPE)-rootfs
-endif
-	$(END_BUILD)
 	
 #
 # image-clean

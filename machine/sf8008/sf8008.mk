@@ -83,6 +83,12 @@ DRIVER_SRC = $(BOXTYPE)-hiko-$(DRIVER_DATE).zip
 HICHIPSET = 3798mv200
 SOC_FAMILY = hisi3798mv200
 
+HILIB_DATE     = 20190917
+LIBGLES_DATE   = 20180301
+LIBREADER_DATE = 20200612
+HIHALT_DATE    = 20200601
+TNTFS_DATE     = 20200528
+
 HILIB_SRC = $(BOXTYPE)-hilib-$(HILIB_DATE).tar.gz
 LIBGLES_SRC = $(SOC_FAMILY)-opengl-$(LIBGLES_DATE).tar.gz
 LIBREADER_SRC = $(BOXTYPE)-libreader-$(LIBREADER_DATE).tar.gz
@@ -99,25 +105,25 @@ WIFI2_SRC = main.zip
 WIFI2 = RTL8822C.zip
 
 $(ARCHIVE)/$(DRIVER_SRC):
-	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
+	$(WGET) http://source.mynonpublic.com/octagon/$(DRIVER_SRC)
 	
 $(ARCHIVE)/$(HILIB_SRC):
-	$(WGET) http://source.mynonpublic.com/$(MACHINE)/$(HILIB_SRC)
+	$(WGET) http://source.mynonpublic.com/octagon/$(HILIB_SRC)
 
 $(ARCHIVE)/$(LIBGLES_SRC):
-	$(WGET) http://source.mynonpublic.com/$(MACHINE)/$(LIBGLES_SRC)
+	$(WGET) http://source.mynonpublic.com/octagon/$(LIBGLES_SRC)
 
 $(ARCHIVE)/$(LIBREADER_SRC):
-	$(WGET) http://source.mynonpublic.com/$(MACHINE)/$(LIBREADER_SRC)
+	$(WGET) http://source.mynonpublic.com/octagon/$(LIBREADER_SRC)
 
 $(ARCHIVE)/$(HIHALT_SRC):
-	$(WGET) http://source.mynonpublic.com/$(MACHINE)/$(HIHALT_SRC)
+	$(WGET) http://source.mynonpublic.com/octagon/$(HIHALT_SRC)
 
 $(ARCHIVE)/$(TNTFS_SRC):
 	$(WGET) http://source.mynonpublic.com/tntfs/$(TNTFS_SRC)
 
 $(ARCHIVE)/$(LIBJPEG_SRC):	
-	$(WGET) https://github.com/oe-alliance/oe-alliance-core/raw/5.3/meta-brands/meta-$(MACHINE)/recipes-graphics/files/$(LIBJPEG_SRC)
+	$(WGET) https://github.com/oe-alliance/oe-alliance-core/raw/5.3/meta-brands/meta-octagon/recipes-graphics/files/$(LIBJPEG_SRC)
 
 $(ARCHIVE)/$(WIFI_SRC):
 	$(WGET) https://github.com/zukon/RTL8192EU/archive/refs/heads/$(WIFI_SRC) -O $(ARCHIVE)/$(WIFI)
