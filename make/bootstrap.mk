@@ -305,6 +305,7 @@ $(D)/buildimage-tool: $(ARCHIVE)/$(BUILDIMAGE_SRC)
 	make; \
 	cp -ra $(BUILD_TMP)/buildimage/mkupdate $(HOST_DIR)/bin/mkupdate
 	$(REMOVE)/buildimage
+	$(TOUCH)
 
 #
 # android tools
