@@ -17,7 +17,7 @@ KERNEL_DTB_VER         = hi3798mv200.dtb
 KERNELNAME             = uImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
-KERNEL_PATCHES_HD60 = \
+KERNEL_PATCHES = \
 		0002-log2-give-up-on-gcc-constant-optimizations.patch \
 		0003-dont-mark-register-as-const.patch \
 		0001-remote.patch \
@@ -35,8 +35,6 @@ KERNEL_PATCHES_HD60 = \
 		0007-dvb-mn88472-staging.patch \
 		mn88472_reset_stream_ID_reg_if_no_PLP_given.patch \
 		fix-multiple-defs-yyloc.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_HD60)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

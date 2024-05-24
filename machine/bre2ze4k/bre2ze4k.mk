@@ -17,7 +17,7 @@ KERNEL_DTB_VER         = bcm7445-bcm97445svmb.dtb
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)-arm
 
-KERNEL_PATCHES_BRE2ZE4K = \
+KERNEL_PATCHES = \
 		TBS-fixes-for-4.10-kernel.patch \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
@@ -32,8 +32,6 @@ KERNEL_PATCHES_BRE2ZE4K = \
 		add-more-devices-rtl8xxxu.patch \
 		dvbs2x.patch \
 		fix-multiple-defs-yyloc.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_BRE2ZE4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_VUUNO4K = \
+KERNEL_PATCHES = \
 		3_14_bcm_genet_disable_warn.patch \
 		3_14_linux_dvb-core.patch \
 		3_14_dvbs2x.patch \
@@ -49,8 +49,6 @@ KERNEL_PATCHES_VUUNO4K = \
 		bcmsysport_3.14.28-1.12.patch \
 		linux_prevent_usb_dma_from_bmem.patch \
 		fix-multiple-defs-yyloc.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_VUUNO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
 KERNELNAME	       = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_DM820 = \
+KERNEL_PATCHES = \
 		linux-dreambox-3.4-30070c78a23d461935d9db0b6ce03afc70a10c51.patch \
 		kernel-fake-3.4.patch \
 		dvb_frontend-Multistream-support-3.4.patch \
@@ -35,8 +35,6 @@ KERNEL_PATCHES_DM820 = \
 		0002-cp1emu-do-not-use-bools-for-arithmetic.patch \
 		0003-makefile-silence-packed-not-aligned-warn.patch \
 		0004-fcrypt-fix-bitoperation-for-gcc.patch
-		
-KERNEL_PATCHES = $(KERNEL_PATCHES_DM820)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

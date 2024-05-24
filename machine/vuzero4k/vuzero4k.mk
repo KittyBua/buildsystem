@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_VUZERO4K = \
+KERNEL_PATCHES = \
 		4_1_linux_dvb_adapter.patch \
 		4_1_linux_dvb-core.patch \
 		4_1_linux_4_1_45_dvbs2x.patch \
@@ -57,8 +57,6 @@ KERNEL_PATCHES_VUZERO4K = \
 		bcmgenet-recovery-fix.patch \
 		linux_rpmb_not_alloc.patch \
 		fix-multiple-defs-yyloc.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_VUZERO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = zImage
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_VUSOLO4K = \
+KERNEL_PATCHES = \
 			bcm_genet_disable_warn.patch \
 		    	linux_dvb-core.patch \
 		    	rt2800usb_fix_warn_tx_status_timeout_to_dbg.patch \
@@ -46,8 +46,6 @@ KERNEL_PATCHES_VUSOLO4K = \
 		    	0006-makefile-disable-warnings.patch \
 		    	move-default-dialect-to-SMB3.patch \
 		    	fix-multiple-defs-yyloc.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_VUSOLO4K)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

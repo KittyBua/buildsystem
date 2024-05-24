@@ -15,7 +15,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_OSNINOPRO  = \
+KERNEL_PATCHES  = \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
 		0001-TBS-fixes-for-4.6-kernel.patch \
 		0001-STV-Add-PLS-support.patch \
@@ -26,8 +26,6 @@ KERNEL_PATCHES_OSNINOPRO  = \
 		0003-cp1emu-do-not-use-bools-for-arithmetic.patch \
 		move-default-dialect-to-SMB3.patch \
 		makefile-silence-warnings.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_OSNINOPRO)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
-KERNEL_PATCHES_DM8000 = \
+KERNEL_PATCHES = \
 		kernel-fake-3.2.patch \
 		linux-dreambox-3.2-3c7230bc0819495db75407c365f4d1db70008044.patch \
 		unionfs-2.6_for_3.2.62.patch \
@@ -58,8 +58,6 @@ KERNEL_PATCHES_DM8000 = \
 		0014-makefile-silence-packed-not-aligned-warn.patch \
 		0015-fcrypt-fix-bitoperation-for-gcc.patch \
 		fix-multiple-defs-yyloc.patch
-		
-KERNEL_PATCHES = $(KERNEL_PATCHES_DM8000)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

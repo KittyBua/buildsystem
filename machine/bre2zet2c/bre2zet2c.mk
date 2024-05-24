@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_BRE2ZET2C  = \
+KERNEL_PATCHES  = \
 			0001-regmap-add-regmap_write_bits.patch \
 			0002-af9035-fix-device-order-in-ID-list.patch \
 			0003-Add-support-for-dvb-usb-stick-Hauppauge-WinTV-soloHD.patch \
@@ -50,8 +50,6 @@ KERNEL_PATCHES_BRE2ZET2C  = \
 			0002-log2-give-up-on-gcc-constant-optimizations.patch \
 			move-default-dialect-to-SMB3.patch \
 			fix-never-be-null_outside-array-bounds-gcc-12.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_BRE2ZET2C)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

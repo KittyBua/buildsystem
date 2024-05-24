@@ -15,7 +15,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_VUDUO = \
+KERNEL_PATCHES = \
 		add-dmx-source-timecode.patch \
 		af9015-output-full-range-SNR.patch \
 		af9033-output-full-range-SNR.patch \
@@ -56,8 +56,6 @@ KERNEL_PATCHES_VUDUO = \
 		02-10-si2168-Silicon-Labs-Si2168-DVB-T-T2-C-demod-driver.patch \
 		CONFIG_DVB_SP2.patch \
 		dvbsky-t330.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_VUDUO)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

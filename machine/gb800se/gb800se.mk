@@ -16,7 +16,7 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
-KERNEL_PATCHES_GB800SE  = \
+KERNEL_PATCHES  = \
 		nor-maps-gb800solo.patch \
        		add-dmx-source-timecode.patch \
     		af9015-output-full-range-SNR.patch \
@@ -60,8 +60,6 @@ KERNEL_PATCHES_GB800SE  = \
     		add-attributes-fix-modules-compile.patch \
     		makefile-silence-warnings.patch \
     		move-default-dialect-to-SMB2.patch
-
-KERNEL_PATCHES = $(KERNEL_PATCHES_GB800SE)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

@@ -74,6 +74,10 @@ init:
 	@echo ""
 	@echo "  Maxytec"
 	@echo "   120 multiboxse"
+	@echo ""
+	@echo "  Octagon"
+	@echo "   130 sf8008"
+	@echo ""
 	@read -p "Select target (1-111)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
@@ -112,6 +116,7 @@ init:
 		110) BOXTYPE="dm8000";; \
 		111) BOXTYPE="dm820";; \
 		120) BOXTYPE="multiboxse";; \
+		130) BOXTYPE="sf8008";; \
 		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config

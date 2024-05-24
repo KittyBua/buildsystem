@@ -18,10 +18,7 @@ KERNEL_STM_LABEL  :=_$(KERNEL_STM)_$(KERNEL_LABEL)
 KERNEL_DIR         =$(BUILD_TMP)/linux-sh4-$(KERNEL_VER)
 KERNELNAME         = uImage
 
-#
-# Patches Kernel 24
-#
-CUBEREVO_MINI2_PATCHES_24 = \
+KERNEL_PATCHES = \
 		linux-sh4-makefile_stm24.patch \
 		linux-stm-gpio-fix-build-CONFIG_BUG.patch \
 		linux-kbuild-generate-modules-builtin_stm24_$(KERNEL_LABEL).patch \
@@ -45,7 +42,6 @@ CUBEREVO_MINI2_PATCHES_24 = \
 		linux-sh4-i2c-st40-pio_stm24_$(KERNEL_LABEL).patch \
 		linux-sh4-cuberevo_rtl8201_stm24_$(KERNEL_LABEL).patch
 
-KERNEL_PATCHES = $(CUBEREVO_MINI2_PATCHES_24)
 KERNEL_CONFIG = linux-sh4-$(subst _stm24_,_,$(KERNEL_VER))_$(BOXTYPE).config
 
 $(D)/kernel.do_prepare: $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)
