@@ -122,7 +122,8 @@ endif
 	install -d $(RELEASE_DIR)/usr/lib/locale
 	cp -aR $(SKEL_ROOT)/usr/lib/locale/* $(RELEASE_DIR)/usr/lib/locale
 	install -d $(RELEASE_DIR)/usr/share/{udhcpc,zoneinfo,fonts}
-	install -d $(RELEASE_DIR)/var/{bin,etc,lib,net}
+	install -d $(RELEASE_DIR)/var/{bin,etc,lib,net,tuxbox}
+	install -d $(RELEASE_DIR)/var/tuxbox/config
 	install -d $(RELEASE_DIR)/var/lib/{nfs,modules,opkg}
 	install -d $(RELEASE_DIR)/var/spool/cron/crontabs
 	install -d $(RELEASE_DIR)/usr/share/lua/5.2	

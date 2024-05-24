@@ -12,7 +12,6 @@ clean: depsclean
 	@-rm -rf $(TARGET_DIR)
 	@-rm -rf $(SOURCE_DIR)
 	@-rm -rf $(BUILD_TMP)
-	@-rm -rf $(BOOT_DIR)
 	@-rm -rf $(HOST_DIR)
 	@-rm -rf $(D)/*.do_compile
 	@-rm -rf $(D)/*.do_prepare
@@ -28,7 +27,6 @@ distclean:
 	@-rm -rf $(RELEASE_DIR)
 	@-rm -rf $(TARGET_DIR)
 	@-rm -rf $(HOST_DIR)
-	@-rm -rf $(BOOT_DIR)
 	@-rm -rf $(CROSS_DIR)
 	@-rm -rf $(BUILD_TMP)
 	@-rm -rf $(SOURCE_DIR)

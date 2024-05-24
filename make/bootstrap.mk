@@ -272,7 +272,7 @@ $(D)/cortex_strings: $(D)/directories $(ARCHIVE)/$(CORTEX_STRINGS_SOURCE)
 #
 BUILDIMAGE_PATCH = buildimage.patch
 
-$(D)/buildimage: $(D)/bootstrap $(ARCHIVE)/$(BUILDIMAGE_SOURCE)
+$(D)/buildimage: $(D)/bootstrap
 	$(START_BUILD)
 	$(REMOVE)/buildimage
 	set -e; if [ -d $(ARCHIVE)/buildimage.git ]; \
@@ -288,6 +288,23 @@ $(D)/buildimage: $(D)/bootstrap $(ARCHIVE)/$(BUILDIMAGE_SOURCE)
 	install -m 755 $(BUILD_TMP)/buildimage/src/buildimage $(HOST_DIR)/bin
 	$(REMOVE)/buildimage
 	$(TOUCH)
+	
+#
+# octagon buildimage
+#
+BUILDIMAGE_SRC = buildimage.zip
+
+$(ARCHIVE)/$(BUILDIMAGE_SRC):
+	$(WGET) https://github.com/oe-alliance/oe-alliance-core/raw/5.0/meta-brands/meta-octagon/recipes-bsp/octagon-buildimage/$(BUILDIMAGE_SRC)
+	
+$(D)/buildimage-tool: $(ARCHIVE)/$(BUILDIMAGE_SRC)
+	$(START_BUILD)
+	$(REMOVE)/buildimage
+	unzip -o $(ARCHIVE)/$(BUILDIMAGE_SRC) -d $(BUILD_TMP)/buildimage
+	cd $(BUILD_TMP)/buildimage; \
+	make; \
+	cp -ra $(BUILD_TMP)/buildimage/mkupdate $(HOST_DIR)/bin/mkupdate
+	$(REMOVE)/buildimage
 
 #
 # android tools
@@ -352,6 +369,9 @@ endif
 ifeq ($(BOXTYPE), hd60)
 BOOTSTRAP += $(D)/host_atools
 endif
+ifeq ($(BOXTYPE), sf8008)
+BOOTSTRAP += $(D)/buildimage-tool
+endif
 
 $(D)/bootstrap: $(BOOTSTRAP)
 	@touch $@
@@ -370,7 +390,6 @@ $(D)/directories:
 	test -d $(SOURCE_DIR) || mkdir $(SOURCE_DIR)
 	install -d $(TARGET_DIR)
 	install -d $(CROSS_DIR)
-	install -d $(BOOT_DIR)
 	install -d $(HOST_DIR)
 	install -d $(HOST_DIR)/{bin,lib,share}
 	install -d $(TARGET_DIR)/{bin,boot,etc,lib,sbin,usr,var}

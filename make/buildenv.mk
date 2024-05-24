@@ -33,7 +33,6 @@ TUFSBOX_DIR           = $(BASE_DIR)/tufsbox/$(BOXTYPE)
 BUILD_TMP             = $(TUFSBOX_DIR)/build_tmp
 SOURCE_DIR            = $(TUFSBOX_DIR)/build_source
 TARGET_DIR            = $(TUFSBOX_DIR)/cdkroot
-BOOT_DIR              = $(TUFSBOX_DIR)/cdkroot-tftpboot
 CROSS_DIR             = $(TUFSBOX_DIR)/cross
 HOST_DIR              = $(TUFSBOX_DIR)/host
 RELEASE_DIR           = $(TUFSBOX_DIR)/release

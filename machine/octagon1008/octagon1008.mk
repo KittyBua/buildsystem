@@ -101,7 +101,7 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/arch/sh/boot/$(KERNELNAME) $(BOOT_DIR)/vmlinux.ub
+	install -m 644 $(KERNEL_DIR)/arch/sh/boot/$(KERNELNAME) vmlinux.ub
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/vmlinux-sh4-$(KERNEL_VER)
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 	cp $(KERNEL_DIR)/arch/sh/boot/$(KERNELNAME) $(TARGET_DIR)/boot/
@@ -142,7 +142,7 @@ $(D)/driver: $(D)/bootstrap $(D)/kernel
 #
 # release
 #
-release-octagon1008:
+release-$(BOXTYPE):
 	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
 	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 #
@@ -245,9 +245,9 @@ endif
 #
 # flashimage
 #
-flash-image-octagon1008:
+flash-image-$(BOXTYPE):
 	mkdir -p $(IMAGE_DIR)
-	cd $(SCRIPTS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) octagon1008
+	cd $(SCRIPTS_DIR)/nor_flash && $(SUDOCMD) ./make_flash.sh $(MAINTAINER) $(BOXTYPE)
 	
 #
 # usbimage
