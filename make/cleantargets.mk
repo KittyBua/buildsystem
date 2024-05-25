@@ -56,6 +56,5 @@ kernel-clean:
 	rm -f $(D)/kernel
 	rm -f $(D)/kernel.do_compile
 	rm -f $(D)/kernel.do_prepare
-	rm -f $(TARGET_DIR)/boot/$(KERNELNAME)
-	rm -f $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
+	rm -f $(TARGET_DIR)/boot/*
 

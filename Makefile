@@ -71,6 +71,7 @@ init:
 	@echo "  Dream Media"
 	@echo "   110 dm8000"
 	@echo "   111 dm820"
+	@echo "   112 dm900"
 	@echo ""
 	@echo "  Maxytec"
 	@echo "   120 multiboxse"
@@ -115,6 +116,7 @@ init:
 		100) BOXTYPE="e4hdultra";; \
 		110) BOXTYPE="dm8000";; \
 		111) BOXTYPE="dm820";; \
+		112) BOXTYPE="dm900";; \
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
 		*) BOXTYPE="bre2zet2c";; \

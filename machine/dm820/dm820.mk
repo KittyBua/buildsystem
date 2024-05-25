@@ -13,7 +13,6 @@ KERNEL_SRC             = linux-${KERNEL_SRC_VER}.tar.xz
 KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
-KERNELNAME	       = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 KERNEL_PATCHES = \
@@ -61,13 +60,13 @@ endif
 $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	set -e; cd $(KERNEL_DIR); \
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips oldconfig
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- $(KERNELNAME) modules
+		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- vmlinux modules
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)-$(BOXTYPE)
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/$(KERNELNAME) $(TARGET_DIR)/boot/
+	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
@@ -128,7 +127,7 @@ flash-image-dm820:
 #	cd $(IMAGE_BUILD_DIR) && \
 #	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE)/$(BOXTYPE).nfi $(BOXTYPE)/imageversion
 	cd $(RELEASE_DIR) && \
-	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_flash_$(shell date '+%d.%m.%Y-%H.%M').tar.xz --exclude=$(KERNELNAME).gz* . > /dev/null 2>&1
+	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_flash_$(shell date '+%d.%m.%Y-%H.%M').tar.xz --exclude=vmlinux.gz* . > /dev/null 2>&1
 	# cleanup
 #	rm -rf $(IMAGE_BUILD_DIR)
 

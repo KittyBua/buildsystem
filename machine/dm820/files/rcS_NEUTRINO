@@ -78,27 +78,27 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/fp_hwmon.ko
-insmod /lib/modules/tu1216.ko
-insmod /lib/modules/stb-core.ko
-insmod /lib/modules/lcd.ko
-insmod /lib/modules/cxd1981.ko
-insmod /lib/modules/cu1216mk3.ko
-insmod /lib/modules/lnb_ctrl.ko
-insmod /lib/modules/si2166b.ko
-insmod /lib/modules/si2183.ko
-insmod /lib/modules/bcm4501.ko
-insmod /lib/modules/bcm4506.ko
-insmod /lib/modules/alps_bsbe1.ko
-insmod /lib/modules/alps_bsbe1_c01a.ko
-insmod /lib/modules/alps_bsbe2.ko
-insmod /lib/modules/bcm7435.ko
-insmod /lib/modules/ble.ko
-insmod /lib/modules/dreambox_rc2.ko
-insmod /lib/modules/dreambox_keyboard.ko
+modprobe fp_hwmon
+modprobe tu1216
+modprobe stb-core
+modprobe lcd
+modprobe cxd1981
+modprobe cu1216mk3
+modprobe lnb_ctrl
+modprobe si2166b
+modprobe si2183
+modprobe bcm4501
+modprobe bcm4506
+modprobe alps_bsbe1
+modprobe alps_bsbe1_c01a
+modprobe alps_bsbe2
+modprobe bcm7435
+modprobe ble
+modprobe dreambox_rc2
+modprobe dreambox_keyboard
 
 echo 255 > /proc/stb/fp/oled_brightness
-echo "Booting NG2" > /dev/dbox/oled0
+echo "Booting DDT" > /dev/dbox/oled0
 
 # set dummy time
 NTPDATE=`date +"%Y%m%d"`

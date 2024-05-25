@@ -28,26 +28,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-stx7109c3.ko
 
    echo "init stmfb"
-### does not work currently, fix to 720p ###
-#   /bin/eeprom tvmode
-#   TVMODE=$?
-#   case "$TVMODE" in
-#	0) echo "SD-PAL"
-#	   insmod $MODDIR/stmfb.ko display0=720x576-32@50:12m:pal:yuv:yuv;;
-#	1) echo "SD-NTSC"
-#	   insmod $MODDIR/stmfb.ko display0=720x480-32@60:12m:ntsc-m:yuv:yuv;;
-#	2) echo "720P-50"
-	   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:yuv:yuv
-#	   ;;
-#	3) echo "720P-60"
-#	   insmod $MODDIR/stmfb.ko display0=1280x720-32@60:12m:ntsc-m:yuv:yuv;;
-#	4) echo "1080I-50"
-#	   insmod $MODDIR/stmfb.ko display0=1920x1080-32@50i:12m:pal:yuv:yuv;;
-#	5) echo "1080I-60"
-#	   insmod $MODDIR/stmfb.ko display0=1920x1080-32@60i:12m:ntsc-m:yuv:yuv;;
-#	*) echo "Use default SD-PAL"
-#	   insmod $MODDIR/stmfb.ko display0=720x576-32@50:12m:pal:yuv:yuv;;
-#   esac
+   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:yuv:yuv
 
    echo "load video firmware"
    /bin/dd if=/dev/zero of=/dev/st231-0 bs=1024 count=4096
@@ -111,9 +92,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-#   echo "starting telnetd"
-#   /usr/sbin/telnetd -l /bin/autologin
-#   /etc/init.d/vsftpd start
+   echo "starting telnetd"
    /usr/sbin/inetd
 
    if [ -e /etc/network/interfaces ]; then
@@ -135,18 +114,18 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    stfbcontrol a 255
 
-    /bin/evremote2 10 140 &
+   /bin/evremote2 10 140 &
 
-    /bin/fp_control -l 0 1
+   /bin/fp_control -l 0 1
     
-    # rcS.local
-    if [ -e /var/etc/rcS.local ]; then 
+   # rcS.local
+   if [ -e /var/etc/rcS.local ]; then 
 	/var/etc/rcS.local
-    fi
+   fi
     
-    killall -9 showiframe
-    /bin/fp_control -t "NEUTRINO"
-    echo "starting neutrino ->"
+   killall -9 showiframe
+   /bin/fp_control -t "NEUTRINO"
+   echo "starting neutrino ->"
 
    until false
    do

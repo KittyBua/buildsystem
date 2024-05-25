@@ -38,11 +38,6 @@ else
 	if [ -e /etc/network/interfaces ]; then
 		ip addr flush eth0
 		/etc/init.d/networking stop
-		#DHCP=$(grep -c dhcp /etc/network/interfaces)
-		#if [ "$DHCP" -eq "1" ]; then
-		#	echo "Starting dhcp"
-		#	/etc/init.d/udhcpc start
-		#fi
 		/etc/init.d/networking start
 	fi
 fi
@@ -58,10 +53,10 @@ fi
 /etc/init.d/nfs-common start
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
-insmod /lib/modules/$(uname -r)/extra/hd51_1.ko
-insmod /lib/modules/$(uname -r)/extra/hd51_2.ko
-insmod /lib/modules/$(uname -r)/extra/hd51_3.ko
-insmod /lib/modules/$(uname -r)/extra/hd51_4.ko
+modprobe hd51_1
+modprobe hd51_2
+modprobe hd51_3
+modprobe hd51_4
 
 # set dummy time
 NTPDATE=`date +"%Y%m%d"`

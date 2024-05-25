@@ -41,11 +41,6 @@ else
 	if [ -e /etc/network/interfaces ]; then
 		ip addr flush eth0
 		/etc/init.d/networking stop
-		#DHCP=$(grep -c dhcp /etc/network/interfaces)
-		#if [ "$DHCP" -eq "1" ]; then
-		#	echo "Starting dhcp"
-		#	/etc/init.d/udhcpc start
-		#fi
 		/etc/init.d/networking start
 	fi
 fi
@@ -61,10 +56,11 @@ fi
 /etc/init.d/nfs-common start
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
-insmod /lib/modules/$(uname -r)/extra/e4hd_1.ko
-insmod /lib/modules/$(uname -r)/extra/e4hd_2.ko
-insmod /lib/modules/$(uname -r)/extra/e4hd_3.ko
-insmod /lib/modules/$(uname -r)/extra/e4hd_4.ko
+
+modprobe e4hd_1
+modprobe e4hd_2
+modprobe e4hd_3
+modprobe e4hd_4
 
 /bin/initfb
 
@@ -72,7 +68,6 @@ insmod /lib/modules/$(uname -r)/extra/e4hd_4.ko
 NTPDATE=`date +"%Y%m%d"`
 if [ "$SYSDATE" == "$NTPDATE" ];then
 	date -s "2017-01-01 00:00"
-	#date -s "200901011200"
 	echo "no ntp-date"
 	killall -9 ntpd
 	rm -f /tmp/ntpd.pid

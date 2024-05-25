@@ -25,14 +25,15 @@ mdev -s
 echo "starting interface"
 /etc/init.d/mountall start
 
-insmod /lib/modules/$(uname -r)/extra/hd60_1.ko
-insmod /lib/modules/$(uname -r)/extra/hd60_2.ko
-insmod /lib/modules/$(uname -r)/extra/hd60_3.ko
-insmod /lib/modules/$(uname -r)/extra/hd60_4.ko
+echo "[rcS] loading modules"
+modprobe hd60_1
+modprobe hd60_2
+modprobe hd60_3
+modprobe hd60_4
 
-insmod /lib/modules/$(uname -r)/extra/hi_play.ko
+modprobe hi_play
 
-[ -f /lib/modules/$(uname -r)/extra/mali.ko ] && insmod /lib/modules/$(uname -r)/extra/mali.ko
+[ -f /lib/modules/$(uname -r)/extra/mali ] && modprobe mali
 
 #
 echo "setup network"

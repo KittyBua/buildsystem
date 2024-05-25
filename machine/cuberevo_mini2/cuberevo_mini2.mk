@@ -16,7 +16,6 @@ KERNEL_STM        :=$(word 2,$(call split_version,$(KERNEL_VER)))
 KERNEL_LABEL      :=$(word 3,$(call split_version,$(KERNEL_VER)))
 KERNEL_STM_LABEL  :=_$(KERNEL_STM)_$(KERNEL_LABEL)
 KERNEL_DIR         =$(BUILD_TMP)/linux-sh4-$(KERNEL_VER)
-KERNELNAME         = uImage
 
 KERNEL_PATCHES = \
 		linux-sh4-makefile_stm24.patch \
@@ -94,16 +93,16 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 		$(MAKE) -C $(KERNEL_DIR) ARCH=sh oldconfig
 		$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/asm
 		$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/linux/version.h
-		$(MAKE) -C $(KERNEL_DIR) ARCH=sh CROSS_COMPILE=$(TARGET)- $(KERNELNAME) modules
+		$(MAKE) -C $(KERNEL_DIR) ARCH=sh CROSS_COMPILE=$(TARGET)- uImage modules
 		$(MAKE) -C $(KERNEL_DIR) ARCH=sh CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/arch/sh/boot/$(KERNELNAME) $(TARGET_DIR)/boot/vmlinux.ub
+	install -m 644 $(KERNEL_DIR)/arch/sh/boot/uImage $(TARGET_DIR)/boot/vmlinux.ub
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/vmlinux-sh4-$(KERNEL_VER)
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
-	cp $(KERNEL_DIR)/arch/sh/boot/$(KERNELNAME) $(TARGET_DIR)/boot/
+	cp $(KERNEL_DIR)/arch/sh/boot/uImage $(TARGET_DIR)/boot/
 	$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
@@ -142,7 +141,7 @@ $(D)/driver: $(D)/bootstrap $(D)/kernel
 # release
 #
 release-$(BOXTYPE):
-	cp $(TARGET_DIR)/boot/$(KERNELNAME) $(RELEASE_DIR)/boot/
+	cp $(TARGET_DIR)/boot/uImage $(RELEASE_DIR)/boot/
 	rm -rf $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
 #
 # player

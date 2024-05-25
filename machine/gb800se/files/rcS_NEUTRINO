@@ -24,9 +24,6 @@ mount -t devpts devpts /dev/pts
 echo > /dev/mdev.log
 echo > /dev/mdev.seq
 echo "/sbin/mdev" >/proc/sys/kernel/hotplug
-touch /dev/.udev
-[ -d "/sys/kernel" ] || mount sysfs /sys -t sysfs
-[ -L "/dev/fd" ] || ln -sf /proc/self/fd /dev/fd
 mdev -s
 
 # mountall (fstab)
@@ -57,11 +54,6 @@ else
 	if [ -e /etc/network/interfaces ]; then
 		ip addr flush eth0
 		/etc/init.d/networking stop
-		#DHCP=$(grep -c dhcp /etc/network/interfaces)
-		#if [ "$DHCP" -eq "1" ]; then
-		#	echo "Starting dhcp"
-		#	/etc/init.d/udhcpc start
-		#fi
 		/etc/init.d/networking start
 	fi
 fi
@@ -89,7 +81,6 @@ done
 NTPDATE=`date +"%Y%m%d"`
 if [ "$SYSDATE" == "$NTPDATE" ];then
 	date -s "2017-01-01 00:00"
-	#date -s "200901011200"
 	echo "no ntp-date"
 	killall -9 ntpd
 	rm -f /tmp/ntpd.pid

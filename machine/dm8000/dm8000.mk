@@ -13,7 +13,6 @@ KERNEL_SRC             = linux-${KERNEL_SRC_VER}.tar.xz
 KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
-KERNELNAME             = vmlinux
 CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 KERNEL_PATCHES = \
@@ -84,20 +83,17 @@ endif
 $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	set -e; cd $(KERNEL_DIR); \
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips oldconfig
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- $(KERNELNAME) modules
+		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- vmlinux modules
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/$(KERNELNAME) $(TARGET_DIR)/boot/
+	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
-#	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
-#	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 #
-#	gzip -9c < "$(KERNEL_DIR)/$(KERNELNAME)" > "$(KERNEL_DIR)/$(KERNELNAME)-3.2-dm8000.gz"
-#	install -m 644 $(KERNEL_DIR)/$(KERNELNAME)-3.2-dm8000.gz $(TARGET_DIR)/boot/	ln -sf $(KERNELNAME)-3.2-dm8000.gz $(TARGET_DIR)/boot/$(KERNELNAME)
-#	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
+#	gzip -9c < "$(KERNEL_DIR)/vmlinux" > "$(KERNEL_DIR)/vmlinux-3.2-dm8000.gz"
+#	install -m 644 $(KERNEL_DIR)/vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/	ln -sf vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/vmlinux
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 #

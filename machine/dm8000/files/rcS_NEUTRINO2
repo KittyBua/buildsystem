@@ -24,9 +24,6 @@ mount -t devpts devpts /dev/pts
 echo > /dev/mdev.log
 echo > /dev/mdev.seq
 echo "/sbin/mdev" >/proc/sys/kernel/hotplug
-touch /dev/.udev
-[ -d "/sys/kernel" ] || mount sysfs /sys -t sysfs
-[ -L "/dev/fd" ] || ln -sf /proc/self/fd /dev/fd
 mdev -s
 
 echo "[rcS] starting mountall"
@@ -57,11 +54,6 @@ else
 	if [ -e /etc/network/interfaces ]; then
 		ip addr flush eth0
 		/etc/init.d/networking stop
-		#DHCP=$(grep -c dhcp /etc/network/interfaces)
-		#if [ "$DHCP" -eq "1" ]; then
-		#	echo "Starting dhcp"
-		#	/etc/init.d/udhcpc start
-		#fi
 		/etc/init.d/networking start
 	fi
 fi
@@ -78,24 +70,24 @@ fi
 
 echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 
-insmod /lib/modules/stb-core.ko
-insmod /lib/modules/helper.ko
-insmod /lib/modules/lcd.ko
+modprobe stb-core
+modprobe helper
+modprobe lcd
 /etc/init.d/usbtftdisplay.sh
-insmod /lib/modules/tu1216.ko
-insmod /lib/modules/cxd1981.ko
-insmod /lib/modules/cu1216mk3.ko
-insmod /lib/modules/max4397.ko
-insmod /lib/modules/lnb_ctrl.ko
-insmod /lib/modules/bcm4506.ko
-insmod /lib/modules/alps_bsbe1.ko
-insmod /lib/modules/alps_bsbe1_c01a.ko
-insmod /lib/modules/alps_bsbe2.ko
-insmod /lib/modules/bcm4501.ko
-insmod /lib/modules/fpga.ko
-insmod /lib/modules/bcm7400.ko
-insmod /lib/modules/dreambox_rc2.ko
-insmod /lib/modules/dreambox_keyboard.ko
+modprobe tu1216
+modprobe cxd1981
+modprobe cu1216mk3
+modprobe max4397
+modprobe lnb_ctrl
+modprobe bcm4506
+modprobe alps_bsbe1
+modprobe alps_bsbe1_c01a
+modprobe alps_bsbe2
+modprobe bcm4501
+modprobe fpga
+modprobe bcm7400
+modprobe dreambox_rc2
+modprobe dreambox_keyboard
 
 echo 255 > /proc/stb/fp/oled_brightness
 echo "Booting... DDT" > /dev/dbox/oled0
