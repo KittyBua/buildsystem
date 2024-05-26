@@ -166,5 +166,5 @@ flash-image-dm8000: $(D)/dm8000_2nd
 	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE).nfi imageversion
 	# cleanup
-#	rm -rf $(IMAGE_BUILD_DIR)
+	rm -rf $(IMAGE_BUILD_DIR)
 
