@@ -77,68 +77,14 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 # driver
 #
 DRIVER_VER = 4.4.35
-#DRIVER_DATE = 20191120
-#DRIVER_SRC = bre2ze4k-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
-#DRIVER_URL = http://source.mynonpublic.com/gfutures
 DRIVER_DATE    = 20211129
 PLAYERLIB_DATE = 20200622
 LIBGLES_DATE   = 20190104
 
-#LIBGLES_DATE = 20191101
-#LIBGLES_SRC = bre2ze4k-v3ddriver-$(LIBGLES_DATE).zip
-#LIBGLES_HEADERS = hd-v3ddriver-headers.tar.gz
-#LIBGLES_URL = http://downloads.mutant-digital.net/v3ddriver
-
-$(ARCHIVE)/$(DRIVER_SRC):
-	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
-
-#$(ARCHIVE)/$(LIBGLES_SRC):
-#	$(WGET) $(LIBGLES_URL)/$(LIBGLES_SRC)
-#
-#$(ARCHIVE)/$(LIBGLES_HEADERS):
-#	$(WGET) $(LIBGLES_URL)/$(LIBGLES_HEADERS)
-
-#driver: $(D)/driver
-#$(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
-#	$(START_BUILD)
-#	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
-#	unzip -o $(ARCHIVE)/$(DRIVER_SRC) -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
-#	ls $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra | sed s/.ko//g > $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/modules.default
-#	$(MAKE) install-v3ddriver
-#	$(MAKE) install-v3ddriver-header
-#	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
-#	$(TOUCH)
-
-#
-# v3drivers
-#
-#$(D)/install-v3ddriver: $(ARCHIVE)/$(LIBGLES_SRC)
-#	install -d $(TARGET_LIB_DIR)
-#	unzip -o $(ARCHIVE)/$(LIBGLES_SRC) -d $(TARGET_LIB_DIR)
-	#patchelf --set-soname libv3ddriver.so $(TARGET_LIB_DIR)/libv3ddriver.so
-#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libEGL.so.1.4
-#	ln -sf libEGL.so.1.4 $(TARGET_LIB_DIR)/libEGL.so.1
-#	ln -sf libEGL.so.1 $(TARGET_LIB_DIR)/libEGL.so
-#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv1_CM.so.1.1
-#	ln -sf libGLESv1_CM.so.1.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so.1
-#	ln -sf libGLESv1_CM.so.1 $(TARGET_LIB_DIR)/libGLESv1_CM.so
-#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libGLESv2.so.2.0
-#	ln -sf libGLESv2.so.2.0 $(TARGET_LIB_DIR)/libGLESv2.so.2
-#	ln -sf libGLESv2.so.2 $(TARGET_LIB_DIR)/libGLESv2.so
-#	ln -sf libv3ddriver.so $(TARGET_LIB_DIR)/libgbm.so.1
-#	ln -sf libgbm.so.1 $(TARGET_LIB_DIR)/libgbm.so
-
-#$(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
-#	install -d $(TARGET_INCLUDE_DIR)
-#	tar -xf $(ARCHIVE)/$(LIBGLES_HEADERS) -C $(TARGET_INCLUDE_DIR)
-
 DRIVER_SRC = multiboxse-drivers-$(DRIVER_VER)-$(DRIVER_DATE).zip
-
 PLAYERLIB_SRC = maxytec-libs-3798mv200-$(PLAYERLIB_DATE).zip
-
 LIBGLES_SRC = multiboxse-mali-$(LIBGLES_DATE).zip
 LIBGLES_HEADERS = libgles-mali-utgard-headers.zip
-
 MALI_MODULE_VER = DX910-SW-99002-r7p0-00rel0
 MALI_MODULE_SRC = $(MALI_MODULE_VER).tgz
 MALI_MODULE_PATCH = 0001-hi3798mv200-support.patch
@@ -154,10 +100,6 @@ $(ARCHIVE)/$(LIBGLES_SRC):
 
 $(ARCHIVE)/$(MALI_MODULE_SRC):
 	$(WGET) https://developer.arm.com/-/media/Files/downloads/mali-drivers/kernel/mali-utgard-gpu/$(MALI_MODULE_SRC);name=driver
-
-
-#driver-clean:
-#	rm -f $(D)/driver $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra/$(KERNEL_TYPE)*
 
 driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
@@ -267,11 +209,11 @@ FLASH_BOOTOPTIONS_PARTITION_SIZE = 4096
 FLASH_IMAGE_ROOTFS_SIZE = 1048576
  
 FLASH_BOOTARGS_DATE  = 20201110
-FLASH_PARTITONS_DATE = 20200319
+FLASH_PARTITONS_DATE = 20201130 #20200319
 FLASH_RECOVERY_DATE  = 20201110
 
 FLASH_BOOTARGS_SRC = $(BOXTYPE)-bootargs-$(FLASH_BOOTARGS_DATE).zip
-FLASH_PARTITONS_SRC = $(BOXTYPE)-partitions-$(FLASH_PARTITONS_DATE).zip
+#FLASH_PARTITONS_SRC = $(BOXTYPE)-partitions-$(FLASH_PARTITONS_DATE).zip
 FLASH_RECOVERY_SRC = $(BOXTYPE)-recovery-$(FLASH_RECOVERY_DATE).zip
 
 BLOCK_SIZE = 512
@@ -289,14 +231,14 @@ $(ARCHIVE)/$(FLASH_RECOVERY_SRC):
 #
 # disk
 #
-flash-image-$(BOXTYPE)-disk: $(ARCHIVE)/$(FLASH_BOOTARGS_SRC) $(ARCHIVE)/$(FLASH_PARTITONS_SRC)
+flash-image-$(BOXTYPE)-disk: $(ARCHIVE)/$(FLASH_BOOTARGS_SRC)
 	# Create image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
 	#
 	unzip -o $(ARCHIVE)/$(FLASH_BOOTARGS_SRC) -d $(IMAGE_BUILD_DIR)
-	unzip -o $(ARCHIVE)/$(FLASH_PARTITONS_SRC) -d $(IMAGE_BUILD_DIR)
+#	unzip -o $(ARCHIVE)/$(FLASH_PARTITONS_SRC) -d $(IMAGE_BUILD_DIR)
 	#
 	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/imageversion
 	#

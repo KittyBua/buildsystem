@@ -91,12 +91,8 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
-#
-#	gzip -9c < "$(KERNEL_DIR)/vmlinux" > "$(KERNEL_DIR)/vmlinux-3.2-dm8000.gz"
-#	install -m 644 $(KERNEL_DIR)/vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/	ln -sf vmlinux-3.2-dm8000.gz $(TARGET_DIR)/boot/vmlinux
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
-#
 	$(TOUCH)
 	
 #
@@ -149,7 +145,8 @@ flash-image-dm8000: $(D)/dm8000_2nd $(D)/buildimage
 	#
 	cp -f $(ARCHIVE)/$(DM8000_2ND_SOURCE) $(IMAGE_BUILD_DIR)/$(BOXTYPE)/
 	#
-	mkfs.jffs2 --root=$(RELEASE_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
+	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(BOXTYPE)/vmlinux-3.2-dm8000.gz"
+	mkfs.jffs2 --root=$(IMAGE_BUILD_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
 	#
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
 	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
@@ -169,5 +166,5 @@ flash-image-dm8000: $(D)/dm8000_2nd $(D)/buildimage
 	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE).nfi imageversion
 	# cleanup
-	rm -rf $(IMAGE_BUILD_DIR)
+#	rm -rf $(IMAGE_BUILD_DIR)
 

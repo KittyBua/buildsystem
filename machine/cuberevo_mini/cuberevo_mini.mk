@@ -99,7 +99,6 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/arch/sh/boot/uImage $(TARGET_DIR)/boot/vmlinux.ub
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/vmlinux-sh4-$(KERNEL_VER)
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 	cp $(KERNEL_DIR)/arch/sh/boot/uImage $(TARGET_DIR)/boot/
