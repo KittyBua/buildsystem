@@ -343,6 +343,8 @@ $(D)/util_linux: $(D)/bootstrap $(D)/zlib $(ARCHIVE)/$(UTIL_LINUX_SOURCE)
 			--disable-makeinstall-setuid \
 			--without-audit \
 			--without-ncurses \
+			--without-ncursesw \
+			--without-tinfo \
 			--without-slang \
 			--without-utempter \
 			--disable-wall \

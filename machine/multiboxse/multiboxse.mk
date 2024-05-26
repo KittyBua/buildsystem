@@ -1,6 +1,5 @@
 BOXARCH = arm
 CICAM = ci-cam
-SCART = scart
 LCD = 4-digits
 FKEYS =
 

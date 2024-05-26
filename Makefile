@@ -58,6 +58,7 @@ init:
 	@echo ""
 	@echo "  Giga Blue"
 	@echo "   70)  gb800se"
+	@echo "   71)  gbue4k"
 	@echo ""
 	@echo "  WWIO"
 	@echo "   80)  WWIO BRE2ZE 4K"
@@ -110,6 +111,7 @@ init:
 		64) BOXTYPE="osmio4kplus";; \
 		65) BOXTYPE="osmini4k";; \
 		70) BOXTYPE="gb800se";; \
+		71) BOXTYPE="gbue4k";; \
 		80) BOXTYPE="bre2ze4k";; \
 		81) BOXTYPE="bre2zet2c";; \
 		90) BOXTYPE="h7";; \

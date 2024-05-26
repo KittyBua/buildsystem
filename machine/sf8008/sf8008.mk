@@ -1,6 +1,5 @@
 BOXARCH = arm
 CICAM = ci-cam
-SCART = scart
 LCD = 4-digits
 FKEYS =
 
@@ -231,7 +230,7 @@ ROOTFS_SIZE = 320k #2*128k + 64k
 $(ARCHIVE)/$(FLASH_PARTITONS_SRC):
 	$(WGET) http://source.mynonpublic.com/octagon/$(FLASH_PARTITONS_SRC)
 	
-flash-image-$(BOXTYPE)-disk: $(D)/buildimage-tool $(ARCHIVE)/$(FLASH_PARTITONS_SRC)
+flash-image-$(BOXTYPE)-disk: $(ARCHIVE)/$(FLASH_PARTITONS_SRC)
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)

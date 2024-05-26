@@ -138,7 +138,7 @@ release-dm8000:
 #
 # flashimage
 #
-flash-image-dm8000: $(D)/dm8000_2nd $(D)/buildimage
+flash-image-dm8000: $(D)/dm8000_2nd
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
@@ -146,7 +146,7 @@ flash-image-dm8000: $(D)/dm8000_2nd $(D)/buildimage
 	cp -f $(ARCHIVE)/$(DM8000_2ND_SOURCE) $(IMAGE_BUILD_DIR)/$(BOXTYPE)/
 	#
 	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(BOXTYPE)/vmlinux-3.2-dm8000.gz"
-	mkfs.jffs2 --root=$(IMAGE_BUILD_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
+	mkfs.jffs2 --root=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
 	#
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
 	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
