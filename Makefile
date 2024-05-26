@@ -80,7 +80,7 @@ init:
 	@echo "  Octagon"
 	@echo "   130 sf8008"
 	@echo ""
-	@read -p "Select target (1-111)? " BOXTYPE; \
+	@read -p "Select target (1-130)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
 		1) BOXTYPE="ufs912";; \
