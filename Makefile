@@ -66,6 +66,7 @@ init:
 	@echo ""
 	@echo "  Air Digital"
 	@echo "   90)  Zgemma h7"
+	@echo ""
 	@echo "  AXAS"
 	@echo "   100)  AXAS E4HD 4K Ultra"
 	@echo ""
@@ -80,7 +81,10 @@ init:
 	@echo "  Octagon"
 	@echo "   130 sf8008"
 	@echo ""
-	@read -p "Select target (1-130)? " BOXTYPE; \
+	@echo "  Protek"
+	@echo "   140 protek4k"
+	@echo ""
+	@read -p "Select target (1-140)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
 		1) BOXTYPE="ufs912";; \
@@ -121,6 +125,7 @@ init:
 		112) BOXTYPE="dm900";; \
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
+		140) BOXTYPE="protek4k";; \
 		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config

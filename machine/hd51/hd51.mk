@@ -99,7 +99,7 @@ release-hd51:
 #
 # flashimage
 #
-FLASHIMAGE_PREFIX = hd51
+FLASHIMAGE_PREFIX = $(BOXTYPE)
 
 #
 FLASH_IMAGE_NAME = disk
@@ -145,7 +145,7 @@ SWAP_PARTITION_OFFSET = $(shell expr $(SWAP_DATA_PARTITION_OFFSET) \+ $(SWAP_DAT
 #
 # disk
 #
-flash-image-hd51-disk:
+flash-image-$(BOXTYPE)-disk:
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)
@@ -195,7 +195,7 @@ flash-image-hd51-disk:
 #
 # rootfs
 #
-flash-image-hd51-rootfs:
+flash-image-$(BOXTYPE)-rootfs:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
@@ -217,7 +217,7 @@ flash-image-hd51-rootfs:
 #
 # online image
 #
-flash-image-hd51-online:
+flash-image-$(BOXTYPE)-online:
 	# Create final USB-image
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
