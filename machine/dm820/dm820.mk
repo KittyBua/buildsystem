@@ -59,13 +59,13 @@ endif
 $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 	set -e; cd $(KERNEL_DIR); \
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips oldconfig
-		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- vmlinux modules
+		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- vmlinux.bin modules
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
 		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)-$(BOXTYPE)
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
-	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
+	install -m 644 $(KERNEL_DIR)/vmlinux.bin $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
@@ -106,6 +106,7 @@ flash-image-dm820:
 #	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
 	mkdir -p $(IMAGE_DIR)
 	#
+	gzip -9c < "$(TARGET_DIR)/boot/vmlinux.bin" > "$(IMAGE_BUILD_DIR)/$(BOXTYPE)/vmlinux.gz-3.4-4.0-dm820"
 #	mkfs.jffs2 --root=$(RELEASE_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
 	#
 #	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
@@ -126,7 +127,7 @@ flash-image-dm820:
 #	cd $(IMAGE_BUILD_DIR) && \
 #	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE)/$(BOXTYPE).nfi $(BOXTYPE)/imageversion
 	cd $(RELEASE_DIR) && \
-	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_flash_$(shell date '+%d.%m.%Y-%H.%M').tar.xz --exclude=vmlinux.gz* . > /dev/null 2>&1
+	tar cvJf $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tar.xz --exclude=vmlinux.gz* . > /dev/null 2>&1
 	# cleanup
 #	rm -rf $(IMAGE_BUILD_DIR)
 

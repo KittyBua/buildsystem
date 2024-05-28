@@ -370,7 +370,7 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), hd60 multiboxse))
 BOOTSTRAP += $(D)/host_atools
 endif
-ifeq ($(BOXTYPE), sf8008)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), sf8008 ustym4kpro))
 BOOTSTRAP += $(D)/buildimage-tool
 endif
 
