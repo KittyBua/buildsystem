@@ -93,8 +93,11 @@ if [ ! -e /var/etc/.firstboot ]; then
    date -s "200901011200"
 
    #mdev as hotplug
+   echo "[rcS] starting mdev"
    echo /sbin/mdev >/proc/sys/kernel/hotplug
    mdev -s
+   # coldplug modules
+   find /sys/ -name modalias -print0 | xargs -0 sort -u | tr '\n' '\0' | xargs -0 modprobe -abq
    
    echo "NEUTRINO2" >/dev/vfd
    echo "starting neutrino2 ->"

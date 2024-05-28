@@ -25,6 +25,8 @@ mount -t devpts devpts /dev/pts
 echo "[rcS] starting mdev"
 echo /sbin/mdev >/proc/sys/kernel/hotplug
 mdev -s
+# coldplug modules
+find /sys/ -name modalias -print0 | xargs -0 sort -u | tr '\n' '\0' | xargs -0 modprobe -abq
 
 #
 echo "[rcS] starting mountall"

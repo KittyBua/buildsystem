@@ -125,6 +125,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "[rcS] starting mdev"
    echo /sbin/mdev >/proc/sys/kernel/hotplug
    mdev -s
+   # coldplug modules
+   find /sys/ -name modalias -print0 | xargs -0 sort -u | tr '\n' '\0' | xargs -0 modprobe -abq
 
    # Set Display Time
    (sleep 25;fp_control -s `date +"%H:%M:%S %d-%m-%Y"`) &
