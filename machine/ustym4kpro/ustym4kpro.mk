@@ -1,19 +1,19 @@
 BOXARCH = arm
 CICAM = ci-cam
 LCD = 4-digits
-FKEYS =
 
 #
 # kernel
 #
 KERNEL_VER             = 4.4.35
 KERNEL_DATE            = 20181224
-KERNEL_SRC             = octagon-linux-$(KERNEL_VER)-$(KERNEL_DATE).tar.gz
-KERNEL_URL             = http://source.mynonpublic.com/octagon
+#KERNEL_TYPE            = ustym4kpro
+KERNEL_SRC             = uclan-linux-$(KERNEL_VER)-$(KERNEL_DATE).tar.gz
+KERNEL_URL             = http://source.mynonpublic.com/uclan
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
+#KERNEL_IMAGE           = uImage
 KERNEL_DTB_VER         = hi3798mv200.dtb
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
 KERNEL_PATCHES = \
 		0002-log2-give-up-on-gcc-constant-optimizations.patch \
@@ -31,7 +31,7 @@ KERNEL_PATCHES = \
 		mn88472_reset_stream_ID_reg_if_no_PLP_given.patch \
 		af9035.patch \
 		4.4.35_fix-multiple-defs-yyloc.patch
-
+		
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
 
@@ -74,24 +74,29 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 #
 # driver
 #
-DRIVER_VER = 4.4.35
-DRIVER_DATE    = 20220105
-DRIVER_SRC = $(BOXTYPE)-hiko-$(DRIVER_DATE).zip
+DRIVER_VER     = $(KERNEL_VER)
+DRIVER_DATE    = 20230804
+HILIB_DATE     = 20190603
+LIBGLES_DATE   = 20180301
+LIBREADER_DATE = 20221220
+HIHALT_DATE    = 20220326
+TNTFS_DATE     = 20200528
 
 HICHIPSET = 3798mv200
 SOC_FAMILY = hisi3798mv200
 
-HILIB_DATE     = 20190917
-LIBGLES_DATE   = 20180301
-LIBREADER_DATE = 20200612
-HIHALT_DATE    = 20200601
-TNTFS_DATE     = 20200528
+DRIVER_SRC = $(BOXTYPE)-hiko-$(DRIVER_DATE).zip
 
 HILIB_SRC = $(BOXTYPE)-hilib-$(HILIB_DATE).tar.gz
-LIBGLES_SRC = $(SOC_FAMILY)-opengl-$(LIBGLES_DATE).tar.gz
-LIBREADER_SRC = $(BOXTYPE)-libreader-$(LIBREADER_DATE).tar.gz
+
+LIBGLES_SRC = $(BOXTYPE)-opengl-$(LIBGLES_DATE).tar.gz
+
+LIBREADER_SRC = $(BOXTYPE)-libreader-$(LIBREADER_DATE).zip
+
 HIHALT_SRC = $(BOXTYPE)-hihalt-$(HIHALT_DATE).tar.gz
+
 TNTFS_SRC = $(HICHIPSET)-tntfs-$(TNTFS_DATE).zip
+
 LIBJPEG_SRC = libjpeg.so.62.2.0
 
 WIFI_DIR = RTL8192EU-master
@@ -103,25 +108,25 @@ WIFI2_SRC = main.zip
 WIFI2 = RTL8822C.zip
 
 $(ARCHIVE)/$(DRIVER_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(DRIVER_SRC)
-	
+	$(WGET) http://source.mynonpublic.com/uclan/$(DRIVER_SRC)
+
 $(ARCHIVE)/$(HILIB_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(HILIB_SRC)
+	$(WGET) http://source.mynonpublic.com/uclan/$(HILIB_SRC)
 
 $(ARCHIVE)/$(LIBGLES_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(LIBGLES_SRC)
+	$(WGET) http://source.mynonpublic.com/uclan/$(LIBGLES_SRC)
 
 $(ARCHIVE)/$(LIBREADER_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(LIBREADER_SRC)
+	$(WGET) http://source.mynonpublic.com/uclan/$(LIBREADER_SRC)
 
 $(ARCHIVE)/$(HIHALT_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(HIHALT_SRC)
+	$(WGET) http://source.mynonpublic.com/uclan/$(HIHALT_SRC)
 
 $(ARCHIVE)/$(TNTFS_SRC):
 	$(WGET) http://source.mynonpublic.com/tntfs/$(TNTFS_SRC)
 
 $(ARCHIVE)/$(LIBJPEG_SRC):	
-	$(WGET) https://github.com/oe-alliance/oe-alliance-core/raw/5.3/meta-brands/meta-octagon/recipes-graphics/files/$(LIBJPEG_SRC)
+	$(WGET) https://github.com/oe-alliance/oe-alliance-core/raw/5.3/meta-brands/meta-uclan/recipes-graphics/files/$(LIBJPEG_SRC)
 
 $(ARCHIVE)/$(WIFI_SRC):
 	$(WGET) https://github.com/zukon/RTL8192EU/archive/refs/heads/$(WIFI_SRC) -O $(ARCHIVE)/$(WIFI)
@@ -163,7 +168,7 @@ $(D)/install-hisiplayer-libs: $(ARCHIVE)/$(LIBGLES_SRC)
 
 $(D)/install-libreader: $(ARCHIVE)/$(LIBREADER_SRC)
 	install -d $(BUILD_TMP)/libreader
-	tar xzf $(ARCHIVE)/$(LIBREADER_SRC) -C $(BUILD_TMP)/libreader
+	unzip -o $(ARCHIVE)/$(LIBREADER_SRC) -d $(BUILD_TMP)/libreader
 	install -m 0755 $(BUILD_TMP)/libreader/libreader $(TARGET_DIR)/usr/bin/libreader
 	$(REMOVE)/libreader
 
@@ -220,16 +225,16 @@ release-$(BOXTYPE):
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/libreader $(RELEASE_DIR)/etc/init.d/
 	cd $(RELEASE_DIR)/etc/rc.d/rc0.d; ln -sf ../../init.d/libreader ./S05libreader
 	cd $(RELEASE_DIR)/etc/rc.d/rc6.d; ln -sf ../../init.d/libreader ./S05libreader
-
+	
 #
 # flashimage
 #
 FLASH_IMAGE_NAME = disk
-FLASH_PARTITONS_SRC = $(BOXTYPE)-partitions-20201218.zip
+FLASH_PARTITONS_SRC = $(BOXTYPE)-partitions-20220326.zip
 ROOTFS_SIZE = 320k #2*128k + 64k
 
 $(ARCHIVE)/$(FLASH_PARTITONS_SRC):
-	$(WGET) http://source.mynonpublic.com/octagon/$(FLASH_PARTITONS_SRC)
+	$(WGET) http://source.mynonpublic.com/uclan/$(FLASH_PARTITONS_SRC)
 	
 flash-image-$(BOXTYPE)-disk: $(ARCHIVE)/$(FLASH_PARTITONS_SRC)
 	rm -rf $(IMAGE_BUILD_DIR) || true

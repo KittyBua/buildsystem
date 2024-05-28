@@ -84,7 +84,10 @@ init:
 	@echo "  Protek"
 	@echo "   140 protek4k"
 	@echo ""
-	@read -p "Select target (1-140)? " BOXTYPE; \
+	@echo "  Uclan"
+	@echo "   150 ustym4kpro"
+	@echo ""
+	@read -p "Select target (1-150)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
 	case "$$BOXTYPE" in \
 		1) BOXTYPE="ufs912";; \
@@ -126,6 +129,7 @@ init:
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
 		140) BOXTYPE="protek4k";; \
+		150) BOXTYPE="ustym4kpro";; \
 		*) BOXTYPE="bre2zet2c";; \
 	esac; \
 	echo "BOXTYPE=$$BOXTYPE" > config

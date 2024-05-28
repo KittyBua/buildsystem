@@ -106,7 +106,7 @@ endif
 release-common: $(RELEASE_DEPS)
 	rm -rf $(RELEASE_DIR) || true
 	install -d $(RELEASE_DIR)
-	install -d $(RELEASE_DIR)/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,sys,tmp,usr,var}
+	install -d $(RELEASE_DIR)/{bin,boot,dev,dev.static,etc,lib,media,mnt,proc,ram,root,sbin,sys,tmp,usr,var}
 	install -d $(RELEASE_DIR)/etc/{init.d,network,mdev,ssl}
 	install -d $(RELEASE_DIR)/etc/network/if-{post-{up,down},pre-{up,down},up,down}.d
 	install -d $(RELEASE_DIR)/lib/{modules,firmware}
@@ -114,8 +114,7 @@ ifeq ($(BOXARCH), sh4)
 	install -d $(RELEASE_DIR)/lib/udev
 endif
 	install -d $(RELEASE_DIR)/lib/modules/$(KERNEL_VER)
-	install -d $(RELEASE_DIR)/media/{dvd,nfs,usb,sda1,sdb1}
-	ln -sf /hdd $(RELEASE_DIR)/media/hdd
+	install -d $(RELEASE_DIR)/media/{hdd,dvd,nfs,usb,sda1,sdb1}
 	install -d $(RELEASE_DIR)/mnt/{hdd,nfs,usb}
 	install -d $(RELEASE_DIR)/mnt/mnt{0..7}
 	install -d $(RELEASE_DIR)/usr/{bin,lib,sbin,share}
