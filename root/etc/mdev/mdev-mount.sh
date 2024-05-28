@@ -1,6 +1,13 @@
 #!/bin/sh
-LOG="logger -p user.info -t mdev-mount"
-WARN="logger -p user.warn -t mdev-mount"
+while [ -z "$(mount | grep '/dev')" ]; do sleep 1; done
+
+if [ ! -z "$(which logger)" ]; then
+	LOG="logger -p user.info -t mdev-mount"
+	WARN="logger -p user.warn -t mdev-mount"
+else
+	LOG="echo "
+	WARN="echo "
+fi
 
 MOUNTBASE=/media
 MOUNTPOINT="$MOUNTBASE/$MDEV"

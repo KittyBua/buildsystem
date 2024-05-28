@@ -1,6 +1,31 @@
 #!/bin/sh
-LOG="logger -p user.info -t mdev-mount"
-WARN="logger -p user.warn -t mdev-mount"
+while [ -z "$(mount | grep '/dev')" ]; do sleep 1; done
+
+if [ ! -z "$(which logger)" ]; then
+	LOG="logger -p user.info -t mdev-mount"
+	WARN="logger -p user.warn -t mdev-mount"
+else
+	LOG="echo "
+	WARN="echo "
+fi
+
+model=`cat /proc/stb/info/model`
+[ -e /proc/stb/info/vumodel ] && vumodel=`cat /proc/stb/info/vumodel`
+[ "$model" == "dm8000" ] && [ "$vumodel" == "solo4k" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "duo4k" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "duo4kse" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "ultimo4k" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "uno4k" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "uno4kse" ] && model=$vumodel
+[ "$model" == "dm8000" ] && [ "$vumodel" == "zero4k" ] && model=$vumodel
+
+case $model in
+	bre2ze4k|hd51|h7|e4hd) KRNLPARTS="2 4 6 8";;
+	solo4k|ultimo4k|uno4k|uno4kse) KRNLPARTS="4 6 8 10";;
+	duo4k|duo4kse) KRNLPARTS="9 11 13 15";;
+	dm820) KRNLPARTS=-
+	*) KRNLPARTS="2 4 6 8";;
+esac
 
 MOUNTBASE=/media
 MOUNTPOINT="$MOUNTBASE/$MDEV"
@@ -17,8 +42,8 @@ fi
 case "$ACTION" in
 	add)
 		# do not mount kernel partitions
-		for i in 2 4 6 8; do
-			if [ ${MDEV:$((${#MDEV}-1)):1} -eq $i ]; then
+		for i in $KRNLPARTS; do
+			if [ ${MDEV:$((${#MDEV}-1)):2} -eq $i ]; then
 				$LOG "[$ACTION] /dev/$MDEV is a kernel partition - not mounting."
 				exit 0
 			fi
