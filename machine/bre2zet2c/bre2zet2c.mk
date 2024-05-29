@@ -1,8 +1,7 @@
 BOXARCH = mips
 CICAM = ci-cam
-SCART =
 LCD = 4-digits
-FKEYS =
+FKEYS = fkeys
 
 #
 # kernel
