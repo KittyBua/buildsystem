@@ -88,6 +88,7 @@ $(D)/gst_plugins_base: $(D)/bootstrap $(D)/zlib $(D)/libglib2 $(D)/orc $(D)/gstr
 			--datarootdir=/.remove \
 			--enable-silent-rules \
 			--disable-valgrind \
+			--disable-orc \
 			$(GST_PLUGIN_CONFIG_DEBUG) \
 			--disable-examples \
 			--disable-gtk-doc-html \
@@ -160,6 +161,7 @@ $(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(
 			--disable-aalib \
 			--disable-aalibtest \
 			--disable-cairo \
+			--disable-orc \
 			$(GST_PLUGIN_CONFIG_DEBUG) \
 			--disable-examples \
 			--disable-gtk-doc-html \
@@ -201,6 +203,7 @@ $(D)/gst_plugins_bad: $(D)/bootstrap $(D)/libass $(D)/libcurl $(D)/libxml2 $(D)/
 			--datarootdir=/.remove \
 			--enable-silent-rules \
 			--disable-valgrind \
+			--disable-orc \
 			$(GST_PLUGIN_CONFIG_DEBUG) \
 			--disable-examples \
 			--disable-gtk-doc-html \
