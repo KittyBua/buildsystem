@@ -171,7 +171,7 @@ init:
 	esac; \
 	echo ""
 # GraphLCD
-	@echo -e "\nGraphLCD:"
+	@echo -e "\nGraphLCD (neutrino-DDT):"
 	@echo -e "   \033[01;32m1)  yes\033[00m"
 	@echo "   2) no"
 	@read -p "Select  GraphLCD (1-2)?" GRAPHLCD; \
@@ -183,7 +183,7 @@ init:
 	esac; \
 	echo ""
 # LCD4Linux
-	@echo -e "\nLCD4linux:"
+	@echo -e "\nLCD4linux (neutrino-DDT:"
 	@echo -e "   \033[01;32m1)  yes\033[00m"
 	@echo "   2) no"
 	@read -p "Select  LCD4Linux (1-2)?" LCD4LINUX; \
