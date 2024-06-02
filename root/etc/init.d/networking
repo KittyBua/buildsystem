@@ -82,7 +82,7 @@ case "$1" in
         doopt ip_forward no
 
         echo -n "Configuring network interfaces... "
-				wpa_supplicantcheck
+	wpa_supplicantcheck
         ifup -a
 	echo "done."
 	;;

@@ -14,7 +14,7 @@
 LINKDIR=/tmp/automount
 DAEMON=/usr/sbin/automount
 if [ `lsmod | grep "autofs4" | wc -l` -lt 1 ]; then
-	insmod /lib/modules/autofs4.ko
+	modprobe autofs4
 fi
 #
 # Determine which kind of configuration we're using
