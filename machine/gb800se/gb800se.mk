@@ -1,3 +1,6 @@
+#
+# Makefile for gigablue 800se
+#
 BOXARCH = mips
 CICAM = ci-cam
 SCART = scart

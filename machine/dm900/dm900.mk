@@ -1,3 +1,6 @@
+#
+# Makefile for dreambox dm900
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = tftlcd

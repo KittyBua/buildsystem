@@ -1,3 +1,6 @@
+#
+# Makefile for edision osnino pro
+#
 BOXARCH = mips
 CICAM = ci-cam
 SCART = scart

@@ -1,3 +1,6 @@
+#
+# Makefile for vuplus duo2
+#
 BOXARCH = mips
 CICAM = ci-cam
 SCART = scart

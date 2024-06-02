@@ -1,3 +1,6 @@
+#
+# Makefile for octagon sf8008
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = 4-digits

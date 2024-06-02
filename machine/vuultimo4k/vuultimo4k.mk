@@ -1,3 +1,6 @@
+#
+# Makefile for vuplus ultimo 4k
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

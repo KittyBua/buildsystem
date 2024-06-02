@@ -1,3 +1,6 @@
+#
+# Makefile for uclan ustym 4k pro
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = 4-digits
@@ -7,12 +10,10 @@ LCD = 4-digits
 #
 KERNEL_VER             = 4.4.35
 KERNEL_DATE            = 20181224
-#KERNEL_TYPE            = ustym4kpro
 KERNEL_SRC             = uclan-linux-$(KERNEL_VER)-$(KERNEL_DATE).tar.gz
 KERNEL_URL             = http://source.mynonpublic.com/uclan
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-#KERNEL_IMAGE           = uImage
 KERNEL_DTB_VER         = hi3798mv200.dtb
 
 KERNEL_PATCHES = \

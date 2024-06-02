@@ -1,3 +1,6 @@
+#
+# Makefile for zgemma h7
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

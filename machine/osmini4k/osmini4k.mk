@@ -1,3 +1,6 @@
+#
+# Makefile for edision osmini 4k
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

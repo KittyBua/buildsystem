@@ -1,3 +1,6 @@
+#
+# Makefile for gigablue ue 4k
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = tftlcd

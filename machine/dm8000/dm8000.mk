@@ -1,3 +1,6 @@
+#
+# Makefile for dreambox dm8000
+#
 BOXARCH = mips
 CICAM = ci-cam
 SCART = scart

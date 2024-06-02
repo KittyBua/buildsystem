@@ -1,3 +1,6 @@
+#
+# Makefile for protek 4k
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = 4-digits

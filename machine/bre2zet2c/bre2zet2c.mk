@@ -1,3 +1,6 @@
+#
+# Makefile for wwio bre2zet2c
+#
 BOXARCH = mips
 CICAM = ci-cam
 LCD = 4-digits

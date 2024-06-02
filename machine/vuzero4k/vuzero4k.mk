@@ -1,3 +1,6 @@
+#
+# Makefile for vuplus zero 4k
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

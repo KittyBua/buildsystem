@@ -1,3 +1,6 @@
+#
+# Makefile for ax hd60
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

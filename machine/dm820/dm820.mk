@@ -1,3 +1,6 @@
+#
+# Makefile for dreambox dm820
+#
 BOXARCH = mips
 CICAM = ci-cam
 LCD = tftlcd

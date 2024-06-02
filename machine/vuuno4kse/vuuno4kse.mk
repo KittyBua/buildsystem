@@ -1,3 +1,6 @@
+#
+# Makefile for vuplus uno 4k se
+#
 BOXARCH = arm
 CICAM = ci-cam
 SCART = scart

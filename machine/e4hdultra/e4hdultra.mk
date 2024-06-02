@@ -1,3 +1,6 @@
+#
+# Makefile for Axas e4 ultra (se)
+#
 BOXARCH=arm
 CICAM=ci-cam
 SCART=scart

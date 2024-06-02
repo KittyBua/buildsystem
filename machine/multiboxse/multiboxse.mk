@@ -1,3 +1,6 @@
+#
+# Makefile for maxytec multiboxse
+#
 BOXARCH = arm
 CICAM = ci-cam
 LCD = 4-digits
