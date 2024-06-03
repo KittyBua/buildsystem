@@ -71,21 +71,22 @@ init:
 	@echo "   100)  AXAS E4HD 4K Ultra"
 	@echo ""
 	@echo "  Dream Media"
-	@echo "   110 dm8000"
-	@echo "   111 dm820"
-	@echo "   112 dm900"
+	@echo "   110)  dm8000"
+	@echo "   111)  dm820"
+	@echo "   112)  dm900"
+	@echo "   113)  dm7080"
 	@echo ""
 	@echo "  Maxytec"
-	@echo "   120 multiboxse"
+	@echo "   120)  multiboxse"
 	@echo ""
 	@echo "  Octagon"
-	@echo "   130 sf8008"
+	@echo "   130)  sf8008"
 	@echo ""
 	@echo "  Protek"
-	@echo "   140 protek4k"
+	@echo "   140)  protek4k"
 	@echo ""
 	@echo "  Uclan"
-	@echo "   150 ustym4kpro"
+	@echo "   150)  ustym4kpro"
 	@echo ""
 	@read -p "Select target (1-150)? " BOXTYPE; \
 	BOXTYPE=$${BOXTYPE}; \
@@ -126,6 +127,7 @@ init:
 		110) BOXTYPE="dm8000";; \
 		111) BOXTYPE="dm820";; \
 		112) BOXTYPE="dm900";; \
+		113) BOXTYPE="dm7080";; \
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
 		140) BOXTYPE="protek4k";; \
@@ -183,7 +185,7 @@ init:
 	esac; \
 	echo ""
 # LCD4Linux
-	@echo -e "\nLCD4linux (neutrino-DDT:"
+	@echo -e "\nLCD4linux (neutrino-DDT):"
 	@echo -e "   \033[01;32m1)  yes\033[00m"
 	@echo "   2) no"
 	@read -p "Select  LCD4Linux (1-2)?" LCD4LINUX; \
@@ -233,7 +235,7 @@ endif
 	@echo "BOXARCH          : $(BOXARCH)"
 	@echo "BUILD            : $(BUILD)"
 	@echo "TARGET           : $(TARGET)"
-	@echo "GCC_VER          : $(GCC_VER)"
+	@echo "GCC              : $(GCC_VER)"
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
