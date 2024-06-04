@@ -1,6 +1,7 @@
 build_logfile/
 custom/*-local*
-root/boot/*
+root/boot/audio*
+root/boot/video*
 tufsbox/
 Makefile.local
 config
