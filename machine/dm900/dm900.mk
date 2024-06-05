@@ -16,7 +16,6 @@ KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
 KERNEL_DTB_VER         = dreambox-dm900.dtb
-CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 KERNEL_PATCHES = \
 		linux-dreambox-3.14-6fa88d2001194cbff63ad94cb713b6cd5ea02739.patch \

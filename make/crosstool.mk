@@ -51,7 +51,6 @@ crosstool-ng: $(D)/directories $(ARCHIVE)/$(KERNEL_SRC) $(ARCHIVE)/$(CROSSTOOL_N
 		export CT_NG_ARCHIVE=$(ARCHIVE); \
 		export CT_NG_BASE_DIR=$(CROSS_DIR); \
 		export CT_NG_CUSTOM_KERNEL=$(KERNEL_DIR); \
-		export CT_NG_CUSTOM_KERNEL_VER=$(CUSTOM_KERNEL_VER); \
 		test -f ./configure || ./bootstrap && \
 		./configure --enable-local; \
 		MAKELEVEL=0 make; \

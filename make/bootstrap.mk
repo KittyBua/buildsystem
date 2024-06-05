@@ -102,7 +102,7 @@ $(D)/host_mtd_utils: $(D)/directories $(ARCHIVE)/$(HOST_MTD_UTILS_SOURCE)
 	$(CHDIR)/mtd-utils-$(HOST_MTD_UTILS_VER); \
 		$(call apply_patches,$(HOST_MTD_UTILS_PATCH)); \
 		$(MAKE) `pwd`/mkfs.jffs2 `pwd`/sumtool BUILDDIR=`pwd` WITHOUT_XATTR=1 DESTDIR=$(HOST_DIR); \
-		$(MAKE) install DESTDIR=$(HOST_DIR)/bin
+		$(MAKE) install BINDIR=$(HOST_DIR)/bin MANDIR=$(HOST_DIR)/share/man
 	$(REMOVE)/mtd-utils-$(HOST_MTD_UTILS_VER)
 	$(TOUCH)
 

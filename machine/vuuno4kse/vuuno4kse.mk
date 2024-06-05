@@ -16,7 +16,6 @@ KERNEL_SRC             = stblinux-${KERNEL_SRC_VER}.tar.bz2
 KERNEL_URL		= http://code.vuplus.com/download/release/kernel
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux
-CUSTOM_KERNEL_VER      = $(KERNEL_SRC_VER)
 
 KERNEL_PATCHES = \
 		4_1_linux_dvb_adapter.patch \

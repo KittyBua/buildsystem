@@ -17,7 +17,6 @@ KERNEL_URL             = http://source.mynonpublic.com/gfutures
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 KERNEL_DTB_VER         = hi3798mv200.dtb
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
 KERNEL_PATCHES = \
 		0002-log2-give-up-on-gcc-constant-optimizations.patch \

@@ -15,7 +15,6 @@ KERNEL_SRC 	       = broadmedia-linux-$(KERNEL_VER)-$(KERNEL_DATE).tar.xz
 KERNEL_URL	       = http://source.mynonpublic.com/broadmedia/$(KERNERL_SRC)
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 KERNEL_PATCHES  = \
 			0001-regmap-add-regmap_write_bits.patch \

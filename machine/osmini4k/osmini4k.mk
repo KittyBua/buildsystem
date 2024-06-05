@@ -16,7 +16,6 @@ KERNEL_SRC             = linux-edision-$(KERNEL_SRC_VER).tar.gz
 KERNEL_URL             = http://source.mynonpublic.com/edision
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-brcmstb-$(KERNEL_SRC_VER)
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

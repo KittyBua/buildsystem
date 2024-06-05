@@ -15,7 +15,6 @@ KERNEL_SRC             = ceryon-linux-$(KERNEL_VER)-arm.tar.gz
 KERNEL_URL             = http://source.mynonpublic.com/ceryon
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)-$(KERNEL_DATE)-arm
 
 KERNEL_PATCHES = \
 		TBS-fixes-for-4.10-kernel.patch \

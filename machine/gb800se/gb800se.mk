@@ -16,7 +16,6 @@ KERNEL_SRC             = gigablue-linux-$(KERNEL_VER)-$(KERNEL_DATE).tgz
 KERNEL_URL             = http://source.mynonpublic.com/gigablue/linux
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 KERNEL_PATCHES  = \
 		nor-maps-gb800solo.patch \

@@ -15,7 +15,6 @@ KERNEL_SRC             = stblinux-${KERNEL_VER}.tar.bz2
 KERNEL_URL		= http://code.vuplus.com/download/release/kernel
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 KERNEL_PATCHES = \
 		add-dmx-source-timecode.patch \

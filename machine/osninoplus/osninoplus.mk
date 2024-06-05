@@ -15,7 +15,6 @@ KERNEL_SRC             = linux-edision-$(KERNEL_VER).tar.xz
 KERNEL_URL             = http://source.mynonpublic.com/edision
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
-CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 KERNEL_PATCHES  = \
 		0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
