@@ -19,19 +19,30 @@ KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_VER)
 CUSTOM_KERNEL_VER      = $(KERNEL_VER)
 
 KERNEL_PATCHES  = \
-		    0001-genet1-1000mbit.patch \
-		    bcmgenet_phyaddr.patch \
-		    noforce_correct_pointer_usage.patch \
-		    0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
-		    0001-TBS-fixes-for-4.6-kernel.patch \
-		    0001-STV-Add-PLS-support.patch \
-		    0001-STV-Add-SNR-Signal-report-parameters.patch \
-		    blindscan2.patch \
-		    0001-stv090x-optimized-TS-sync-control.patch \
-		    0002-log2-give-up-on-gcc-constant-optimizations.patch \
-		    move-default-dialect-to-SMB3.patch \
-		    fix-never-be-null_outside-array-bounds-gcc-12.patch \
-		    fix-build-with-binutils-2.41.patch
+		    	0001-genet1-1000mbit.patch \
+			0001-stv090x-optimized-TS-sync-control.patch \
+			0001-STV-Add-PLS-support.patch \
+			0001-STV-Add-SNR-Signal-report-parameters.patch \
+			0001-Support-TBS-USB-drivers-for-4.6-kernel.patch \
+			0001-TBS-fixes-for-4.6-kernel.patch \
+			0002-log2-give-up-on-gcc-constant-optimizations.patch \
+			bcmgenet_phyaddr.patch \
+			blindscan2.patch \
+			fix-build-with-binutils-2.41.patch \
+			fix-never-be-null_outside-array-bounds-gcc-12.patch \
+			move-default-dialect-to-SMB2.patch \
+#			move-default-dialect-to-SMB3.patch \
+			nfs-max-rwsize-8k.patch \
+			noforce_correct_pointer_usage.patch \
+			kernel-add-support-for-gcc-5.patch \
+   			kernel-add-support-for-gcc6.patch \
+			kernel-add-support-for-gcc7.patch \
+			kernel-add-support-for-gcc8.patch \
+			kernel-add-support-for-gcc9.patch \
+			kernel-add-support-for-gcc10.patch \
+			kernel-add-support-for-gcc11.patch \
+			kernel-add-support-for-gcc12.patch \
+			genksyms_fix_typeof_handling.patch \
 
 $(ARCHIVE)/$(KERNEL_SRC):
 	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)

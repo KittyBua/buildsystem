@@ -1,12 +1,10 @@
-build_logfile/
+build_logfile/*
 custom/*-local*
 root/boot/audio*
 root/boot/video*
 tufsbox/
 Makefile.local
 config
-/buildlogs/make_gb800se.log
-/buildlogs/make_bre2zet2c.log
 /pull-stash-cdk.patch
 /buildlogs/make_cuberevo_mini2.log
 /tools/aio-grab-arm/.deps/main.Po
