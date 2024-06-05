@@ -1,4 +1,4 @@
-build_logfile/*
+buildlogs/*
 custom/*-local*
 root/boot/audio*
 root/boot/video*
