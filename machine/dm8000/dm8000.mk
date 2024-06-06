@@ -16,6 +16,7 @@ KERNEL_SRC             = linux-${KERNEL_SRC_VER}.tar.xz
 KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
+KERNEL_FILE	       = vmlinux-3.2-dm8000.gz
 
 KERNEL_PATCHES = \
 		kernel-fake-3.2.patch \
@@ -93,6 +94,7 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
+	gzip -9c < $(TARGET_DIR)/boot/vmlinux > $(TARGET_DIR)/boot/$(KERNEL_FILE)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 	$(TOUCH)
@@ -121,6 +123,7 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 #
 DM8000_2ND_SOURCE = secondstage-dm8000-84.bin
 DM8000_2ND_URL = https://github.com/oe-mirrors/dreambox/raw/main/$(DM8000_2ND_SOURCE)
+2ND_FILE = secondstage-dm8000-84.bin
 
 $(ARCHIVE)/$(DM8000_2ND_SOURCE):
 	$(WGET) $(DM8000_2ND_URL)
@@ -132,7 +135,7 @@ $(D)/dm8000_2nd: $(ARCHIVE)/$(DM8000_2ND_SOURCE)
 #
 # release-dm8000
 #
-release-dm8000:
+release-dm8000: $(D)/dm8000_2nd
 	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
@@ -140,33 +143,13 @@ release-dm8000:
 #
 # flashimage
 #
-flash-image-dm8000: $(D)/dm8000_2nd
-	rm -rf $(IMAGE_BUILD_DIR) || true
-	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
-	mkdir -p $(IMAGE_DIR)
-	#
-	cp -f $(ARCHIVE)/$(DM8000_2ND_SOURCE) $(IMAGE_BUILD_DIR)/$(BOXTYPE)/
-	#
-	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(BOXTYPE)/vmlinux-3.2-dm8000.gz"
-	mkfs.jffs2 --root=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
-	#
-	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
-	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'mode=ubi' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'image=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'vol_id=0' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'vol_type=dynamic' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'vol_name=rootfs' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo 'vol_flags=autoresize' >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	ubinize -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubi -m 2048 -p 128KiB -s 512 $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	rm -f $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.ubifs
-	rm -f $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/imageversion
-	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
-	buildimage -a dm8000 -e 0x20000 -f 0x4000000 -s 2048 -b 0x100000:secondstage-dm8000-84.bin -d 0x700000:boot.jffs2 -d 0xF800000:rootfs.ubi > $(BOXTYPE).nfi
-	#
-	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
-	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE).nfi imageversion
-	# cleanup
-	rm -rf $(IMAGE_BUILD_DIR)
+#FLASHIMAGE_PREFIX = $(BOXTYPE)
+
+FLASHSIZE = 100
+ROOTFS_FILE = rootfs.ubi
+IMAGE_FSTYPES ?= ubifs
+IMAGE_NAME = rootfs
+UBI_VOLNAME = rootfs
+MKUBIFS_ARGS = -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
+UBINIZE_ARGS = -m 2048 -p 128KiB -s 512
 

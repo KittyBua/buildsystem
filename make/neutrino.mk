@@ -496,20 +496,47 @@ endif
 #
 image-neutrino: release-neutrino
 	$(START_BUILD)
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_2000hd spark spark7162 atevio7500 ufs912))
-	$(MAKE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), fortis_hdbox octagon1008 cuberevo cuberevo_mini cuberevo_mini2 cuberevo_2000hd))
+	$(MAKE) nor-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), spark spark7162))
+	$(MAKE) spark-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), atevio7500))
+	$(MAKE) atevio-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), ufs912))
+	$(MAKE) ufs912-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), hl101)
 	$(MAKE) usb-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se gbue4k gbue bre2zet2c osnino osninoplus osninopro dm8000 dm820 dm900 dm7080))
-	$(MAKE) flash-image-$(BOXTYPE)
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se gbultraue bre2zet2c osnino osninoplus osninopro))
+	$(MAKE) ubi-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k h7 hd51 hd60 osmini4k osmio4k osmio4kplus e4hdultra multiboxse sf8008 protek4k ustym4kpro))
-	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000))
+	$(MAKE) dm-nfi-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm900))
+	$(MAKE) dm-rootfs-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm820 dm7080))
+	$(MAKE) usb-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vusolo4k vuultimo4k vuuno4k vuuno4kse vuzero4k))
-	$(MAKE) flash-image-$(BOXTYPE)-rootfs
+	$(MAKE) vuplus-rootfs-image-$(BOXTYPE) vuplus-multi-rootfs-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), sf8008 ustym4kpro))
+	$(MAKE) octagon-disk-image-$(BOXTYPE) octagon-rootfs-image-$(BOXTYPE)
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), osmini4k osmio4k osmio4kplus))
+	$(MAKE) edision-disk-image-$(BOXTYPE) edision-rootfs-image-$(BOXTYPE)
+endif
+#
+#
+#
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k h7 hd51 hd60 e4hdultra multiboxse protek4k))
+	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
 endif
 	$(END_BUILD)
 	

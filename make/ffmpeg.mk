@@ -25,9 +25,9 @@ FFMPEG_CONF_OPTS  += --enable-libxml2
 FFMPEG_CONF_OPTS  += --enable-libfreetype
 FFMPEG_CONF_OPTS  += --disable-x86asm
 
-FFMPEG_CONF_OPTS  += --enable-libzvbi
-FFMPEG_CONF_OPTS  += --enable-decoder=libzvbi_teletext
-FFMPEG_DEPS 	  += $(D)/libzvbi
+#FFMPEG_CONF_OPTS  += --enable-libzvbi
+#FFMPEG_CONF_OPTS  += --enable-decoder=libzvbi_teletext
+#FFMPEG_DEPS 	   += $(D)/libzvbi
 
 ifeq ($(BOXARCH), arm)
 FFMPEG_CONF_OPTS  += --cpu=cortex-a15
@@ -265,7 +265,6 @@ $(D)/ffmpeg: $(D)/bootstrap $(FFMPEG_DEPS) $(ARCHIVE)/$(FFMPEG_SOURCE)
 			--enable-decoder=wmavoice \
 			--enable-decoder=wavpack \
 			--enable-decoder=xsub \
-			--enable-decoder=libzvbi_teletext \
 			\
 			--disable-demuxers \
 			--enable-demuxer=aac \

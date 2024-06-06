@@ -16,6 +16,7 @@ KERNEL_SRC             = stblinux-${KERNEL_SRC_VER}.tar.bz2
 KERNEL_URL		= http://code.vuplus.com/download/release/kernel
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux
+KERNEL_FILE	       = kernel_auto.bin
 
 KERNEL_PATCHES = \
 		4_1_linux_dvb_adapter.patch \
@@ -164,6 +165,8 @@ $(D)/libgles: $(D)/bootstrap $(ARCHIVE)/$(GLES_SRC)
 INITRD_DATE = 20181030
 INITRD_SRC = vmlinuz-initrd_vuduo4k_$(INITRD_DATE).tar.gz
 INITRD_URL = http://code.vuplus.com/download/release/kernel
+INITRD_NAME = vmlinuz-initrd-7278b1
+INITRD_FILE = initrd_auto.bin
 
 $(ARCHIVE)/$(INITRD_SRC):
 	$(WGET) $(INITRD_URL)/$(INITRD_SRC)
@@ -188,6 +191,16 @@ release-vuduo4k:
 # flashimage
 #
 FLASHIMAGE_PREFIX = vuplus/duo4k
+
+KERNEL1_FILE = kernel1_auto.bin
+KERNEL2_FILE = kernel2_auto.bin
+KERNEL3_FILE = kernel3_auto.bin
+KERNEL4_FILE = kernel4_auto.bin
+
+BOOT_UPDATE_TEXT = "rename this file to 'force' to force an update without confirmation"
+BOOT_UPDATE_FILE = noforce
+PART_TEXT = This file forces creating partitions.
+PART_FILE = mkpart.update
 
 #
 # multi-rootfs

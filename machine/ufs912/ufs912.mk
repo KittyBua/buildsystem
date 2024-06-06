@@ -238,21 +238,3 @@ endif
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp $(BASE_DIR)/machine/$(BOXTYPE)/files/fw_env.config $(RELEASE_DIR)/etc/
 
-
-#
-# flashimage
-#
-flash-image-$(BOXTYPE):
-	mkdir -p $(IMAGE_DIR)
-	cd $(SCRIPTS_DIR)/ufs912 && $(SUDOCMD) ./ufs912.sh $(MAINTAINER)
-
-#
-# usbimage
-#
-usb-image-$(BOXTYPE):
-	mkdir -p $(IMAGE_DIR)
-	cd $(RELEASE_DIR) && \
-	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
-
-
-

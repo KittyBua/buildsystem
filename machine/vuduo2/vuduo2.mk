@@ -15,6 +15,7 @@ KERNEL_SRC             = stblinux-${KERNEL_VER}.tar.bz2
 KERNEL_URL		= http://code.vuplus.com/download/release/kernel
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux
+KERNEL_FILE            = kernel_cfe_auto.bin
 
 KERNEL_PATCHES = \
 		kernel-add-support-for-gcc5.patch \
@@ -92,6 +93,7 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
 	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
+	gzip -f -9c < $(TARGET_DIR)/boot/vmlinux > $(TARGET_DIR)/boot/$(KERNEL_FILE)
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
 	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
 	$(TOUCH)
@@ -143,6 +145,8 @@ $(D)/platform_util: $(D)/bootstrap $(ARCHIVE)/$(UTIL_SRC)
 INITRD_DATE = 20130220
 INITRD_SRC = vmlinuz-initrd_vuduo2_$(INITRD_DATE).tar.gz
 INITRD_URL = http://code.vuplus.com/download/release/kernel
+INITRD_NAME = vmlinuz-initrd-7425b0
+INITRD_FILE = initrd_cfe_auto.bin
 
 $(ARCHIVE)/$(INITRD_SRC):
 	$(WGET) $(INITRD_URL)/$(INITRD_SRC)
@@ -165,31 +169,14 @@ release-vuduo2:
 #
 FLASHIMAGE_PREFIX = vuplus/duo2
 
-flash-image-vuduo2:
-	rm -rf $(IMAGE_BUILD_DIR) || true
-	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
-	mkdir -p $(IMAGE_DIR)
-	touch $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/reboot.update
-	cp $(SKEL_ROOT)/boot/splash.bin $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/splash_cfe_auto.bin
-	# kernel
-	gzip -9c < "$(TARGET_DIR)/boot/vmlinux" > "$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/kernel_cfe_auto.bin"
-	cp $(TARGET_DIR)/boot/vmlinuz-initrd-7425b0 $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/initrd_cfe_auto.bin
-	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.ubi -m 2048 -e 126976 -c 8192
-	echo '[ubifs]' > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'mode=ubi' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'image=$(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.ubi' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'vol_id=0' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'vol_type=dynamic' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'vol_name=rootfs' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	echo 'vol_flags=autoresize' >> $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	ubinize -o $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.jffs2 -m 2048 -p 128KiB $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	rm -f $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/root_cfe_auto.ubi
-	rm -f $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/ubinize.cfg
-	#
-	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)/imageversion
-	#
-	cd $(IMAGE_BUILD_DIR)/ && \
-	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(FLASHIMAGE_PREFIX)*
-	# cleanup
-	rm -rf $(IMAGE_BUILD_DIR)
+FLASHSIZE = 1024
+ROOTFS_FILE = root_cfe_auto.jffs2
+IMAGE_FSTYPES ?= ubi
+IMAGE_NAME = root_cfe_auto
+UBI_VOLNAME = rootfs
+MKUBIFS_ARGS = -m 2048 -e 126976 -c 8192
+UBINIZE_ARGS = -m 2048 -p 128KiB
+BOOTLOGO_FILENAME = splash.bin
+BOOT_UPDATE_TEXT = "This file forces a reboot after the update."
+BOOT_UPDATE_FILE = reboot.update
 

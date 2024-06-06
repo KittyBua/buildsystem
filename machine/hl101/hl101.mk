@@ -241,16 +241,3 @@ endif
 	cp -dp $(BASE_DIR)/machine/$(BOXTYPE)/files/lircd.conf $(RELEASE_DIR)/etc/lircd.conf
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 
-#
-# flashimage
-#
-flash-image-$(BOXTYPE):
-
-#
-# usbimage
-#
-usb-image-$(BOXTYPE):
-	mkdir -p $(IMAGE_DIR)
-	cd $(RELEASE_DIR) && \
-	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
-

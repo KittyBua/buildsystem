@@ -241,19 +241,3 @@ endif
 	install -m 0644 $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/init.d/
 	cp $(BASE_DIR)/machine/$(BOXTYPE)/files/fw_env.config $(RELEASE_DIR)/etc/
 
-
-#
-# flashimage
-#
-flash-image-$(BOXTYPE):
-	mkdir -p $(IMAGE_DIR)
-	cd $(SCRIPTS_DIR)/spark && $(SUDOCMD) ./spark.sh $(MAINTAINER) $(BOXTYPE)
-
-#
-# usbimage
-#
-usb-image-$(BOXTYPE):
-	mkdir -p $(IMAGE_DIR)
-	cd $(RELEASE_DIR) && \
-	tar -cvzf $(IMAGE_DIR)/$(BOXTYPE)/out/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.tgz *
-

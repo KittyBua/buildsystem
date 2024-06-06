@@ -35,14 +35,14 @@ init:
 	@echo "   31)  Spark7162"
 	@echo ""
 	@echo "  VU Plus"
-	@echo "   40)  Vu+ Solo4K"
-	@echo "   41)  VU+ Duo"
-	@echo "   42)  VU+ Duo2"
-	@echo "   43)  VU+ Duo4k"
-	@echo "   44)  VU+ Ultimo4k"
-	@echo "   45)  VU+ Uno4k"
-	@echo "   46)  VU+ Uno4kse"
-	@echo "   47)  VU+ Zero4k"
+	@echo "   40)  VU+ Duo"
+	@echo "   41)  VU+ Duo2"
+	@echo "   42)  VU+ Duo4k"
+	@echo "   43)  VU+ Ultimo4k"
+	@echo "   44)  VU+ Uno4k"
+	@echo "   45)  VU+ Uno4kse"
+	@echo "   46)  VU+ Zero4k"
+	@echo "   47)  Vu+ Solo4K"
 	@echo ""
 	@echo "  AX Mutant"
 	@echo "   50)  Mut@nt HD51"
@@ -59,7 +59,7 @@ init:
 	@echo "  Giga Blue"
 	@echo "   70)  gb800se"
 	@echo "   71)  gbue4k"
-	@echo "   72)  gbue"
+	@echo "   72)  gbultraue"
 	@echo ""
 	@echo "  WWIO"
 	@echo "   80)  WWIO BRE2ZE 4K"
@@ -103,14 +103,14 @@ init:
 		23) BOXTYPE="cuberevo_2000hd";; \
 		30) BOXTYPE="spark";; \
 		31) BOXTYPE="spark7162";; \
-		40) BOXTYPE="vusolo4k";; \
-		41) BOXTYPE="vuduo";; \
-		42) BOXTYPE="vuduo2";; \
-		43) BOXTYPE="vuduo4k";; \
-		44) BOXTYPE="vuultimo4k";; \
-		45) BOXTYPE="vuuno4k";; \
-		46) BOXTYPE="vuuno4kse";; \
-		47) BOXTYPE="vuzero4k";; \
+		40) BOXTYPE="vuduo";; \
+		41) BOXTYPE="vuduo2";; \
+		42) BOXTYPE="vuduo4k";; \
+		43) BOXTYPE="vuultimo4k";; \
+		44) BOXTYPE="vuuno4k";; \
+		45) BOXTYPE="vuuno4kse";; \
+		46) BOXTYPE="vuzero4k";; \
+		47) BOXTYPE="vusolo4k";; \
 		50) BOXTYPE="hd51";; \
 		51) BOXTYPE="hd60";; \
 		60) BOXTYPE="osnino";; \
@@ -121,7 +121,7 @@ init:
 		65) BOXTYPE="osmini4k";; \
 		70) BOXTYPE="gb800se";; \
 		71) BOXTYPE="gbue4k";; \
-		72) BOXTYPE="gbue";; \
+		72) BOXTYPE="gbultraue";; \
 		80) BOXTYPE="bre2ze4k";; \
 		81) BOXTYPE="bre2zet2c";; \
 		90) BOXTYPE="h7";; \
@@ -325,6 +325,7 @@ include make/cleantargets.mk
 include make/release.mk
 include make/neutrino2.mk
 include make/neutrino.mk
+include make/flashimage.mk
 include make/packages.mk
 
 update:

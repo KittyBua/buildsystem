@@ -16,6 +16,7 @@ KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
 KERNEL_CONFIG          = defconfig
 KERNEL_DIR             = $(BUILD_TMP)/linux-$(KERNEL_SRC_VER)
 KERNEL_DTB_VER         = dreambox-dm900.dtb
+KERNEL_FILE	       = kernel.bin
 
 KERNEL_PATCHES = \
 		linux-dreambox-3.14-6fa88d2001194cbff63ad94cb713b6cd5ea02739.patch \
@@ -112,18 +113,5 @@ release-$(BOXTYPE):
 #
 # flashimage
 #
-flash-image-$(BOXTYPE):
-	rm -rf $(IMAGE_BUILD_DIR) || true
-	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
-	mkdir -p $(IMAGE_DIR)
-	#
-	cp $(TARGET_DIR)/boot/zImage $(IMAGE_BUILD_DIR)/$(BOXTYPE)/kernel.bin
-	cd $(RELEASE_DIR); \
-	tar -cvf $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.tar . > /dev/null 2>&1; \
-	bzip2 $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.tar
-	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/imageversion
-	cd $(IMAGE_BUILD_DIR) && \
-	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE)/rootfs.tar.bz2 $(BOXTYPE)/kernel.bin $(BOXTYPE)/imageversion
-	# cleanup
-	rm -rf $(IMAGE_BUILD_DIR)
+#FLASHIMAGE_PREFIX = $(BOXTYPE)
 
