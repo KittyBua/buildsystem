@@ -1370,7 +1370,7 @@ LIBSOUP_SOURCE = libsoup-$(LIBSOUP_VER).tar.xz
 $(ARCHIVE)/$(LIBSOUP_SOURCE):
 	$(WGET) https://download.gnome.org/sources/libsoup/$(LIBSOUP_VER_MAJOR)/$(LIBSOUP_SOURCE)
 
-$(D)/libsoup: $(D)/bootstrap $(D)/sqlite $(D)/libxml2 $(D)/libglib2 $(ARCHIVE)/$(LIBSOUP_SOURCE)
+$(D)/libsoup: $(D)/bootstrap $(D)/sqlite $(D)/libxml2 $(D)/libglib2 $(D)/libpsl $(ARCHIVE)/$(LIBSOUP_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/libsoup-$(LIBSOUP_VER)
 	$(UNTAR)/$(LIBSOUP_SOURCE)
