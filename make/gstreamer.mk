@@ -144,7 +144,7 @@ GST_PLUGINS_GOOD_PATCH  = gst-plugins-good-$(GST_PLUGINS_GOOD_VER)-gstrtpmp4gpay
 $(ARCHIVE)/$(GST_PLUGINS_GOOD_SOURCE):
 	$(WGET) https://gstreamer.freedesktop.org/src/gst-plugins-good/$(GST_PLUGINS_GOOD_SOURCE)
 
-$(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(D)/gst_plugins_base $(D)/libsoup $(D)/flac $(ARCHIVE)/$(GST_PLUGINS_GOOD_SOURCE)
+$(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(D)/gst_plugins_base $(D)/flac $(ARCHIVE)/$(GST_PLUGINS_GOOD_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/gst-plugins-good-$(GST_PLUGINS_GOOD_VER)
 	$(UNTAR)/$(GST_PLUGINS_GOOD_SOURCE)

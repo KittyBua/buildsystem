@@ -301,7 +301,7 @@ endif
 ifeq ($(BOXTYPE), hl101)
 	$(MAKE) usb-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se gbue bre2zet2c osnino osninoplus osninopro))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se gbultraue bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) ubi-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000))
