@@ -162,6 +162,7 @@ $(D)/gst_plugins_good: $(D)/bootstrap $(D)/libpng $(D)/libjpeg $(D)/gstreamer $(
 			--disable-aalibtest \
 			--disable-cairo \
 			--disable-orc \
+			--disable-soup \
 			$(GST_PLUGIN_CONFIG_DEBUG) \
 			--disable-examples \
 			--disable-gtk-doc-html \
