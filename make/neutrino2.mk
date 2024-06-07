@@ -325,10 +325,13 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k protek4k))
 	$(MAKE) gfuture-disk-image-$(BOXTYPE) gfuture-multi-rootfs-image-$(BOXTYPE) gfuture-online-image-$(BOXTYPE)
 endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), hd60 multiboxse))
+	$(MAKE) hdfastboot8gb-disk-image-$(BOXTYPE) hdfastboot8gb-rootfs-image-$(BOXTYPE) hdfastboot8gb-online-image-$(BOXTYPE)
+endif
 #
 #
 #
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), h7 hd51 hd60 e4hdultra multiboxse))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), h7 hd51 e4hdultra))
 	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
 endif
 	$(END_BUILD)
