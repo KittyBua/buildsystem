@@ -188,4 +188,3 @@ BOOT_UPDATE_FILE = noforce
 PART_TEXT = This file forces creating partitions.
 PART_FILE = mkpart.update
 
-
