@@ -322,7 +322,7 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), osmini4k osmio4k osmio4kplus))
 	$(MAKE) edision-disk-image-$(BOXTYPE) edision-rootfs-image-$(BOXTYPE) edision-online-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k protek4k))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), bre2ze4k protek4k h7 e4hdultra))
 	$(MAKE) gfuture-disk-image-$(BOXTYPE) gfuture-multi-rootfs-image-$(BOXTYPE) gfuture-online-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), hd60 multiboxse))
@@ -331,7 +331,7 @@ endif
 #
 #
 #
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), h7 hd51 e4hdultra))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), hd51))
 	$(MAKE) flash-image-$(BOXTYPE)-disk flash-image-$(BOXTYPE)-rootfs
 endif
 	$(END_BUILD)
