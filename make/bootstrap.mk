@@ -394,7 +394,7 @@ $(D)/directories:
 	install -d $(HOST_DIR)
 	install -d $(HOST_DIR)/{bin,lib,share}
 	install -d $(TARGET_DIR)/{bin,boot,etc,lib,sbin,usr,var}
-	install -d $(TARGET_DIR)/etc/{init.d,mdev,network,rc.d}
+	install -d $(TARGET_DIR)/etc/{init.d,mdev,network,rc.d,default,samba}
 	install -d $(TARGET_DIR)/etc/rc.d/{rc0.d,rc6.d}
 	ln -sf ../init.d $(TARGET_DIR)/etc/rc.d/init.d
 	install -d $(TARGET_DIR)/lib/{lsb,firmware}

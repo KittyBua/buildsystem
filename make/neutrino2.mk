@@ -328,5 +328,8 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), hd60 multiboxse))
 	$(MAKE) hdfastboot8gb-disk-image-$(BOXTYPE) hdfastboot8gb-rootfs-image-$(BOXTYPE) hdfastboot8gb-online-image-$(BOXTYPE)
 endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), gbue4k))
+	$(MAKE) gbue4k-flash-image
+endif
 	$(END_BUILD)
 

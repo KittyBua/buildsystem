@@ -611,7 +611,7 @@ hdfastboot8gb-online-image-$(BOXTYPE):
 #
 #
 #
-flash-image-gbue4k: $(ARCHIVE)/$(INITRD_SRC)
+gbue4k-flash-image: $(ARCHIVE)/$(INITRD_SRC)
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(FLASHIMAGE_PREFIX)
 	mkdir -p $(IMAGE_DIR)

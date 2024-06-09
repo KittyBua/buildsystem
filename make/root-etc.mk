@@ -20,7 +20,13 @@ $(D)/diverse-tools:
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(TARGET_DIR)/etc/$$i || true; done ) ; \
 	( cd root/etc && for i in $(WLAN_ADAPTED_ETC_FILES); do \
 		[ -f $$i ] && install -m 755 $$i $(TARGET_DIR)/etc/$$i || true; \
-		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(TARGET_DIR)/etc/$$i || true; done ) ; \
+		[ "$${i%%/*}" = "network" ] && chmod 755 $(TARGET_DIR)/etc/$$i || true; done ) ; \
+	( cd root/etc && for i in $(DEFAULT_ADAPTED_ETC_FILES); do \
+		[ -f $$i ] && install -m 755 $$i $(TARGET_DIR)/etc/$$i || true; \
+		[ "$${i%%/*}" = "default" ] && chmod 755 $(TARGET_DIR)/etc/$$i || true; done ) ; \
+	( cd root/etc && for i in $(SAMBA_ADAPTED_ETC_FILES); do \
+		[ -f $$i ] && install -m 755 $$i $(TARGET_DIR)/etc/$$i || true; \
+		[ "$${i%%/*}" = "samba" ] && chmod 755 $(TARGET_DIR)/etc/$$i || true; done ) ; \
 	ln -sf /usr/share/zoneinfo/CET $(TARGET_DIR)/etc/localtime
 	$(TOUCH)
 
@@ -76,6 +82,12 @@ INITSCRIPTS_ADAPTED_ETC_FILES = \
 	init.d/sendsigs \
 	init.d/udhcpc \
 	init.d/umountfs
+	
+DEFAULT_ADAPTED_ETC_FILES = \
+	default/*
+	
+SAMBA_ADAPTED_ETC_FILES = \
+	samba/*
 	
 ifeq ($(BOXARCH), sh4)
 INITSCRIPTS_ADAPTED_ETC_FILES += \
