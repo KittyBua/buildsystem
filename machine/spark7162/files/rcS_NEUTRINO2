@@ -139,7 +139,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #tuner workaround
    export FE_OFFSET=1
 
-   echo "NEUTRINO2" > /dev/vfd
+   echo "NG2" > /dev/vfd
    echo "starting neutrino2"
 
    until false

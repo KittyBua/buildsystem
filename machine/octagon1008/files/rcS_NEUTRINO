@@ -106,7 +106,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	/var/etc/rcS.local
    fi
 
-   echo "NEUTRINO" > /dev/vfd
+   echo "NEUTRINO-DDT" > /dev/vfd
    echo "starting neutrino"
 
    until false

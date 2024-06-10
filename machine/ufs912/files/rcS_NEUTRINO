@@ -98,10 +98,6 @@ if [ ! -e /var/etc/.firstboot ]; then
    #timefix
    date -s "200901011200"
 
-   echo "[rcS] starting mdev"
-   echo /sbin/mdev >/proc/sys/kernel/hotplug
-   mdev -s
-
    #stfbcontrol a 255
 
 #   echo "starting telnetd"

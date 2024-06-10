@@ -106,7 +106,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	/var/etc/rcS.local
    fi
 
-   echo "NEUTRINO2" > /dev/vfd
+   echo "NG2" > /dev/vfd
    echo "starting neutrino2"
 
    until false

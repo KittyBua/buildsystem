@@ -127,7 +127,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    fi
     
    killall -9 showiframe
-   /bin/fp_control -t "NEUTRINO"
+   /bin/fp_control -t "NEUTRINO-DDT"
    echo "starting neutrino ->"
 
    until false

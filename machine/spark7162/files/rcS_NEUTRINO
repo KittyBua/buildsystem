@@ -139,7 +139,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #tuner workaround
    export FE_OFFSET=1
 
-   echo "NEUTRINO" > /dev/vfd
+   echo "NEUTRINO-DDT" > /dev/vfd
    echo "starting neutrino"
 
    until false

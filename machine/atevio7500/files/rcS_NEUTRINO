@@ -139,7 +139,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	  /var/etc/rcS.local
    fi
 
-   fp_control -t "NEUTRINO"
+   fp_control -t "NEUTRINO-DDT"
    echo "starting neutrino ->"
       
    until false
