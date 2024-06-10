@@ -85,11 +85,11 @@ NEUTRINO_CONFIG_OPTS += --enable-reschange
 endif
 
 ifeq ($(GRAPHLCD), graphlcd)
-NEUTRINO_CONFIG_OPTS += --with-graphlcd
+NEUTRINO_CONFIG_OPTS += --enable-graphlcd
 endif
 
 ifeq ($(LCD4LINUX), lcd4linux)
-NEUTRINO_CONFIG_OPTS += --with-lcd4linux
+NEUTRINO_CONFIG_OPTS += --enable-lcd4linux
 endif
 
 MACHINE = $(BOXTYPE)
@@ -154,7 +154,6 @@ $(D)/libstb-hal.config.status: $(D)/libstb-hal.do_prepare
 			--prefix=/usr \
 			--with-target=cdk \
 			--with-targetprefix=/usr \
-			$(LH_CONFIG_OPTS) \
 			--with-boxtype=$(MACHINE) \
 			--enable-silent-rules \
 			PKG_CONFIG=$(PKG_CONFIG) \
