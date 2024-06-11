@@ -1606,12 +1606,35 @@ $(D)/pugixml: $(D)/bootstrap $(ARCHIVE)/$(PUGIXML_SOURCE)
 GRAPHLCD_VER = 55d4bd8
 GRAPHLCD_SOURCE = graphlcd-git-$(GRAPHLCD_VER).tar.bz2
 GRAPHLCD_URL = https://github.com/Duckbox-Developers/graphlcd.git
+
 GRAPHLCD_PATCH = graphlcd-git-$(GRAPHLCD_VER).patch
+
 ifeq ($(LCD), $(filter $(LCD), lcd))
-GRAPHLCD_PATCH += graphlcd-vusolo4k.patch
+#GRAPHLCD_PATCH += graphlcd-vusolo4k.patch
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vuduo4kse vuuno4kse vuultimo4k vusolo4k))
+GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
+GRAPHLCD_PATCH += graphlcd-vuplus4k_2.patch
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000 dm7080))
+GRAPHLCD_PATCH += graphlcd-dreambox_grautec.patch
+GRAPHLCD_PATCH += graphlcd-dm8000.patch
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm900 dm920))
+GRAPHLCD_PATCH += graphlcd-dreambox.patch
+GRAPHLCD_PATCH += graphlcd-dm900.patch
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo2 gbultraue))
+GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
+GRAPHLCD_PATCH += graphlcd-vuduo2.patch
+endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuultimo))
+GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
+GRAPHLCD_PATCH += graphlcd-vuultimo.patch
+endif
 endif
 ifeq ($(LCD), $(filter $(LCD), tftlcd))
 GRAPHLCD_PATCH += graphlcd-e4hdultra.patch
+GRAPHLCD_PATCH += graphlcd-framebuffer.patch
 endif
 
 $(ARCHIVE)/$(GRAPHLCD_SOURCE):
@@ -1628,8 +1651,8 @@ $(D)/graphlcd: $(D)/bootstrap $(D)/freetype $(D)/libusb $(ARCHIVE)/$(GRAPHLCD_SO
 		$(MAKE) -C glcdgraphics install DESTDIR=$(TARGET_DIR); \
 		$(MAKE) -C glcddrivers install DESTDIR=$(TARGET_DIR); \
 		cp -a graphlcd.conf $(TARGET_DIR)/etc
-	$(REMOVE)/graphlcd-git-$(GRAPHLCD_VER)
-	$(TOUCH)
+#	$(REMOVE)/graphlcd-git-$(GRAPHLCD_VER)
+#	$(TOUCH)
 
 #
 # libdpf
