@@ -1297,10 +1297,15 @@ endif
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
+	
+#
+# all packagrs
+#
+packages: libupnp-ipk minidlna-ipk fbshot-ipk
 		
 #
 # pkg-clean
 #
-ipk-clean:
+packages-clean:
 	cd $(PKGS_DIR) && rm -rf *
 		
