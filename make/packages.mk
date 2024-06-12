@@ -21,8 +21,20 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libupnp/control/control
+	echo Package: libupnp > $(PACKAGES)/libupnp/control/control
+	echo Version: $(LIBUPNP_VER) >> $(PACKAGES)/libupnp/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libupnp/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libupnp/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libupnp/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/libupnp/control/control 
+	echo Depends:  >> $(PACKAGES)/libupnp/control/control
 	pushd $(PACKAGES)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
-	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_$(BOXTYPE).ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libupnp/control/control
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -51,8 +63,20 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	pushd $(PACKAGES)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
-	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_$(BOXTYPE).ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	touch $(PACKAGES)/minidlna/control/control
+	echo Package: minidlna > $(PACKAGES)/minidlna/control/control
+	echo Version: $(MINIDLNA_VER) >> $(PACKAGES)/minidlna/control/control
+	echo Section: base/libraries >> $(PACKAGES)/minidlna/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/minidlna/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/minidlna/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/minidlna/control/control 
+	echo Depends:  >> $(PACKAGES)/minidlna/control/control
+	pushd $(PACKAGES)/minidlna/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/minidlna-$(MINIDLNA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/minidlna/control/control
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -79,9 +103,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	pushd $(PACKAGES)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
-	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_$(BOXTYPE).ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	touch $(PACKAGES)/fbshot/control/control
+	echo Package: fbshot > $(PACKAGES)/fbshot/control/control
+	echo Version: $(FBSHOT_VER) >> $(PACKAGES)/fbshot/control/control
+	echo Section: base/libraries >> $(PACKAGES)/fbshot/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/fbshot/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/fbshot/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/fbshot/control/control 
+	echo Depends:  >> $(PACKAGES)/fbshot/control/control
+	pushd $(PACKAGES)/fbshot/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/fbshot-$(FBSHOT_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(PKGPREFIX)
+	rm -rf $(PACKAGES)/fbshot/control/control
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
 
