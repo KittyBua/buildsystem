@@ -41,7 +41,7 @@ PKGS_DIR	      = $(TUFSBOX_DIR)/pkgs
 D                     = $(TUFSBOX_DIR)/.deps
 
 #
-PKGPREFIX	      = $(BUILD_TMP)/pkg
+PKGPREFIX	      = $(BUILD_TMP)/data
 IMAGE_BUILD_DIR       = $(BUILD_TMP)/image-build
 
 # 

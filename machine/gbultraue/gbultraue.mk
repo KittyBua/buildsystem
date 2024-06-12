@@ -102,7 +102,7 @@ release-$(BOXTYPE):
 #
 FLASHIMAGE_PREFIX = gigablue/ultraue
 
-FLASHSIZE = 64
+FLASHSIZE = 100
 ROOTFS_FILE = rootfs.bin
 IMAGE_FSTYPES ?= ubi
 IMAGE_NAME = rootfs

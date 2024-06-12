@@ -138,7 +138,7 @@ release-gbue4k:
 #
 # flashimage
 #
-FLASHIMAGE_PREFIX = gigablue/gbue4k
+FLASHIMAGE_PREFIX = gigablue/ue4k
 
 INITRD_SRCDATE = 20181121r1
 INITRD_SRC = initrd_$(BOXTYPE)_$(INITRD_SRCDATE).zip
