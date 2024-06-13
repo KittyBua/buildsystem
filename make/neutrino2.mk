@@ -188,14 +188,28 @@ neutrino2-ipk: $(D)/neutrino2.do_compile
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/neutrino2 install DESTDIR=$(PKGPREFIX)
 ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
-	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
-	cd $(PACKAGES)/neutrino2 && tar -cvzf $(PKGS_DIR)/control.tar.gz *
-	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/neutrino2_$(BOXARCH)_$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M').tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/neutrino2/control/control
+	echo Package: neutrino2 > $(PACKAGES)/neutrino2/control/control
+	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(PACKAGES)/neutrino2/control/control
+	echo Section: base/applications >> $(PACKAGES)/neutrino2/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/neutrino2/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino2/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino2/control/control 
+	echo Depends:  >> $(PACKAGES)/neutrino2/control/control
+	pushd $(PACKAGES)/neutrino2/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino2-`sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/neutrino2/control/control
 	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
 	
 #
@@ -206,14 +220,28 @@ neutrino2-plugins-ipk: $(D)/neutrino2-plugins.do_compile
 	rm -rf $(PKGPREFIX)
 	install -d $(PKGPREFIX)
 	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/plugins install DESTDIR=$(PKGPREFIX)
 ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
-	cd $(PKGPREFIX) && tar -cvzf $(PKGS_DIR)/data.tar.gz *
-	cd $(PACKAGES)/neutrino2 && tar -cvzf $(PKGS_DIR)/control.tar.gz *
-	cd $(PKGS_DIR) && echo 2.0 > debian-binary && tar -cvzf $(PKGS_DIR)/neutrino2_plugins_$(BOXARCH)_$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M').tar.gz data.tar.gz control.tar.gz debian-binary && rm -rf data.tar.gz control.tar.gz debian-binary
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/neutrino2-plugins/control/control
+	echo Package: neutrino2-plugins > $(PACKAGES)/neutrino2-plugins/control/control
+	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(PACKAGES)/neutrino2-plugins/control/control
+	echo Section: base/plugins >> $(PACKAGES)/neutrino2-plugins/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/neutrino2-plugins/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino2-plugins/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino2-plugins/control/control 
+	echo Depends:  >> $(PACKAGES)/neutrino2-plugins/control/control
+	pushd $(PACKAGES)/neutrino2-plugins/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino2-plugins-`sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/neutrino2-plugins/control/control
 	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
 	
 #
