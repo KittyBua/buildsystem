@@ -38,6 +38,186 @@ endif
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
+	
+#
+# libdvbsi-ipk
+#
+libdvbsi-ipk: $(D)/bootstrap $(ARCHIVE)/$(LIBDVBSI_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libdvbsi-git-$(LIBDVBSI_VER)
+	$(UNTAR)/$(LIBDVBSI_SOURCE)
+	$(CHDIR)/libdvbsi-git-$(LIBDVBSI_VER); \
+		$(call apply_patches, $(LIBDVBSI_PATCH)); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libdvbsi-git-$(LIBDVBSI_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libdvbsi/control/control
+	echo Package: libdvbsi > $(PACKAGES)/libdvbsi/control/control
+	echo Version: $(LIBDVBSI_VER) >> $(PACKAGES)/libdvbsi/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libdvbsi/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libdvbsi/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libdvbsi/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libdvbsi/control/control 
+	echo Depends:  >> $(PACKAGES)/libdvbsi/control/control
+	pushd $(PACKAGES)/libdvbsi/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libdvbsi-$(LIBDVBSI_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libdvbsi/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# pugixml-ipk
+#
+pugixml-ipk: $(D)/bootstrap $(ARCHIVE)/$(PUGIXML_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/pugixml-$(PUGIXML_VER)
+	$(UNTAR)/$(PUGIXML_SOURCE)
+	$(CHDIR)/pugixml-$(PUGIXML_VER); \
+		$(call apply_patches, $(PUGIXML_PATCH)); \
+		cmake  --no-warn-unused-cli \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-DBUILD_SHARED_LIBS=ON \
+			-DCMAKE_BUILD_TYPE=Linux \
+			-DCMAKE_C_COMPILER=$(TARGET)-gcc \
+			-DCMAKE_CXX_COMPILER=$(TARGET)-g++ \
+			-DCMAKE_C_FLAGS="-pipe -Os" \
+			-DCMAKE_CXX_FLAGS="-pipe -Os" \
+			| tail -n +90 \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/pugixml-$(PUGIXML_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/pugixml/control/control
+	echo Package: pugixml > $(PACKAGES)/pugixml/control/control
+	echo Version: $(PUGIXML_VER) >> $(PACKAGES)/pugixml/control/control
+	echo Section: base/libraries >> $(PACKAGES)/pugixml/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/pugixml/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/pugixml/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/pugixml/control/control 
+	echo Depends:  >> $(PACKAGES)/pugixml/control/control
+	pushd $(PACKAGES)/pugixml/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/pugixml-$(PUGIXML_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/pugixml/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libid3tag-ipk
+#
+libid3tag-ipk: $(D)/bootstrap $(D)/zlib $(ARCHIVE)/$(LIBID3TAG_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libid3tag-$(LIBID3TAG_VER)
+	$(UNTAR)/$(LIBID3TAG_SOURCE)
+	$(CHDIR)/libid3tag-$(LIBID3TAG_VER); \
+		$(call apply_patches, $(LIBID3TAG_PATCH)); \
+		touch NEWS AUTHORS ChangeLog; \
+		autoreconf -fi; \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--enable-shared=yes \
+		; \
+		$(MAKE) all; \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libid3tag-$(LIBID3TAG_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libid3tag/control/control
+	echo Package: libid3tag > $(PACKAGES)/libid3tag/control/control
+	echo Version: $(LIBID3TAG_VER) >> $(PACKAGES)/libid3tag/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libid3tag/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libid3tag/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libid3tag/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libid3tag/control/control 
+	echo Depends:  >> $(PACKAGES)/libid3tag/control/control
+	pushd $(PACKAGES)/libid3tag/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libid3tag-$(LIBID3TAG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libid3tag/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libmad-ipk
+#
+libmad-ipk: $(D)/bootstrap $(ARCHIVE)/$(LIBMAD_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libmad-$(LIBMAD_VER)
+	$(UNTAR)/$(LIBMAD_SOURCE)
+	$(CHDIR)/libmad-$(LIBMAD_VER); \
+		$(call apply_patches, $(LIBMAD_PATCH)); \
+		touch NEWS AUTHORS ChangeLog; \
+		autoreconf -fi; \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--disable-debugging \
+			--enable-shared=yes \
+			--enable-speed \
+			--enable-sso \
+		; \
+		$(MAKE) all; \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libmad-$(LIBMAD_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libmad/control/control
+	echo Package: libmad > $(PACKAGES)/libmad/control/control
+	echo Version: $(LIBMAD_VER) >> $(PACKAGES)/libmad/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libmad/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libmad/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libmad/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libmad/control/control 
+	echo Depends:  >> $(PACKAGES)/libmad/control/control
+	pushd $(PACKAGES)/libmad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libmad-$(LIBMAD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libmad/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
 
 #
 # minidlna-ipk

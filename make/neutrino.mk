@@ -373,6 +373,38 @@ $(D)/neutrino-plugins-mediathek:
 	$(TOUCH)
 	
 #
+# libstb-hal-ipk
+#
+libstb-hal-ipk: $(D)/libstb-hal.do_compile
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(MAKE) -C $(BUILD_TMP)/libstb-hal install DESTDIR=$(PKGPREFIX)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libstb-hal/control/control
+	echo Package: libstb-hal > $(PACKAGES)/libstb-hal/control/control
+	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/libstb-hal/config.h | sed 's/"//'` >> $(PACKAGES)/libstb-hal/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libstb-hal/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libstb-hal/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libstb-hal/control/control 
+endif
+	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/libstb-hal/control/control 
+	echo Depends: >> $(PACKAGES)/libstb-hal/control/control
+	pushd $(PACKAGES)/libstb-hal/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libstb-hal-`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/libstb-hal/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libstb-hal/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
 # neutrino-ipk
 #
 $(PKGPREFIX)/.version:
@@ -409,7 +441,7 @@ else
 	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino/control/control 
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino/control/control 
-	echo Depends:  >> $(PACKAGES)/neutrino/control/control
+	echo Depends: "libdvbsi, pugixml (>= 1.9), libid3tag (>= 0.15), libmad (>= 0.15), libstb-hal"  >> $(PACKAGES)/neutrino/control/control
 	pushd $(PACKAGES)/neutrino/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino-`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(PACKAGES)/neutrino/control/control
@@ -438,7 +470,7 @@ else
 	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino-plugins/control/control 
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino-plugins/control/control 
-	echo Depends:  >> $(PACKAGES)/neutrino-plugins/control/control
+	echo Depends: neutrino >> $(PACKAGES)/neutrino-plugins/control/control
 	pushd $(PACKAGES)/neutrino-plugins/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino-plugins-`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(PACKAGES)/neutrino-plugins/control/control

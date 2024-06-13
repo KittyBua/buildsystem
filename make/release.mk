@@ -22,6 +22,7 @@ RELEASE_DEPS += $(D)/jfsutils
 RELEASE_DEPS += $(D)/nfs_utils
 RELEASE_DEPS += $(D)/udpxy
 RELEASE_DEPS += $(D)/opkg
+RELEASE_DEPS += $(D)/alsa_utils
 ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 RELEASE_DEPS += $(D)/ofgwrite
 RELEASE_DEPS += $(D)/parted
