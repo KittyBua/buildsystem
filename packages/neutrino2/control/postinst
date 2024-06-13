@@ -1,0 +1,5 @@
+#!/bin/sh
+if test -x /usr/bin/neutrino2; then
+	echo "updating neutrino2..."
+	rm -rf /usr/bin/neutrino2
+fi
