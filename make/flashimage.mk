@@ -127,6 +127,7 @@ dm-rootfs-image-$(BOXTYPE):
 	mkdir -p $(IMAGE_DIR)
 	#
 	cp $(TARGET_DIR)/boot/zImage $(IMAGE_BUILD_DIR)/$(BOXTYPE)/$(KERNEL_FILE)
+	#
 	cd $(RELEASE_DIR); \
 	tar -cvf $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.tar . > /dev/null 2>&1; \
 	bzip2 $(IMAGE_BUILD_DIR)/$(BOXTYPE)/rootfs.tar
@@ -195,7 +196,7 @@ vuplus-multi-rootfs-image-$(BOXTYPE):
 	rm -rf $(IMAGE_BUILD_DIR)
 	
 #
-# online
+# vuplus-online-image
 #
 vuplus-online-image-$(BOXTYPE):
 	# Create final USB-image
@@ -474,7 +475,7 @@ endif
 	rm -rf $(IMAGE_BUILD_DIR)
 
 #
-# gfuture-multi-root-fs
+# gfuture-multi-rootfs-image
 #
 gfuture-multi-rootfs-image-$(BOXTYPE):
 	rm -rf $(IMAGE_BUILD_DIR) || true
@@ -590,6 +591,9 @@ hdfastboot8gb-rootfs-image-$(BOXTYPE):
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
 
+#
+# hdfastboot8gb-online-image
+#
 hdfastboot8gb-online-image-$(BOXTYPE):
 	rm -rf $(IMAGE_BUILD_DIR) || true
 	mkdir -p $(IMAGE_BUILD_DIR)/$(BOXTYPE)
@@ -609,7 +613,7 @@ hdfastboot8gb-online-image-$(BOXTYPE):
 	rm -rf $(IMAGE_BUILD_DIR)
 
 #
-#
+# gbue4k-flash-image
 #
 gbue4k-flash-image: $(ARCHIVE)/$(INITRD_SRC)
 	rm -rf $(IMAGE_BUILD_DIR) || true

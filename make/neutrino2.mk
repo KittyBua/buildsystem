@@ -335,7 +335,7 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000))
 	$(MAKE) dm-nfi-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm900))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm900 dm920))
 	$(MAKE) dm-rootfs-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm820 dm7080))
