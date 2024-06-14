@@ -218,6 +218,290 @@ endif
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
+	
+#
+# libogg-ipk
+#
+libogg-ipk: $(D)/bootstrap $(ARCHIVE)/$(LIBOGG_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libogg-$(LIBOGG_VER)
+	$(UNTAR)/$(LIBOGG_SOURCE)
+	$(CHDIR)/libogg-$(LIBOGG_VER); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--docdir=/.remove \
+			--enable-shared \
+			--disable-static \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libogg-$(LIBOGG_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libogg/control/control
+	echo Package: libogg > $(PACKAGES)/libogg/control/control
+	echo Version: $(LIBOGG_VER) >> $(PACKAGES)/libogg/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libogg/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libogg/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libogg/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libogg/control/control 
+	echo Depends:  >> $(PACKAGES)/libogg/control/control
+	pushd $(PACKAGES)/libogg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libogg-$(LIBOGG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libogg/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libflac-ipk
+#
+libflac-ipk: $(D)/bootstrap $(ARCHIVE)/$(FLAC_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/flac-$(FLAC_VER)
+	$(UNTAR)/$(FLAC_SOURCE)
+	$(CHDIR)/flac-$(FLAC_VER); \
+		$(call apply_patches, $(FLAC_PATCH)); \
+		touch NEWS AUTHORS ChangeLog; \
+		autoreconf -fi; \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--mandir=/.remove \
+			--datarootdir=/.remove \
+			--disable-cpplibs \
+			--disable-debug \
+			--disable-asm-optimizations \
+			--disable-sse \
+			--disable-altivec \
+			--disable-doxygen-docs \
+			--disable-thorough-tests \
+			--disable-exhaustive-tests \
+			--disable-valgrind-testing \
+			--disable-ogg \
+			--disable-oggtest \
+			--disable-local-xmms-plugin \
+			--disable-xmms-plugin \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX) docdir=/.remove
+	$(REMOVE)/flac-$(FLAC_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libflac/control/control
+	echo Package: libflac > $(PACKAGES)/libflac/control/control
+	echo Version: $(LIBFLAC_VER) >> $(PACKAGES)/libflac/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libflac/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libflac/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libflac/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libflac/control/control 
+	echo Depends:  >> $(PACKAGES)/libflac/control/control
+	pushd $(PACKAGES)/libflac/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libflac-$(LIBFLAC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libflac/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libvorbis-ipk
+#
+libvorbis-ipk: $(D)/bootstrap $(D)/libogg $(ARCHIVE)/$(LIBVORBIS_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libvorbis-$(LIBVORBIS_VER)
+	$(UNTAR)/$(LIBVORBIS_SOURCE)
+	$(CHDIR)/libvorbis-$(LIBVORBIS_VER); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--docdir=/.remove \
+			--mandir=/.remove \
+			--disable-docs \
+			--disable-examples \
+			--disable-oggtest \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX) docdir=/.remove
+	$(REMOVE)/libvorbis-$(LIBVORBIS_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libvorbis/control/control
+	echo Package: libvorbis > $(PACKAGES)/libvorbis/control/control
+	echo Version: $(LIBVORBIS_VER) >> $(PACKAGES)/libvorbis/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libvorbis/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libvorbis/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libvorbis/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libvorbis/control/control 
+	echo Depends:  >> $(PACKAGES)/libvorbis/control/control
+	pushd $(PACKAGES)/libvorbis/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbis-$(LIBVORBIS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libvorbis/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libsigc-ipk
+#
+libsigc-ipk: $(D)/bootstrap $(ARCHIVE)/$(LIBSIGC_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libsigc++-$(LIBSIGC_VER)
+	$(UNTAR)/$(LIBSIGC_SOURCE)
+	$(CHDIR)/libsigc++-$(LIBSIGC_VER); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--enable-shared \
+			--disable-documentation \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX); \
+		if [ -d $(PKGPREFIX)/usr/include/sigc++-2.0/sigc++ ] ; then \
+			ln -sf ./sigc++-2.0/sigc++ $(PKGPREFIX)/usr/include/sigc++; \
+		fi;
+		mv $(PKGPREFIX)/usr/lib/sigc++-2.0/include/sigc++config.h $(PKGPREFIX)/usr/include; \
+		rm -fr $(PKGPREFIX)/usr/lib/sigc++-2.0
+	$(REMOVE)/libsigc++-$(LIBSIGC_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libsigc/control/control
+	echo Package: libsigc > $(PACKAGES)/libsigc/control/control
+	echo Version: $(LIBSIGC_VER) >> $(PACKAGES)/libsigc/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libsigc/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libsigc/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libsigc/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libsigc/control/control 
+	echo Depends:  >> $(PACKAGES)/libsigc/control/control
+	pushd $(PACKAGES)/libsigc/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libsigc-$(LIBSIGC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libsigc/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libvorbisidec-ipk
+#
+libvorbisidec-ipk: $(D)/bootstrap $(D)/libogg $(ARCHIVE)/$(LIBVORBISIDEC_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libvorbisidec-$(LIBVORBISIDEC_VER)
+	$(UNTAR)/$(LIBVORBISIDEC_SOURCE)
+	$(CHDIR)/libvorbisidec-$(LIBVORBISIDEC_VER); \
+		$(call apply_patches, $(LIBVORBISIDEC_PATCH)); \
+		ACLOCAL_FLAGS="-I . -I $(TARGET_DIR)/usr/share/aclocal" \
+		$(BUILDENV) \
+		./autogen.sh \
+			--host=$(TARGET) \
+			--build=$(BUILD) \
+			--prefix=/usr \
+		; \
+		$(MAKE) all; \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libvorbisidec-$(LIBVORBISIDEC_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libvorbisidec/control/control
+	echo Package: libvorbisidec > $(PACKAGES)/libvorbisidec/control/control
+	echo Version: $(LIBVORBISIDEC_VER) >> $(PACKAGES)/libvorbisidec/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libvorbisidec/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libvorbisidec/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libvorbisidec/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libvorbisidec/control/control 
+	echo Depends:  >> $(PACKAGES)/libvorbisidec/control/control
+	pushd $(PACKAGES)/libvorbisidec/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbisidec-$(LIBVORBISIDEC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libvorbisidec/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
+	
+#
+# libass-ipk
+#
+libass-ipk: $(D)/bootstrap $(D)/freetype $(D)/libfribidi $(ARCHIVE)/$(LIBASS_SOURCE)
+	$(START_BUILD)
+	rm -rf $(PKGPREFIX)
+	install -d $(PKGPREFIX)
+	install -d $(PKGS_DIR)
+	install -d $(PKGS_DIR)/$@
+	$(REMOVE)/libass-$(LIBASS_VER)
+	$(UNTAR)/$(LIBASS_SOURCE)
+	$(CHDIR)/libass-$(LIBASS_VER); \
+		$(call apply_patches, $(LIBASS_PATCH)); \
+		$(CONFIGURE) \
+			--prefix=/usr \
+			--disable-static \
+			--disable-test \
+			--disable-fontconfig \
+			--disable-harfbuzz \
+			--disable-require-system-font-provider \
+		; \
+		$(MAKE); \
+		$(MAKE) install DESTDIR=$(PKGPREFIX)
+	$(REMOVE)/libass-$(LIBASS_VER)
+ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
+	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
+endif
+	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
+	touch $(PACKAGES)/libass/control/control
+	echo Package: libass > $(PACKAGES)/libass/control/control
+	echo Version: $(LIBASS_VER) >> $(PACKAGES)/libass/control/control
+	echo Section: base/libraries >> $(PACKAGES)/libass/control/control
+ifeq ($(BOXARCH), mips)
+	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libass/control/control 
+else
+	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libass/control/control 
+endif
+	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libass/control/control 
+	echo Depends:  >> $(PACKAGES)/libass/control/control
+	pushd $(PACKAGES)/libass/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libass-$(LIBASS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
+	rm -rf $(PACKAGES)/libass/control/control
+	rm -rf $(PKGPREFIX)
+	rm -rf $(PKGS_DIR)/$@
+	$(END_BUILD)
 
 #
 # minidlna-ipk
