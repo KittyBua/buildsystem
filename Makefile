@@ -282,6 +282,9 @@ help:
 	@echo "show board configuration:"
 	@echo " make printenv			- show board build configuration"
 	@echo ""
+	@echo "show all supported boards:"
+	@echo " make print-boards		- show all supported boards"
+	@echo ""
 	@echo "toolchains:"
 	@echo " make crosstool			- build cross toolchain"
 	@echo " make bootstrap			- prepares for building"
@@ -303,9 +306,6 @@ help:
 	@echo "cleantargets:"
 	@echo " make clean			- clears everything except toolchain."
 	@echo " make distclean			- clears the whole construction."
-	@echo ""
-	@echo "show all supported boards:"
-	@echo " make print-boards		- show all supported boards"
 	@echo
 
 ifeq ($(BOXARCH), sh4)
