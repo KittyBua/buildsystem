@@ -87,6 +87,10 @@ ifeq ($(FKEYS), fkeys)
 NEUTRINO2_CONFIG_OPTS += --enable-functionkeys
 endif
 
+ifeq ($(GRAPHLCD), graphlcd)
+NEUTRINO2_CONFIG_OPTS += --enable-graphlcd
+endif
+
 NEUTRINO2_PATCHES =
 
 $(D)/neutrino2.do_prepare: $(NEUTRINO2_DEPS)
