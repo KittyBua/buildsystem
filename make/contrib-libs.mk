@@ -1609,8 +1609,8 @@ GRAPHLCD_URL = https://github.com/Duckbox-Developers/graphlcd.git
 
 GRAPHLCD_PATCH = graphlcd-git-$(GRAPHLCD_VER).patch
 
-ifeq ($(LCD), $(filter $(LCD), lcd))
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vuduo4kse vuuno4kse vuultimo4k vusolo4k gbultraue))
+#ifeq ($(LCD), $(filter $(LCD), lcd))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo4k vuduo4kse vuuno4kse vuultimo4k vusolo4k))
 GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
 GRAPHLCD_PATCH += graphlcd-vuplus4k_2.patch
 endif
@@ -1626,11 +1626,17 @@ ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo2))
 GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
 GRAPHLCD_PATCH += graphlcd-vuduo2.patch
 endif
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), gbultraue))
+GRAPHLCD_PATCH += graphlcd-vuplus4k_1.patch
+GRAPHLCD_PATCH += graphlcd-vuplus4k_2.patch
 endif
-ifeq ($(LCD), $(filter $(LCD), tftlcd))
+#endif
+#ifeq ($(LCD), $(filter $(LCD), tftlcd))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), e4hdultra))
 GRAPHLCD_PATCH += graphlcd-e4hdultra.patch
 GRAPHLCD_PATCH += graphlcd-framebuffer.patch
 endif
+#endif
 
 $(ARCHIVE)/$(GRAPHLCD_SOURCE):
 	$(SCRIPTS_DIR)/get-git-archive.sh $(GRAPHLCD_URL) $(GRAPHLCD_VER) $(notdir $@) $(ARCHIVE)
