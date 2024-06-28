@@ -4,7 +4,7 @@
 BOXARCH = mips
 CICAM = ci-cam
 SCART = scart
-LCD = tftlcd
+LCD = lcd
 FKEYS = fkeys
 
 #

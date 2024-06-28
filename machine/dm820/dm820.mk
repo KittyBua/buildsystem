@@ -3,7 +3,7 @@
 #
 BOXARCH = mips
 CICAM = ci-cam
-LCD = tftlcd
+LCD = lcd
 FKEYS = fkeys
 
 #
