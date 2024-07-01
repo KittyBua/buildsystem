@@ -59,6 +59,10 @@ ifeq ($(LUA), lua)
 NEUTRINO2_CONFIG_OPTS += --enable-lua
 endif
 
+ifeq ($(GRAPHLCD), graphlcd)
+NEUTRINO2_CONFIG_OPTS += --enable-graphlcd
+endif
+
 ifeq ($(CICAM), ci-cam)
 NEUTRINO2_CONFIG_OPTS += --enable-ci
 endif
@@ -85,10 +89,6 @@ endif
 
 ifeq ($(FKEYS), fkeys)
 NEUTRINO2_CONFIG_OPTS += --enable-functionkeys
-endif
-
-ifeq ($(GRAPHLCD), graphlcd)
-NEUTRINO2_CONFIG_OPTS += --enable-graphlcd
 endif
 
 NEUTRINO2_PATCHES =
