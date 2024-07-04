@@ -152,18 +152,6 @@ init:
 		*) echo "GSTREAMER=" >> config;; \
 	esac; \
 	echo ""
-# lua
-	@echo -e "\nlua support for neutrino / neutrino2 ?:"
-	@echo -e "   \033[01;32m1)  yes\033[00m"
-	@echo "   2)  no"
-	@read -p "Select lua support (1-2)?" LUA; \
-	LUA=$${LUA}; \
-	case "$$LUA" in \
-		1) echo "LUA=lua" >> config;; \
-		2) echo "LUA=" >> config;; \
-		*) echo "LUA=lua" >> config;; \
-	esac; \
-	echo ""
 # python
 	@echo -e "\npython plugins support in neutrino2 (experimental and only for mipsel / arm)?:"
 	@echo -e "   \033[01;32m1)  no\033[00m"
@@ -244,7 +232,6 @@ endif
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
-	@echo "LUA              : $(LUA)"
 	@echo "PYTHON           : $(PYTHON)"
 	@echo "GRAPHLCD         : $(GRAPHLCD)"
 	@echo "LCD4LINUX        : $(LCD4LINUX)"

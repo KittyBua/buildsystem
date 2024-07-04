@@ -75,10 +75,7 @@ NEUTRINO_CONFIG_OPTS += --enable-ffmpegdec
 NEUTRINO_CONFIG_OPTS += --enable-pugixml
 #NEUTRINO_CONFIG_OPTS += --enable-pip
 #NEUTRINO_CONFIG_OPTS += --enable-dynamicdemux
-
-ifeq ($(LUA), lua)
 NEUTRINO_CONFIG_OPTS += --enable-lua
-endif
 
 ifeq ($(BOXARCH), arm)
 NEUTRINO_CONFIG_OPTS += --enable-reschange
@@ -252,11 +249,9 @@ neutrino-distclean: libstb-hal-distclean neutrino-plugins-distclean
 # neutrino-plugins
 #
 N_PLUGINS  = $(D)/neutrino-plugins
-ifeq ($(LUA), lua)
 N_PLUGINS += $(D)/neutrino-plugins-scripts-lua
 N_PLUGINS += $(D)/neutrino-plugins-mediathek
 #N_PLUGINS += $(D)/neutrino-plugins-xupnpd
-endif
 
 ifeq ($(BOXARCH), sh4)
 EXTRA_CPPFLAGS_NEUTRINO_PLUGINS = -DMARTII
