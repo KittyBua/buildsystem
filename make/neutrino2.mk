@@ -95,7 +95,7 @@ $(D)/neutrino2.do_prepare: $(NEUTRINO2_DEPS)
 	[ -d "$(ARCHIVE)/neutrino2.git" ] && \
 	(cd $(ARCHIVE)/neutrino2.git; git pull;); \
 	[ -d "$(ARCHIVE)/neutrino2.git" ] || \
-	git clone https://github.com/mohousch/neutrino2.git $(ARCHIVE)/neutrino2.git; \
+	git clone -b develop https://github.com/mohousch/neutrino2.git $(ARCHIVE)/neutrino2.git; \
 	cp -ra $(ARCHIVE)/neutrino2.git $(SOURCE_DIR)/neutrino2; \
 	set -e; cd $(SOURCE_DIR)/neutrino2/neutrino2; \
 		$(call apply_patches,$(NEUTRINO2_PATCHES))
@@ -169,7 +169,7 @@ $(D)/neutrino2-plugins.do_compile: $(D)/neutrino2-plugins.config.status
 
 $(D)/neutrino2-plugins: $(D)/neutrino2-plugins.do_compile
 	$(MAKE) -C $(SOURCE_DIR)/neutrino2/plugins install DESTDIR=$(TARGET_DIR)
-	touch $(D)/$(notdir $@)
+	$(TOUCH)
 
 neutrino2-plugins-clean:
 	rm -f $(D)/neutrino2-plugins.do_compile
