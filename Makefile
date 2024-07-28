@@ -231,14 +231,14 @@ endif
 	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
 	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
-	@echo "GSTREAMER        : $(GSTREAMER)"
-	@echo "PYTHON           : $(PYTHON)"
-	@echo "GRAPHLCD         : $(GRAPHLCD)"
-	@echo "LCD4LINUX        : $(LCD4LINUX)"
 	@echo "CICAM            : $(CICAM)"
 	@echo "SCART            : $(SCART)"
 	@echo "F-KEYS           : $(FKEYS)"
 	@echo "LCD              : $(LCD)"
+	@echo "GSTREAMER        : $(GSTREAMER)"
+	@echo "PYTHON           : $(PYTHON)"
+	@echo "GRAPHLCD         : $(GRAPHLCD)"
+	@echo "LCD4LINUX        : $(LCD4LINUX)"
 	@echo "PARALLEL_JOBS    : $(PARALLEL_JOBS)"
 	@echo '================================================================================'
 	@make --no-print-directory toolcheck
