@@ -569,7 +569,7 @@ endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), vuduo vuduo2 gb800se gbultraue bre2zet2c osnino osninoplus osninopro))
 	$(MAKE) ubi-image-$(BOXTYPE)
 endif
-ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000))
+ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm8000 dm7020hd))
 	$(MAKE) dm-nfi-image-$(BOXTYPE)
 endif
 ifeq ($(BOXTYPE), $(filter $(BOXTYPE), dm900 dm920))

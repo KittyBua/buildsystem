@@ -124,6 +124,7 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 DM7020HD_2ND_SOURCE = secondstage-dm7020hd-89.bin
 #DM7020HD_2ND_URL = http://sources.dreamboxupdate.com/download/7020/$(DM7020HD_2ND_SOURCE)
 DM7020HD_2ND_URL = https://github.com/oe-mirrors/dreambox/raw/main/$(DM7020HD_2ND_SOURCE)
+2ND_FILE = secondstage-dm7020hd-89.bin
 
 $(ARCHIVE)/$(DM7020HD_2ND_SOURCE):
 	$(WGET) $(DM7020HD_2ND_URL)
