@@ -1,4 +1,19 @@
-#master makefile
+# Makefile for buildsystem
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+# General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+#
 
 SHELL = /bin/bash
 UID := $(shell id -u)
@@ -75,8 +90,9 @@ init:
 	@echo "   110)  dm820"
 	@echo "   111)  dm900"
 	@echo "   112)  dm920"
-	@echo "   113)  dm7080"
-	@echo "   114)  dm8000"
+	@echo "   113)  dm7020hd"
+	@echo "   114)  dm7080"
+	@echo "   115)  dm8000"
 	@echo ""
 	@echo "  Maxytec"
 	@echo "   120)  multiboxse"
@@ -130,8 +146,9 @@ init:
 		110) BOXTYPE="dm820";; \
 		111) BOXTYPE="dm900";; \
 		112) BOXTYPE="dm920";; \
-		113) BOXTYPE="dm7080";; \
-		114) BOXTYPE="dm8000";; \
+		113) BOXTYPE="dm7020hd";; \
+		114) BOXTYPE="dm7080";; \
+		115) BOXTYPE="dm8000";; \
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
 		140) BOXTYPE="protek4k";; \
