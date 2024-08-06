@@ -95,7 +95,7 @@ dm-nfi-image-$(BOXTYPE):
 	cp $(SKEL_ROOT)/boot/bootlogo-$(BOXTYPE).elf.gz $(RELEASE_DIR)/boot/
 	cp $(SKEL_ROOT)/boot/bootlogo.jpg $(RELEASE_DIR)/boot/bootlogo-$(BOXTYPE).jpg
 	#
-	mkfs.jffs2 --root=$(RELEASE_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=131072 --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
+	mkfs.jffs2 --root=$(RELEASE_DIR)/boot/ --disable-compressor=lzo --compression-mode=size --eraseblock=$(ERASE_BLOCK_SIZE) --output=$(IMAGE_BUILD_DIR)/$(BOXTYPE)/boot.jffs2
 	mkfs.ubifs -r $(RELEASE_DIR) -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/$(IMAGE_NAME).$(IMAGE_FSTYPES) $(MKUBIFS_ARGS)
 	echo [ubifs] > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	echo mode=ubi >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
@@ -103,7 +103,7 @@ dm-nfi-image-$(BOXTYPE):
 	echo vol_id=0 >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	echo vol_type=dynamic >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	echo vol_name=$(UBI_VOLNAME) >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
-	echo vol_size=$(FLASHSIZE)MiB >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
+#	echo vol_size=$(FLASHSIZE)MiB >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	echo vol_flags=autoresize >> $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	ubinize -o $(IMAGE_BUILD_DIR)/$(BOXTYPE)/$(ROOTFS_FILE) $(UBINIZE_ARGS) $(IMAGE_BUILD_DIR)/$(BOXTYPE)/ubinize.cfg
 	rm -f $(IMAGE_BUILD_DIR)/$(BOXTYPE)/$(IMAGE_NAME).$(IMAGE_FSTYPES)
@@ -111,7 +111,7 @@ dm-nfi-image-$(BOXTYPE):
 	#
 	echo $(BOXTYPE)_$(shell date '+%d%m%Y-%H%M%S') > $(IMAGE_BUILD_DIR)/$(BOXTYPE)/imageversion
 	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
-	buildimage -a $(BOXTYPE) -e 0x20000 -f 0x4000000 -s 2048 -b 0x100000:$(2ND_FILE) -d 0x700000:boot.jffs2 -d 0xF800000:$(ROOTFS_FILE) > $(BOXTYPE).nfi
+	buildimage -a $(BOXTYPE) $(BUILDIMAGE_EXTRA) -e $(ERASE_BLOCK_SIZE) -f $(FLASH_SIZE) -s $(SECTOR_SIZE) -b $(LOADER_SIZE):$(2ND_FILE) -d $(BOOT_SIZE):boot.jffs2 -d $(ROOT_SIZE):$(ROOTFS_FILE) > $(BOXTYPE).nfi
 	#
 	cd $(IMAGE_BUILD_DIR)/$(BOXTYPE) && \
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(BOXTYPE).nfi imageversion

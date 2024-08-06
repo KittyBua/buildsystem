@@ -10,7 +10,7 @@ FKEYS = fkeys
 #
 #
 #
-KERNEL_VER             = 3.2-dm8000
+KERNEL_VER             = 3.2
 KERNEL_SRC_VER         = 3.2.68
 KERNEL_SRC             = linux-${KERNEL_SRC_VER}.tar.xz
 KERNEL_URL             = https://cdn.kernel.org/pub/linux/kernel/v3.x
@@ -88,15 +88,15 @@ $(D)/kernel.do_compile: $(D)/kernel.do_prepare
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips oldconfig
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- vmlinux modules
 		$(MAKE) -C $(KERNEL_DIR) ARCH=mips CROSS_COMPILE=$(TARGET)- DEPMOD=$(DEPMOD) INSTALL_MOD_PATH=$(TARGET_DIR) modules_install
-		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)
+		$(DEPMOD) -ae -b $(TARGET_DIR) -F $(KERNEL_DIR)/System.map -r $(KERNEL_VER)-$(BOXTYPE)
 	@touch $@
 
 $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 	install -m 644 $(KERNEL_DIR)/vmlinux $(TARGET_DIR)/boot/
-	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)
+	install -m 644 $(KERNEL_DIR)/System.map $(TARGET_DIR)/boot/System.map-$(BOXARCH)-$(KERNEL_VER)-$(BOXTYPE)
 	gzip -9c < $(TARGET_DIR)/boot/vmlinux > $(TARGET_DIR)/boot/$(KERNEL_FILE)
-	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/build || true
-	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/source || true
+	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)-$(BOXTYPE)/build || true
+	rm $(TARGET_DIR)/lib/modules/$(KERNEL_VER)-$(BOXTYPE)/source || true
 	$(TOUCH)
 	
 #
@@ -112,10 +112,10 @@ $(ARCHIVE)/$(DRIVER_SRC):
 driver: $(D)/driver	
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	$(START_BUILD)
-	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
-	tar -xf $(ARCHIVE)/$(DRIVER_SRC) -C $(TARGET_DIR)/lib/modules/$(KERNEL_VER)/extra
+	install -d $(TARGET_DIR)/lib/modules/$(KERNEL_VER)-$(BOXTYPE)/extra
+	tar -xf $(ARCHIVE)/$(DRIVER_SRC) -C $(TARGET_DIR)/lib/modules/$(KERNEL_VER)-$(BOXTYPE)/extra
 #	tar -xf $(ARCHIVE)/grautec.tar.gz -C $(TARGET_DIR)/
-	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
+	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)-$(BOXTYPE)
 	$(TOUCH)
 	
 #
@@ -136,18 +136,25 @@ $(D)/dm8000_2nd: $(ARCHIVE)/$(DM8000_2ND_SOURCE)
 # release-dm8000
 #
 release-dm8000: $(D)/dm8000_2nd
-	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER) $(RELEASE_DIR)/lib/modules
+	cp -pa $(TARGET_DIR)/lib/modules/$(KERNEL_VER)-$(BOXTYPE) $(RELEASE_DIR)/lib/modules
 	install -m 0755 $(BASE_DIR)/machine/$(BOXTYPE)/files/halt $(RELEASE_DIR)/etc/init.d/
 	cp -f $(BASE_DIR)/machine/$(BOXTYPE)/files/fstab $(RELEASE_DIR)/etc/
 	
 #
 # flashimage
 #
-FLASHSIZE = 100
+#FLASHSIZE = 100
 ROOTFS_FILE = rootfs.ubi
 IMAGE_FSTYPES ?= ubifs
 IMAGE_NAME = rootfs
 UBI_VOLNAME = rootfs
 MKUBIFS_ARGS = -m 2048 -e 126KiB -c 1961 -x favor_lzo -F
 UBINIZE_ARGS = -m 2048 -p 128KiB -s 512
+ERASE_BLOCK_SIZE = 0x20000
+SECTOR_SIZE = 2048
+BUILDIMAGE_EXTRA = 
+FLASH_SIZE = 0x4000000
+LOADER_SIZE = 0x100000
+BOOT_SIZE = 0x700000
+ROOT_SIZE = 0xF800000
 

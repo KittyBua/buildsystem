@@ -87,12 +87,14 @@ init:
 	@echo "   100)  AXAS E4HD 4K Ultra"
 	@echo ""
 	@echo "  Dream Media"
-	@echo "   110)  dm820"
-	@echo "   111)  dm900"
-	@echo "   112)  dm920"
-	@echo "   113)  dm7020hd"
-	@echo "   114)  dm7080"
-	@echo "   115)  dm8000"
+	@echo "   110)  dm800se"
+	@echo "   111)  dm800sev2"
+	@echo "   112)  dm820"
+	@echo "   113)  dm900"
+	@echo "   114)  dm920"
+	@echo "   115)  dm7020hd"
+	@echo "   116)  dm7080"
+	@echo "   117)  dm8000"
 	@echo ""
 	@echo "  Maxytec"
 	@echo "   120)  multiboxse"
@@ -143,12 +145,14 @@ init:
 		81) BOXTYPE="bre2zet2c";; \
 		90) BOXTYPE="h7";; \
 		100) BOXTYPE="e4hdultra";; \
-		110) BOXTYPE="dm820";; \
-		111) BOXTYPE="dm900";; \
-		112) BOXTYPE="dm920";; \
-		113) BOXTYPE="dm7020hd";; \
-		114) BOXTYPE="dm7080";; \
-		115) BOXTYPE="dm8000";; \
+		110) BOXTYPE="dm800se";; \
+		111) BOXTYPE="dm800sev2";; \
+		112) BOXTYPE="dm820";; \
+		113) BOXTYPE="dm900";; \
+		114) BOXTYPE="dm920";; \
+		115) BOXTYPE="dm7020hd";; \
+		116) BOXTYPE="dm7080";; \
+		117) BOXTYPE="dm8000";; \
 		120) BOXTYPE="multiboxse";; \
 		130) BOXTYPE="sf8008";; \
 		140) BOXTYPE="protek4k";; \

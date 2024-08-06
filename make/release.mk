@@ -32,6 +32,7 @@ RELEASE_DEPS += $(D)/gptfdisk
 RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
 RELEASE_DEPS += $(D)/minisatip
+RELEASE_DEPS += $(D)/f2fs-tools
 endif
 #
 # tools
