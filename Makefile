@@ -283,6 +283,9 @@ endif
 	@echo "  make help"
 
 help:
+	@echo "target configuration:"
+	@echo " make or make init		- setup target"
+	@echo ""
 	@echo "main target (image):"
 	@echo " make image-neutrino2		- build neutrino2 image"
 	@echo " make image-neutrino		- build neutrino image"
