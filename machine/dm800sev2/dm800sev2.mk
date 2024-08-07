@@ -103,7 +103,7 @@ $(D)/kernel: $(D)/bootstrap $(D)/kernel.do_compile
 # driver
 #
 DRIVER_VER = 3.2
-DRIVER_DATE = 20140604a
+DRIVER_DATE = 20151201
 DRIVER_SRC = dreambox-dvb-modules-$(BOXTYPE)-$(DRIVER_VER)-$(BOXTYPE)-$(DRIVER_DATE).tar.bz2
 
 $(ARCHIVE)/$(DRIVER_SRC):

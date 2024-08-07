@@ -127,7 +127,7 @@ DM800SE_2ND_URL = https://github.com/oe-mirrors/dreambox/raw/main/$(DM800SE_2ND_
 2ND_FILE = secondstage-dm800se-84.bin
 
 $(ARCHIVE)/$(DM800SE_2ND_SOURCE):
-	$(DOWNLOAD) $(DM800SE_2ND_URL)
+	$(WGET) $(DM800SE_2ND_URL)
 
 $(D)/dm800se_2nd: $(ARCHIVE)/$(DM800SE_2ND_SOURCE)
 	$(START_BUILD)
