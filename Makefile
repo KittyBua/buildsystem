@@ -186,7 +186,7 @@ init:
 	esac; \
 	echo ""
 # GraphLCD
-	@echo -e "\nGraphLCD (neutrino-DDT):"
+	@echo -e "\nGraphLCD (neutrino2 / neutrino-DDT):"
 	@echo -e "   \033[01;32m1)  yes\033[00m"
 	@echo "   2) no"
 	@read -p "Select  GraphLCD (1-2)?" GRAPHLCD; \
