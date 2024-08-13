@@ -206,7 +206,7 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/neutrino2/control/control 
 	echo Depends:  >> $(BUILD_TMP)/neutrino2/control/control
-	touch $(BUILD_TMP)/neutrino/control/preint
+	touch $(BUILD_TMP)/neutrino2/control/preint
 	echo '#!/bin/sh' > $(BUILD_TMP)/neutrino2/control/preint
 	echo 'if test -x /usr/bin/neutrino2; then' >> $(BUILD_TMP)/neutrino2/control/preint
 	echo '	echo "updating neutrino2..."' >> $(BUILD_TMP)/neutrino2/control/preint
