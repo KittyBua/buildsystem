@@ -317,6 +317,11 @@ help:
 	@echo "cleantargets:"
 	@echo " make clean			- clears everything except toolchain."
 	@echo " make distclean			- clears the whole construction."
+	@echo ""
+	@echo "feed packages:"
+	@echo " make package_name-ipk		- build package."
+	@echo " make packages			- build all feed packages."
+	@echo " make packges-clean		- clean all packages."
 	@echo
 
 ifeq ($(BOXARCH), sh4)
