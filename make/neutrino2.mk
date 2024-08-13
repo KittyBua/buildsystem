@@ -194,20 +194,29 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/neutrino2/control/control
-	echo Package: neutrino2 > $(PACKAGES)/neutrino2/control/control
-	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(PACKAGES)/neutrino2/control/control
-	echo Section: base/applications >> $(PACKAGES)/neutrino2/control/control
+	install -d $(BUILD_TMP)/neutrino2/control
+	touch $(BUILD_TMP)/neutrino2/control/control
+	echo Package: neutrino2 > $(BUILD_TMP)/neutrino2/control/control
+	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(BUILD_TMP)/neutrino2/control/control
+	echo Section: base/applications >> $(BUILD_TMP)/neutrino2/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/neutrino2/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/neutrino2/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino2/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/neutrino2/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino2/control/control 
-	echo Depends:  >> $(PACKAGES)/neutrino2/control/control
-	pushd $(PACKAGES)/neutrino2/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/neutrino2/control/control 
+	echo Depends:  >> $(BUILD_TMP)/neutrino2/control/control
+	touch $(BUILD_TMP)/neutrino/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/neutrino2/control/preint
+	echo 'if test -x /usr/bin/neutrino2; then' >> $(BUILD_TMP)/neutrino2/control/preint
+	echo '	echo "updating neutrino2..."' >> $(BUILD_TMP)/neutrino2/control/preint
+	echo '	rm -rf /usr/bin/neutrino2' >> $(BUILD_TMP)/neutrino2/control/preint
+	echo 'fi' >> $(BUILD_TMP)/neutrino2/control/preint
+	touch $(BUILD_TMP)/neutrino2/control/postinst
+	touch $(BUILD_TMP)/neutrino2/control/postrm
+	pushd $(BUILD_TMP)/neutrino2/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino2-`sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/neutrino2/control/control
+	rm -rf $(BUILD_TMP)/neutrino2
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -226,20 +235,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/neutrino2-plugins/control/control
-	echo Package: neutrino2-plugins > $(PACKAGES)/neutrino2-plugins/control/control
-	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(PACKAGES)/neutrino2-plugins/control/control
-	echo Section: base/plugins >> $(PACKAGES)/neutrino2-plugins/control/control
+	install -d $(BUILD_TMP)/neutrino2-plugins/control
+	touch $(BUILD_TMP)/neutrino2-plugins/control/control
+	echo Package: neutrino2-plugins > $(BUILD_TMP)/neutrino2-plugins/control/control
+	echo Version: `sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'` >> $(BUILD_TMP)/neutrino2-plugins/control/control
+	echo Section: base/plugins >> $(BUILD_TMP)/neutrino2-plugins/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/neutrino2-plugins/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/neutrino2-plugins/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/neutrino2-plugins/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/neutrino2-plugins/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/neutrino2-plugins/control/control 
-	echo Depends: neutrino2 >> $(PACKAGES)/neutrino2-plugins/control/control
-	pushd $(PACKAGES)/neutrino2-plugins/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/neutrino2-plugins/control/control 
+	echo Depends: neutrino2 >> $(BUILD_TMP)/neutrino2-plugins/control/control
+	pushd $(BUILD_TMP)/neutrino2-plugins/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino2-plugins-`sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/neutrino2-plugins/control/control
+	rm -rf $(BUILD_TMP)/neutrino2-plugins
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)

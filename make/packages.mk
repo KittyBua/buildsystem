@@ -21,20 +21,29 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libupnp/control/control
-	echo Package: libupnp > $(PACKAGES)/libupnp/control/control
-	echo Version: $(LIBUPNP_VER) >> $(PACKAGES)/libupnp/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libupnp/control/control
+	install -d $(BUILD_TMP)/libupnp/control
+	touch $(BUILD_TMP)/libupnp/control/control
+	echo Package: libupnp > $(BUILD_TMP)/libupnp/control/control
+	echo Version: $(LIBUPNP_VER) >> $(BUILD_TMP)/libupnp/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libupnp/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libupnp/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libupnp/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libupnp/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libupnp/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/libupnp/control/control 
-	echo Depends:  >> $(PACKAGES)/libupnp/control/control
-	pushd $(PACKAGES)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/libupnp/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libupnp/control/control
+	touch $(BUILD_TMP)/libupnp/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libupnp/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libupnp/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libupnp/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libupnp/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libupnp/control/preint
+	touch $(BUILD_TMP)/libupnp/control/postinst
+	touch $(BUILD_TMP)/libupnp/control/postrm
+	pushd $(BUILD_TMP)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libupnp/control/control
+	rm -rf $(BUILD_TMP)/libupnp
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -62,20 +71,29 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libdvbsi/control/control
-	echo Package: libdvbsi > $(PACKAGES)/libdvbsi/control/control
-	echo Version: $(LIBDVBSI_VER) >> $(PACKAGES)/libdvbsi/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libdvbsi/control/control
+	install -d $(BUILD_TMP)/libdvbsi/control
+	touch $(BUILD_TMP)/libdvbsi/control/control
+	echo Package: libdvbsi > $(BUILD_TMP)/libdvbsi/control/control
+	echo Version: $(LIBDVBSI_VER) >> $(BUILD_TMP)/libdvbsi/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libdvbsi/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libdvbsi/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libdvbsi/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libdvbsi/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libdvbsi/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libdvbsi/control/control 
-	echo Depends:  >> $(PACKAGES)/libdvbsi/control/control
-	pushd $(PACKAGES)/libdvbsi/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libdvbsi/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libdvbsi/control/control
+	touch $(BUILD_TMP)/libdvbsi/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libdvbsi/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libdvbsi/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libdvbsi/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libdvbsi/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libdvbsi/control/preint
+	touch $(BUILD_TMP)/libdvbsi/control/postinst
+	touch $(BUILD_TMP)/libdvbsi/control/postrm
+	pushd $(BUILD_TMP)/libdvbsi/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libdvbsi-$(LIBDVBSI_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libdvbsi/control/control
+	rm -rf $(BUILD_TMP)/libdvbsi
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -110,20 +128,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/pugixml/control/control
-	echo Package: pugixml > $(PACKAGES)/pugixml/control/control
-	echo Version: $(PUGIXML_VER) >> $(PACKAGES)/pugixml/control/control
-	echo Section: base/libraries >> $(PACKAGES)/pugixml/control/control
+	install -d $(BUILD_TMP)/pugixml/control
+	touch $(BUILD_TMP)/pugixml/control/control
+	echo Package: pugixml > $(BUILD_TMP)/pugixml/control/control
+	echo Version: $(PUGIXML_VER) >> $(BUILD_TMP)/pugixml/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/pugixml/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/pugixml/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/pugixml/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/pugixml/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/pugixml/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/pugixml/control/control 
-	echo Depends:  >> $(PACKAGES)/pugixml/control/control
-	pushd $(PACKAGES)/pugixml/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/pugixml/control/control 
+	echo Depends:  >> $(BUILD_TMP)/pugixml/control/control
+	pushd $(BUILD_TMP)/pugixml/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/pugixml-$(PUGIXML_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/pugixml/control/control
+	rm -rf $(BUILD_TMP)/pugixml
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -154,20 +173,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libid3tag/control/control
-	echo Package: libid3tag > $(PACKAGES)/libid3tag/control/control
-	echo Version: $(LIBID3TAG_VER) >> $(PACKAGES)/libid3tag/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libid3tag/control/control
+	install -d $(BUILD_TMP)/libid3tag/control
+	touch $(BUILD_TMP)/libid3tag/control/control
+	echo Package: libid3tag > $(BUILD_TMP)/libid3tag/control/control
+	echo Version: $(LIBID3TAG_VER) >> $(BUILD_TMP)/libid3tag/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libid3tag/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libid3tag/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libid3tag/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libid3tag/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libid3tag/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libid3tag/control/control 
-	echo Depends:  >> $(PACKAGES)/libid3tag/control/control
-	pushd $(PACKAGES)/libid3tag/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libid3tag/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libid3tag/control/control
+	pushd $(BUILD_TMP)/libid3tag/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libid3tag-$(LIBID3TAG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libid3tag/control/control
+	rm -rf $(BUILD_TMP)/libid3tag
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -201,20 +221,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libmad/control/control
-	echo Package: libmad > $(PACKAGES)/libmad/control/control
-	echo Version: $(LIBMAD_VER) >> $(PACKAGES)/libmad/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libmad/control/control
+	install -d $(BUILD_TMP)/libmad/control
+	touch $(BUILD_TMP)/libmad/control/control
+	echo Package: libmad > $(BUILD_TMP)/libmad/control/control
+	echo Version: $(LIBMAD_VER) >> $(BUILD_TMP)/libmad/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libmad/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libmad/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libmad/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libmad/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libmad/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libmad/control/control 
-	echo Depends:  >> $(PACKAGES)/libmad/control/control
-	pushd $(PACKAGES)/libmad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libmad/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libmad/control/control
+	pushd $(BUILD_TMP)/libmad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libmad-$(LIBMAD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libmad/control/control
+	rm -rf $(BUILD_TMP)/libmad
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -244,20 +265,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libogg/control/control
-	echo Package: libogg > $(PACKAGES)/libogg/control/control
-	echo Version: $(LIBOGG_VER) >> $(PACKAGES)/libogg/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libogg/control/control
+	install -d $(BUILD_TMP)/libogg/control
+	touch $(BUILD_TMP)/libogg/control/control
+	echo Package: libogg > $(BUILD_TMP)/libogg/control/control
+	echo Version: $(LIBOGG_VER) >> $(BUILD_TMP)/libogg/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libogg/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libogg/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libogg/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libogg/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libogg/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libogg/control/control 
-	echo Depends:  >> $(PACKAGES)/libogg/control/control
-	pushd $(PACKAGES)/libogg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libogg/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libogg/control/control
+	pushd $(BUILD_TMP)/libogg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libogg-$(LIBOGG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libogg/control/control
+	rm -rf $(BUILD_TMP)/libogg
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -302,20 +324,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libflac/control/control
-	echo Package: libflac > $(PACKAGES)/libflac/control/control
-	echo Version: $(LIBFLAC_VER) >> $(PACKAGES)/libflac/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libflac/control/control
+	install -d $(BUILD_TMP)/libflac/control
+	touch $(BUILD_TMP)/libflac/control/control
+	echo Package: libflac > $(BUILD_TMP)/libflac/control/control
+	echo Version: $(LIBFLAC_VER) >> $(BUILD_TMP)/libflac/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libflac/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libflac/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libflac/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libflac/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libflac/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libflac/control/control 
-	echo Depends:  >> $(PACKAGES)/libflac/control/control
-	pushd $(PACKAGES)/libflac/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libflac/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libflac/control/control
+	pushd $(BUILD_TMP)/libflac/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libflac-$(LIBFLAC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libflac/control/control
+	rm -rf $(BUILD_TMP)/libflac
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -347,20 +370,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libvorbis/control/control
-	echo Package: libvorbis > $(PACKAGES)/libvorbis/control/control
-	echo Version: $(LIBVORBIS_VER) >> $(PACKAGES)/libvorbis/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libvorbis/control/control
+	install -d $(BUILD_TMP)/libvorbis/control
+	touch $(BUILD_TMP)/libvorbis/control/control
+	echo Package: libvorbis > $(BUILD_TMP)/libvorbis/control/control
+	echo Version: $(LIBVORBIS_VER) >> $(BUILD_TMP)/libvorbis/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libvorbis/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libvorbis/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libvorbis/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libvorbis/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libvorbis/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libvorbis/control/control 
-	echo Depends:  >> $(PACKAGES)/libvorbis/control/control
-	pushd $(PACKAGES)/libvorbis/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libvorbis/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libvorbis/control/control
+	pushd $(BUILD_TMP)/libvorbis/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbis-$(LIBVORBIS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libvorbis/control/control
+	rm -rf $(BUILD_TMP)/libvorbis
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -394,20 +418,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libsigc/control/control
-	echo Package: libsigc > $(PACKAGES)/libsigc/control/control
-	echo Version: $(LIBSIGC_VER) >> $(PACKAGES)/libsigc/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libsigc/control/control
+	install -d $(BUILD_TMP)/libsigc/control
+	touch $(BUILD_TMP)/libsigc/control/control
+	echo Package: libsigc > $(BUILD_TMP)/libsigc/control/control
+	echo Version: $(LIBSIGC_VER) >> $(BUILD_TMP)/libsigc/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libsigc/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libsigc/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libsigc/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libsigc/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libsigc/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libsigc/control/control 
-	echo Depends:  >> $(PACKAGES)/libsigc/control/control
-	pushd $(PACKAGES)/libsigc/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libsigc/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libsigc/control/control
+	pushd $(BUILD_TMP)/libsigc/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libsigc-$(LIBSIGC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libsigc/control/control
+	rm -rf $(BUILD_TMP)/libsigc
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -439,20 +464,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libvorbisidec/control/control
-	echo Package: libvorbisidec > $(PACKAGES)/libvorbisidec/control/control
-	echo Version: $(LIBVORBISIDEC_VER) >> $(PACKAGES)/libvorbisidec/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libvorbisidec/control/control
+	install -d $(BUILD_TMP)/libvorbisidec/control
+	touch $(BUILD_TMP)/libvorbisidec/control/control
+	echo Package: libvorbisidec > $(BUILD_TMP)/libvorbisidec/control/control
+	echo Version: $(LIBVORBISIDEC_VER) >> $(BUILD_TMP)/libvorbisidec/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libvorbisidec/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libvorbisidec/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libvorbisidec/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libvorbisidec/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libvorbisidec/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libvorbisidec/control/control 
-	echo Depends:  >> $(PACKAGES)/libvorbisidec/control/control
-	pushd $(PACKAGES)/libvorbisidec/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libvorbisidec/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libvorbisidec/control/control
+	pushd $(BUILD_TMP)/libvorbisidec/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbisidec-$(LIBVORBISIDEC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libvorbisidec/control/control
+	rm -rf $(BUILD_TMP)/libvorbisidec
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -485,20 +511,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/libass/control/control
-	echo Package: libass > $(PACKAGES)/libass/control/control
-	echo Version: $(LIBASS_VER) >> $(PACKAGES)/libass/control/control
-	echo Section: base/libraries >> $(PACKAGES)/libass/control/control
+	install -d $(BUILD_TMP)/libass/control
+	touch $(BUILD_TMP)/libass/control/control
+	echo Package: libass > $(BUILD_TMP)/libass/control/control
+	echo Version: $(LIBASS_VER) >> $(BUILD_TMP)/libass/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/libass/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/libass/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/libass/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/libass/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/libass/control/control 
 endif
-	echo Maintainer: $(MAINTAINER) >> $(PACKAGES)/libass/control/control 
-	echo Depends:  >> $(PACKAGES)/libass/control/control
-	pushd $(PACKAGES)/libass/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libass/control/control 
+	echo Depends:  >> $(BUILD_TMP)/libass/control/control
+	pushd $(BUILD_TMP)/libass/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libass-$(LIBASS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/libass/control/control
+	rm -rf $(BUILD_TMP)/libass
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -527,20 +554,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/minidlna/control/control
-	echo Package: minidlna > $(PACKAGES)/minidlna/control/control
-	echo Version: $(MINIDLNA_VER) >> $(PACKAGES)/minidlna/control/control
-	echo Section: base/libraries >> $(PACKAGES)/minidlna/control/control
+	install -d $(BUILD_TMP)/minidlna/control
+	touch $(BUILD_TMP)/minidlna/control/control
+	echo Package: minidlna > $(BUILD_TMP)/minidlna/control/control
+	echo Version: $(MINIDLNA_VER) >> $(BUILD_TMP)/minidlna/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/minidlna/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/minidlna/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/minidlna/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/minidlna/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/minidlna/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/minidlna/control/control 
-	echo Depends:  >> $(PACKAGES)/minidlna/control/control
-	pushd $(PACKAGES)/minidlna/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/minidlna/control/control 
+	echo Depends:  >> $(BUILD_TMP)/minidlna/control/control
+	pushd $(BUILD_TMP)/minidlna/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/minidlna-$(MINIDLNA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/minidlna/control/control
+	rm -rf $(BUILD_TMP)/minidlna
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -567,21 +595,22 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/fbshot/control/control
-	echo Package: fbshot > $(PACKAGES)/fbshot/control/control
-	echo Version: $(FBSHOT_VER) >> $(PACKAGES)/fbshot/control/control
-	echo Section: base/libraries >> $(PACKAGES)/fbshot/control/control
+	install -d $(BUILD_TMP)/fbshot/control
+	touch $(BUILD_TMP)/fbshot/control/control
+	echo Package: fbshot > $(BUILD_TMP)/fbshot/control/control
+	echo Version: $(FBSHOT_VER) >> $(BUILD_TMP)/fbshot/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/fbshot/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/fbshot/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/fbshot/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/fbshot/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/fbshot/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/fbshot/control/control 
-	echo Depends:  >> $(PACKAGES)/fbshot/control/control
-	pushd $(PACKAGES)/fbshot/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/fbshot/control/control 
+	echo Depends:  >> $(BUILD_TMP)/fbshot/control/control
+	pushd $(BUILD_TMP)/fbshot/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/fbshot-$(FBSHOT_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(PKGPREFIX)
-	rm -rf $(PACKAGES)/fbshot/control/control
+	rm -rf $(BUILD_TMP)/fbshot
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
 
@@ -695,20 +724,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/samba/control/control
-	echo Package: samba > $(PACKAGES)/samba/control/control
-	echo Version: $(SAMBA_VER) >> $(PACKAGES)/samba/control/control
-	echo Section: base/libraries >> $(PACKAGES)/samba/control/control
+	install -d $(BUILD_TMP)/samba/control
+	touch $(BUILD_TMP)/samba/control/control
+	echo Package: samba > $(BUILD_TMP)/samba/control/control
+	echo Version: $(SAMBA_VER) >> $(BUILD_TMP)/samba/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/samba/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/samba/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/samba/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/samba/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/samba/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/samba/control/control 
-	echo Depends:  >> $(PACKAGES)/samba/control/control
-	pushd $(PACKAGES)/samba/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/samba/control/control 
+	echo Depends:  >> $(BUILD_TMP)/samba/control/control
+	pushd $(BUILD_TMP)/samba/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/samba-$(SAMBA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/samba/control/control
+	rm -rf $(BUILD_TMP)/samba
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -741,20 +771,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/ofgwrite/control/control
-	echo Package: ofgwrite > $(PACKAGES)/ofgwrite/control/control
-	echo Version: $(OFGWRITE_VER) >> $(PACKAGES)/ofgwrite/control/control
-	echo Section: base/libraries >> $(PACKAGES)/ofgwrite/control/control
+	install -d $(BUILD_TMP)/ofgwrite/control
+	touch $(BUILD_TMP)/ofgwrite/control/control
+	echo Package: ofgwrite > $(BUILD_TMP)/ofgwrite/control/control
+	echo Version: $(OFGWRITE_VER) >> $(BUILD_TMP)/ofgwrite/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/ofgwrite/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/ofgwrite/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/ofgwrite/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/ofgwrite/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/ofgwrite/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/ofgwrite/control/control 
-	echo Depends:  >> $(PACKAGES)/ofgwrite/control/control
-	pushd $(PACKAGES)/ofgwrite/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/ofgwrite/control/control 
+	echo Depends:  >> $(BUILD_TMP)/ofgwrite/control/control
+	pushd $(BUILD_TMP)/ofgwrite/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/ofgwrite-$(OFGWRITE_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/ofgwrite/control/control
+	rm -rf $(BUILD_TMP)/ofgwrite
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -789,20 +820,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/xupnpd/control/control
-	echo Package: xupnpd > $(PACKAGES)/xupnpd/control/control
-	echo Version: $(XUPNPD_VER) >> $(PACKAGES)/xupnpd/control/control
-	echo Section: base/application >> $(PACKAGES)/xupnpd/control/control
+	install -d $(BUILD_TMP)/xupnpd/control
+	touch $(BUILD_TMP)/xupnpd/control/control
+	echo Package: xupnpd > $(BUILD_TMP)/xupnpd/control/control
+	echo Version: $(XUPNPD_VER) >> $(BUILD_TMP)/xupnpd/control/control
+	echo Section: base/application >> $(BUILD_TMP)/xupnpd/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/xupnpd/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/xupnpd/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/xupnpd/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/xupnpd/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/xupnpd/control/control 
-	echo Depends:  >> $(PACKAGES)/xupnpd/control/control
-	pushd $(PACKAGES)/xupnpd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/xupnpd/control/control 
+	echo Depends:  >> $(BUILD_TMP)/xupnpd/control/control
+	pushd $(BUILD_TMP)/xupnpd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/xupnpd-$(XUPNPD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/xupnpd/control/control
+	rm -rf $(BUILD_TMP)/xupnpd
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -832,20 +864,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/graphlcd/control/control
-	echo Package: graphlcd > $(PACKAGES)/graphlcd/control/control
-	echo Version: $(GRAPHLCD_VER) >> $(PACKAGES)/graphlcd/control/control
-	echo Section: base/libraries >> $(PACKAGES)/graphlcd/control/control
+	install -d $(BUILD_TMP)/graphlcd/control
+	touch $(BUILD_TMP)/graphlcd/control/control
+	echo Package: graphlcd > $(BUILD_TMP)/graphlcd/control/control
+	echo Version: $(GRAPHLCD_VER) >> $(BUILD_TMP)/graphlcd/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/graphlcd/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/graphlcd/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/graphlcd/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/graphlcd/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/graphlcd/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/graphlcd/control/control 
-	echo Depends:  >> $(PACKAGES)/graphlcd/control/control
-	pushd $(PACKAGES)/graphlcd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/graphlcd/control/control 
+	echo Depends:  >> $(BUILD_TMP)/graphlcd/control/control
+	pushd $(BUILD_TMP)/graphlcd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/graphlcd-$(GRAPHLCD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/graphlcd/control/control
+	rm -rf $(BUILD_TMP)/graphlcd
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -880,20 +913,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/lcd4linux/control/control
-	echo Package: lcd4linux > $(PACKAGES)/lcd4linux/control/control
-	echo Version: $(LCD4LINUX_VER) >> $(PACKAGES)/lcd4linux/control/control
-	echo Section: base/libraries >> $(PACKAGES)/lcd4linux/control/control
+	install -d $(BUILD_TMP)/lcd4linux/control
+	touch $(BUILD_TMP)/lcd4linux/control/control
+	echo Package: lcd4linux > $(BUILD_TMP)/lcd4linux/control/control
+	echo Version: $(LCD4LINUX_VER) >> $(BUILD_TMP)/lcd4linux/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/lcd4linux/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/lcd4linux/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/lcd4linux/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/lcd4linux/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/lcd4linux/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/lcd4linux/control/control 
-	echo Depends:  >> $(PACKAGES)/lcd4linux/control/control
-	pushd $(PACKAGES)/lcd4linux/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/lcd4linux/control/control 
+	echo Depends:  >> $(BUILD_TMP)/lcd4linux/control/control
+	pushd $(BUILD_TMP)/lcd4linux/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/lcd4linux-$(LCD4LINUX_VER)_$(BOXARCH)_$(BOXTYPE).ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/lcd4linux/control/control
+	rm -rf $(BUILD_TMP)/lcd4linux
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -937,20 +971,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gstreamer/control/control
-	echo Package: gstreamer > $(PACKAGES)/gstreamer/control/control
-	echo Version: $(GSTREAMER_VER) >> $(PACKAGES)/gstreamer/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gstreamer/control/control
+	install -d $(BUILD_TMP)/gstreamer/control
+	touch $(BUILD_TMP)/gstreamer/control/control
+	echo Package: gstreamer > $(BUILD_TMP)/gstreamer/control/control
+	echo Version: $(GSTREAMER_VER) >> $(BUILD_TMP)/gstreamer/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gstreamer/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gstreamer/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gstreamer/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gstreamer/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gstreamer/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gstreamer/control/control 
-	echo Depends:  >> $(PACKAGES)/gstreamer/control/control
-	pushd $(PACKAGES)/gstreamer/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gstreamer/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gstreamer/control/control
+	pushd $(BUILD_TMP)/gstreamer/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gstreamer-$(GSTREAMER_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gstreamer/control/control
+	rm -rf $(BUILD_TMP)/gstreamer
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -986,20 +1021,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_base/control/control
-	echo Package: gst_plugins_base > $(PACKAGES)/gst_plugins_base/control/control
-	echo Version: $(GST_PLUGINS_BASE_VER) >> $(PACKAGES)/gst_plugins_base/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_base/control/control
+	install -d $(BUILD_TMP)/gst_plugins_base/control
+	touch $(BUILD_TMP)/gst_plugins_base/control/control
+	echo Package: gst_plugins_base > $(BUILD_TMP)/gst_plugins_base/control/control
+	echo Version: $(GST_PLUGINS_BASE_VER) >> $(BUILD_TMP)/gst_plugins_base/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_base/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_base/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_base/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_base/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_base/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_base/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_base/control/control
-	pushd $(PACKAGES)/gst_plugins_base/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_base/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_base/control/control
+	pushd $(BUILD_TMP)/gst_plugins_base/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_base-$(GST_PLUGINS_BASE_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_base/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_base
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1041,20 +1077,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_good/control/control
-	echo Package: gst_plugins_good > $(PACKAGES)/gst_plugins_good/control/control
-	echo Version: $(GST_PLUGINS_GOOD_VER) >> $(PACKAGES)/gst_plugins_good/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_good/control/control
+	install -d $(BUILD_TMP)/gst_plugins_good/control
+	touch $(BUILD_TMP)/gst_plugins_good/control/control
+	echo Package: gst_plugins_good > $(BUILD_TMP)/gst_plugins_good/control/control
+	echo Version: $(GST_PLUGINS_GOOD_VER) >> $(BUILD_TMP)/gst_plugins_good/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_good/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_good/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_good/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_good/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_good/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_good/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_good/control/control
-	pushd $(PACKAGES)/gst_plugins_good/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_good/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_good/control/control
+	pushd $(BUILD_TMP)/gst_plugins_good/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_good-$(GST_PLUGINS_GOOD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_good/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_good
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1092,20 +1129,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_bad/control/control
-	echo Package: gst_plugins_bad > $(PACKAGES)/gst_plugins_bad/control/control
-	echo Version: $(GST_PLUGINS_BAD_VER) >> $(PACKAGES)/gst_plugins_bad/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_bad/control/control
+	install -d $(BUILD_TMP)/gst_plugins_bad/control
+	touch $(BUILD_TMP)/gst_plugins_bad/control/control
+	echo Package: gst_plugins_bad > $(BUILD_TMP)/gst_plugins_bad/control/control
+	echo Version: $(GST_PLUGINS_BAD_VER) >> $(BUILD_TMP)/gst_plugins_bad/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_bad/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_bad/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_bad/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_bad/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_bad/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_bad/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_bad/control/control
-	pushd $(PACKAGES)/gst_plugins_bad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_bad/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_bad/control/control
+	pushd $(BUILD_TMP)/gst_plugins_bad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_bad-$(GST_PLUGINS_BAD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_bad/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_bad
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1139,20 +1177,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_ugly/control/control
-	echo Package: gst_plugins_ugly > $(PACKAGES)/gst_plugins_ugly/control/control
-	echo Version: $(GST_PLUGINS_UGLY_VER) >> $(PACKAGES)/gst_plugins_ugly/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_ugly/control/control
+	install -d $(BUILD_TMP)/gst_plugins_ugly/control
+	touch $(BUILD_TMP)/gst_plugins_ugly/control/control
+	echo Package: gst_plugins_ugly > $(BUILD_TMP)/gst_plugins_ugly/control/control
+	echo Version: $(GST_PLUGINS_UGLY_VER) >> $(BUILD_TMP)/gst_plugins_ugly/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_ugly/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_ugly/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_ugly/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_ugly/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_ugly/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_ugly/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_ugly/control/control
-	pushd $(PACKAGES)/gst_plugins_ugly/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_ugly/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_ugly/control/control
+	pushd $(BUILD_TMP)/gst_plugins_ugly/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_ugly-$(GST_PLUGINS_UGLY_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_ugly/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_ugly
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1189,20 +1228,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_subsink/control/control
-	echo Package: gst_plugins_subsink > $(PACKAGES)/gst_plugins_subsink/control/control
-	echo Version: $(GST_PLUGINS_SUBSINK_VER) >> $(PACKAGES)/gst_plugins_subsink/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_subsink/control/control
+	install -d $(BUILD_TMP)/gst_plugins_subsink/control
+	touch $(BUILD_TMP)/gst_plugins_subsink/control/control
+	echo Package: gst_plugins_subsink > $(BUILD_TMP)/gst_plugins_subsink/control/control
+	echo Version: $(GST_PLUGINS_SUBSINK_VER) >> $(BUILD_TMP)/gst_plugins_subsink/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_subsink/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_subsink/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_subsink/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_subsink/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_subsink/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_subsink/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_subsink/control/control
-	pushd $(PACKAGES)/gst_plugins_subsink/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_subsink/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_subsink/control/control
+	pushd $(BUILD_TMP)/gst_plugins_subsink/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_subsink-$(GST_PLUGINS_SUBSINK_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_subsink/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_subsink
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1250,20 +1290,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/gst_plugins_dvbmediasink/control/control
-	echo Package: gst_plugins_dvbmediasink > $(PACKAGES)/gst_plugins_dvbmediasink/control/control
-	echo Version: $(GST_PLUGINS_DVBMEDIASINK_VER) >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control
-	echo Section: base/libraries >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control
+	install -d $(BUILD_TMP)/gst_plugins_dvbmediasink/control
+	touch $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control
+	echo Package: gst_plugins_dvbmediasink > $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control
+	echo Version: $(GST_PLUGINS_DVBMEDIASINK_VER) >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control 
-	echo Depends:  >> $(PACKAGES)/gst_plugins_dvbmediasink/control/control
-	pushd $(PACKAGES)/gst_plugins_dvbmediasink/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control 
+	echo Depends:  >> $(BUILD_TMP)/gst_plugins_dvbmediasink/control/control
+	pushd $(BUILD_TMP)/gst_plugins_dvbmediasink/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/gst_plugins_dvbmediasink-$(GST_PLUGINS_DVBMEDIASINK_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/gst_plugins_dvbmediasink/control/control
+	rm -rf $(BUILD_TMP)/gst_plugins_dvbmediasink
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1588,20 +1629,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/ffmpeg/control/control
-	echo Package: ffmpeg > $(PACKAGES)/ffmpeg/control/control
-	echo Version: $(FFMPEG_VER) >> $(PACKAGES)/ffmpeg/control/control
-	echo Section: base/libraries >> $(PACKAGES)/ffmpeg/control/control
+	install -d $(BUILD_TMP)/ffmpeg/control
+	touch $(BUILD_TMP)/ffmpeg/control/control
+	echo Package: ffmpeg > $(BUILD_TMP)/ffmpeg/control/control
+	echo Version: $(FFMPEG_VER) >> $(BUILD_TMP)/ffmpeg/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/ffmpeg/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/ffmpeg/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/ffmpeg/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/ffmpeg/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/ffmpeg/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/ffmpeg/control/control 
-	echo Depends:  >> $(PACKAGES)/ffmpeg/control/control
-	pushd $(PACKAGES)/ffmpeg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/ffmpeg/control/control 
+	echo Depends:  >> $(BUILD_TMP)/ffmpeg/control/control
+	pushd $(BUILD_TMP)/ffmpeg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/ffmpeg-$(FFMPEG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/ffmpeg/control/control
+	rm -rf $(BUILD_TMP)/ffmpeg
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1634,20 +1676,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/lua/control/control
-	echo Package: lua > $(PACKAGES)/lua/control/control
-	echo Version: $(LUA_VER) >> $(PACKAGES)/lua/control/control
-	echo Section: base/libraries >> $(PACKAGES)/lua/control/control
+	install -d $(BUILD_TMP)/lua/control
+	touch $(BUILD_TMP)/lua/control/control
+	echo Package: lua > $(BUILD_TMP)/lua/control/control
+	echo Version: $(LUA_VER) >> $(BUILD_TMP)/lua/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/lua/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/lua/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/lua/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/lua/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/lua/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/lua/control/control 
-	echo Depends:  >> $(PACKAGES)/lua/control/control
-	pushd $(PACKAGES)/lua/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/lua/control/control 
+	echo Depends:  >> $(BUILD_TMP)/lua/control/control
+	pushd $(BUILD_TMP)/lua/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/lua-$(LUA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/lua/control/control
+	rm -rf $(BUILD_TMP)/lua
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1673,20 +1716,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luacurl/control/control
-	echo Package: luacurl > $(PACKAGES)/luacurl/control/control
-	echo Version: $(LUACURL_VER) >> $(PACKAGES)/luacurl/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luacurl/control/control
+	install -d $(BUILD_TMP)/luacurl/control
+	touch $(BUILD_TMP)/luacurl/control/control
+	echo Package: luacurl > $(BUILD_TMP)/luacurl/control/control
+	echo Version: $(LUACURL_VER) >> $(BUILD_TMP)/luacurl/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luacurl/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luacurl/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luacurl/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luacurl/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luacurl/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luacurl/control/control 
-	echo Depends:  >> $(PACKAGES)/luacurl/control/control
-	pushd $(PACKAGES)/luacurl/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luacurl/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luacurl/control/control
+	pushd $(BUILD_TMP)/luacurl/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luacurl-$(LUACURL_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luacurl/control/control
+	rm -rf $(BUILD_TMP)/luacurl
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1711,20 +1755,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luaexpat/control/control
-	echo Package: luaexpat > $(PACKAGES)/luaexpat/control/control
-	echo Version: $(LUAEXPAT_VER) >> $(PACKAGES)/luaexpat/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luaexpat/control/control
+	install -d $(BUILD_TMP)/luaexpat/control
+	touch $(BUILD_TMP)/luaexpat/control/control
+	echo Package: luaexpat > $(BUILD_TMP)/luaexpat/control/control
+	echo Version: $(LUAEXPAT_VER) >> $(BUILD_TMP)/luaexpat/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luaexpat/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luaexpat/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luaexpat/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luaexpat/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luaexpat/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luaexpat/control/control 
-	echo Depends:  >> $(PACKAGES)/luaexpat/control/control
-	pushd $(PACKAGES)/luaexpat/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luaexpat/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luaexpat/control/control
+	pushd $(BUILD_TMP)/luaexpat/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luaexpat-$(LUAEXPAT_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luaexpat/control/control
+	rm -rf $(BUILD_TMP)/luaexpat
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1749,20 +1794,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luasocket/control/control
-	echo Package: luasocket > $(PACKAGES)/luasocket/control/control
-	echo Version: $(LUASOCKET_VER) >> $(PACKAGES)/luasocket/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luasocket/control/control
+	install -d $(BUILD_TMP)/luasocket/control
+	touch $(BUILD_TMP)/luasocket/control/control
+	echo Package: luasocket > $(BUILD_TMP)/luasocket/control/control
+	echo Version: $(LUASOCKET_VER) >> $(BUILD_TMP)/luasocket/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luasocket/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luasocket/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luasocket/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luasocket/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luasocket/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luasocket/control/control 
-	echo Depends:  >> $(PACKAGES)/luasocket/control/control
-	pushd $(PACKAGES)/luasocket/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luasocket/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luasocket/control/control
+	pushd $(BUILD_TMP)/luasocket/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luasocket-$(LUASOCKET_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luasocket/control/control
+	rm -rf $(BUILD_TMP)/luasocket
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1787,20 +1833,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luafeedparser/control/control
-	echo Package: luafeedparser > $(PACKAGES)/luafeedparser/control/control
-	echo Version: $(LUAFEEDPARSER_VER) >> $(PACKAGES)/luafeedparser/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luafeedparser/control/control
+	install -d $(BUILD_TMP)/luafeedparser/control
+	touch $(BUILD_TMP)/luafeedparser/control/control
+	echo Package: luafeedparser > $(BUILD_TMP)/luafeedparser/control/control
+	echo Version: $(LUAFEEDPARSER_VER) >> $(BUILD_TMP)/luafeedparser/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luafeedparser/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luafeedparser/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luafeedparser/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luafeedparser/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luafeedparser/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luafeedparser/control/control 
-	echo Depends:  >> $(PACKAGES)/luafeedparser/control/control
-	pushd $(PACKAGES)/luafeedparser/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luafeedparser/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luafeedparser/control/control
+	pushd $(BUILD_TMP)/luafeedparser/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luafeedparser-$(LUAFEEDPARSER_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luafeedparser/control/control
+	rm -rf $(BUILD_TMP)/luafeedparser
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1825,20 +1872,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luasoap/control/control
-	echo Package: luasoap > $(PACKAGES)/luasoap/control/control
-	echo Version: $(LUA_VER_SHORT) >> $(PACKAGES)/luasoap/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luasoap/control/control
+	install -d $(BUILD_TMP)/luasoap/control
+	touch $(BUILD_TMP)/luasoap/control/control
+	echo Package: luasoap > $(BUILD_TMP)/luasoap/control/control
+	echo Version: $(LUA_VER_SHORT) >> $(BUILD_TMP)/luasoap/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luasoap/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luasoap/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luasoap/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luasoap/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luasoap/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luasoap/control/control 
-	echo Depends:  >> $(PACKAGES)/luasoap/control/control
-	pushd $(PACKAGES)/luasoap/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luasoap/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luasoap/control/control
+	pushd $(BUILD_TMP)/luasoap/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luasoap-$(LUA_VER_SHORT)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luasoap/control/control
+	rm -rf $(BUILD_TMP)/luasoap
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1858,20 +1906,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/luajson/control/control
-	echo Package: luajson > $(PACKAGES)/luajson/control/control
-	echo Version: $(LUA_VER_SHORT) >> $(PACKAGES)/luajson/control/control
-	echo Section: base/libraries >> $(PACKAGES)/luajson/control/control
+	install -d $(BUILD_TMP)/luajson/control
+	touch $(BUILD_TMP)/luajson/control/control
+	echo Package: luajson > $(BUILD_TMP)/luajson/control/control
+	echo Version: $(LUA_VER_SHORT) >> $(BUILD_TMP)/luajson/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/luajson/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/luajson/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/luajson/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/luajson/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/luajson/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/luajson/control/control 
-	echo Depends:  >> $(PACKAGES)/luajson/control/control
-	pushd $(PACKAGES)/luajson/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/luajson/control/control 
+	echo Depends:  >> $(BUILD_TMP)/luajson/control/control
+	pushd $(BUILD_TMP)/luajson/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/luajson-$(LUA_VER_SHORT)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/luajson/control/control
+	rm -rf $(BUILD_TMP)/luajson
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1946,20 +1995,21 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/python/control/control
-	echo Package: python > $(PACKAGES)/python/control/control
-	echo Version: $(PYTHON_VER) >> $(PACKAGES)/python/control/control
-	echo Section: base/libraries >> $(PACKAGES)/python/control/control
+	install -d $(BUILD_TMP)/python/control
+	touch $(BUILD_TMP)/python/control/control
+	echo Package: python > $(BUILD_TMP)/python/control/control
+	echo Version: $(PYTHON_VER) >> $(BUILD_TMP)/python/control/control
+	echo Section: base/libraries >> $(BUILD_TMP)/python/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/python/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/python/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/python/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/python/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/python/control/control 
-	echo Depends:  >> $(PACKAGES)/python/control/control
-	pushd $(PACKAGES)/python/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/python/control/control 
+	echo Depends:  >> $(BUILD_TMP)/python/control/control
+	pushd $(BUILD_TMP)/python/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/python-$(PYTHON_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/python/control/control
+	rm -rf $(BUILD_TMP)/python
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -1983,19 +2033,20 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/aio-grab/control/control
-	echo Package: aio-grab > $(PACKAGES)/aio-grab/control/control
-	echo Section: applications >> $(PACKAGES)/aio-grab/control/control
+	install -d $(BUILD_TMP)/aio-grab/control
+	touch $(BUILD_TMP)/aio-grab/control/control
+	echo Package: aio-grab > $(BUILD_TMP)/aio-grab/control/control
+	echo Section: applications >> $(BUILD_TMP)/aio-grab/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/aio-grab/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/aio-grab/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/aio-grab/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/aio-grab/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/aio-grab/control/control 
-	echo Depends:  >> $(PACKAGES)/aio-grab/control/control
-	pushd $(PACKAGES)/aio-grab/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/aio-grab/control/control 
+	echo Depends:  >> $(BUILD_TMP)/aio-grab/control/control
+	pushd $(BUILD_TMP)/aio-grab/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/aio-grab_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/aio-grab/control/control
+	rm -rf $(BUILD_TMP)/aio-grab
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
@@ -2019,26 +2070,27 @@ ifneq ($(OPTIMIZATIONS), $(filter $(OPTIMIZATIONS), kerneldebug debug normal))
 	find $(PKGPREFIX)/ -name '*' -exec $(TARGET)-strip --strip-unneeded {} &>/dev/null \;
 endif
 	pushd $(PKGPREFIX) && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/data.tar.gz ./* && popd
-	touch $(PACKAGES)/showiframe/control/control
-	echo Package: showiframe > $(PACKAGES)/showiframe/control/control
-#	echo Version: $(SHOWIFRAME_VER) >> $(PACKAGES)/showiframe/control/control
-	echo Section: applications >> $(PACKAGES)/showiframe/control/control
+	install -d $(BUILD_TMP)/showiframe/control
+	touch $(BUILD_TMP)/showiframe/control/control
+	echo Package: showiframe > $(BUILD_TMP)/showiframe/control/control
+#	echo Version: $(SHOWIFRAME_VER) >> $(BUILD_TMP)/showiframe/control/control
+	echo Section: applications >> $(BUILD_TMP)/showiframe/control/control
 ifeq ($(BOXARCH), mips)
-	echo Architecture: $(BOXARCH)el >> $(PACKAGES)/showiframe/control/control 
+	echo Architecture: $(BOXARCH)el >> $(BUILD_TMP)/showiframe/control/control 
 else
-	echo Architecture: $(BOXARCH) >> $(PACKAGES)/showiframe/control/control 
+	echo Architecture: $(BOXARCH) >> $(BUILD_TMP)/showiframe/control/control 
 endif
-	echo Maintainer: $(MAINTAINER)  >> $(PACKAGES)/showiframe/control/control 
-	echo Depends:  >> $(PACKAGES)/showiframe/control/control
-	pushd $(PACKAGES)/showiframe/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
+	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/showiframe/control/control 
+	echo Depends:  >> $(BUILD_TMP)/showiframe/control/control
+	pushd $(BUILD_TMP)/showiframe/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/showiframe_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
-	rm -rf $(PACKAGES)/showiframe/control/control
+	rm -rf $(BUILD_TMP)/showiframe
 	rm -rf $(PKGPREFIX)
 	rm -rf $(PKGS_DIR)/$@
 	$(END_BUILD)
 	
 #
-# all packagrs
+# all packages
 #
 packages: \
 	libupnp-ipk \
