@@ -39,8 +39,6 @@ endif
 	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libupnp/control/preint
 	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libupnp/control/preint
 	echo 'fi' >> $(BUILD_TMP)/libupnp/control/preint
-	touch $(BUILD_TMP)/libupnp/control/postinst
-	touch $(BUILD_TMP)/libupnp/control/postrm
 	pushd $(BUILD_TMP)/libupnp/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libupnp-$(LIBUPNP_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libupnp
@@ -89,8 +87,6 @@ endif
 	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libdvbsi/control/preint
 	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libdvbsi/control/preint
 	echo 'fi' >> $(BUILD_TMP)/libdvbsi/control/preint
-	touch $(BUILD_TMP)/libdvbsi/control/postinst
-	touch $(BUILD_TMP)/libdvbsi/control/postrm
 	pushd $(BUILD_TMP)/libdvbsi/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libdvbsi-$(LIBDVBSI_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libdvbsi
@@ -140,6 +136,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/pugixml/control/control 
 	echo Depends:  >> $(BUILD_TMP)/pugixml/control/control
+	touch $(BUILD_TMP)/pugixml/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/pugixml/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/pugixml/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/pugixml/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/pugixml/control/preint
+	echo 'fi' >> $(BUILD_TMP)/pugixml/control/preint
 	pushd $(BUILD_TMP)/pugixml/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/pugixml-$(PUGIXML_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/pugixml
@@ -185,6 +187,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libid3tag/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libid3tag/control/control
+	touch $(BUILD_TMP)/libid3tag/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libid3tag/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libid3tag/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libid3tag/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libid3tag/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libid3tag/control/preint
 	pushd $(BUILD_TMP)/libid3tag/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libid3tag-$(LIBID3TAG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libid3tag
@@ -233,6 +241,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libmad/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libmad/control/control
+	touch $(BUILD_TMP)/libmad/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libmad/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libmad/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libmad/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libmad/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libmad/control/preint
 	pushd $(BUILD_TMP)/libmad/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libmad-$(LIBMAD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libmad
@@ -277,6 +291,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libogg/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libogg/control/control
+	touch $(BUILD_TMP)/libogg/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libogg/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libogg/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libogg/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libogg/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libogg/control/preint
 	pushd $(BUILD_TMP)/libogg/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libogg-$(LIBOGG_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libogg
@@ -336,6 +356,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libflac/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libflac/control/control
+	touch $(BUILD_TMP)/libflac/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libflac/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libflac/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libflac/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libflac/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libflac/control/preint
 	pushd $(BUILD_TMP)/libflac/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libflac-$(LIBFLAC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libflac
@@ -382,6 +408,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libvorbis/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libvorbis/control/control
+	touch $(BUILD_TMP)/libvorbis/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libvorbis/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libvorbis/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libvorbis/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libvorbis/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libvorbis/control/preint
 	pushd $(BUILD_TMP)/libvorbis/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbis-$(LIBVORBIS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libvorbis
@@ -430,6 +462,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libsigc/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libsigc/control/control
+	touch $(BUILD_TMP)/libsigc/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libsigc/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libsigc/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libsigc/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libsigc/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libsigc/control/preint
 	pushd $(BUILD_TMP)/libsigc/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libsigc-$(LIBSIGC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libsigc
@@ -476,6 +514,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libvorbisidec/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libvorbisidec/control/control
+	touch $(BUILD_TMP)/libvorbisidec/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libvorbisidec/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libvorbisidec/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libvorbisidec/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libvorbisidec/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libvorbisidec/control/preint
 	pushd $(BUILD_TMP)/libvorbisidec/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libvorbisidec-$(LIBVORBISIDEC_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libvorbisidec
@@ -523,6 +567,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER) >> $(BUILD_TMP)/libass/control/control 
 	echo Depends:  >> $(BUILD_TMP)/libass/control/control
+	touch $(BUILD_TMP)/libass/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/libass/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/libass/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/libass/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/libass/control/preint
+	echo 'fi' >> $(BUILD_TMP)/libass/control/preint
 	pushd $(BUILD_TMP)/libass/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/libass-$(LIBASS_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/libass
@@ -566,6 +616,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/minidlna/control/control 
 	echo Depends:  >> $(BUILD_TMP)/minidlna/control/control
+	touch $(BUILD_TMP)/minidlna/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/minidlna/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/minidlna/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/minidlna/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/minidlna/control/preint
+	echo 'fi' >> $(BUILD_TMP)/minidlna/control/preint
 	pushd $(BUILD_TMP)/minidlna/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/minidlna-$(MINIDLNA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/minidlna
@@ -607,6 +663,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/fbshot/control/control 
 	echo Depends:  >> $(BUILD_TMP)/fbshot/control/control
+	touch $(BUILD_TMP)/fbshot/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/fbshot/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/fbshot/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/fbshot/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/fbshot/control/preint
+	echo 'fi' >> $(BUILD_TMP)/fbshot/control/preint
 	pushd $(BUILD_TMP)/fbshot/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/fbshot-$(FBSHOT_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(PKGPREFIX)
@@ -736,6 +798,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/samba/control/control 
 	echo Depends:  >> $(BUILD_TMP)/samba/control/control
+	touch $(BUILD_TMP)/samba/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/samba/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/samba/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/samba/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/samba/control/preint
+	echo 'fi' >> $(BUILD_TMP)/samba/control/preint
 	pushd $(BUILD_TMP)/samba/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/samba-$(SAMBA_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/samba
@@ -783,6 +851,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/ofgwrite/control/control 
 	echo Depends:  >> $(BUILD_TMP)/ofgwrite/control/control
+	touch $(BUILD_TMP)/ofgwrite/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/ofgwrite/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/ofgwrite/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/ofgwrite/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/ofgwrite/control/preint
+	echo 'fi' >> $(BUILD_TMP)/ofgwrite/control/preint
 	pushd $(BUILD_TMP)/ofgwrite/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/ofgwrite-$(OFGWRITE_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/ofgwrite
@@ -832,6 +906,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/xupnpd/control/control 
 	echo Depends:  >> $(BUILD_TMP)/xupnpd/control/control
+	touch $(BUILD_TMP)/xupnpd/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/xupnpd/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/xupnpd/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/xupnpd/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/xupnpd/control/preint
+	echo 'fi' >> $(BUILD_TMP)/xupnpd/control/preint
 	pushd $(BUILD_TMP)/xupnpd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/xupnpd-$(XUPNPD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/xupnpd
@@ -876,6 +956,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/graphlcd/control/control 
 	echo Depends:  >> $(BUILD_TMP)/graphlcd/control/control
+	touch $(BUILD_TMP)/graphlcd/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/graphlcd/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/graphlcd/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/graphlcd/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/graphlcd/control/preint
+	echo 'fi' >> $(BUILD_TMP)/graphlcd/control/preint
 	pushd $(BUILD_TMP)/graphlcd/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/graphlcd-$(GRAPHLCD_VER)_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/graphlcd
@@ -925,6 +1011,12 @@ else
 endif
 	echo Maintainer: $(MAINTAINER)  >> $(BUILD_TMP)/lcd4linux/control/control 
 	echo Depends:  >> $(BUILD_TMP)/lcd4linux/control/control
+	touch $(BUILD_TMP)/lcd4linux/control/preint
+	echo '#!/bin/sh' > $(BUILD_TMP)/lcd4linux/control/preint
+	echo 'if test -x /sbin/ldconfig; then' >> $(BUILD_TMP)/lcd4linux/control/preint
+	echo '	echo "updating dynamic linker cache..."' >> $(BUILD_TMP)/lcd4linux/control/preint
+	echo '	/sbin/ldconfig' >> $(BUILD_TMP)/lcd4linux/control/preint
+	echo 'fi' >> $(BUILD_TMP)/lcd4linux/control/preint
 	pushd $(BUILD_TMP)/lcd4linux/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/lcd4linux-$(LCD4LINUX_VER)_$(BOXARCH)_$(BOXTYPE).ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/lcd4linux

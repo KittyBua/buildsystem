@@ -212,8 +212,11 @@ endif
 	echo '	echo "updating neutrino2..."' >> $(BUILD_TMP)/neutrino2/control/preint
 	echo '	rm -rf /usr/bin/neutrino2' >> $(BUILD_TMP)/neutrino2/control/preint
 	echo 'fi' >> $(BUILD_TMP)/neutrino2/control/preint
-	touch $(BUILD_TMP)/neutrino2/control/postinst
-	touch $(BUILD_TMP)/neutrino2/control/postrm
+	touch $(BUILD_TMP)/neutrino2/control/conffiles
+	echo '/var/tuxbox/config/tuxtxt/tuxtxt2.conf' > $(BUILD_TMP)/neutrino2/control/conffiles
+	echo '/var/tuxbox/config/cables.xml' >> $(BUILD_TMP)/neutrino2/control/conffiles
+	echo '/var/tuxbox/config/satellites.xml' >> $(BUILD_TMP)/neutrino2/control/conffiles
+	echo '/var/tuxbox/config/encoding.conf' >> $(BUILD_TMP)/neutrino2/control/conffiles
 	pushd $(BUILD_TMP)/neutrino2/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino2-`sed -n 's/\#define PACKAGE_VERSION "//p' $(SOURCE_DIR)/neutrino2/neutrino2/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/neutrino2

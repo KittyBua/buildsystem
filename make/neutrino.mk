@@ -446,8 +446,12 @@ endif
 	echo '	echo "updating neutrino..."' >> $(BUILD_TMP)/neutrino/control/preint
 	echo '	rm -rf /usr/bin/neutrino' >> $(BUILD_TMP)/neutrino/control/preint
 	echo 'fi' >> $(BUILD_TMP)/neutrino/control/preint
-	touch $(BUILD_TMP)/neutrino/control/postinst
-	touch $(BUILD_TMP)/neutrino/control/postrm
+	touch $(BUILD_TMP)/neutrino/control/conffiles
+	echo '/var/tuxbox/config/tuxtxt/tuxtxt2.conf' > $(BUILD_TMP)/neutrino/control/conffiles
+	echo '/var/tuxbox/config/radio-stations.xml' >> $(BUILD_TMP)/neutrino/control/conffiles
+	echo '/var/tuxbox/config/cables.xml' >> $(BUILD_TMP)/neutrino/control/conffiles
+	echo '/var/tuxbox/config/satellites.xml' >> $(BUILD_TMP)/neutrino/control/conffiles
+	echo '/var/tuxbox/config/encoding.conf' >> $(BUILD_TMP)/neutrino/control/conffiles
 	pushd $(BUILD_TMP)/neutrino/control && chmod +x * && tar --numeric-owner --group=0 --owner=0 -czf $(PKGS_DIR)/$@/control.tar.gz ./* && popd
 	pushd $(PKGS_DIR)/$@ && echo 2.0 > debian-binary && ar rv $(PKGS_DIR)/neutrino-`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`_$(BOXARCH)_all.ipk ./data.tar.gz ./control.tar.gz ./debian-binary && popd && rm -rf data.tar.gz control.tar.gz debian-binary
 	rm -rf $(BUILD_TMP)/neutrino
