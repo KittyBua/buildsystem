@@ -75,7 +75,7 @@ echo "[rcS] `date +'%d.%m.%Y %H:%M:%S'` load modules"
 export B_REFSW_BOXMODE=5
 modprobe nexus
 /usr/bin/nxserver &
-/usr/bin/dvb_init /lib/modules/dvb.ko &
+/usr/bin/dvb_init /lib/modules/$(uname -r)/extra/dvb.ko &
 
 while [ ! -c /dev/fb0 ]; do
 	usleep 100000
