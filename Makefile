@@ -326,8 +326,7 @@ help:
 
 ifeq ($(BOXARCH), sh4)
 include make/crosstool-sh4.mk
-endif
-ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
+else
 include make/crosstool.mk
 endif
 include make/bootstrap.mk
