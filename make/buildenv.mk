@@ -24,7 +24,6 @@ PACKAGES	      = $(BASE_DIR)/packages
 
 # BOXTYPE
 -include $(BASE_DIR)/config
-BOXTYPE ?=
 
 #
 TUFSBOX_DIR           = $(BASE_DIR)/tufsbox/$(BOXTYPE)

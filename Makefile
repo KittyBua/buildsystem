@@ -245,17 +245,16 @@ endif
 	@echo "TARGET_DIR       : $(TARGET_DIR)"
 	@echo "KERNEL_DIR       : $(KERNEL_DIR)"
 	@echo "MAINTAINER       : $(MAINTAINER)"
-	@echo "BOXARCH          : $(BOXARCH)"
 	@echo "BUILD            : $(BUILD)"
+ifeq ($(BOXTYPE),)
+	@echo -e "\033[00;31mBOXTYPE		 :specify a valid BOXTYPE please run 'make' or 'make init'\033[0m"
+else
+	@echo "BOXTYPE          : $(BOXTYPE)"
+endif
+	@echo "BOXARCH          : $(BOXARCH)"
 	@echo "TARGET           : $(TARGET)"
 	@echo "GCC              : $(GCC_VER)"
-	@echo "BOXTYPE          : $(BOXTYPE)"
 	@echo "KERNEL_VERSION   : $(KERNEL_VER)"
-	@echo "OPTIMIZATIONS    : $(OPTIMIZATIONS)"
-	@echo "CICAM            : $(CICAM)"
-	@echo "SCART            : $(SCART)"
-	@echo "F-KEYS           : $(FKEYS)"
-	@echo "LCD              : $(LCD)"
 	@echo "GSTREAMER        : $(GSTREAMER)"
 	@echo "PYTHON           : $(PYTHON)"
 	@echo "GRAPHLCD         : $(GRAPHLCD)"
@@ -271,7 +270,7 @@ ifeq ($(MAINTAINER),)
 	@echo
 endif
 	@echo
-	@echo "If you want to create or modify the configuration, run 'make init or make'"
+	@echo -e "\033[01;33mIf you want to create or modify the configuration, run 'make' or 'make init'\033[0m"
 	@echo
 	@echo "Your next step could be:"
 	@echo "  make image-neutrino2"
