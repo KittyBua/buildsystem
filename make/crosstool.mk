@@ -8,8 +8,6 @@ CROSSTOOL_NG_PATCH =
 CROSSTOOL_NG_SOURCE = crosstool-ng-git-$(CROSSTOOL_NG_VER).tar.bz2
 CROSSTOOL_NG_URL = https://github.com/crosstool-ng/crosstool-ng.git
 
-CUSTOM_KERNEL_VER ?= $(KERNEL_VER)
-
 CROSSTOOL_NG_BACKUP = $(ARCHIVE)/crosstool-ng-$(CROSSTOOL_NG_VER)-$(BOXARCH)-gcc-$(GCC_VER)-kernel-$(KERNEL_VER)-backup.tar.gz
 
 $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE):
