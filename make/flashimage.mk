@@ -638,4 +638,11 @@ gbue4k-flash-image: $(ARCHIVE)/$(INITRD_SRC)
 	zip -r $(IMAGE_DIR)/$(BOXTYPE)_$(shell date '+%d.%m.%Y-%H.%M')_usb.zip $(FLASHIMAGE_PREFIX)*
 	# cleanup
 	rm -rf $(IMAGE_BUILD_DIR)
+	
+#
+# image-clean
+#
+image-clean:
+	cd $(IMAGE_DIR) && rm -rf *
+
 

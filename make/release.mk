@@ -399,10 +399,4 @@ release: release-common release-$(BOXTYPE)
 #
 release-clean:
 	rm -rf $(RELEASE_DIR)
-	
-#
-# image-clean
-#
-image-clean:
-	cd $(IMAGE_DIR) && rm -rf *
 
