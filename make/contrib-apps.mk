@@ -29,6 +29,18 @@ $(D)/busybox: $(D)/bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE) $(PATCHES)/$(BUSYBOX_C
 	$(TOUCH)
 
 #
+# busyboxmenuconfig
+#	
+busyboxmenuconfig: $(D)/bootstrap $(ARCHIVE)/$(BUSYBOX_SOURCE) $(PATCHES)/$(BUSYBOX_CONFIG)
+	$(REMOVE)/busybox-$(BUSYBOX_VER)
+	$(UNTAR)/$(BUSYBOX_SOURCE)
+	$(CHDIR)/busybox-$(BUSYBOX_VER); \
+		$(call apply_patches, $(BUSYBOX_PATCH)); \
+		install -m 0644 $(lastword $^) .config; \
+		sed -i -e 's#^CONFIG_PREFIX.*#CONFIG_PREFIX="$(TARGET_DIR)"#' .config; \
+		$(MAKE) menuconfig
+
+#
 # mtd_utils
 #
 MTD_UTILS_VER = 1.5.2

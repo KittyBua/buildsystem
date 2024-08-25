@@ -103,6 +103,13 @@ crossmenuconfig: $(D)/directories $(ARCHIVE)/$(CROSSTOOL_NG_SOURCE)
 		MAKELEVEL=0 make; \
 		chmod 0755 ct-ng; \
 		./ct-ng menuconfig
+		
+#
+# linuxmenuconfig
+#
+linuxmenuconfig: $(D)/kernel.do_prepare
+	set -e; cd $(KERNEL_DIR); \
+		$(MAKE) menuconfig
 	
 #
 # libc
