@@ -281,6 +281,7 @@ release-neutrino2: release-common release-$(BOXTYPE) $(D)/neutrino2 $(D)/neutrin
 #
 # delete unnecessary files
 #
+	[ -e $(RELEASE_DIR)/var/tuxbox/config/nhttpd.conf ] && rm -rf $(RELEASE_DIR)/var/tuxbox/config/nhttpd.conf || true
 ifeq ($(BOXARCH), sh4)
 	[ -e $(RELEASE_DIR)/usr/bin/titan ] && rm -rf $(RELEASE_DIR)/usr/bin/titan || true
 	[ -e $(RELEASE_DIR)/usr/bin/enigma2 ] && rm -rf $(RELEASE_DIR)/usr/bin/enigma2 || true
