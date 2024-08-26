@@ -1,4 +1,4 @@
-simply buildsystem to build neutrino2 / neutrino images for settop boxes. 
+simply buildsystem to build NeutrinoNG images for settop boxes. 
 
 # how to build image: #
 
