@@ -143,6 +143,7 @@ endif
 	cp -a $(TARGET_DIR)/usr/bin/* $(RELEASE_DIR)/usr/bin/
 	cp -a $(TARGET_DIR)/sbin/* $(RELEASE_DIR)/sbin/
 	cp -a $(TARGET_DIR)/usr/sbin/* $(RELEASE_DIR)/usr/sbin/
+	echo buildsystem_$(shell git log | grep "^commit" | wc -l)_$(shell date '+%d%m%Y-%H%M%S') > $(RELEASE_DIR)/etc/imageversion
 	ln -sf /.version $(RELEASE_DIR)/var/etc/.version
 	ln -sf /proc/mounts $(RELEASE_DIR)/etc/mtab
 ifeq ($(BOXARCH), sh4)

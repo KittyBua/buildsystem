@@ -18,7 +18,7 @@ NEUTRINO_PLUGINS_PATCHES = neutrino-ddt-plugins.patch
 # .version
 #
 $(TARGET_DIR)/.version:
-	echo "distro=mohousch" > $@
+	echo "distro=buildsystem" > $@
 	echo "imagename=`sed -n 's/\#define PACKAGE_NAME "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`" >> $@
 	echo "imageversion=`sed -n 's/\#define PACKAGE_VERSION "//p' $(BUILD_TMP)/neutrino/config.h | sed 's/"//'`" >> $@
 	echo "homepage=https://github.com/Duckbox-Developers" >> $@
@@ -509,7 +509,6 @@ release-neutrino: release-common release-$(BOXTYPE) $(D)/neutrino $(N_PLUGINS)
 	cp -af $(TARGET_DIR)/usr/bin/rcsim $(RELEASE_DIR)/usr/bin/
 	cp -af $(TARGET_DIR)/usr/bin/restore.sh $(RELEASE_DIR)/usr/bin/
 	cp -af $(TARGET_DIR)/usr/bin/sectionsdcontrol $(RELEASE_DIR)/usr/bin/
-	cp -dp $(TARGET_DIR)/.version $(RELEASE_DIR)/
 	cp -aR $(TARGET_DIR)/usr/share/tuxbox/neutrino $(RELEASE_DIR)/usr/share/tuxbox
 ifeq ($(BOXARCH), sh4)
 	rm -rf $(RELEASE_DIR)/usr/share/fonts
