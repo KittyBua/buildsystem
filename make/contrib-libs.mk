@@ -2370,7 +2370,7 @@ GLIB_NETWORKING_SOURCE = glib-networking-$(GLIB_NETWORKING_VER).tar.xz
 $(ARCHIVE)/$(GLIB_NETWORKING_SOURCE):
 	$(WGET) https://ftp.acc.umu.se/pub/GNOME/sources/glib-networking/$(GLIB_NETWORKING_VER_MAJOR)/$(GLIB_NETWORKING_SOURCE)
 
-$(D)/glib_networking: $(D)/bootstrap $(D)/gnutls $(D)/libglib2 $(ARCHIVE)/$(GLIB_NETWORKING_SOURCE)
+$(D)/glib_networking: $(D)/bootstrap $(D)/libglib2 $(ARCHIVE)/$(GLIB_NETWORKING_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/glib-networking-$(GLIB_NETWORKING_VER)
 	$(UNTAR)/$(GLIB_NETWORKING_SOURCE)
@@ -2380,6 +2380,7 @@ $(D)/glib_networking: $(D)/bootstrap $(D)/gnutls $(D)/libglib2 $(ARCHIVE)/$(GLIB
 			--datadir=/.remove \
 			--datarootdir=/.remove \
 			--localedir=/.remove \
+			--with-gnutls=no \
 		; \
 		$(MAKE); \
 		$(MAKE) install prefix=$(TARGET_DIR) giomoduledir=$(TARGET_DIR)/usr/lib/gio/modules itlocaledir=$(TARGET_DIR)/.remove
