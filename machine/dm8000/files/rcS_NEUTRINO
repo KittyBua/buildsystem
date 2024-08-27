@@ -93,8 +93,6 @@ modprobe dreambox_keyboard
 echo 255 > /proc/stb/fp/oled_brightness
 echo "Booting... DDT" > /dev/dbox/oled0
 
-#/bin/initfb $(sed -n 's/osd_resolution=//p' /var/tuxbox/config/neutrino.conf)
-
 # set dummy time
 NTPDATE=`date +"%Y%m%d"`
 if [ "$SYSDATE" == "$NTPDATE" ];then
