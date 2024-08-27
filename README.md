@@ -15,17 +15,16 @@ $:~ sudo bash prepare-for-bs.sh
 **machine configuration:**
 ```bash
 $:~ make
+```
+
 or
+
+```bash
 $:~ make init
 ```
 **build images:**
 ```bash
 $:~ make image-neutrino2
-```
-or
-
-```bash
-$:~ make image-neutrino
 ```
 
 **for more details:**
