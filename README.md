@@ -1,5 +1,3 @@
-simple buildsystem to build NeutrinoNG image for settop boxes. 
-
 # how to build image: #
 
 ```bash
