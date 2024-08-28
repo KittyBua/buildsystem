@@ -17,7 +17,7 @@ toolcheck: $(TOOLCHECK)
 ifeq ($(BOXARCH), sh4)
 	@for i in audio_7100 audio_7105 audio_7111 video_7100 video_7105 video_7109 video_7111; do \
 		if [ ! -e $(SKEL_ROOT)/boot/$$i.elf ]; then \
-			echo -e "\n    ERROR: One or more .elf files are missing in $(SKEL_ROOT)/boot!"; \
+			echo -e "\n    \033[01;31mERROR:\033[0m One or more .elf files are missing in $(SKEL_ROOT)/boot!"; \
 			echo "           $$i.elf is one of them"; \
 			echo; \
 			echo "    Correct this and retry."; \

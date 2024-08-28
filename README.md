@@ -12,6 +12,7 @@ cd buildsystem
 ```bash
 $:~ sudo bash prepare-for-bs.sh
 ```
+
 **machine configuration:**
 ```bash
 $:~ make
@@ -22,6 +23,7 @@ or
 ```bash
 $:~ make init
 ```
+
 **build images:**
 ```bash
 $:~ make image-neutrino2
