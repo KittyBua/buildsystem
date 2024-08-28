@@ -2,7 +2,9 @@
 
 ```bash
 $:~ git clone https://github.com/mohousch/buildsystem.git
+```
 
+```bash
 cd buildsystem
 ```
 
