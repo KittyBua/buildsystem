@@ -76,7 +76,7 @@ GST_PLUGINS_BASE_PATCH += gst-plugins-base-1.12.3-fix-build-with-make-4.3.patch
 $(ARCHIVE)/$(GST_PLUGINS_BASE_SOURCE):
 	$(WGET) https://gstreamer.freedesktop.org/src/gst-plugins-base/$(GST_PLUGINS_BASE_SOURCE)
 
-$(D)/gst_plugins_base: $(D)/bootstrap $(D)/zlib $(D)/libglib2 $(D)/orc $(D)/gstreamer $(D)/alsa_lib $(D)/libogg $(D)/libvorbis $(ARCHIVE)/$(GST_PLUGINS_BASE_SOURCE)
+$(D)/gst_plugins_base: $(D)/bootstrap $(D)/zlib $(D)/libglib2 $(D)/gstreamer $(D)/alsa_lib $(D)/libogg $(D)/libvorbis $(ARCHIVE)/$(GST_PLUGINS_BASE_SOURCE)
 	$(START_BUILD)
 	$(REMOVE)/gst-plugins-base-$(GST_PLUGINS_BASE_VER)
 	$(UNTAR)/$(GST_PLUGINS_BASE_SOURCE)
