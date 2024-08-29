@@ -23,7 +23,7 @@ SKEL_ROOT             = $(BASE_DIR)/root
 PACKAGES	      = $(BASE_DIR)/packages
 
 # BOXTYPE
--include $(BASE_DIR)/config
+-include $(BASE_DIR)/.config
 
 #
 TUFSBOX_DIR           = $(BASE_DIR)/tufsbox/$(BOXTYPE)

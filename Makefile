@@ -159,7 +159,7 @@ init:
 		150) BOXTYPE="ustym4kpro";; \
 		*) BOXTYPE="gbultraue";; \
 	esac; \
-	echo "BOXTYPE=$$BOXTYPE" > config
+	echo "BOXTYPE=$$BOXTYPE" > .config
 	@echo ""		
 # Gstreamer
 	@echo -e "\nGstreamer as mediaplayer for neutrino2 (only for mipsel / arm)"
@@ -168,9 +168,9 @@ init:
 	@read -p "Select Gstreamer (1-2)?" GSTREAMER; \
 	GSTREAMER=$${GSTREAMER}; \
 	case "$$GSTREAMER" in \
-		1) echo "GSTREAMER=" >> config;; \
-		2) echo "GSTREAMER=gstreamer" >> config;; \
-		*) echo "GSTREAMER=" >> config;; \
+		1) echo "GSTREAMER=" >> .config;; \
+		2) echo "GSTREAMER=gstreamer" >> .config;; \
+		*) echo "GSTREAMER=" >> .config;; \
 	esac; \
 	echo ""
 # python
@@ -180,9 +180,9 @@ init:
 	@read -p "Select python support (1-2)?" PYTHON; \
 	PYTHON=$${PYTHON}; \
 	case "$$PYTHON" in \
-		1) echo "PYTHON=" >> config;; \
-		2) echo "PYTHON=python" >> config;; \
-		*) echo "PYTHON=" >> config;; \
+		1) echo "PYTHON=" >> .config;; \
+		2) echo "PYTHON=python" >> .config;; \
+		*) echo "PYTHON=" >> .config;; \
 	esac; \
 	echo ""
 # GraphLCD
@@ -192,9 +192,9 @@ init:
 	@read -p "Select  GraphLCD (1-2)?" GRAPHLCD; \
 	GRAPHLCD=$${GRAPHLCD}; \
 	case "$$GRAPHLCD" in \
-		1) echo "GRAPHLCD=graphlcd" >> config;; \
-		2) echo "GRAPHLCD=" >> config;; \
-		*) echo "GRAPHLCD=graphlcd" >> config;; \
+		1) echo "GRAPHLCD=graphlcd" >> .config;; \
+		2) echo "GRAPHLCD=" >> .config;; \
+		*) echo "GRAPHLCD=graphlcd" >> .config;; \
 	esac; \
 	echo ""
 # LCD4Linux
@@ -204,9 +204,9 @@ init:
 	@read -p "Select  LCD4Linux (1-2)?" LCD4LINUX; \
 	LCD4LINUX=$${LCD4LINUX}; \
 	case "$$LCD4LINUX" in \
-		1) echo "LCD4LINUX=lcd4linux" >> config;; \
-		2) echo "LCD4LINUX=" >> config;; \
-		*) echo "LCD4LINUX=lcd4linux" >> config;; \
+		1) echo "LCD4LINUX=lcd4linux" >> .config;; \
+		2) echo "LCD4LINUX=" >> .config;; \
+		*) echo "LCD4LINUX=lcd4linux" >> .config;; \
 	esac; \
 	echo ""	
 #	
@@ -214,7 +214,7 @@ init:
 	@make printenv
 
 init-clean:
-	rm -f config
+	rm -f .config
 
 include make/buildenv.mk
 
@@ -265,7 +265,7 @@ endif
 ifeq ($(MAINTAINER),)
 	@echo "##########################################################################"
 	@echo "# The MAINTAINER variable is not set. It defaults to your name from the  #"
-	@echo "# passwd entry, but this seems to have failed. Please set it in 'config'.#"
+	@echo "# passwd entry, but this seems to have failed. Please set it in '.config'.#"
 	@echo "##########################################################################"
 	@echo
 endif
