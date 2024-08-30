@@ -33,6 +33,9 @@ RELEASE_DEPS += $(D)/dvb-apps
 RELEASE_DEPS += $(D)/dvbsnoop
 RELEASE_DEPS += $(D)/minisatip
 RELEASE_DEPS += $(D)/f2fs-tools
+RELEASE_DEPS += $(D)/mc
+RELEASE_DEPS += $(D)/dropbear
+RELEASE_DEPS += $(D)/openssh
 endif
 #
 # tools
@@ -286,6 +289,14 @@ endif
 #
 	if [ -e $(TARGET_DIR)/usr/bin/minisatip ]; then \
 		cp -aR $(TARGET_DIR)/usr/share/minisatip $(RELEASE_DIR)/usr/share; \
+	fi
+#
+# dropbear
+#
+	if [ -d $(RELEASE_DIR)/etc/dropbear ]; then \
+		mkdir -p $(RELEASE_DIR)/.ssh; \
+		chmod 700 $(RELEASE_DIR)/.ssh; \
+		ln -s /etc/dropbear/authorized_keys $(RELEASE_DIR)/.ssh/authorized_keys; \
 	fi
 #
 # delete unnecessary python files
