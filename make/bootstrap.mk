@@ -9,7 +9,7 @@ TOOLCHECK += find-cmake find-gperf
 find-%:
 	@TOOL=$(patsubst find-%,%,$@); \
 		type -p $$TOOL >/dev/null || \
-		{ echo "required tool $$TOOL missing."; false; }
+		{ echo -e "$(TERM_RED)required tool $$TOOL missing.$(TERM_NORMAL)"; false; }
 
 toolcheck: $(TOOLCHECK)
 	@echo "All required tools seem to be installed."
@@ -17,7 +17,7 @@ toolcheck: $(TOOLCHECK)
 ifeq ($(BOXARCH), sh4)
 	@for i in audio_7100 audio_7105 audio_7111 video_7100 video_7105 video_7109 video_7111; do \
 		if [ ! -e $(SKEL_ROOT)/boot/$$i.elf ]; then \
-			echo -e "\n    \033[01;31mERROR:\033[0m One or more .elf files are missing in $(SKEL_ROOT)/boot!"; \
+			echo -e "\n    $(TERM_RED)ERROR:$(TERM_NORMAL) One or more .elf files are missing in $(SKEL_ROOT)/boot!"; \
 			echo "           $$i.elf is one of them"; \
 			echo; \
 			echo "    Correct this and retry."; \
