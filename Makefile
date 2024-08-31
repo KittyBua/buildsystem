@@ -274,9 +274,6 @@ endif
 	@echo
 	@echo "Your next step could be:"
 	@echo "  make image-neutrino2"
-	@echo "or"
-	@echo "  make image-neutrino"
-	@echo ""
 	@echo ""
 	@echo "for more details:"
 	@echo "  make help"
