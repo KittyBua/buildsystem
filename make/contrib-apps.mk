@@ -1280,11 +1280,13 @@ $(D)/samba: $(D)/bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		samba_cv_HAVE_IFACE_IFCONF=yes \
 		samba_cv_HAVE_KERNEL_OPLOCKS_LINUX=yes \
 		samba_cv_HAVE_SECURE_MKSTEMP=yes \
+		libreplace_cv_HAVE_SECURE_MKSTEMP=yes \
 		samba_cv_HAVE_WRFILE_KEYTAB=no \
 		samba_cv_USE_SETREUID=yes \
 		samba_cv_USE_SETRESUID=yes \
 		samba_cv_have_setreuid=yes \
 		samba_cv_have_setresuid=yes \
+		samba_cv_optimize_out_funcation_calls=no \
 		ac_cv_header_zlib_h=no \
 		samba_cv_zlib_1_2_3=no \
 		ac_cv_path_PYTHON="" \
@@ -1351,11 +1353,15 @@ $(D)/samba: $(D)/bootstrap $(ARCHIVE)/$(SAMBA_SOURCE)
 		$(MAKE) $(MAKE_OPTS); \
 		$(MAKE) $(MAKE_OPTS) installservers installbin installscripts installdat installmodules \
 			SBIN_PROGS="bin/samba_multicall" DESTDIR=$(TARGET_DIR) prefix=./. ; \
-			ln -s samba_multicall $(TARGET_DIR)/usr/sbin/nmbd
-			ln -s samba_multicall $(TARGET_DIR)/usr/sbin/smbd
-			ln -s samba_multicall $(TARGET_DIR)/usr/sbin/smbpasswd
+			ln -sf samba_multicall $(TARGET_DIR)/usr/sbin/nmbd
+			ln -sf samba_multicall $(TARGET_DIR)/usr/sbin/smbd
+			ln -sf samba_multicall $(TARGET_DIR)/usr/sbin/smbpasswd
 	install -m 755 $(SKEL_ROOT)/etc/init.d/samba $(TARGET_DIR)/etc/init.d/
 	install -m 644 $(SKEL_ROOT)/etc/samba/smb.conf $(TARGET_DIR)/etc/samba/
+	rm -rf $(TARGET_LIB_DIR)/pdb
+	rm -rf $(TARGET_LIB_DIR)/perfcount
+	rm -rf $(TARGET_LIB_DIR)/nss_info
+	rm -rf $(TARGET_LIB_DIR)/gpext
 	$(REMOVE)/samba-$(SAMBA_VER)
 	$(TOUCH)
 
@@ -1771,7 +1777,7 @@ $(D)/minisatip: $(D)/bootstrap $(D)/openssl $(D)/libdvbcsa $(ARCHIVE)/$(MINISATI
 XUPNPD_BRANCH = 25d6d44c045
 XUPNPD_PATCH = xupnpd.patch
 
-$(D)/xupnpd: $(D)/bootstrap $(D)/openssl
+$(D)/xupnpd: $(D)/bootstrap $(D)/openssl $(D)/lua
 	$(START_BUILD)
 	$(REMOVE)/xupnpd
 	set -e; 

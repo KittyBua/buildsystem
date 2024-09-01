@@ -36,6 +36,14 @@ RELEASE_DEPS += $(D)/f2fs-tools
 RELEASE_DEPS += $(D)/mc
 RELEASE_DEPS += $(D)/dropbear
 RELEASE_DEPS += $(D)/openssh
+RELEASE_DEPS += $(D)/xupnpd
+RELEASE_DEPS += $(D)/openvpn
+RELEASE_DEPS += $(D)/ntp
+RELEASE_DEPS += $(D)/ethtool
+RELEASE_DEPS += $(D)/avahi
+RELEASE_DEPS += $(D)/shairport
+RELEASE_DEPS += $(D)/autofs
+RELEASE_DEPS += $(D)/dosfstools
 endif
 #
 # tools
@@ -380,9 +388,11 @@ ifeq ($(BOXARCH), $(filter $(BOXARCH), arm mips))
 	rm -rf $(RELEASE_DIR)/ram
 	rm -rf $(RELEASE_DIR)/root
 endif
+ifeq ($(BOXARCH), sh4)
 	rm -f $(RELEASE_DIR)/usr/bin/avahi-*
 	rm -f $(RELEASE_DIR)/usr/bin/easy_install*
 	rm -f $(RELEASE_DIR)/usr/bin/glib-*
+endif
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,dvdnav-config gio-querymodules gobject-query gtester gtester-report)
 	rm -f $(addprefix $(RELEASE_DIR)/usr/bin/,livestreamer mailmail manhole)
 	rm -rf $(RELEASE_DIR)/usr/lib/m4-nofpu/
