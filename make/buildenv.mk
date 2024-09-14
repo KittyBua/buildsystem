@@ -209,7 +209,7 @@ define apply_patches
 endef
 
 # wget tarballs into archive directory
-WGET = wget --no-check-certificate -t6 -T20 -c -P $(ARCHIVE)
+DOWNLOAD = wget --no-check-certificate -t6 -T20 -c -P $(ARCHIVE)
 
 #
 #

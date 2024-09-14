@@ -62,7 +62,7 @@ KERNEL_PATCHES  = \
 		fix-multiple-defs-yyloc.patch
 
 $(ARCHIVE)/$(KERNEL_SRC):
-	$(WGET) $(KERNEL_URL)/$(KERNEL_SRC)
+	$(DOWNLOAD) $(KERNEL_URL)/$(KERNEL_SRC)
 
 $(D)/kernel.do_prepare: $(ARCHIVE)/$(KERNEL_SRC) $(BASE_DIR)/machine/$(BOXTYPE)/files/$(KERNEL_CONFIG)
 	$(START_BUILD)
@@ -109,8 +109,20 @@ DRIVER_DATE = 20200723
 DRIVER_SRC = platform-util-gb7252-${KERNEL_SRC_VER}-$(DRIVER_DATE).r1.zip
 DRIVER_URL = http://source.mynonpublic.com/gigablue/drivers
 
+LIBGLES_DATE = 20200723
+LIBGLES_SRC  = gb7252-v3ddriver-$(LIBGLES_DATE).r0.zip
+LIBGLES_URL  = https://source.mynonpublic.com/gigablue/v3ddriver
+
+LIBGLES_HEADERS = gb-nexus-headers.zip
+
 $(ARCHIVE)/$(DRIVER_SRC):
-	$(WGET) $(DRIVER_URL)/$(DRIVER_SRC)
+	$(DOWNLOAD) $(DRIVER_URL)/$(DRIVER_SRC)
+	
+$(ARCHIVE)/$(LIBGLES_SRC):
+	$(DOWNLOAD) $(LIBGLES_URL)/$(LIBGLES_SRC)
+
+$(ARCHIVE)/$(LIBGLES_HEADERS):
+	$(DOWNLOAD) $(LIBGLES_URL)/$(LIBGLES_HEADERS)
 
 driver: $(D)/driver
 $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
@@ -125,7 +137,17 @@ $(D)/driver: $(ARCHIVE)/$(DRIVER_SRC) $(D)/bootstrap $(D)/kernel
 	install -m 0755 $(TARGET_DIR)/usr/share/platform/dvb_init $(TARGET_DIR)/usr/bin/dvb_init
 	$(REMOVE)/platform-util-$(BOXTYPE)
 	$(DEPMOD) -ae -b $(TARGET_DIR) -r $(KERNEL_VER)
+	$(MAKE) install-v3ddriver
+	$(MAKE) install-v3ddriver-header
 	$(TOUCH)
+	
+$(D)/install-v3ddriver: $(ARCHIVE)/$(LIBGLES_SRC)
+	install -d $(TARGET_LIB_DIR)
+	unzip -o $(ARCHIVE)/$(LIBGLES_SRC) -d $(TARGET_LIB_DIR)
+
+$(D)/install-v3ddriver-header: $(ARCHIVE)/$(LIBGLES_HEADERS)
+	install -d $(TARGET_INCLUDE_DIR)
+	unzip -o $(ARCHIVE)/$(LIBGLES_HEADERS) -d $(TARGET_INCLUDE_DIR)
 
 #
 # release

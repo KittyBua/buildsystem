@@ -127,8 +127,8 @@ if [ ! -e /var/etc/.firstboot ]; then
     fi
    
    killall -9 showiframe
-   echo "NG2" > /dev/dbox/fp0
-   echo "starting neutrino2 ->"
+   echo "NeutrinoNG" > /dev/dbox/fp0
+   echo "starting NeutrinoNG ->"
    
    until false
    do
